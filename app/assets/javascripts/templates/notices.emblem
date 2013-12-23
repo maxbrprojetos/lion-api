@@ -1,5 +1,5 @@
 section.new-notice
-  form{action "addNotice" on="submit"}
+  form submit=addNotice
     div
       = input value=title placeholder="New Notice"
       input type="submit" value="Add Notice"
