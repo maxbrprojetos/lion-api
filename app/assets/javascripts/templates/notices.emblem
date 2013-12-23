@@ -1,0 +1,10 @@
+section.new-notice
+  form{action "addNotice" on="submit"}
+    div
+      = input value=title placeholder="New Notice"
+      input type="submit" value="Add Notice"
+
+section.notices
+  ul
+    each controller
+      partial "notice"

@@ -1,0 +1,3 @@
+li.notice
+  = title
+  a href="#" class="close" click="deleteNotice this" &times
