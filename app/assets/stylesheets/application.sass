@@ -3,7 +3,7 @@
 @import "foundation"
 
 @mixin row
-  @include grid-row($behavior: collapse)
+  @include grid-row()
 
   margin-top: 30px
 
@@ -50,8 +50,8 @@ body
     list-style: none
 
 .notice
-  animation: fadeInUp 1s
-  -webkit-animation: fadeInUp 1s
+  animation: fadeInLeft 1s
+  -webkit-animation: fadeInLeft 1s
 
   @include panel($bg: lighten($alert-color, 40%), $adjust: true, $padding: 12px)
 
