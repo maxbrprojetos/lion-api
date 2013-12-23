@@ -24,6 +24,7 @@ gem 'ember-rails'
 gem 'ember-source', '1.2.0'
 gem 'emblem-rails'
 gem 'foundation-rails'
+gem 'bourbon'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'

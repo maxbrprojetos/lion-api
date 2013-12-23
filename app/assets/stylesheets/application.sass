@@ -1,6 +1,7 @@
 @import "animate"
 @import "normalize"
 @import "foundation"
+@import "bourbon"
 
 @mixin row
   @include grid-row()
@@ -17,6 +18,8 @@ body
   @include grid-column($columns: 4, $center: true, $collapse: true)
 
   &:after
+    @include transition(all 1s ease)
+
     content: ""
     display: block
     width: 100%
@@ -50,9 +53,7 @@ body
     list-style: none
 
 .notice
-  animation: fadeInLeft 1s
-  -webkit-animation: fadeInLeft 1s
-
+  @include animation(fadeInLeft 1s)
   @include panel($bg: lighten($alert-color, 40%), $adjust: true, $padding: 12px)
 
 .new-notice
