@@ -6,5 +6,5 @@ section.new-notice
 
 section.notices
   ul
-    each controller
+    each sortedNotices
       partial "notice"
