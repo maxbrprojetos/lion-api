@@ -1,3 +1,3 @@
-li.notice
+li class={:notice isRemoving:removing}
   = title
-  a href="#" class="close" click="deleteNotice this" &times
+  a href="#" class="close" click="delete" &times

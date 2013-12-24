@@ -10,25 +10,18 @@ App.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   actions:
     addNotice: ->
       newNotice = App.Notice.create(title: @get('title'))
-      newNotice.save()
+      newNotice.save().then((notice) =>
+        App.Notice.unload(notice) # let Pusher do the insertion
+      )
 
       @set('title', '')
 
-    deleteNotice: (notice) ->
-      notice.deleteRecord()
-
     # pusher actions
     noticeCreate: (payload) ->
-      notice = @findBy('id', payload['notice']['id'])
-
-      unless notice == undefined
-        newNotice = App.Notice.create()
-        newNotice.load(payload['notice']['id'], payload['notice'])
-        @pushObject(newNotice)
+      notice = App.Notice.create(payload['notice'])
+      @get('content').pushObject(notice)
 
     noticeDestroy: (payload) ->
-      notice = @findBy('id', payload['notice']['id'])
-      # investigate if there is a better way to remove objects via EmberModel
-      # this way the Notice might still remain in the cache
-      @removeObject(notice)
+      notice = App.Notice.getFromRecordCache(payload['notice']['id'])
+      App.Notice.unload(notice)
 )
