@@ -7,4 +7,4 @@ section.new-notice
 section.notices
   ul
     each controller
-      partial "notice"
+      view "notice"
