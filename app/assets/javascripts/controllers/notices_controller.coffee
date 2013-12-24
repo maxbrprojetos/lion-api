@@ -28,5 +28,7 @@ App.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
 
     noticeDestroy: (payload) ->
       notice = @findBy('id', payload['notice']['id'])
+      # investigate if there is a better way to remove objects via EmberModel
+      # this way the Notice might still remain in the cache
       @removeObject(notice)
 )
