@@ -20,7 +20,11 @@ App.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
     # pusher actions
     noticeCreate: (payload) ->
       notice = @findBy('id', payload['notice']['id'])
-      @pushObject(App.Notice.create(payload['notice'])) unless notice?
+
+      unless notice == undefined
+        newNotice = App.Notice.create()
+        newNotice.load(payload['notice']['id'], payload['notice'])
+        @pushObject(newNotice)
 
     noticeDestroy: (payload) ->
       notice = @findBy('id', payload['notice']['id'])
