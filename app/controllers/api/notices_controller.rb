@@ -9,7 +9,7 @@ class Api::NoticesController < ApplicationController
     @notice = Notice.new(notice_params)
 
     if @notice.save
-      render json: @notice, serializer: NoticeSerializer
+      render json: @notice, serializer: NoticeSerializer, status: :created
     else
       render json: { errors: @notice.errors }, status: :unprocessable_entity
     end
