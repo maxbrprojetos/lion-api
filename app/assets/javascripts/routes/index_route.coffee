@@ -1,3 +1,6 @@
 App.IndexRoute = Ember.Route.extend
-  setupController: (controller) ->
-    controller.set('notices', App.Notice.find())
+  model: ->
+    App.Notice.fetch()
+
+  setupController: (controller, model) ->
+    controller.set('notices', model)
