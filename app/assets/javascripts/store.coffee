@@ -1,0 +1,1 @@
+App.ApplicationAdapter = Ember.RESTAdapter.extend()

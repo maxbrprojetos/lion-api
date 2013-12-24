@@ -14,5 +14,3 @@ window.App = Ember.Application.create(
     connection:
       encrypted: true
 )
-
-App.ApplicationAdapter = Ember.RESTAdapter.extend()
