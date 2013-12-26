@@ -4,13 +4,24 @@
 #= require ember
 #= require ember-model
 #= require ember-pusher
+#= require app
 #= require_self
 #= require notdvs
 
-# for more details see: http://emberjs.com/guides/application/
-window.App = Ember.Application.create(
+window.Notdvs = NotdvsApplication.create(
+  LOG_ACTIVE_GENERATION: true
+  LOG_MODULE_RESOLVER: true
+  LOG_TRANSITIONS: true
+  LOG_TRANSITIONS_INTERNAL: true
+  LOG_VIEW_LOOKUPS: true
   PUSHER_OPTS:
     key: 'f24760416513053395d4'
     connection:
       encrypted: true
 )
+
+Notdvs.deferReadiness()
+
+$.extend Notdvs,
+  run: ->
+    Notdvs.advanceReadiness()

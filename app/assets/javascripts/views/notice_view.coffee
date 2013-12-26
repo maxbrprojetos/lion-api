@@ -1,2 +1,2 @@
-App.NoticeView = Ember.View.extend
+Notdvs.NoticeView = Ember.View.extend
   templateName: 'notice'
