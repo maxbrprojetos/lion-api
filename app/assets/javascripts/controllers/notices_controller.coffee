@@ -9,16 +9,17 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
 
   actions:
     addNotice: ->
-      newNotice = Notdvs.Notice.create(title: @get('title'))
+      newNotice = @store.createRecord('notice', { title: @get('title') })
       newNotice.save()
 
       @set('title', '')
 
     # pusher actions
     noticeCreate: (payload) ->
-      Notdvs.Notice.loadOne(payload)
+      @store.pushRecord('notice', payload.notice)
 
     noticeDestroy: (payload) ->
-      notice = Notdvs.Notice.find(payload.notice.id)
-      notice.unload() if notice != undefined
+      if @store.hasRecordForId('notice', payload.notice.id)
+        notice = @store.getById('notice', payload.notice.id)
+        notice.unloadRecord() if notice != undefined && !notice.get('isDirty')
 )

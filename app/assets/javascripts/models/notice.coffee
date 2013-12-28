@@ -1,4 +1,3 @@
-Notdvs.Notice = Notdvs.Model.extend
-  id: Ember.attr()
-  title: Ember.attr()
-  createdAt: Ember.attr(Date)
+Notdvs.Notice = DS.Model.extend
+  title: DS.attr('string')
+  createdAt: DS.attr('date')

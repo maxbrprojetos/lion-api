@@ -1,6 +1,6 @@
 Notdvs.IndexRoute = Ember.Route.extend
   model: ->
-    Notdvs.Notice.fetchAll()
+    @store.find('notice')
 
   setupController: (controller, model) ->
     controller.set('notices', model)

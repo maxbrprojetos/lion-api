@@ -2,7 +2,7 @@
 #= require handlebars
 #= require pusher
 #= require ember
-#= require ember-model
+#= require ember-data
 #= require ember-pusher
 #= require app
 #= require_self

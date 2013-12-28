@@ -5,5 +5,5 @@ Notdvs.NoticeController = Ember.ObjectController.extend
     delete: ->
       @set('isRemoving', true)
       Ember.run.later(this, ->
-        @get('content').deleteRecord()
+        @get('model').destroyRecord()
       , 1000)
