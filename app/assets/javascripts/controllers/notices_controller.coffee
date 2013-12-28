@@ -5,6 +5,7 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   sortProperties: ['created_at']
   sortAscending: false
   title: ''
+  itemController: 'notice'
   newNotice: Ember.Object.create()
 
   actions:
