@@ -1,4 +1,5 @@
 Notdvs.Store = DS.Store.extend
+  # pushPayload doesn't work with single records
   pushRecord: (type, record) ->
     key = type.underscore().pluralize()
     payload = {}
