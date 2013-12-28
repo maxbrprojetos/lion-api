@@ -5,5 +5,6 @@ class Notice
   pusherable serializer: NoticeSerializer
 
   field :title
-  field :client_id
+
+  attr_accessor :client_id
 end
