@@ -6,6 +6,7 @@ gem 'nobrainer', github: 'matteodepalo/nobrainer'
 gem 'active_model_serializers'
 gem 'pusher'
 gem 'dotenv'
+gem 'thin'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
