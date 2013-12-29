@@ -2,7 +2,7 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   PUSHER_SUBSCRIPTIONS:
     notdvs: ['notice.create', 'notice.destroy']
 
-  sortProperties: ['client_id']
+  sortProperties: ['ranking']
   sortAscending: false
   title: ''
   itemController: 'notice'
