@@ -9,3 +9,9 @@ Notdvs.Notice = DS.Model.extend
     # by providing a different kind of client_id
     @get('created_at')?.getTime().toString() || @get('client_id')
   ).property('client_id', 'created_at')
+
+Notdvs.NoticeSerializer = DS.RESTSerializer.extend
+  serialize: (record, options) ->
+    json = this._super.apply(this, arguments)
+    delete json.created_at
+    json
