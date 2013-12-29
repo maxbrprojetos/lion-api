@@ -14,6 +14,9 @@ $error-color: $alert-color
 
   margin-top: 30px
 
+main
+  @include grid-column($columns: 6, $center: true, $collapse: true)
+
 body
   @include grid-row()
 
@@ -21,7 +24,7 @@ body
   @include row()
 
 .status
-  @include grid-column($columns: 3, $center: true, $collapse: true)
+  @include grid-column($columns: 6, $center: true, $collapse: true)
 
   &:after
     @include transition(all 1s ease)
@@ -56,11 +59,23 @@ body
     &:after
       border-color: $error-color
 
+.new-notice
+  @include row()
+
+form
+  input[type="text"]
+    @include grid-column($columns: 9)
+
+  input[type="submit"]
+    @include prefix-postfix-base()
+    @include postfix($is-button: false)
+    @include grid-column($columns: 3)
+
 .notices
   @include row()
 
   ul
-    @include grid-column($columns: 6, $center: true, $collapse: true)
+    margin: 0
     list-style: none
 
 .notice
@@ -75,23 +90,6 @@ body
 .closing
   @include animation(fadeOutRight 1s)
   opacity: 0 // hack for fade-out animations
-
-.new-notice
-  @include row()
-
-form
-  @include grid-column($columns: 6, $center: true, $collapse: true)
-
-  div
-    @include grid-row($behavior: collapse)
-
-  input[type="text"]
-    @include grid-column($columns: 9)
-
-  input[type="submit"]
-    @include prefix-postfix-base()
-    @include postfix($is-button: false)
-    @include grid-column($columns: 3)
 
 .close
   float: right
