@@ -47,6 +47,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    dotenv (0.9.0)
     ember-data-source (0.14)
       ember-source
     ember-rails (0.14.1)
@@ -153,6 +154,7 @@ DEPENDENCIES
   active_model_serializers
   bourbon
   coffee-rails (~> 4.0.0)
+  dotenv
   ember-rails
   emblem-rails
   foundation-rails

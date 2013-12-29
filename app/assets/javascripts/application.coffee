@@ -8,6 +8,8 @@
 #= require_self
 #= require notdvs
 
+window.ENV = { PUSHER_KEY: '50d9af5dd017f737f67e' }
+
 window.Notdvs = NotdvsApplication.create(
   LOG_ACTIVE_GENERATION: true
   LOG_MODULE_RESOLVER: true
@@ -15,7 +17,7 @@ window.Notdvs = NotdvsApplication.create(
   LOG_TRANSITIONS_INTERNAL: true
   LOG_VIEW_LOOKUPS: true
   PUSHER_OPTS:
-    key: 'f24760416513053395d4'
+    key: ENV['PUSHER_KEY']
     connection:
       encrypted: true
 )

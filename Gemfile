@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 gem 'nobrainer'
 gem 'active_model_serializers'
 gem 'pusher'
+gem 'dotenv'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
