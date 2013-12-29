@@ -9,4 +9,4 @@ Notdvs.IndexController = Ember.ArrayController.extend
       'warning'
     else
       'ok'
-  ).property('notices.@each.{type}')
+  ).property('notices.@each.type')
