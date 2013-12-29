@@ -4,5 +4,7 @@ Notdvs.Notice = DS.Model.extend
   client_id: DS.attr('string')
 
   ranking: (->
-    @get('client_id') || @get('created_at').getTime().toString()
+    # check created_at first so records coming from pusher cannot alter ordering
+    # by providing their own client id
+    @get('created_at').getTime().toString() || @get('client_id')
   ).property('client_id', 'created_at')
