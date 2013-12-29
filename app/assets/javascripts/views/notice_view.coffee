@@ -3,11 +3,14 @@ Notdvs.NoticeView = Ember.View.extend
   classNameBindings: ['isClosing:closing']
   isClosing: false
 
-  isClosingChanged: (->
-    return unless @get('isClosing')
+  didInsertElement: ->
+    @$('.close').on('click', (event) =>
+      event.preventDefault()
+      @set('isClosing', true)
+    )
 
-    @$().one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', =>
-      @$().off()
+  isClosingChanged: (->
+    @$().on('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', =>
       @get('controller').send('delete')
     )
   ).observes('isClosing')
