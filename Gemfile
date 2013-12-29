@@ -17,6 +17,4 @@ gem 'emblem-rails'
 gem 'foundation-rails'
 gem 'bourbon'
 
-group :doc do
-  gem 'sdoc', require: false
-end
+gem 'rails_12factor', group: :production
