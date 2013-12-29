@@ -26,6 +26,6 @@ class Api::NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:title, :client_id)
+    params.require(:notice).permit(:title, :client_id, :type)
   end
 end

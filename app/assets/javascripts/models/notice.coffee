@@ -2,6 +2,7 @@ Notdvs.Notice = DS.Model.extend
   title: DS.attr('string')
   created_at: DS.attr('date')
   client_id: DS.attr('string')
+  type: DS.attr('string', { defaultValue: 'warning' })
 
   ranking: (->
     # check created_at first so records coming from pusher cannot alter ordering

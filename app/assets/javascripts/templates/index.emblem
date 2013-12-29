@@ -1,5 +1,5 @@
 section.pistachio-status
-  div{bind-attr class=":status isEverythingOk:ok:careful"}
+  div{bind-attr class=":status status"}
     div Pistachio
 
 render "notices" notices

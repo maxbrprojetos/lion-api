@@ -5,6 +5,10 @@ $include-open-sans: false
 @import "foundation"
 @import "bourbon"
 
+$ok-color: $success-color
+$warning-color: orange
+$error-color: $alert-color
+
 @mixin row
   @include grid-row()
 
@@ -42,11 +46,15 @@ body
 
   &.ok
     &:after
-      border-color: $success-color
+      border-color: $ok-color
 
-  &.careful
+  &.warning
     &:after
-      border-color: $alert-color
+      border-color: $warning-color
+
+  &.error
+    &:after
+      border-color: $error-color
 
 .notices
   @include row()
@@ -57,7 +65,12 @@ body
 
 .notice
   @include animation(fadeInLeft 1s)
-  @include panel($bg: lighten($alert-color, 40%), $adjust: true, $padding: 12px)
+
+  &.warning
+    @include panel($bg: lighten($warning-color, 40%), $adjust: true, $padding: 12px)
+
+  &.error
+    @include panel($bg: lighten($error-color, 40%), $adjust: true, $padding: 12px)
 
 .closing
   @include animation(fadeOutRight 1s)
