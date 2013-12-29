@@ -3,10 +3,10 @@ Notdvs.IndexController = Ember.ArrayController.extend
   status: (->
     notices = @get('notices')
 
-    if notices.anyBy('type', 'error')
-      'error'
-    else if notices.anyBy('type', 'warning')
+    if notices.anyBy('type', 'warning')
       'warning'
+    else if notices.anyBy('type', 'error')
+      'error'
     else
       'ok'
   ).property('notices.@each.type')
