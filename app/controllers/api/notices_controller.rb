@@ -2,14 +2,14 @@ class Api::NoticesController < ApplicationController
   def index
     @notices = Notice.all
 
-    render json: @notices, each_serializer: NoticeSerializer
+    render json: @notices
   end
 
   def create
     @notice = Notice.new(notice_params)
 
     if @notice.save
-      render json: @notice, serializer: NoticeSerializer, status: :created
+      render json: @notice, status: :created
     else
       render json: { errors: @notice.errors }, status: :unprocessable_entity
     end
