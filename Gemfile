@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.2'
 
-gem 'nobrainer'
+gem 'nobrainer', github: 'matteodepalo/nobrainer'
 gem 'active_model_serializers'
 gem 'pusher'
 gem 'dotenv'

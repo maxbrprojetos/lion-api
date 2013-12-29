@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/matteodepalo/nobrainer.git
+  revision: c6c176197aa2a477d090ff68e0464750eb7b97a8
+  specs:
+    nobrainer (0.7.3)
+      activemodel (>= 3.2.0, < 5)
+      middleware (~> 0.1.0)
+      rethinkdb (~> 1.11.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -85,10 +94,6 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.8.2)
-    nobrainer (0.7.3)
-      activemodel (>= 3.2.0, < 5)
-      middleware (~> 0.1.0)
-      rethinkdb (~> 1.11.0.1)
     polyglot (0.3.3)
     pusher (0.12.0)
       httpclient (~> 2.3.0)
@@ -159,7 +164,7 @@ DEPENDENCIES
   emblem-rails
   foundation-rails
   jquery-rails
-  nobrainer
+  nobrainer!
   pusher
   rails (= 4.0.2)
   sass-rails (~> 4.0.0)
