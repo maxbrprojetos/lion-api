@@ -3,12 +3,5 @@ Notdvs.CloseView = Ember.View.extend
   tagName: 'span'
 
   click: ->
-    parentView = @get('parentView')
-
-    parentView.$().one('webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd', =>
-      parentView.$().off()
-      parentView.get('controller').send('delete')
-    )
-
     @get('parentView').set('isClosing', true)
     false
