@@ -49,8 +49,23 @@ ul
   margin: 0
   list-style: none
 
++keyframes(growHeight)
+  to
+    max-height: 50px
+    opacity: 1
+    +transform(scale(1))
+
++keyframes(shrinkHeight)
+  to
+    max-height: 0px
+    opacity: 0
+    +transform(scale(0))
+
 .notice
-  +animation(fadeInLeft 1s)
+  max-height: 0
+  opacity: 0
+  +transform(scale(0))
+  +animation(growHeight 0.4s ease forwards)
 
   &.warning
     +panel($bg: lighten($warning-color, 40%), $adjust: true, $padding: 12px)
@@ -59,8 +74,8 @@ ul
     +panel($bg: lighten($error-color, 40%), $adjust: true, $padding: 12px)
 
 .closing
-  +animation(fadeOutRight 1s)
-  opacity: 0 // hack for fade-out animations
+  +transform(scale(1))
+  +animation(shrinkHeight 0.4s ease forwards)
 
 .close
   float: right
