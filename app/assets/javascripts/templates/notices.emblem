@@ -1,7 +1,6 @@
-section.new-notice
-  form submit=addNotice
-    = input value=title placeholder="New Notice"
-    input type="submit" value="Add Notice"
+form submit=addNotice
+  = input value=title placeholder="New Notice"
+  input type="submit" value="Add Notice"
 
 section.notices
   ul
