@@ -1,6 +1,7 @@
+ruby '2.1.0'
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.0.beta1'
 
 gem 'active_model_serializers'
 gem 'pusher'
@@ -18,4 +19,8 @@ gem 'foundation-rails'
 gem 'bourbon'
 
 gem 'rails_12factor', group: :production
-gem 'annotate', github: 'ctran/annotate_models', group: :development
+
+group :development do
+  gem 'annotate', github: 'ctran/annotate_models'
+  gem 'spring'
+end
