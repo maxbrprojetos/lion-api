@@ -50,11 +50,12 @@ ul
   list-style: none
 
 .notice
-  max-height: 0
-  opacity: 0
-
+  +grid-row
   +transform(translateX(-300px))
   +animation(openSpace 0.2s ease forwards, moveIn 0.3s 0.2s ease forwards)
+
+  max-height: 0
+  opacity: 0
 
   &.warning
     +panel($bg: lighten($warning-color, 40%), $adjust: true, $padding: 12px)
@@ -62,9 +63,24 @@ ul
   &.error
     +panel($bg: lighten($error-color, 40%), $adjust: true, $padding: 12px)
 
+  .content
+    +grid-column($columns: 11, $collapse: true)
+    +clearfix
+
+    .title
+      float: left
+
+    .created-at
+      font-style: italic
+      float: right
+
+  .actions
+    +grid-column($columns: 1, $collapse: true)
+    +clearfix
+
+    .close
+      float: right
+      color: $alert-color
+
 .closing
   +animation(moveOut 0.2s ease forwards, closeSpace 0.3s 0.2s ease forwards)
-
-.close
-  float: right
-  color: $alert-color

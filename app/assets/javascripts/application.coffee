@@ -1,6 +1,7 @@
 #= require jquery
 #= require handlebars
 #= require pusher
+#= require moment
 #= require ember
 #= require ember-data
 #= require ember-pusher

@@ -1,3 +1,7 @@
 li{bind-attr class=":notice type"}
-  = title
-  a href="#" class="close" &times
+  .content
+    span.title = title
+    span.created-at = from-now valueBinding="created_at"
+
+  .actions
+    a href="#" class="close" &times
