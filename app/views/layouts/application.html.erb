@@ -13,11 +13,7 @@
     <%= yield %>
 
     <script>
-      <% if Rails.env.development? %>
-        window.ENV = { PUSHER_KEY: '50d9af5dd017f737f67e' }
-      <% elsif Rails.env.production? %>
-        window.ENV = { PUSHER_KEY: 'e77a2360c4b77ba37065' }
-      <% end %>
+      window.ENV = <%= raw ENV.to_h.slice('PUSHER_KEY').to_json %>
 
       Notdvs.setup()
       Notdvs.run()
