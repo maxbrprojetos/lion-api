@@ -3,15 +3,18 @@ Notdvs.FromNowComponent = Ember.Component.extend
   template: Ember.Handlebars.compile('{{view.output}}')
 
   output: (->
-    moment(@get('value')).fromNow()
-  ).property('value')
+    moment(@get('value')).from(@get('now'))
+  ).property('now')
+
+  tick: ->
+    @set('now', new Date())
+    @scheduleTick()
 
   didInsertElement: ->
     @tick()
 
-  tick: ->
+  scheduleTick: ->
     nextTick = Ember.run.later(this, ->
-      @notifyPropertyChange('value')
       @tick()
     , 1000)
 
