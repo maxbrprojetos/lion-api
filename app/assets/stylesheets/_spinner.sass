@@ -18,15 +18,13 @@ $spinner-sides: 1 !default
   @if $sides >= 3
     border-bottom-color: $color
 
-.spinner
+.application-spinner
+  +spinner
+
   position: absolute
   left: 50%
   margin-top: 50px
-  width: 1em
   margin-left: -0.5em
-
-  div
-    +spinner
 
 @-webkit-keyframes spin
   to
