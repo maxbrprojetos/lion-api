@@ -6,7 +6,7 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   sortAscending: false
   title: ''
   itemController: 'notice'
-  newNotice: Ember.Object.create()
+  newNotices: Ember.A([])
 
   actions:
     addNotice: ->
@@ -15,14 +15,14 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
         client_id: (new Date()).getTime().toString()
       })
 
-      @set('newNotice', newNotice)
+      @get('newNotices').pushObject(newNotice)
       newNotice.save()
 
       @set('title', '')
 
     # pusher actions
     noticeCreate: (payload) ->
-      @store.pushRecord('notice', payload.notice) unless payload.notice.client_id == @get('newNotice.client_id')
+      @store.pushRecord('notice', payload.notice) unless @get('newNotices').anyBy('client_id', payload.notice.client_id)
 
     noticeDestroy: (payload) ->
       notice = @store.getById('notice', payload.notice.id)
