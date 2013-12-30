@@ -3,7 +3,7 @@ Notdvs.FromNowComponent = Ember.Component.extend
   template: Ember.Handlebars.compile('{{view.output}}')
 
   output: (->
-    moment(this.get('value')).fromNow()
+    moment(@get('value')).fromNow()
   ).property('value')
 
   didInsertElement: ->
