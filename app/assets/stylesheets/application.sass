@@ -12,7 +12,7 @@ $ok-color: $success-color
 $warning-color: orange
 $error-color: $alert-color
 
-.status
+.status-circle
   &:after
     +transition(all 1s ease)
 
@@ -24,7 +24,7 @@ $error-color: $alert-color
     border-radius: 50%
     border: 5px solid
 
-  div
+  p
     float: left
     width: 100%
     padding-top: 50%
@@ -45,15 +45,6 @@ $error-color: $alert-color
   &.error
     &:after
       border-color: $error-color
-
-form
-  input[type="text"]
-    +grid-column($columns: 9)
-
-  input[type="submit"]
-    +prefix-postfix-base
-    +postfix($is-button: false)
-    +grid-column($columns: 3)
 
 ul
   margin: 0

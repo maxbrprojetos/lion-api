@@ -1,17 +1,25 @@
 body
   +grid-row
 
-.pistachio-status
-  +row
-
 main
   +grid-column($columns: 6, $center: true, $collapse: true)
 
 .status
+  +row
+
+.status-circle
   +grid-column($columns: 6, $center: true, $collapse: true)
 
 form
   +row
+
+  input[type="text"]
+    +grid-column($columns: 9)
+
+  input[type="submit"]
+    +prefix-postfix-base
+    +postfix($is-button: false)
+    +grid-column($columns: 3)
 
 .notices
   +row
