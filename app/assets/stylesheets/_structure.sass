@@ -1,17 +1,17 @@
 body
-  @include grid-row()
+  +grid-row
 
 .pistachio-status
-  @include row()
+  +row
 
 main
-  @include grid-column($columns: 6, $center: true, $collapse: true)
+  +grid-column($columns: 6, $center: true, $collapse: true)
 
 .status
-  @include grid-column($columns: 6, $center: true, $collapse: true)
+  +grid-column($columns: 6, $center: true, $collapse: true)
 
 form
-  @include row()
+  +row
 
 .notices
-  @include row()
+  +row
