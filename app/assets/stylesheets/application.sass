@@ -1,11 +1,11 @@
 $include-open-sans: false
 
-@import "animate"
 @import "normalize"
 @import "foundation"
 @import "bourbon"
 @import "spinner"
 @import "structure"
+@import "animations"
 
 $ok-color: $success-color
 $warning-color: orange
@@ -49,23 +49,12 @@ ul
   margin: 0
   list-style: none
 
-+keyframes(growHeight)
-  to
-    max-height: 50px
-    opacity: 1
-    +transform(scale(1))
-
-+keyframes(shrinkHeight)
-  to
-    max-height: 0px
-    opacity: 0
-    +transform(scale(0))
-
 .notice
   max-height: 0
   opacity: 0
-  +transform(scale(0))
-  +animation(growHeight 0.4s ease forwards)
+
+  +transform(translateX(-300px))
+  +animation(openSpace 0.2s ease forwards, moveIn 0.3s 0.2s ease forwards)
 
   &.warning
     +panel($bg: lighten($warning-color, 40%), $adjust: true, $padding: 12px)
@@ -74,8 +63,7 @@ ul
     +panel($bg: lighten($error-color, 40%), $adjust: true, $padding: 12px)
 
 .closing
-  +transform(scale(1))
-  +animation(shrinkHeight 0.4s ease forwards)
+  +animation(moveOut 0.2s ease forwards, closeSpace 0.3s 0.2s ease forwards)
 
 .close
   float: right
