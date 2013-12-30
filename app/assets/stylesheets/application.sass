@@ -14,7 +14,7 @@ $error-color: $alert-color
 
 .status
   &:after
-    @include transition(all 1s ease)
+    +transition(all 1s ease)
 
     content: ""
     display: block
@@ -48,28 +48,28 @@ $error-color: $alert-color
 
 form
   input[type="text"]
-    @include grid-column($columns: 9)
+    +grid-column($columns: 9)
 
   input[type="submit"]
-    @include prefix-postfix-base()
-    @include postfix($is-button: false)
-    @include grid-column($columns: 3)
+    +prefix-postfix-base
+    +postfix($is-button: false)
+    +grid-column($columns: 3)
 
 ul
   margin: 0
   list-style: none
 
 .notice
-  @include animation(fadeInLeft 1s)
+  +animation(fadeInLeft 1s)
 
   &.warning
-    @include panel($bg: lighten($warning-color, 40%), $adjust: true, $padding: 12px)
+    +panel($bg: lighten($warning-color, 40%), $adjust: true, $padding: 12px)
 
   &.error
-    @include panel($bg: lighten($error-color, 40%), $adjust: true, $padding: 12px)
+    +panel($bg: lighten($error-color, 40%), $adjust: true, $padding: 12px)
 
 .closing
-  @include animation(fadeOutRight 1s)
+  +animation(fadeOutRight 1s)
   opacity: 0 // hack for fade-out animations
 
 .close

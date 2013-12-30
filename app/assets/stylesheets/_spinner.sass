@@ -11,9 +11,7 @@ $spinner-sides: 1 !default
   height: 1em
   border-radius: .5em
   +box-sizing(border-box)
-  -webkit-animation: spin 1s linear infinite
-  -moz-animation: spin 1s linear infinite
-  animation: spin 1s linear infinite
+  +animation(spin 1s linear infinite)
   border-top-color: $color
   @if $sides >= 2
     border-right-color: $color
@@ -21,7 +19,14 @@ $spinner-sides: 1 !default
     border-bottom-color: $color
 
 .spinner
-  +spinner
+  position: absolute
+  left: 50%
+  margin-top: 50px
+  width: 1em
+  margin-left: -0.5em
+
+  div
+    +spinner
 
 @-webkit-keyframes spin
   to
