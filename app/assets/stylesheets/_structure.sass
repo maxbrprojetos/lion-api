@@ -1,3 +1,8 @@
+=row($behavior: false)
+  +grid-row($behavior: $behavior)
+
+  margin-top: 30px
+
 body
   +grid-row
 
@@ -13,13 +18,15 @@ main
 form
   +row
 
-  input[type="text"]
-    +grid-column($columns: 9)
+  .input
+    +grid-column($columns: 9, $collapse: true)
 
-  input[type="submit"]
-    +prefix-postfix-base
-    +postfix($is-button: false)
-    +grid-column($columns: 3)
+  .submit
+    +grid-column($columns: 3, $collapse: true)
+
+    input
+      +prefix-postfix-base
+      +postfix($is-button: false)
 
 .notices
   +row

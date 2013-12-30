@@ -1,6 +1,9 @@
 form submit=addNotice
-  = input value=title placeholder="New Notice"
-  input type="submit" value="Add Notice"
+  div.input
+    = input value=title placeholder="New Notice"
+  div.submit
+    input type="submit" value="Add Notice"
+
 
 section.notices
   ul
