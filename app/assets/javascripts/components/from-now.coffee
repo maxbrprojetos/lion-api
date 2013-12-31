@@ -7,20 +7,20 @@ Notdvs.FromNowComponent = Ember.Component.extend
   ).property('now')
 
   now: (->
-    currentTime = new Date()
-    createdAt = @get('created_at')
+    currentTime = @get('currentTime')
+    createdAt = @get('value')
 
     if currentTime < createdAt
       createdAt
     else
       currentTime
-  ).property()
+  ).property('currentTime')
 
   didInsertElement: ->
     @tick()
 
   tick: ->
-    @notifyPropertyChange('now')
+    @set('currentTime', new Date())
 
     nextTick = Ember.run.later(this, ->
       @tick()
