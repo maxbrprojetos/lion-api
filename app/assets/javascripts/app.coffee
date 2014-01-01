@@ -10,10 +10,3 @@ unless window.NotdvsApplication
         @reopen
           PUSHER_OPTS:
             key: ENV['PUSHER_KEY']
-
-    disconnectPusher: ->
-      @lookup('controller:pusher').get('connection').disconnect()
-
-    reset: ->
-      @disconnectPusher()
-      @_super()

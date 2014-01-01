@@ -2,7 +2,7 @@
 
 describe 'Integration test for index route', ->
   beforeEach ->
-    testHelper.lookup('router').transitionTo('index')
+    Notdvs.lookup('router:main').transitionTo('index')
 
   it 'shows Pistachio', ->
     server.respondWith('GET', '/api/notices', [200, { 'Content-Type': 'application/json' }, '{ "notices": [] }'])
