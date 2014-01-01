@@ -27,7 +27,6 @@ end
 
 group :test, :development do
   gem 'konacha'
-  gem 'capybara'
   gem 'sinon-rails'
   gem 'selenium-webdriver'
 end

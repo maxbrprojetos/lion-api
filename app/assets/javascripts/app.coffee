@@ -3,10 +3,14 @@ unless window.NotdvsApplication
     LOG_TRANSITIONS: true
 
     lookup: ->
-      @__container__.lookup.apply @__container__, arguments
+      @__container__.lookup.apply(@__container__, arguments)
 
     setup: ->
       if ENV['PUSHER_KEY']
         @reopen
           PUSHER_OPTS:
             key: ENV['PUSHER_KEY']
+
+    reset: ->
+      @setup()
+      @_super()

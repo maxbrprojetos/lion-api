@@ -196,7 +196,6 @@ DEPENDENCIES
   active_model_serializers
   annotate!
   bourbon
-  capybara
   coffee-rails (~> 4.0.0)
   dotenv
   ember-rails

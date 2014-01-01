@@ -1,5 +1,6 @@
 #= require sinon
 #= require application
+#= require ember-mocha-adapter
 
 window.ENV =
   TESTING: true
@@ -7,26 +8,20 @@ window.ENV =
 
 mocha.ui('bdd')
 mocha.globals(['Ember', 'DS', 'App', 'MD5'])
-mocha.timeout(5)
+mocha.timeout(500)
 chai.Assertion.includeStack = true
 
-Notdvs.Router.reopen
-  location: 'none'
+Ember.Test.adapter = Ember.Test.MochaAdapter.create()
+Notdvs.setupForTesting()
+Notdvs.injectTestHelpers()
 
 Konacha.reset = Ember.K
 
 window.server = sinon.fakeServer.create()
 window.server.autoRespond = true
 
-Ember.testing = true
-
-beforeEach (done) ->
-  Ember.run ->
-    Notdvs.reset()
-
-    Notdvs.then -> done()
+beforeEach ->
+  Notdvs.reset()
 
 afterEach ->
   window.server.restore()
-
-Notdvs.setup()
