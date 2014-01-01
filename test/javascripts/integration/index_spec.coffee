@@ -3,7 +3,7 @@ module 'Ember.js Library',
     Ember.run -> Notdvs.advanceReadiness()
 
   teardown: ->
-    Notdvs.reset()
+    Ember.run -> Notdvs.reset()
 
 test 'Check HTML is returned', ->
   visit('/').then ->
