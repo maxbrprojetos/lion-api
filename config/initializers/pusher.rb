@@ -5,5 +5,3 @@ if ENV['PUSHER_APP_ID'] && ENV['PUSHER_KEY'] && ENV['PUSHER_SECRET']
   Pusher.key = ENV['PUSHER_KEY']
   Pusher.secret = ENV['PUSHER_SECRET']
 end
-
-Pusher.encrypted = true

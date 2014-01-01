@@ -27,5 +27,3 @@ $.extend Notdvs,
     Notdvs.reopen
       PUSHER_OPTS:
         key: ENV['PUSHER_KEY']
-        connection:
-          encrypted: true
