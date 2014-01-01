@@ -30,5 +30,4 @@ group :test, :development do
   gem 'capybara'
   gem 'sinon-rails'
   gem 'selenium-webdriver'
-  gem 'qunit-rails'
 end
