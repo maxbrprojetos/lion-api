@@ -8,6 +8,7 @@ window.ENV =
 
 mocha.ui('bdd')
 mocha.globals(['Ember', 'DS', 'App', 'MD5'])
+mocha.timeout(15000)
 chai.Assertion.includeStack = true
 
 Ember.Test.adapter = Ember.Test.MochaAdapter.create()
