@@ -18,12 +18,3 @@ window.Notdvs = NotdvsApplication.create(
 )
 
 Notdvs.deferReadiness()
-
-Notdvs.initializer
-  name: 'pusher'
-
-  initialize: (container, application) ->
-    if ENV['PUSHER_KEY']
-      application.reopen
-        PUSHER_OPTS:
-          key: ENV['PUSHER_KEY']

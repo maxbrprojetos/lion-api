@@ -35,6 +35,6 @@ beforeEach (done) ->
     Notdvs.then -> done()
 
 afterEach ->
-  # Ember.run -> Notdvs.reset()
-
   window.server.restore()
+
+Notdvs.setup()

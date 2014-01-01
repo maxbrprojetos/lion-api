@@ -15,6 +15,7 @@
     <script>
       window.ENV = <%= raw ENV.to_h.slice('PUSHER_KEY').to_json %>
 
+      Notdvs.setup()
       Notdvs.advanceReadiness()
     </script>
   </body>
