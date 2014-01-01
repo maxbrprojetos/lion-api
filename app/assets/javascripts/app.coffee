@@ -12,5 +12,8 @@ unless window.NotdvsApplication
             key: ENV['PUSHER_KEY']
 
     reset: ->
+      # stop pusher from trying to reconnect to a connection that might be killed
+      # by the initialization process that happens at reset time
+      @lookup('controller:pusher').get('connection').disconnect()
       @setup()
       @_super()

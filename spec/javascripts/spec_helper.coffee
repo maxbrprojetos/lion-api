@@ -21,10 +21,6 @@ window.server = sinon.fakeServer.create()
 window.server.autoRespond = true
 
 beforeEach ->
-  # ember-pusher connects during initialization process which happens on document ready
-  # so we need to disconnect it in order stop pusher from trying to reconnect to a lost connection
-  # over and over when the app is reset
-  Notdvs.lookup('controller:pusher').get('connection').disconnect()
   Notdvs.reset()
 
 afterEach ->
