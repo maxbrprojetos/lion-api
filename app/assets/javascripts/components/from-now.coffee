@@ -1,33 +1,36 @@
 Notdvs.FromNowComponent = Ember.Component.extend
   tagName: 'time'
-  template: Ember.Handlebars.compile('{{view.output}}')
+  template: Ember.Handlebars.compile('{{view.timeFromNowInWords}}')
 
-  output: (->
-    moment(@get('value')).from(@get('now'))
-  ).property('now')
+  timeFromNowInWords: (->
+    moment(@get('time')).from(@get('now'))
+  ).property('now', 'time')
 
-  now: (->
-    currentTime = @get('currentTime')
-    createdAt = @get('value')
+  time: (->
+    time = @get('value')
+    now = @get('now')
 
-    if currentTime < createdAt
-      createdAt
+    if now < time
+      now
     else
-      currentTime
-  ).property('currentTime')
+      time
+  ).property('now', 'value')
 
   didInsertElement: ->
     @tick()
 
   tick: ->
-    @set('currentTime', new Date())
+    @set('now', new Date())
 
-    nextTick = Ember.run.later(this, ->
-      @tick()
+    # don't use Ember.run.later because tests will wait for timers to expire and this will never happen
+    nextTick = setTimeout(=>
+      Ember.run(=>
+        @tick()
+      )
     , 1000)
 
     @set('nextTick', nextTick)
 
   willDestroyElement: ->
     nextTick = @get('nextTick')
-    Ember.run.cancel(nextTick)
+    clearTimeout(nextTick)
