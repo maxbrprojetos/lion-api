@@ -9,8 +9,7 @@ describe 'Notices - Integration', ->
 
   it 'adds a Notice to the list', ->
     fillIn('input[type="text"]', 'test')
-    .click('input[type="submit"]')
-    .then ->
+    .click('input[type="submit"]').then ->
       find('.title').text().should.equal('test')
 
   it 'deletes a Notice', ->
