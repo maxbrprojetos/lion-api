@@ -8,6 +8,17 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   itemController: 'notice'
   newNotices: Ember.A([])
 
+  status: (->
+    notices = @get('content')
+
+    if notices.anyBy('type', 'warning')
+      'warning'
+    else if notices.anyBy('type', 'error')
+      'error'
+    else
+      'ok'
+  ).property('content.@each.type')
+
   actions:
     addNotice: ->
       newNotice = @store.createRecord('notice', {

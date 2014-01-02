@@ -1,9 +1,12 @@
+section.status
+  div{bind-attr class=":status-circle status"}
+    p Pistachio
+
 form submit=addNotice
   div.input
     = input value=title placeholder="New Notice"
   div.submit
     input type="submit" value="Add Notice"
-
 
 section.notices
   ul

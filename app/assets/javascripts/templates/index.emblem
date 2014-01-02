@@ -1,5 +1,0 @@
-section.status
-  div{bind-attr class=":status-circle status"}
-    p Pistachio
-
-render "notices" notices
