@@ -19,8 +19,10 @@ Konacha.reset = Ember.K
 
 $.fx.off = true
 
-afterEach ->
+beforeEach ->
+  Notdvs.reset()
+
+after ->
   Notdvs.reset()
 
 Notdvs.setup()
-Notdvs.advanceReadiness()
