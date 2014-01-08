@@ -5,6 +5,7 @@
 #= require ember
 #= require ember-data
 #= require ember-pusher
+#= require ember-simple-auth
 #= require app
 #= require_self
 #= require notdvs
@@ -18,3 +19,12 @@ window.Notdvs = NotdvsApplication.create(
 )
 
 Notdvs.deferReadiness()
+
+Ember.Application.initializer
+  name: 'authentication'
+
+  initialize: (container, application) ->
+    Ember.SimpleAuth.setup(container, application, {
+      routeAfterLogin: 'notices'
+      routeAfterLogout: 'notices'
+    })

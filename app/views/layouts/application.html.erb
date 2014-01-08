@@ -13,7 +13,7 @@
     <%= yield %>
 
     <script>
-      window.ENV = <%= raw ENV.to_h.slice('PUSHER_KEY').to_json %>
+      window.ENV = <%= raw ENV.to_h.slice('PUSHER_KEY', 'GITHUB_APP_ID', 'GITHUB_CALLBACK_URL').to_json %>
 
       Notdvs.setup()
       Notdvs.advanceReadiness()

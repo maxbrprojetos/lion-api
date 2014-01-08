@@ -1,2 +1,7 @@
 main
+  if session.isAuthenticated
+    a click='logout' Logout
+  else
+    a click='login' Login
+
   outlet
