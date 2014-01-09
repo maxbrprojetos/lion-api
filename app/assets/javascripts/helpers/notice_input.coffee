@@ -1,5 +1,5 @@
 class Notdvs.NoticeInput
-  regexp: /app:(.*)\s/
+  regexp: /app:([^\s]+)/
 
   constructor: (@input) ->
 
