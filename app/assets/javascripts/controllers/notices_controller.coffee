@@ -31,7 +31,7 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
     else if failingApplicationsCount > 1
       "#{failingApplicationsCount} apps"
     else
-      'All is ok'
+      'ok'
   ).property('failingApplications.@each')
 
   actions:
