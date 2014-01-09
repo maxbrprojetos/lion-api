@@ -32,6 +32,7 @@ $error-color: $alert-color
     text-align: center
     font-size: 40px
     font-weight: 200
+    text-transform: capitalize
 
   &.ok
     &:after
@@ -82,6 +83,11 @@ ul
     .close
       float: right
       color: $alert-color
+
+  .app
+    +label($radius: 4px, $bg: $warning-color)
+
+    margin-left: 10px
 
 .closing
   +animation(moveOut 0.2s ease forwards, closeSpace 0.3s 0.2s ease forwards)

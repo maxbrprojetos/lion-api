@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20131229155017) do
   create_table "notices", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.text     "title"
     t.string   "type"
+    t.string   "app"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
