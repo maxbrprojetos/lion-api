@@ -8,6 +8,10 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   itemController: 'notice'
   newNotices: Ember.A([])
 
+  failingApplications: (->
+    @get('content').mapBy('app').uniq()
+  ).property('content.@each.app')
+
   status: (->
     notices = @get('content')
 
@@ -20,16 +24,19 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   ).property('content.@each.type')
 
   statusMessage: (->
-    app = @get('content.firstObject.app')
-    if app?.length > 0
-      app
+    failingApplicationsCount = @get('failingApplications.length')
+
+    if failingApplicationsCount == 1
+      @get('failingApplications.firstObject')
+    else if failingApplicationsCount > 1
+      "#{failingApplicationsCount} apps"
     else
       'All is ok'
-  ).property('content.firstObject.app')
+  ).property('failingApplications.@each')
 
   actions:
     addNotice: ->
-      input = new NoticeInput(@get('title'))
+      input = new Notdvs.NoticeInput(@get('title'))
       noticeAttributes = {
         title: input.title(),
         client_id: (new Date()).getTime().toString()
@@ -58,17 +65,3 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
     _extract_app_from: (text) ->
       text.g
 )
-
-class NoticeInput
-  regexp: /app:(.*)\s/
-
-  constructor: (@input) ->
-
-  title: ->
-    @input.replace(@regexp, '')
-
-  app: ->
-    if @regexp.test(@input)
-      $.trim(@regexp.exec(@input)[1])
-    else
-      ''

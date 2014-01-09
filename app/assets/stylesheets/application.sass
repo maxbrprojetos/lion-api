@@ -11,6 +11,12 @@ $ok-color: $success-color
 $warning-color: orange
 $error-color: $alert-color
 
+@import "notice"
+
+ul
+  margin: 0
+  list-style: none
+
 .status-circle
   &:after
     +transition(all 1s ease)
@@ -45,49 +51,3 @@ $error-color: $alert-color
   &.error
     &:after
       border-color: $error-color
-
-ul
-  margin: 0
-  list-style: none
-
-.notice
-  +grid-row
-  +transform(translateX(-300px))
-  +animation(openSpace 0.2s ease forwards, moveIn 0.3s 0.2s ease forwards)
-
-  max-height: 0
-  opacity: 0
-
-  &.warning
-    +panel($bg: lighten($warning-color, 40%), $adjust: true, $padding: 12px)
-
-  &.error
-    +panel($bg: lighten($error-color, 40%), $adjust: true, $padding: 12px)
-
-  .content
-    +grid-column($columns: 11, $collapse: true)
-    +clearfix
-
-    .title
-      float: left
-
-    .created-at
-      color: #999
-      font-style: italic
-      float: right
-
-  .actions
-    +grid-column($columns: 1, $collapse: true)
-    +clearfix
-
-    .close
-      float: right
-      color: $alert-color
-
-  .app
-    +label($radius: 4px, $bg: $warning-color)
-
-    margin-left: 10px
-
-.closing
-  +animation(moveOut 0.2s ease forwards, closeSpace 0.3s 0.2s ease forwards)
