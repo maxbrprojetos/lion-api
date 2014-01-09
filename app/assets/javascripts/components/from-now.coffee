@@ -3,24 +3,24 @@ Notdvs.FromNowComponent = Ember.Component.extend
   template: Ember.Handlebars.compile('{{view.timeFromNowInWords}}')
 
   timeFromNowInWords: (->
-    moment(@get('time')).from(@get('now'))
-  ).property('now', 'time')
+    moment(@get('time')).fromNow()
+  ).property('time')
 
   time: (->
     time = @get('value')
-    now = @get('now')
+    now = new Date()
 
     if now < time
       now
     else
       time
-  ).property('now', 'value')
+  ).property('value')
 
   didInsertElement: ->
     @tick()
 
   tick: ->
-    @set('now', new Date())
+    @notifyPropertyChange('value')
 
     # don't use Ember.run.later because tests will wait for timers to expire and this will never happen
     nextTick = setTimeout(=>
