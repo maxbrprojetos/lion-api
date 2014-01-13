@@ -1,6 +1,6 @@
 section.status
   div{bind-attr class=":status-circle status"}
-    p Pistachio
+    p = statusMessage
 
 form submit=addNotice
   div.input

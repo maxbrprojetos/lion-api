@@ -1,7 +1,11 @@
-main
-  if session.isAuthenticated
-    a click='logout' Logout
-  else
-    a click='login' Login
+aside
+  img.profile-picture src=currentUser.avatarUrl
+  nav
+    ul
+      link-to "notices" tagName="li" class="status" | Status
+      link-to "batcave" tagName="li" class="batcave" | Batcave
 
-  outlet
+main
+  div
+    .content
+      outlet

@@ -5,10 +5,6 @@ module Pusherable
     def pusherable(serializer: nil)
       raise 'Please `gem install pusher` and configure it to run in your app!' if Pusher.app_id.blank? || Pusher.key.blank? || Pusher.secret.blank?
 
-      class_attribute :pusherable_channel
-
-      self.pusherable_channel = pusherable_channel
-
       class_eval do
         after_commit :pusherable_trigger_create, on: :create
         after_commit :pusherable_trigger_update, on: :update

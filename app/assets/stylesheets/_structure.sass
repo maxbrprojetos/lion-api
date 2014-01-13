@@ -6,8 +6,17 @@
 body
   +grid-row
 
+aside
+  +grid-column($columns: 1)
+
 main
-  +grid-column($columns: 6, $center: true, $collapse: true)
+  +grid-column($columns: 11, $offset: 1)
+
+  & > div
+    +grid-row
+
+  .content
+    +grid-column($columns: 6, $center: true, $collapse: true)
 
 .status
   +row
