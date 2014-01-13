@@ -2,4 +2,5 @@
 
 Notdvs.Router.map ->
   @resource('notices', path: '/')
+  @resource('batcave')
 
