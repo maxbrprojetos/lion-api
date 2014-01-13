@@ -15,8 +15,8 @@ main
   & > div
     +grid-row
 
-  .content
-    +grid-column($columns: 6, $center: true, $collapse: true)
+    > .content
+      +grid-column($columns: 6, $center: true, $collapse: true)
 
 .status
   +row
@@ -39,3 +39,12 @@ form
 
 .notices
   +row
+
+.notice
+  +grid-row
+
+  .content
+    +grid-column($columns: 11, $collapse: true)
+
+  .actions
+    +grid-column($columns: 1, $collapse: true)
