@@ -1,5 +1,5 @@
 aside
-  img.profile-picture src=currentUser.avatarUrl
+  img.profile-picture src=session.currentUser.avatar_url
   nav
     ul
       link-to "notices" tagName="li" class="status" | Status
