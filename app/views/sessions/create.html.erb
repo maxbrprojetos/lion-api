@@ -2,7 +2,7 @@
 <head></head>
 <body>
   <script>
-    window.opener.Ember.SimpleAuth.externalLoginSucceeded({ access_token: 'secret token!' });
+    window.opener.Ember.SimpleAuth.externalLoginSucceeded(<%= raw UserSerializer.new(@user).as_json.merge(access_token: @user.api_token).to_json %>);
     window.close();
   </script>
 </body>
