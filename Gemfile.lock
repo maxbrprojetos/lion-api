@@ -210,6 +210,8 @@ GEM
     websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    zocial-rails (1.0.2)
+      railties (>= 3.1)
 
 PLATFORMS
   ruby
@@ -237,3 +239,4 @@ DEPENDENCIES
   spring
   thin
   uglifier (>= 1.3.0)
+  zocial-rails

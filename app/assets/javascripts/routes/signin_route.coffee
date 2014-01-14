@@ -1,3 +1,3 @@
 Notdvs.SigninRoute = Ember.Route.extend
-  renderTemplate: ->
-    @render('signin', into: 'base')
+  setupController: ->
+    @container.lookup('controller:application').connectLayout('simple')

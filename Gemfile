@@ -19,6 +19,7 @@ gem 'ember-rails'
 gem 'emblem-rails'
 gem 'foundation-rails'
 gem 'bourbon'
+gem 'zocial-rails'
 
 gem 'rails_12factor', group: :production
 
