@@ -26,5 +26,4 @@ Ember.Application.initializer
   initialize: (container, application) ->
     Ember.SimpleAuth.setup(container, application, {
       routeAfterLogin: 'notices'
-      routeAfterLogout: 'notices'
     })
