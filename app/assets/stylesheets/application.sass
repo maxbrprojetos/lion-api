@@ -1,4 +1,5 @@
 $include-open-sans: false
+$row-width: 100%
 
 @import "normalize"
 @import "foundation"
@@ -6,48 +7,59 @@ $include-open-sans: false
 @import "spinner"
 @import "structure"
 @import "animations"
+@import "zocial"
 
 $ok-color: $success-color
 $warning-color: orange
 $error-color: $alert-color
 
 @import "notice"
+@import "status_circle"
+
+html, body
+  height: 100%
+
+.ember-view
+  height: inherit
+
+aside
+  position: fixed
+  background-color: rgb(230,230,230)
+  text-align: center
+  top: 0
+  left: 0
+  overflow-x: hidden
+  overflow-y: auto
+  height: 100%
+
+nav
+  margin-top: 20px
+  margin-left: 0
+
+  ul
+    margin-left: 0
+    display: block
+    text-align: center
+
+  li
+    min-height: 48px
+    text-indent: -32768px
+
+    &.status
+      // background: image-url('peacock/dashboard-icon.png') no-repeat center
+      background-size: 24px 24px
+
+    &.batcave
+      // background: image-url('peacock/search-icon.png') no-repeat center
+      background-size: 24px 24px
 
 ul
   margin: 0
   list-style: none
 
-.status-circle
-  &:after
-    +transition(all 1s ease)
+.github-login
+  position: absolute
 
-    content: ""
-    display: block
-    width: 100%
-    height: 0
-    padding-bottom: 100%
-    border-radius: 50%
-    border: 5px solid
-
-  p
-    float: left
-    width: 100%
-    padding-top: 50%
-    line-height: 1em
-    margin-top: -0.5em
-    text-align: center
-    font-size: 40px
-    font-weight: 200
-    text-transform: capitalize
-
-  &.ok
-    &:after
-      border-color: $ok-color
-
-  &.warning
-    &:after
-      border-color: $warning-color
-
-  &.error
-    &:after
-      border-color: $error-color
+  margin: -17.5px 0 0 -107px
+  left: 50%
+  top: 50%

@@ -8,6 +8,9 @@ gem 'pusher'
 gem 'dotenv'
 gem 'thin'
 gem 'pg'
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'rspec-rails'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -17,6 +20,7 @@ gem 'ember-rails'
 gem 'emblem-rails'
 gem 'foundation-rails'
 gem 'bourbon'
+gem 'zocial-rails'
 
 gem 'rails_12factor', group: :production
 
@@ -29,4 +33,5 @@ group :test, :development do
   gem 'konacha'
   gem 'sinon-rails'
   gem 'selenium-webdriver'
+  gem 'jazz_hands'
 end

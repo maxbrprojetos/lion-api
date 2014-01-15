@@ -1,0 +1,11 @@
+aside
+  img.profile-picture src=session.currentUser.avatar_url
+  nav
+    ul
+      link-to "notices" tagName="li" class="status" | Status
+      link-to "batcave" tagName="li" class="batcave" | Batcave
+
+main
+  div
+    .content
+      outlet

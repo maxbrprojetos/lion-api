@@ -1,3 +1,3 @@
-Notdvs.NoticesRoute = Ember.Route.extend
+Notdvs.NoticesRoute = Notdvs.AuthenticatedRoute.extend
   model: ->
     @store.find('notice')

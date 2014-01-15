@@ -1,5 +1,4 @@
 .notice
-  +grid-row
   +transform(translateX(-300px))
   +animation(openSpace 0.2s ease forwards, moveIn 0.3s 0.2s ease forwards)
 
@@ -15,7 +14,6 @@
   .headline
 
   .content
-    +grid-column($columns: 11, $collapse: true)
     +clearfix
 
     .title
@@ -27,7 +25,6 @@
       float: right
 
   .actions
-    +grid-column($columns: 1, $collapse: true)
     +clearfix
 
     .close
