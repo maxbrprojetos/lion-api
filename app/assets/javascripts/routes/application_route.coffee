@@ -8,10 +8,9 @@ Notdvs.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMi
 
     loginSucceeded: ->
       _super = @_super.bind(this)
-      _login = @get('session').login.bind(this)
 
-      $.getJSON("#{location.protocol}//#{location.host}/api/users/me").then((data) ->
+      $.getJSON("#{location.protocol}//#{location.host}/api/users/me").then((data) =>
+        @get('session').login(data.user)
         _super()
-        _login(data.user)
       )
 )
