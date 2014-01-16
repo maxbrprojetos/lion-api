@@ -1,4 +1,4 @@
-Notdvs.localStorage = Ember.Namespace.create
+Notdvs.LocalStorage = Ember.Namespace.create
   getItem: (item) ->
     Ember.Object.create(JSON.parse(window.localStorage.getItem(item)))
 
