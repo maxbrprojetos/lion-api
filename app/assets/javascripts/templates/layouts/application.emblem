@@ -4,7 +4,7 @@ aside
     ul
       link-to "notices" tagName="li" class="status"
         i class="fa fa-exclamation-triangle"
-      link-to "batcave" tagName="li" class="batcave"
+      link-to "batcave" tagName="li" class="batcave" | Batcave
 
 main
   div
