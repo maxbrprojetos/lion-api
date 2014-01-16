@@ -21,6 +21,7 @@ gem 'emblem-rails'
 gem 'foundation-rails'
 gem 'bourbon'
 gem 'zocial-rails'
+gem 'font-awesome-rails'
 
 gem 'rails_12factor', group: :production
 

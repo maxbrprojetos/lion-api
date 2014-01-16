@@ -8,6 +8,7 @@ $row-width: 100%
 @import "structure"
 @import "animations"
 @import "zocial"
+@import "font-awesome"
 
 $ok-color: $success-color
 $warning-color: orange
@@ -23,6 +24,7 @@ html, body
   height: inherit
 
 aside
+  padding: 1em
   position: fixed
   background-color: rgb(230,230,230)
   text-align: center
@@ -46,12 +48,14 @@ nav
     text-indent: -32768px
 
     &.status
-      // background: image-url('peacock/dashboard-icon.png') no-repeat center
-      // background-size: 24px 24px
+      font-size: 30px
+
+      i
+        display: inline
 
     &.batcave
       background: image-url('batman.svg') no-repeat center
-      background-size: 60px 40px
+      background-size: 50px 30px
 
 ul
   margin: 0
@@ -63,3 +67,7 @@ ul
   margin: -17.5px 0 0 -107px
   left: 50%
   top: 50%
+
+.profile-picture
+  border: 2px solid white
+  border-radius: 50%
