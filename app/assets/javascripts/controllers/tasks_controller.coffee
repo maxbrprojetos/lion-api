@@ -1,6 +1,6 @@
 Notdvs.TasksController = Ember.ArrayController.extend(EmberPusher.Bindings,
   PUSHER_SUBSCRIPTIONS:
-    notdvs: ['task.create']
+    notdvs: ['task.create', 'task.update', 'task.destroy']
 
   newTasks: Ember.A([])
 
@@ -25,6 +25,13 @@ Notdvs.TasksController = Ember.ArrayController.extend(EmberPusher.Bindings,
     # pusher
     taskCreate: (payload) ->
       @store.pushRecord('task', payload.task) unless @get('newTasks').anyBy('client_id', payload.task.client_id)
+
+    taskUpdate: (payload) ->
+      @store.pushRecord('task', payload.task)
+
+    taskDestroy: (payload) ->
+      task = @store.getById('task', payload.task.id)
+      task.unloadRecord() if task != null && !task.get('isDirty')
 
   remaining: (->
     @get('content.length')

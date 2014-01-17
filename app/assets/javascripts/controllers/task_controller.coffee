@@ -8,7 +8,7 @@ Notdvs.TaskController = Ember.ObjectController.extend(
     else
       @set('completed', value)
       @get('model').save()
-  ).property()
+  ).property('completed')
 
   actions:
     editTask: ->
