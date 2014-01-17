@@ -4,21 +4,33 @@ describe 'Tasks Requests' do
   describe 'GET /tasks' do
     it 'responds with a json containing the current list of tasks' do
       tasks = []
-      2.times { tasks << Task.create(title: 'lol') }
+      2.times { tasks << @user.tasks.create(title: 'lol') }
       get api_tasks_path
 
       last_response.status.should eq(200)
+      parsed_response = JSON.parse(last_response.body)
 
-      JSON.parse(last_response.body)['tasks'].should eq(
+      parsed_response['tasks'].should eq(
         tasks.map do |task|
           {
             'id' => task.id,
             'title' => task.title,
             'created_at' => task.created_at.iso8601(3),
             'client_id' => task.client_id,
-            'completed' => false
+            'completed' => false,
+            'user_id' => task.user.id
           }
         end
+      )
+
+      parsed_response['users'].should eq(
+        tasks.map do |task|
+          {
+            'id' => task.user.id,
+            'avatar_url' => task.user.avatar_url,
+            'nickname' => task.user.nickname
+          }
+        end.uniq
       )
     end
   end

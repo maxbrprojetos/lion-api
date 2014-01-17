@@ -1,7 +1,7 @@
 li{bind-attr class=":task completed isEditing:editing"}
   article
     header
-      img{bind-attr src=session.currentUser.avatar_url}
+      img{bind-attr src=user.avatar_url}
       span.info added this task {{from-now value=created_at}}
       .actions
         span.edit{action "editTask"}

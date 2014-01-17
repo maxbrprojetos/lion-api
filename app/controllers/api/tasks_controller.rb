@@ -6,7 +6,7 @@ class Api::TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     if @task.save
       render json: @task, status: :created
