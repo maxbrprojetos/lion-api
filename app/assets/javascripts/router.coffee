@@ -3,4 +3,6 @@
 Notdvs.Router.map ->
   @resource('notices', path: '/')
   @route('login')
-  @route('batcave')
+  @resource('tasks', ->
+    @route('mine')
+  )

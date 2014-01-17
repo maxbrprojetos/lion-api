@@ -3,7 +3,7 @@
     div{bind-attr class="status"}
       p = statusMessage
 
-  form submit=addNotice
+  form submit=createNotice
     div.input
       = input value=title placeholder="New Notice"
     div.submit

@@ -1,0 +1,25 @@
+section.tasks
+  header
+    h1 Tasks
+    = input type="text" value=newTitle action="createTask" placeholder="What needs to be done?"
+
+  if length
+    section.main
+      ul
+        each filteredTasks itemController="task"
+          li{bind-attr class="completed isEditing:editing"}
+            if isEditing
+              edit-task class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"
+            else
+              = input type="checkbox" class="toggle" checked=isCompleted
+              label{action "editTask" on="doubleClick"} = title
+              button.destroy{action "removeTask"}
+
+    footer
+      span == remainingFormatted
+
+      ul
+        li
+          link-to "tasks.index" activeClass="selected" | All
+        li
+          link-to "tasks.mine" activeClass="selected" | Mine

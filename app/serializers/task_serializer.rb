@@ -1,5 +1,5 @@
 class TaskSerializer < ActiveModel::Serializer
   include PusherableSerializer
 
-  attributes :id, :title, :created_at
+  attributes :id, :title, :created_at, :completed
 end

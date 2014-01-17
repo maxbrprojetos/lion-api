@@ -5,7 +5,7 @@ aside
     ul
       link-to "notices" tagName="li"
         i class="status"
-      link-to "batcave" tagName="li"
+      link-to "tasks" tagName="li"
         i class="batcave"
 
 main

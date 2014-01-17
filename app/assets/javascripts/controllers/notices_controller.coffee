@@ -35,7 +35,7 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   ).property('failingApplications.@each')
 
   actions:
-    addNotice: ->
+    createNotice: ->
       input = new Notdvs.NoticeInput(@get('title'))
       noticeAttributes = {
         title: input.title(),
