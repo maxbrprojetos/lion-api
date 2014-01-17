@@ -1,13 +1,11 @@
-class Notdvs.NoticeInput
+Notdvs.NoticeInput = (input) ->
   regexp: /app:([^\s]+)/
 
-  constructor: (@input) ->
-
   title: ->
-    @input.replace(@regexp, '')
+    input.replace(@regexp, '')
 
   app: ->
-    if @regexp.test(@input)
-      $.trim(@regexp.exec(@input)[1])
+    if @regexp.test(input)
+      $.trim(@regexp.exec(input)[1])
     else
       ''

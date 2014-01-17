@@ -15,5 +15,3 @@ Notdvs.ApplicationSerializer = DS.ActiveModelSerializer.extend
     json = @_super.apply(this, arguments)
     delete json.created_at
     json
-
-Notdvs.Model = DS.Model.extend()
