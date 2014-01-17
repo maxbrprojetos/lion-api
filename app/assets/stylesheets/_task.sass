@@ -1,0 +1,42 @@
+.task
+  header
+    padding: 5px
+    background-color: $secondary-color
+
+    img
+      width: 30px
+      height: 30px
+
+    .info
+      margin-left: 5px
+
+    .actions
+      float: right
+
+  .content
+    border: 1px solid $secondary-color
+    padding: 5px
+    border-radius: 2px
+
+  &.completed
+    opacity: 0.5
+
+    input[type="checkbox"]
+      color: $success-color
+
+  .edit
+    +icon('pencil')
+
+    cursor: pointer
+
+  input[type="checkbox"]
+    +icon('checkmark')
+    +appearance(none)
+
+    outline: none
+
+  .destroy
+    +icon('cross')
+
+    vertical-align: text-top
+    cursor: pointer

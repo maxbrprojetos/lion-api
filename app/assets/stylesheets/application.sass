@@ -16,6 +16,7 @@ $error-color: $alert-color
 
 @import "notice"
 @import "status_circle"
+@import "task"
 
 html, body
   height: 100%
@@ -70,11 +71,9 @@ nav
 .active
   color: $primary-color
 
-.destroy
-  +icon('cross')
+section.tasks
+  footer
+    margin-top: 20px
 
-  vertical-align: text-top
-
-.filters
-  +inline-list
-
+  .filters
+    +inline-list

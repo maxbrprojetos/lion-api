@@ -1,4 +1,4 @@
-Notdvs.TodosMineRoute = Ember.Route.extend(
+Notdvs.TasksMineRoute = Ember.Route.extend(
   setupController: ->
     tasks = @store.filter('task', (task) ->
       !task.get('mine')

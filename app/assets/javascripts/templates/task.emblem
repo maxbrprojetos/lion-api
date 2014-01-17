@@ -1,0 +1,15 @@
+li{bind-attr class=":task completed isEditing:editing"}
+  article
+    header
+      img{bind-attr src=session.currentUser.avatar_url}
+      span.info added this task {{from-now value=created_at}}
+      .actions
+        span.edit{action "editTask"}
+        span.destroy{action "removeTask"}
+
+    .content
+      if isEditing
+        edit-task class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"
+      else
+        = input type="checkbox" checked=isCompleted
+        label{action "editTask" on="doubleClick"} = title

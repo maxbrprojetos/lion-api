@@ -7,13 +7,7 @@ section.tasks
     section.main
       ul
         each filteredTasks itemController="task"
-          li{bind-attr class="completed isEditing:editing"}
-            if isEditing
-              edit-task class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"
-            else
-              = input type="checkbox" class="toggle" checked=isCompleted
-              label{action "editTask" on="doubleClick"} = title
-              a.destroy{action "removeTask"}
+          partial "task"
 
     footer
       span == remainingFormatted
