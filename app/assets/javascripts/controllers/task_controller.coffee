@@ -18,6 +18,11 @@ Notdvs.TaskController = Ember.ObjectController.extend(
       bufferedTitle = @get('bufferedTitle').trim()
 
       if Ember.isEmpty(bufferedTitle)
+        # The `doneEditing` action gets sent twice when the user hits
+        # enter (once via 'insert-newline' and once via 'focus-out').
+        #
+        # We debounce our call to 'removeTask' so that it only gets
+        # sent once.
         Ember.run.debounce(this, @send, 'removeTask', 0)
       else
         task = @get('model')
