@@ -23,3 +23,7 @@ section.tasks
           link-to "tasks.index" activeClass="selected" | All
         li
           link-to "tasks.mine" activeClass="selected" | Mine
+
+section.issues
+  header
+    h1 CST Issues

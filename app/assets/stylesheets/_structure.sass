@@ -12,39 +12,45 @@ aside
 main
   +grid-column($columns: 11, $offset: 1)
 
-  .content
+  & > .content
     +grid-row
 
 .notices-container
   +grid-column($columns: 6, $center: true, $collapse: true)
 
-section.status
-  +row
+  section.status
+    +row
 
-  & > div
-    +grid-column($columns: 6, $center: true, $collapse: true)
+    & > div
+      +grid-column($columns: 6, $center: true, $collapse: true)
 
-form
-  +row
+  form
+    +row
 
-  .input
-    +grid-column($columns: 9, $collapse: true)
+    .input
+      +grid-column($columns: 9, $collapse: true)
 
-  .submit
-    +grid-column($columns: 3, $collapse: true)
+    .submit
+      +grid-column($columns: 3, $collapse: true)
 
-    input
-      +prefix-postfix-base
-      +postfix($is-button: false)
+      input
+        +prefix-postfix-base
+        +postfix($is-button: false)
 
-section.notices
-  +row
+  section.notices
+    +row
 
-.notice
-  +grid-row
+  .notice
+    +grid-row
 
-  .content
-    +grid-column($columns: 11, $collapse: true)
+    .content
+      +grid-column($columns: 11, $collapse: true)
 
-  .actions
-    +grid-column($columns: 1, $collapse: true)
+    .actions
+      +grid-column($columns: 1, $collapse: true)
+
+section.tasks
+  +grid-column($columns: 6)
+
+section.issues
+  +grid-column($columns: 6)
