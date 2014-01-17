@@ -8,7 +8,7 @@ $row-width: 100%
 @import "structure"
 @import "animations"
 @import "zocial"
-@import "font-awesome"
+@import "icons"
 
 $ok-color: $success-color
 $warning-color: orange
@@ -23,8 +23,11 @@ html, body
 .ember-view
   height: inherit
 
+ul
+  margin: 0
+  list-style: none
+
 aside
-  padding: 1em
   position: fixed
   background-color: rgb(230,230,230)
   text-align: center
@@ -35,31 +38,27 @@ aside
   height: 100%
 
 nav
-  margin-top: 20px
-  margin-left: 0
-
   ul
-    margin-left: 0
-    display: block
+    +side-nav($divider-color: '#eee')
     text-align: center
 
   li
-    min-height: 48px
-    text-indent: -32768px
+    min-height: 50px
 
-    &.status
-      font-size: 30px
+    .status
+      +icon('warning')
+      font-size: 40px
 
-      i
-        display: inline
+    .batcave
+      +icon('batman')
+      font-size: 50px
 
-    &.batcave
-      background: image-url('batman.svg') no-repeat center
-      background-size: 50px 30px
+.profile-picture
+  padding: 1em
 
-ul
-  margin: 0
-  list-style: none
+  img
+    border: 2px solid white
+    border-radius: 50%
 
 .github-login
   position: absolute
@@ -67,10 +66,6 @@ ul
   margin: -17.5px 0 0 -107px
   left: 50%
   top: 50%
-
-.profile-picture
-  border: 2px solid white
-  border-radius: 50%
 
 .active
   color: $primary-color

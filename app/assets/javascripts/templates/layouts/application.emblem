@@ -1,10 +1,12 @@
 aside
-  img.profile-picture src=session.currentUser.avatar_url
+  .profile-picture
+    img src=session.currentUser.avatar_url
   nav
     ul
-      link-to "notices" tagName="li" class="status"
-        i class="fa fa-exclamation-triangle"
-      link-to "batcave" tagName="li" class="batcave" | Batcave
+      link-to "notices" tagName="li"
+        i class="status"
+      link-to "batcave" tagName="li"
+        i class="batcave"
 
 main
   div
