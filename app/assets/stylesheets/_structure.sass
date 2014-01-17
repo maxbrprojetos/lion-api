@@ -12,11 +12,11 @@ aside
 main
   +grid-column($columns: 11, $offset: 1)
 
-  & > div
+  .content
     +grid-row
 
-    > .content
-      +grid-column($columns: 6, $center: true, $collapse: true)
+.notices-container
+  +grid-column($columns: 6, $center: true, $collapse: true)
 
 section.status
   +row

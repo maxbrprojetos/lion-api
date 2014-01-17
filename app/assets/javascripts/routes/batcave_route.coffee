@@ -1,1 +1,3 @@
-Notdvs.BatcaveRoute = Notdvs.AuthenticatedRoute.extend()
+Notdvs.BatcaveRoute = Notdvs.AuthenticatedRoute.extend
+  model: ->
+    @store.find('task')

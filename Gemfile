@@ -35,4 +35,5 @@ group :test, :development do
   gem 'jazz_hands'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
+  gem 'guard-rspec', require: false
 end

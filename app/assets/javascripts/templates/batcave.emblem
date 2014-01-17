@@ -1,0 +1,4 @@
+section.tasks
+  ul
+    each controller
+      li = title

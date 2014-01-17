@@ -39,4 +39,13 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.include Rack::Test::Methods, type: :request
+
+  config.before(:each, type: :request) do
+    @user = User.create(api_token: 'test', nickname: 'lol', avatar_url: 'omg')
+    header 'Authorization', "Bearer #{@user.api_token}"
+    header 'Accept', 'application/json'
+    header 'Content-Type', 'application/json'
+  end
 end
