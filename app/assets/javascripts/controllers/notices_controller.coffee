@@ -1,12 +1,8 @@
-Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
-  PUSHER_SUBSCRIPTIONS:
-    notdvs: ['notice.create', 'notice.destroy']
-
+Notdvs.NoticesController = Ember.ArrayController.extend(new Notdvs.Pusherable('notice'),
   sortProperties: ['ranking']
   sortAscending: false
   title: ''
   itemController: 'notice'
-  newNotices: Ember.A([])
 
   failingApplications: (->
     @get('content').mapBy('app').uniq()
@@ -46,17 +42,8 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
 
       newNotice = @store.createRecord('notice', noticeAttributes)
 
-      @get('newNotices').pushObject(newNotice)
+      @get('newRecords').pushObject(newNotice)
       newNotice.save()
 
       @set('title', '')
-
-    #### pusher actions
-
-    noticeCreate: (payload) ->
-      @store.pushRecord('notice', payload.notice) unless @get('newNotices').anyBy('client_id', payload.notice.client_id)
-
-    noticeDestroy: (payload) ->
-      notice = @store.getById('notice', payload.notice.id)
-      notice.unloadRecord() if notice != null && !notice.get('isDirty')
 )
