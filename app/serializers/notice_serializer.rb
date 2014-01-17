@@ -1,3 +1,5 @@
 class NoticeSerializer < ActiveModel::Serializer
-  attributes :id, :title, :created_at, :client_id, :type, :app
+  include PusherableSerializer
+
+  attributes :id, :title, :created_at, :type, :app
 end

@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :uuid             not null, primary key
+#  name       :string(255)
+#  nickname   :string(255)
+#  email      :string(255)
+#  avatar_url :string(255)
+#  api_token  :string(255)
+#  github_id  :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe User do

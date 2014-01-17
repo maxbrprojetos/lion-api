@@ -8,6 +8,7 @@ $row-width: 100%
 @import "structure"
 @import "animations"
 @import "zocial"
+@import "icons"
 
 $ok-color: $success-color
 $warning-color: orange
@@ -22,6 +23,10 @@ html, body
 .ember-view
   height: inherit
 
+ul
+  margin: 0
+  list-style: none
+
 aside
   position: fixed
   background-color: rgb(230,230,230)
@@ -33,29 +38,30 @@ aside
   height: 100%
 
 nav
-  margin-top: 20px
-  margin-left: 0
-
   ul
-    margin-left: 0
-    display: block
+    +side-nav($divider-color: '#eee')
     text-align: center
 
   li
-    min-height: 48px
-    text-indent: -32768px
+    min-height: 50px
 
-    &.status
-      // background: image-url('peacock/dashboard-icon.png') no-repeat center
-      background-size: 24px 24px
+    .status
+      +icon('warning')
+      font-size: 40px
 
-    &.batcave
-      // background: image-url('peacock/search-icon.png') no-repeat center
-      background-size: 24px 24px
+    .batcave
+      +icon('batman')
+      font-size: 50px
 
-ul
-  margin: 0
-  list-style: none
+section.tasks
+  margin: 30px 30px 0 30px
+
+.profile-picture
+  padding: 1em
+
+  img
+    border: 2px solid white
+    border-radius: 50%
 
 .github-login
   position: absolute
@@ -63,3 +69,6 @@ ul
   margin: -17.5px 0 0 -107px
   left: 50%
   top: 50%
+
+.active
+  color: $primary-color

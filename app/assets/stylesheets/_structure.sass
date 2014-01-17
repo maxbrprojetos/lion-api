@@ -7,21 +7,21 @@ body
   +grid-row
 
 aside
-  +grid-column($columns: 1)
+  +grid-column($columns: 1, $collapse: true)
 
 main
   +grid-column($columns: 11, $offset: 1)
 
-  & > div
+  .content
     +grid-row
 
-    > .content
-      +grid-column($columns: 6, $center: true, $collapse: true)
+.notices-container
+  +grid-column($columns: 6, $center: true, $collapse: true)
 
-.status
+section.status
   +row
 
-  .status-circle
+  & > div
     +grid-column($columns: 6, $center: true, $collapse: true)
 
 form
@@ -37,7 +37,7 @@ form
       +prefix-postfix-base
       +postfix($is-button: false)
 
-.notices
+section.notices
   +row
 
 .notice

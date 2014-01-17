@@ -1,8 +1,10 @@
 module Pusherable
   extend ActiveSupport::Concern
 
-  module ClassMethods
-    def pusherable(serializer: nil)
+  included do
+    attr_accessor :client_id
+
+    def self.pusherable(serializer: nil)
       raise 'Please `gem install pusher` and configure it to run in your app!' if Pusher.app_id.blank? || Pusher.key.blank? || Pusher.secret.blank?
 
       class_eval do

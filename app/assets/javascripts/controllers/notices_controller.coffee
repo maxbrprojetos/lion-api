@@ -35,7 +35,7 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
   ).property('failingApplications.@each')
 
   actions:
-    addNotice: ->
+    createNotice: ->
       input = new Notdvs.NoticeInput(@get('title'))
       noticeAttributes = {
         title: input.title(),
@@ -59,9 +59,4 @@ Notdvs.NoticesController = Ember.ArrayController.extend(EmberPusher.Bindings,
     noticeDestroy: (payload) ->
       notice = @store.getById('notice', payload.notice.id)
       notice.unloadRecord() if notice != null && !notice.get('isDirty')
-
-    ####
-
-    _extract_app_from: (text) ->
-      text.g
 )

@@ -16,4 +16,4 @@ unless window.NotdvsApplication
       # by the initialization process that happens at reset time
       @lookup('controller:pusher').get('connection').disconnect()
       @setup()
-      @_super()
+      @_super.apply(this, arguments)

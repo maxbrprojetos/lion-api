@@ -1,6 +1,6 @@
 Notdvs.FromNowComponent = Ember.Component.extend
   tagName: 'time'
-  template: Ember.Handlebars.compile('{{view.timeFromNowInWords}}')
+  layout: Ember.Handlebars.compile('{{view.timeFromNowInWords}}')
 
   timeFromNowInWords: (->
     moment(@get('time')).fromNow()

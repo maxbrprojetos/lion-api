@@ -7,6 +7,7 @@
 #  type       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  app        :string(255)
 #
 
 class Notice < ActiveRecord::Base
@@ -15,8 +16,6 @@ class Notice < ActiveRecord::Base
   pusherable serializer: NoticeSerializer
 
   validates :type, inclusion: { in: ['warning', 'error'] }
-
-  attr_accessor :client_id
 
   def self.inheritance_column
     '_type_disabled'

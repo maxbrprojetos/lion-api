@@ -1,11 +1,11 @@
 // Fetched from channel: canary, with url http://builds.emberjs.com/canary/ember-data.js
-// Fetched on: 2014-01-04T14:47:22Z
+// Fetched on: 2014-01-15T23:05:01Z
 /*!
  * @overview  Ember Data
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors.
  *            Portions Copyright 2011 LivingSocial Inc.
  * @license   Licensed under MIT license (see license.js)
- * @version   1.0.0-beta.5+canary.e0443109
+ * @version   1.0.0-beta.6+canary.c76c2388
  */
 
 
@@ -61,8 +61,14 @@ var define, requireModule;
 */
 var DS;
 if ('undefined' === typeof DS) {
+  /**
+    @property VERSION
+    @type String
+    @default '1.0.0-beta.6+canary.c76c2388'
+    @static
+  */
   DS = Ember.Namespace.create({
-    VERSION: '1.0.0-beta.5+canary.e0443109'
+    VERSION: '1.0.0-beta.6+canary.c76c2388'
   });
 
   if ('undefined' !== typeof window) {
@@ -123,6 +129,7 @@ DS.JSONSerializer = Ember.Object.extend({
 
     @property primaryKey
     @type {String}
+    @default 'id'
   */
   primaryKey: 'id',
 
@@ -165,11 +172,13 @@ DS.JSONSerializer = Ember.Object.extend({
     ```javascript
     App.ApplicationSerializer = DS.JSONSerializer.extend({
       normalize: function(type, hash) {
-        var normalizedHash = {};
         var fields = Ember.get(type, 'fields');
         fields.forEach(function(field) {
-          var normalizedProp = Ember.String.camelize(field);
-          normalizedHash[normalizedProp] = hash[field];
+          var payloadField = Ember.String.underscore(field);
+          if (field === payloadField) { return; }
+
+          hash[field] = hash[payloadField];
+          delete hash[payloadField];
         });
         return this._super.apply(this, arguments);
       }
@@ -339,7 +348,7 @@ DS.JSONSerializer = Ember.Object.extend({
       var id = get(record, 'id');
 
       if (id) {
-        json[get(this, 'primaryKey')] = get(record, 'id');
+        json[get(this, 'primaryKey')] = id;
       }
     }
 
@@ -747,6 +756,26 @@ DS.JSONSerializer = Ember.Object.extend({
       delete payload.meta;
     }
   },
+
+  /**
+   `keyForAttribute` can be used to define rules for how to convert an
+   attribute name in your model to a key in your JSON.
+
+   Example
+
+   ```javascript
+   App.ApplicationSerializer = DS.RESTSerializer.extend({
+     keyForAttribute: function(attr) {
+       return Ember.String.underscore(attr).toUpperCase();
+     }
+   });
+   ```
+
+   @method keyForAttribute
+   @param {String} key
+   @return {String} normalized key
+  */
+
 
   /**
    `keyForRelationship` can be used to define a custom key when
@@ -1251,11 +1280,11 @@ Ember.onLoad('Ember.Application', function(Application) {
   });
 
   Application.initializer({
-    name: "dataAdapter",
+    name: "data-adapter",
     before: "store",
 
     initialize: function(container, application) {
-      application.register('dataAdapter:main', DS.DebugAdapter);
+      application.register('data-adapter:main', DS.DebugAdapter);
     }
   });
 
@@ -1267,7 +1296,7 @@ Ember.onLoad('Ember.Application', function(Application) {
       application.inject('controller', 'store', 'store:main');
       application.inject('route', 'store', 'store:main');
       application.inject('serializer', 'store', 'store:main');
-      application.inject('dataAdapter', 'store', 'store:main');
+      application.inject('data-adapter', 'store', 'store:main');
     }
   });
 
@@ -1465,7 +1494,7 @@ DS.RecordArray = Ember.ArrayProxy.extend(Ember.Evented, {
     var store = get(this, 'store'),
         type = get(this, 'type');
 
-    store.fetchAll(type, this);
+    return store.fetchAll(type, this);
   },
 
   /**
@@ -2134,7 +2163,7 @@ DS.Store = Ember.Object.extend({
       title: "Rails is omakase"
     });
 
-    store.deletedRecord(post);
+    store.deleteRecord(post);
     ```
 
     @method deleteRecord
@@ -2282,19 +2311,16 @@ DS.Store = Ember.Object.extend({
     if (!get(record, 'isEmpty')) { return null; }
 
     var type = record.constructor,
-        id = get(record, 'id'),
-        resolver = Ember.RSVP.defer("DS: Store#fetchRecord " + record );
-
-    record.loadingData(resolver.promise);
+        id = get(record, 'id');
 
     var adapter = this.adapterFor(type);
 
     Ember.assert("You tried to find a record but you have no adapter (for " + type + ")", adapter);
     Ember.assert("You tried to find a record but your adapter (for " + type + ") does not implement 'find'", adapter.find);
 
-    resolver.resolve(_find(adapter, this, type, id));
-
-    return resolver.promise;
+    var promise = _find(adapter, this, type, id);
+    record.loadingData(promise);
+    return promise;
   },
 
   /**
@@ -2321,8 +2347,7 @@ DS.Store = Ember.Object.extend({
   },
 
   /**
-    This method is called by the record's `reload` method. The record's `reload`
-    passes in a resolver for the promise it returns.
+    This method is called by the record's `reload` method.
 
     This method calls the adapter's `find` method, which returns a promise. When
     **that** promise resolves, `reloadRecord` will resolve the promise returned
@@ -2529,12 +2554,8 @@ DS.Store = Ember.Object.extend({
   findQuery: function(type, query) {
     type = this.modelFor(type);
 
-    var array = DS.AdapterPopulatedRecordArray.create({
-      type: type,
-      query: query,
-      content: Ember.A(),
-      store: this
-    });
+    var array = this.recordArrayManager
+      .createAdapterPopulatedRecordArray(type, query);
 
     var adapter = this.adapterFor(type),
         promiseLabel = "DS: Store#findQuery " + type,
@@ -2573,17 +2594,14 @@ DS.Store = Ember.Object.extend({
   */
   fetchAll: function(type, array) {
     var adapter = this.adapterFor(type),
-        sinceToken = this.typeMapFor(type).metadata.since,
-        resolver = Ember.RSVP.defer("DS: Store#findAll " + type);
+        sinceToken = this.typeMapFor(type).metadata.since;
 
     set(array, 'isUpdating', true);
 
     Ember.assert("You tried to load all records but you have no adapter (for " + type + ")", adapter);
     Ember.assert("You tried to load all records but your adapter does not implement `findAll`", adapter.findAll);
 
-    resolver.resolve(_findAll(adapter, this, type, sinceToken));
-
-    return promiseArray(resolver.promise);
+    return promiseArray(_findAll(adapter, this, type, sinceToken));
   },
 
   /**
@@ -2623,14 +2641,7 @@ DS.Store = Ember.Object.extend({
 
     if (findAllCache) { return findAllCache; }
 
-    var array = DS.RecordArray.create({
-      type: type,
-      content: Ember.A(),
-      store: this,
-      isLoaded: true
-    });
-
-    this.recordArrayManager.registerFilteredRecordArray(array, type);
+    var array = this.recordArrayManager.createRecordArray(type);
 
     typeMap.findAllCache = array;
     return array;
@@ -2651,7 +2662,7 @@ DS.Store = Ember.Object.extend({
     type = this.modelFor(type);
 
     var typeMap = this.typeMapFor(type),
-        records = typeMap.records, record;
+        records = typeMap.records.splice(0), record;
 
     while(record = records.pop()) {
       record.unloadRecord();
@@ -2711,15 +2722,8 @@ DS.Store = Ember.Object.extend({
 
     type = this.modelFor(type);
 
-    var array = DS.FilteredRecordArray.create({
-      type: type,
-      content: Ember.A(),
-      store: this,
-      manager: this.recordArrayManager,
-      filterFunction: filter
-    });
-
-    this.recordArrayManager.registerFilteredRecordArray(array, type, filter);
+    var array = this.recordArrayManager
+      .createFilteredRecordArray(type, filter);
     promise = promise || resolve(array);
 
     return promiseArray(promise.then(function() {
@@ -3905,9 +3909,7 @@ var DirtyState = {
       record.send('invokeLifecycleCallbacks', dirtyType);
     },
 
-    becameInvalid: function(record, errors) {
-      set(record, 'errors', errors);
-
+    becameInvalid: function(record) {
       record.transitionTo('invalid');
       record.send('invokeLifecycleCallbacks');
     },
@@ -3932,23 +3934,15 @@ var DirtyState = {
     },
 
     didSetProperty: function(record, context) {
-      var errors = get(record, 'errors'),
-          key = context.name;
-
-      set(errors, key, null);
-
-      if (!hasDefinedProperties(errors)) {
-        record.send('becameValid');
-      }
+      get(record, 'errors').remove(context.name);
 
       didSetProperty(record, context);
     },
 
     becomeDirty: Ember.K,
 
-    rollback: function(record) {
-      record.send('becameValid');
-      record.send('rollback');
+    rolledBack: function(record) {
+      get(record, 'errors').clear();
     },
 
     becameValid: function(record) {
@@ -4017,6 +4011,8 @@ createdState.uncommitted.rollback = function(record) {
   DirtyState.uncommitted.rollback.apply(this, arguments);
   record.transitionTo('deleted.saved');
 };
+
+createdState.uncommitted.propertyWasReset = Ember.K;
 
 updatedState.uncommitted.deleteRecord = function(record) {
   record.transitionTo('deleted.uncommitted');
@@ -4304,6 +4300,210 @@ DS.RootState = RootState;
 
 
 (function() {
+var get = Ember.get, isEmpty = Ember.isEmpty;
+
+/**
+@module ember-data
+*/
+
+/**
+  Holds validation errors for a given record organized by attribute names.
+
+  @class Errors
+  @namespace DS
+  @extends Ember.Object
+  @uses Ember.Enumerable
+  @uses Ember.Evented
+ */
+DS.Errors = Ember.Object.extend(Ember.Enumerable, Ember.Evented, {
+  /**
+    Register with target handler
+
+    @method registerHandlers
+    @param {Object} target
+    @param {Function} becameInvalid
+    @param {Function} becameValid
+  */
+  registerHandlers: function(target, becameInvalid, becameValid) {
+    this.on('becameInvalid', target, becameInvalid);
+    this.on('becameValid', target, becameValid);
+  },
+
+  /**
+    @property errorsByAttributeName
+    @type {Ember.MapWithDefault}
+    @private
+  */
+  errorsByAttributeName: Ember.reduceComputed("content", {
+    initialValue: function() {
+      return Ember.MapWithDefault.create({
+        defaultValue: function() {
+          return Ember.A();
+        }
+      });
+    },
+
+    addedItem: function(errors, error) {
+      errors.get(error.attribute).pushObject(error);
+
+      return errors;
+    },
+
+    removedItem: function(errors, error) {
+      errors.get(error.attribute).removeObject(error);
+
+      return errors;
+    }
+  }),
+
+  /**
+    Returns errors for a given attribute
+
+    @method errorsFor
+    @param {String} attribute
+    @returns {Array}
+  */
+  errorsFor: function(attribute) {
+    return get(this, 'errorsByAttributeName').get(attribute);
+  },
+
+  /**
+  */
+  messages: Ember.computed.mapBy('content', 'message'),
+
+  /**
+    @property content
+    @type {Array}
+    @private
+  */
+  content: Ember.computed(function() {
+    return Ember.A();
+  }),
+
+  /**
+    @method unknownProperty
+    @private
+  */
+  unknownProperty: function(attribute) {
+    var errors = this.errorsFor(attribute);
+    if (isEmpty(errors)) { return null; }
+    return errors;
+  },
+
+  /**
+    @method nextObject
+    @private
+  */
+  nextObject: function(index, previousObject, context) {
+    return get(this, 'content').objectAt(index);
+  },
+
+  /**
+    Total number of errors.
+
+    @property length
+    @type {Number}
+    @readOnly
+  */
+  length: Ember.computed.oneWay('content.length').readOnly(),
+
+  /**
+    @property isEmpty
+    @type {Boolean}
+    @readOnly
+  */
+  isEmpty: Ember.computed.not('length').readOnly(),
+
+  /**
+    Adds error messages to a given attribute and sends
+    `becameInvalid` event to the record.
+
+    @method add
+    @param {String} attribute
+    @param {Array|String} messages
+  */
+  add: function(attribute, messages) {
+    var wasEmpty = get(this, 'isEmpty');
+
+    messages = this._findOrCreateMessages(attribute, messages);
+    get(this, 'content').addObjects(messages);
+
+    this.notifyPropertyChange(attribute);
+    this.enumerableContentDidChange();
+
+    if (wasEmpty && !get(this, 'isEmpty')) {
+      this.trigger('becameInvalid');
+    }
+  },
+
+  /**
+    @method _findOrCreateMessages
+    @private
+  */
+  _findOrCreateMessages: function(attribute, messages) {
+    var errors = this.errorsFor(attribute);
+
+    return Ember.makeArray(messages).map(function(message) {
+      return errors.findBy('message', message) || {
+        attribute: attribute,
+        message: message
+      };
+    });
+  },
+
+  /**
+    Removes all error messages from the given attribute and sends
+    `becameValid` event to the record if there no more errors left.
+
+    @method remove
+    @param {String} attribute
+  */
+  remove: function(attribute) {
+    if (get(this, 'isEmpty')) { return; }
+
+    var content = get(this, 'content').rejectBy('attribute', attribute);
+    get(this, 'content').setObjects(content);
+
+    this.notifyPropertyChange(attribute);
+    this.enumerableContentDidChange();
+
+    if (get(this, 'isEmpty')) {
+      this.trigger('becameValid');
+    }
+  },
+
+  /**
+    Removes all error messages and sends `becameValid` event
+    to the record.
+
+    @method clear
+  */
+  clear: function() {
+    if (get(this, 'isEmpty')) { return; }
+
+    get(this, 'content').clear();
+    this.enumerableContentDidChange();
+
+    this.trigger('becameValid');
+  },
+
+  /**
+    Checks if there is error messages for the given attribute.
+
+    @method has
+    @param {String} attribute
+    @returns {Boolean} true if there some errors on given attribute
+  */
+  has: function(attribute) {
+    return !isEmpty(this.errorsFor(attribute));
+  }
+});
+
+})();
+
+
+
+(function() {
 /**
   @module ember-data
 */
@@ -4453,7 +4653,7 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
     var record = store.createRecord(App.Model);
     record.get('isNew'); // true
 
-    store.find('model', 1).then(function(model) {
+    record.save().then(function(model) {
       model.get('isNew'); // false
     });
     ```
@@ -4579,10 +4779,10 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
     and values which are an array of error messages.
 
     ```javascript
-    record.get('errors'); // null
+    record.get('errors.length'); // 0
     record.set('foo', 'invalid value');
     record.save().then(null, function() {
-      record.get('errors'); // {foo: ['foo should be a number.']}
+      record.get('errors').get('foo'); // ['foo should be a number.']
     });
     ```
 
@@ -4686,6 +4886,13 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
 
   init: function() {
     set(this, 'currentState', DS.RootState.empty);
+    var errors = DS.Errors.create();
+    errors.registerHandlers(this, function() {
+      this.send('becameInvalid');
+    }, function() {
+      this.send('becameValid');
+    });
+    set(this, 'errors', errors);
     this._super();
     this._setup();
   },
@@ -5096,12 +5303,11 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
       this._inFlightAttributes = {};
       set(this, 'isError', false);
     }
-    
+
     if (!get(this, 'isValid')) {
       this._inFlightAttributes = {};
-      this.send('becameValid');
-    } 
-  
+    }
+
     this.send('rolledBack');
 
     this.suspendRelationshipObservers(function() {
@@ -5242,7 +5448,15 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
     @private
   */
   adapterDidInvalidate: function(errors) {
-    this.send('becameInvalid', errors);
+    var recordErrors = get(this, 'errors');
+    function addError(name) {
+      if (errors[name]) {
+        recordErrors.add(name, errors[name]);
+      }
+    }
+
+    this.eachAttribute(addError);
+    this.eachRelationship(addError);
   },
 
   /**
@@ -7125,6 +7339,65 @@ DS.RecordArrayManager = Ember.Object.extend({
   },
 
   /**
+    Create a `DS.RecordArray` for a type and register it for updates.
+
+    @method createRecordArray
+    @param {Class} type
+    @return {DS.RecordArray}
+  */
+  createRecordArray: function(type) {
+    var array = DS.RecordArray.create({
+      type: type,
+      content: Ember.A(),
+      store: this.store,
+      isLoaded: true
+    });
+
+    this.registerFilteredRecordArray(array, type);
+
+    return array;
+  },
+
+  /**
+    Create a `DS.FilteredRecordArray` for a type and register it for updates.
+
+    @method createFilteredRecordArray
+    @param {Class} type
+    @param {Function} filter
+    @return {DS.FilteredRecordArray}
+  */
+  createFilteredRecordArray: function(type, filter) {
+    var array = DS.FilteredRecordArray.create({
+      type: type,
+      content: Ember.A(),
+      store: this.store,
+      manager: this,
+      filterFunction: filter
+    });
+
+    this.registerFilteredRecordArray(array, type, filter);
+
+    return array;
+  },
+
+  /**
+    Create a `DS.AdapterPopulatedRecordArray` for a type with given query.
+
+    @method createAdapterPopulatedRecordArray
+    @param {Class} type
+    @param {Object} query
+    @return {DS.AdapterPopulatedRecordArray}
+  */
+  createAdapterPopulatedRecordArray: function(type, query) {
+    return DS.AdapterPopulatedRecordArray.create({
+      type: type,
+      query: query,
+      content: Ember.A(),
+      store: this.store
+    });
+  },
+
+  /**
     Register a RecordArray for a given type to be backed by
     a filter function. This will cause the array to update
     automatically when records of that type change attribute
@@ -7186,7 +7459,7 @@ var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'n
 
       if (jqXHR && jqXHR.status === 422) {
         var jsonErrors = Ember.$.parseJSON(jqXHR.responseText)["errors"];
-        return new DS.InvalidError(errors);
+        return new DS.InvalidError(jsonErrors);
       } else {
         return error;
       }
@@ -7229,7 +7502,7 @@ DS.InvalidError.prototype = Ember.create(Error.prototype);
 
   ```javascript
   App.store = DS.Store.create({
-    adapter: App.MyAdapter.create()
+    adapter: 'MyAdapter'
   });
   ```
 
@@ -7259,6 +7532,25 @@ DS.InvalidError.prototype = Ember.create(Error.prototype);
 */
 
 DS.Adapter = Ember.Object.extend({
+
+  /**
+    If you would like your adapter to use a custom serializer you can
+    set the `defaultSerializer` property to be the name of the custom
+    serializer.
+
+    Note the `defaultSerializer` serializer has a lower priority then
+    a model specific serializer (i.e. `PostSerializer`) or the
+    `application` serializer.
+
+    ```javascript
+    var DjangoAdapter = DS.Adapter.extend({
+      defaultSerializer: 'django'
+    });
+    ```
+
+    @property defaultSerializer
+    @type {String}
+  */
 
   /**
     The `find()` method is invoked when the store is asked for a record that
@@ -7398,19 +7690,7 @@ DS.Adapter = Ember.Object.extend({
         var data = this.serialize(record, { includeId: true });
         var url = type;
 
-        return new Ember.RSVP.Promise(function(resolve, reject) {
-          jQuery.ajax({
-            type: 'POST',
-            url: url,
-            dataType: 'json',
-            data: data
-          }).then(function(data) {
-            Ember.run(null, resolve, data);
-          }, function(jqXHR) {
-            jqXHR.then = null; // tame jQuery's ill mannered promises
-            Ember.run(null, reject, jqXHR);
-          });
-        });
+        // ...
       }
     });
     ```
@@ -7986,6 +8266,55 @@ function coerceId(id) {
 */
 DS.RESTSerializer = DS.JSONSerializer.extend({
   /**
+    If you want to do normalizations specific to some part of the payload, you
+    can specify those under `normalizeHash`.
+
+    For example, given the following json where the the `IDs` under
+    `"comments"` are provided as `_id` instead of `id`.
+
+    ```javascript
+    {
+      "post": {
+        "id": 1,
+        "title": "Rails is omakase",
+        "comments": [ 1, 2 ]
+      },
+      "comments": [{
+        "_id": 1,
+        "body": "FIRST"
+      }, {
+        "_id": 2,
+        "body": "Rails is unagi"
+      }]
+    }
+    ```
+
+    You use `normalizeHash` to normalize just the comments:
+
+    ```javascript
+    App.PostSerializer = DS.RESTSerializer.extend({
+      normalizeHash: {
+        comments: function(hash) {
+          hash.id = hash._id;
+          delete hash._id;
+          return hash;
+        }
+      }
+    });
+    ```
+
+    The key under `normalizeHash` is usually just the original key
+    that was in the original payload. However, key names will be
+    impacted by any modifications done in the `normalizePayload`
+    method. The `DS.RESTSerializer`'s default implemention makes no
+    changes to the payload keys.
+
+    @property normalizeHash
+    @type {Object}
+    @default undefined
+  */
+
+  /**
     Normalizes a part of the JSON payload returned by
     the server. You should override this method, munge the hash
     and call super if you have generic normalization to do.
@@ -8456,7 +8785,7 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
           type = store.modelFor(typeName);
 
       /*jshint loopfunc:true*/
-      var normalizedArray = map.call(payload[prop], function(hash) {
+      var normalizedArray = map.call(Ember.makeArray(payload[prop]), function(hash) {
         return this.normalize(type, hash, prop);
       }, this);
 
@@ -8712,8 +9041,8 @@ var forEach = Ember.ArrayPolyfills.forEach;
   ```js
   {
     "post": {
-      title: "I'm Running to Reform the W3C's Tag",
-      author: "Yehuda Katz"
+      "title": "I'm Running to Reform the W3C's Tag",
+      "author": "Yehuda Katz"
     }
   }
   ```
@@ -8791,6 +9120,55 @@ var forEach = Ember.ArrayPolyfills.forEach;
 DS.RESTAdapter = DS.Adapter.extend({
   defaultSerializer: '_rest',
 
+
+  /**
+    Endpoint paths can be prefixed with a `namespace` by setting the namespace
+    property on the adapter:
+
+    ```javascript
+    DS.RESTAdapter.reopen({
+      namespace: 'api/1'
+    });
+    ```
+
+    Requests for `App.Post` would now target `/api/1/post/`.
+
+    @property namespace
+    @type {String}
+  */
+
+  /**
+    An adapter can target other hosts by setting the `host` property.
+
+    ```javascript
+    DS.RESTAdapter.reopen({
+      host: 'https://api.example.com'
+    });
+    ```
+
+    Requests for `App.Post` would now target `https://api.example.com/post/`.
+
+    @property host
+    @type {String}
+  */
+
+  /**
+    Some APIs require HTTP headers, e.g. to provide an API key. An array of
+    headers can be added to the adapter which are passed with every request:
+
+    ```javascript
+    DS.RESTAdapter.reopen({
+      headers: {
+        "API_KEY": "secret key",
+        "ANOTHER_HEADER": "Some header value"
+      }
+    });
+    ```
+
+    @property headers
+    @type {Object}
+  */
+
   /**
     Called by the store in order to fetch the JSON for a given
     type and ID.
@@ -8801,12 +9179,10 @@ DS.RESTAdapter = DS.Adapter.extend({
     This method performs an HTTP `GET` request with the id provided as part of the querystring.
 
     @method find
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
     @param {DS.Store} store
     @param {subclass of DS.Model} type
     @param {String} id
-    @returns Promise
+    @returns {Promise} promise
   */
   find: function(store, type, id) {
     return this.ajax(this.buildURL(type.typeKey, id), 'GET');
@@ -8821,12 +9197,10 @@ DS.RESTAdapter = DS.Adapter.extend({
 
     @private
     @method findAll
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
     @param {DS.Store} store
     @param {subclass of DS.Model} type
     @param {String} sinceToken
-    @returns Promise
+    @returns {Promise} promise
   */
   findAll: function(store, type, sinceToken) {
     var query;
@@ -8850,12 +9224,10 @@ DS.RESTAdapter = DS.Adapter.extend({
 
     @private
     @method findQuery
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
     @param {DS.Store} store
     @param {subclass of DS.Model} type
     @param {Object} query
-    @returns Promise
+    @returns {Promise} promise
   */
   findQuery: function(store, type, query) {
     return this.ajax(this.buildURL(type.typeKey), 'GET', { data: query });
@@ -8890,12 +9262,10 @@ DS.RESTAdapter = DS.Adapter.extend({
     promise for the resulting payload.
 
     @method findMany
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
     @param {DS.Store} store
     @param {subclass of DS.Model} type
-    @param {Array<String>} ids
-    @returns Promise
+    @param {Array} ids
+    @returns {Promise} promise
   */
   findMany: function(store, type, ids) {
     return this.ajax(this.buildURL(type.typeKey), 'GET', { data: { ids: ids } });
@@ -8925,12 +9295,10 @@ DS.RESTAdapter = DS.Adapter.extend({
     request will use the host specified on the adapter (if any).
 
     @method findHasMany
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
     @param {DS.Store} store
     @param {DS.Model} record
     @param {String} url
-    @returns Promise
+    @returns {Promise} promise
   */
   findHasMany: function(store, record, url) {
     var host = get(this, 'host'),
@@ -8966,12 +9334,10 @@ DS.RESTAdapter = DS.Adapter.extend({
     The `findBelongsTo` method will make an Ajax (HTTP GET) request to the originally specified URL.
 
     @method findBelongsTo
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
     @param {DS.Store} store
     @param {DS.Model} record
     @param {String} url
-    @returns Promise
+    @returns {Promise} promise
   */
   findBelongsTo: function(store, record, url) {
     var id   = get(record, 'id'),
@@ -8991,13 +9357,10 @@ DS.RESTAdapter = DS.Adapter.extend({
     of a record.
 
     @method createRecord
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
-    @see RESTAdapter/serialize
     @param {DS.Store} store
     @param {subclass of DS.Model} type
     @param {DS.Model} record
-    @returns Promise
+    @returns {Promise} promise
   */
   createRecord: function(store, type, record) {
     var data = {};
@@ -9019,13 +9382,10 @@ DS.RESTAdapter = DS.Adapter.extend({
     of a record.
 
     @method updateRecord
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
-    @see RESTAdapter/serialize
     @param {DS.Store} store
     @param {subclass of DS.Model} type
     @param {DS.Model} record
-    @returns Promise
+    @returns {Promise} promise
   */
   updateRecord: function(store, type, record) {
     var data = {};
@@ -9044,13 +9404,10 @@ DS.RESTAdapter = DS.Adapter.extend({
     The `deleteRecord` method  makes an Ajax (HTTP DELETE) request to a URL computed by `buildURL`.
 
     @method deleteRecord
-    @see RESTAdapter/buildURL
-    @see RESTAdapter/ajax
-    @see RESTAdapter/serialize
     @param {DS.Store} store
     @param {subclass of DS.Model} type
     @param {DS.Model} record
-    @returns Promise
+    @returns {Promise} promise
   */
   deleteRecord: function(store, type, record) {
     var id = get(record, 'id');
@@ -9061,8 +9418,9 @@ DS.RESTAdapter = DS.Adapter.extend({
   /**
     Builds a URL for a given type and optional ID.
 
-    By default, it pluralizes the type's name (for example,
-    'post' becomes 'posts' and 'person' becomes 'people').
+    By default, it pluralizes the type's name (for example, 'post'
+    becomes 'posts' and 'person' becomes 'people'). To override the
+    pluralization see [pathForType](#method_pathForType).
 
     If an ID is specified, it adds the ID to the path generated
     for the type, separated by a `/`.
@@ -9070,7 +9428,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     @method buildURL
     @param {String} type
     @param {String} id
-    @returns String
+    @returns {String} url
   */
   buildURL: function(type, id) {
     var url = [],
@@ -9088,6 +9446,13 @@ DS.RESTAdapter = DS.Adapter.extend({
     return url;
   },
 
+  /**
+    @method urlPrefix
+    @private
+    @param {String} path
+    @param {String} parentUrl
+    @return {String} urlPrefix
+  */
   urlPrefix: function(path, parentURL) {
     var host = get(this, 'host'),
         namespace = get(this, 'namespace'),
@@ -9138,7 +9503,7 @@ DS.RESTAdapter = DS.Adapter.extend({
 
     @method pathForType
     @param {String} type
-    @returns String
+    @returns {String} path
   **/
   pathForType: function(type) {
     return Ember.String.pluralize(type);
@@ -9147,12 +9512,36 @@ DS.RESTAdapter = DS.Adapter.extend({
   /**
     Takes an ajax response, and returns a relavant error.
 
-    By default, the `ajaxError` method has the following behavior:
+    Returning a `DS.InvalidError` from this method will cause the
+    record to transition into the `invalid` state and make the
+    `errors` object available on the record.
 
-    * It simply returns the ajax response (jqXHR).
+    ```javascript
+    App.ApplicationAdapter = DS.RESTAdapter.extend({
+      ajaxError: function(jqXHR) {
+        var error = this._super(jqXHR);
+
+        if (jqXHR && jqXHR.status === 422) {
+          var jsonErrors = Ember.$.parseJSON(jqXHR.responseText)["errors"];
+
+          return new DS.InvalidError(jsonErrors);
+        } else {
+          return error;
+        }
+      }
+    });
+    ```
+
+    Note: As a correctness optimization, the default implementation of
+    the `ajaxError` method strips out the `then` method from jquery's
+    ajax response (jqXHR). This is important because the jqXHR's
+    `then` method fulfills the promise with itself resulting in a
+    circular "thenable" chain which may cause problems for some
+    promise libraries.
 
     @method ajaxError
-    @param  jqXHR
+    @param  {Object} jqXHR
+    @return {Object} jqXHR
   */
   ajaxError: function(jqXHR) {
     if (jqXHR) {
@@ -9181,9 +9570,10 @@ DS.RESTAdapter = DS.Adapter.extend({
 
     @method ajax
     @private
-    @param  url
-    @param  type
-    @param  hash
+    @param {String} url
+    @param {String} type The request type GET, POST, PUT, DELETE ect.
+    @param {Object} hash
+    @return {Promise} promise
   */
   ajax: function(url, type, hash) {
     var adapter = this;
@@ -9203,6 +9593,14 @@ DS.RESTAdapter = DS.Adapter.extend({
     }, "DS: RestAdapter#ajax " + type + " to " + url);
   },
 
+  /**
+    @method ajaxOptions
+    @private
+    @param {String} url
+    @param {String} type The request type GET, POST, PUT, DELETE ect.
+    @param {Object} hash
+    @return {Object} hash
+  */
   ajaxOptions: function(url, type, hash) {
     hash = hash || {};
     hash.url = url;
@@ -10106,12 +10504,16 @@ DS.ActiveModelAdapter = DS.RESTAdapter.extend({
     var error = this._super(jqXHR);
 
     if (jqXHR && jqXHR.status === 422) {
-      var jsonErrors = Ember.$.parseJSON(jqXHR.responseText)["errors"],
+      var response = Ember.$.parseJSON(jqXHR.responseText),
           errors = {};
 
-      forEach(Ember.keys(jsonErrors), function(key) {
-        errors[Ember.String.camelize(key)] = jsonErrors[key];
-      });
+      if (response.errors !== undefined) {
+        var jsonErrors = response.errors;
+
+        forEach(Ember.keys(jsonErrors), function(key) {
+          errors[Ember.String.camelize(key)] = jsonErrors[key];
+        });
+      }
 
       return new DS.InvalidError(errors);
     } else {

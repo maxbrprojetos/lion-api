@@ -1,11 +1,13 @@
 aside
-  img.profile-picture src=session.currentUser.avatar_url
+  .profile-picture
+    img src=session.currentUser.avatar_url
   nav
     ul
-      link-to "notices" tagName="li" class="status" | Status
-      link-to "batcave" tagName="li" class="batcave" | Batcave
+      link-to "notices" tagName="li"
+        i class="status"
+      link-to "tasks" tagName="li"
+        i class="batcave"
 
 main
-  div
-    .content
-      outlet
+  .content
+    outlet

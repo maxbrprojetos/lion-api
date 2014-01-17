@@ -10,7 +10,6 @@ gem 'thin'
 gem 'pg'
 gem 'omniauth'
 gem 'omniauth-github'
-gem 'rspec-rails'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -18,7 +17,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'ember-rails'
 gem 'emblem-rails'
-gem 'foundation-rails'
+gem 'foundation-rails', '5.0.2'
 gem 'bourbon'
 gem 'zocial-rails'
 
@@ -34,4 +33,7 @@ group :test, :development do
   gem 'sinon-rails'
   gem 'selenium-webdriver'
   gem 'jazz_hands'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec', require: false
 end
