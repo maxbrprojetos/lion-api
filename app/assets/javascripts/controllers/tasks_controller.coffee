@@ -34,12 +34,12 @@ Notdvs.TasksController = Ember.ArrayController.extend(EmberPusher.Bindings,
       task.unloadRecord() if task != null && !task.get('isDirty')
 
   remaining: (->
-    @get('content.length')
-  ).property('@each.length')
+    @filterProperty('completed', false).get('length')
+  ).property('@each.completed')
 
   allAreDone: (->
-    if @get('remaining') == 0 then true else false
-  ).property('remaining')
+    @everyProperty('completed', true)
+  ).property('@each.completed')
 
   remainingFormatted: (->
     remaining = @get('remaining')
