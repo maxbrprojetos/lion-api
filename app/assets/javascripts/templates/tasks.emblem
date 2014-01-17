@@ -13,12 +13,12 @@ section.tasks
             else
               = input type="checkbox" class="toggle" checked=isCompleted
               label{action "editTask" on="doubleClick"} = title
-              button.destroy{action "removeTask"}
+              a.destroy{action "removeTask"}
 
     footer
       span == remainingFormatted
 
-      ul
+      ul.filters
         li
           link-to "tasks.index" activeClass="selected" | All
         li
