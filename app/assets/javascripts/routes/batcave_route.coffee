@@ -1,0 +1,1 @@
+Notdvs.BatcaveRoute = Notdvs.AuthenticatedRoute.extend()
