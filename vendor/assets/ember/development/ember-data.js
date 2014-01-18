@@ -1,11 +1,11 @@
 // Fetched from channel: canary, with url http://builds.emberjs.com/canary/ember-data.js
-// Fetched on: 2014-01-15T23:05:01Z
+// Fetched on: 2014-01-18T08:54:12Z
 /*!
  * @overview  Ember Data
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors.
  *            Portions Copyright 2011 LivingSocial Inc.
  * @license   Licensed under MIT license (see license.js)
- * @version   1.0.0-beta.6+canary.c76c2388
+ * @version   1.0.0-beta.6+canary.19426ec6
  */
 
 
@@ -64,11 +64,11 @@ if ('undefined' === typeof DS) {
   /**
     @property VERSION
     @type String
-    @default '1.0.0-beta.6+canary.c76c2388'
+    @default '1.0.0-beta.6+canary.19426ec6'
     @static
   */
   DS = Ember.Namespace.create({
-    VERSION: '1.0.0-beta.6+canary.c76c2388'
+    VERSION: '1.0.0-beta.6+canary.19426ec6'
   });
 
   if ('undefined' !== typeof window) {
@@ -8572,15 +8572,14 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
 
     for (var prop in payload) {
       var typeName  = this.typeForRoot(prop),
-          isPrimary = typeName === primaryTypeName;
+          type = store.modelFor(typeName),
+          isPrimary = type.typeKey === primaryTypeName;
 
       // legacy support for singular resources
       if (isPrimary && Ember.typeOf(payload[prop]) !== "array" ) {
         primaryRecord = this.normalize(primaryType, payload[prop], prop);
         continue;
       }
-
-      var type = store.modelFor(typeName);
 
       /*jshint loopfunc:true*/
       forEach.call(payload[prop], function(hash) {
@@ -8729,7 +8728,7 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
       var typeName = this.typeForRoot(typeKey),
           type = store.modelFor(typeName),
           typeSerializer = store.serializerFor(type),
-          isPrimary = (!forcedSecondary && (typeName === primaryTypeName));
+          isPrimary = (!forcedSecondary && (type.typeKey === primaryTypeName));
 
       /*jshint loopfunc:true*/
       var normalizedArray = map.call(payload[prop], function(hash) {
@@ -8986,7 +8985,8 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
     @param {Object} options
   */
   serializeIntoHash: function(hash, type, record, options) {
-    hash[type.typeKey] = this.serialize(record, options);
+    var root = Ember.String.camelize(type.typeKey);
+    hash[root] = this.serialize(record, options);
   },
 
   /**
@@ -9003,7 +9003,7 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
     var key = relationship.key,
         belongsTo = get(record, key);
     key = this.keyForAttribute ? this.keyForAttribute(key) : key;
-    json[key + "Type"] = belongsTo.constructor.typeKey;
+    json[key + "Type"] = Ember.String.camelize(belongsTo.constructor.typeKey);
   }
 });
 
@@ -9506,7 +9506,8 @@ DS.RESTAdapter = DS.Adapter.extend({
     @returns {String} path
   **/
   pathForType: function(type) {
-    return Ember.String.pluralize(type);
+    var camelized = Ember.String.camelize(type);
+    return Ember.String.pluralize(camelized);
   },
 
   /**
@@ -10077,8 +10078,13 @@ Ember.Inflector.inflector = new Ember.Inflector(Ember.Inflector.defaultRules);
   @module ember-data
 */
 
-var get = Ember.get;
-var forEach = Ember.EnumerableUtils.forEach;
+var get = Ember.get,
+    forEach = Ember.EnumerableUtils.forEach,
+    camelize =   Ember.String.camelize,
+    capitalize = Ember.String.capitalize,
+    decamelize = Ember.String.decamelize,
+    singularize = Ember.String.singularize,
+    underscore = Ember.String.underscore;
 
 DS.ActiveModelSerializer = DS.RESTSerializer.extend({
   // SERIALIZE
@@ -10091,7 +10097,7 @@ DS.ActiveModelSerializer = DS.RESTSerializer.extend({
     @returns String
   */
   keyForAttribute: function(attr) {
-    return Ember.String.decamelize(attr);
+    return decamelize(attr);
   },
 
   /**
@@ -10104,11 +10110,11 @@ DS.ActiveModelSerializer = DS.RESTSerializer.extend({
     @returns String
   */
   keyForRelationship: function(key, kind) {
-    key = Ember.String.decamelize(key);
+    key = decamelize(key);
     if (kind === "belongsTo") {
       return key + "_id";
     } else if (kind === "hasMany") {
-      return Ember.String.singularize(key) + "_ids";
+      return singularize(key) + "_ids";
     } else {
       return key;
     }
@@ -10129,7 +10135,7 @@ DS.ActiveModelSerializer = DS.RESTSerializer.extend({
     @param {Object} options
   */
   serializeIntoHash: function(data, type, record, options) {
-    var root = Ember.String.decamelize(type.typeKey);
+    var root = underscore(decamelize(type.typeKey));
     data[root] = this.serialize(record, options);
   },
 
@@ -10145,7 +10151,7 @@ DS.ActiveModelSerializer = DS.RESTSerializer.extend({
     var key = relationship.key,
         belongsTo = get(record, key);
     key = this.keyForAttribute(key);
-    json[key + "_type"] = Ember.String.capitalize(belongsTo.constructor.typeKey);
+    json[key + "_type"] = capitalize(camelize(belongsTo.constructor.typeKey));
   },
 
   // EXTRACT
@@ -10158,8 +10164,8 @@ DS.ActiveModelSerializer = DS.RESTSerializer.extend({
     @returns String the model's typeKey
   */
   typeForRoot: function(root) {
-    var camelized = Ember.String.camelize(root);
-    return Ember.String.singularize(camelized);
+    var camelized = camelize(root);
+    return singularize(camelized);
   },
 
   /**
@@ -10214,7 +10220,7 @@ DS.ActiveModelSerializer = DS.RESTSerializer.extend({
       var links = data.links;
 
       for (var link in links) {
-        var camelizedLink = Ember.String.camelize(link);
+        var camelizedLink = camelize(link);
 
         if (camelizedLink !== link) {
           links[camelizedLink] = links[link];
@@ -10414,6 +10420,9 @@ function updatePayloadWithEmbedded(store, serializer, type, partial, payload) {
 */
 
 var forEach = Ember.EnumerableUtils.forEach;
+var decamelize = Ember.String.decamelize,
+    underscore = Ember.String.underscore,
+    pluralize  = Ember.String.pluralize;
 
 /**
   The ActiveModelAdapter is a subclass of the RESTAdapter designed to integrate
@@ -10480,8 +10489,9 @@ DS.ActiveModelAdapter = DS.RESTAdapter.extend({
     @returns String
   */
   pathForType: function(type) {
-    var decamelized = Ember.String.decamelize(type);
-    return Ember.String.pluralize(decamelized);
+    var decamelized = decamelize(type);
+    var underscored = underscore(decamelized);
+    return pluralize(underscored);
   },
 
   /**

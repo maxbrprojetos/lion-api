@@ -1,5 +1,5 @@
 // Fetched from channel: canary, with url http://builds.emberjs.com/canary/ember.js
-// Fetched on: 2014-01-15T23:04:49Z
+// Fetched on: 2014-01-18T08:54:03Z
 /*!
  * @overview  Ember - JavaScript Application Framework
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors
@@ -7,7 +7,7 @@
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   1.5.0-beta.1+canary.9fcdc682
+ * @version   1.5.0-beta.1+canary.48d6bfa1
  */
 
 
@@ -197,7 +197,7 @@ if (!Ember.testing) {
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   1.5.0-beta.1+canary.9fcdc682
+ * @version   1.5.0-beta.1+canary.48d6bfa1
  */
 
 
@@ -280,7 +280,7 @@ var define, requireModule, require, requirejs;
 
   @class Ember
   @static
-  @version 1.5.0-beta.1+canary.9fcdc682
+  @version 1.5.0-beta.1+canary.48d6bfa1
 */
 
 if ('undefined' === typeof Ember) {
@@ -307,10 +307,10 @@ Ember.toString = function() { return "Ember"; };
 /**
   @property VERSION
   @type String
-  @default '1.5.0-beta.1+canary.9fcdc682'
+  @default '1.5.0-beta.1+canary.48d6bfa1'
   @static
 */
-Ember.VERSION = '1.5.0-beta.1+canary.9fcdc682';
+Ember.VERSION = '1.5.0-beta.1+canary.48d6bfa1';
 
 /**
   Standard environmental variables. You can define these in a global `EmberENV`
@@ -920,9 +920,9 @@ var o_defineProperty = Ember.platform.defineProperty,
     o_create = Ember.create,
     // Used for guid generation...
     GUID_KEY = '__ember'+ (+ new Date()),
-    uuid         = 0,
     numberCache  = [],
-    stringCache  = {};
+    stringCache  = {},
+    uuid = 0;
 
 var MANDATORY_SETTER = Ember.ENV.MANDATORY_SETTER;
 
@@ -970,8 +970,12 @@ Ember.generateGuid = function generateGuid(obj, prefix) {
   if (!prefix) prefix = Ember.GUID_PREFIX;
   var ret = (prefix + (uuid++));
   if (obj) {
-    GUID_DESC.value = ret;
-    o_defineProperty(obj, GUID_KEY, GUID_DESC);
+    if (obj[GUID_KEY] === null) {
+      obj[GUID_KEY] = ret;
+    } else {
+      GUID_DESC.value = ret;
+      o_defineProperty(obj, GUID_KEY, GUID_DESC);
+    }
   }
   return ret;
 };
@@ -1018,9 +1022,14 @@ Ember.guidFor = function guidFor(obj) {
       if (obj[GUID_KEY]) return obj[GUID_KEY];
       if (obj === Object) return '(Object)';
       if (obj === Array)  return '(Array)';
-      ret = 'ember'+(uuid++);
-      GUID_DESC.value = ret;
-      o_defineProperty(obj, GUID_KEY, GUID_DESC);
+      ret = 'ember' + (uuid++);
+
+      if (obj[GUID_KEY] === null) {
+        obj[GUID_KEY] = ret;
+      } else {
+        GUID_DESC.value = ret;
+        o_defineProperty(obj, GUID_KEY, GUID_DESC);
+      }
       return ret;
   }
 };
@@ -12804,6 +12813,13 @@ var undefinedDescriptor = {
   value: undefined
 };
 
+var nullDescriptor = {
+  configurable: true,
+  writable: true,
+  enumerable: false,
+  value: null
+};
+
 function makeCtor() {
 
   // Note: avoid accessing any properties on the object since it makes the
@@ -12816,7 +12832,7 @@ function makeCtor() {
     if (!wasApplied) {
       Class.proto(); // prepare prototype...
     }
-    o_defineProperty(this, GUID_KEY, undefinedDescriptor);
+    o_defineProperty(this, GUID_KEY, nullDescriptor);
     o_defineProperty(this, '__nextSuper', undefinedDescriptor);
     var m = meta(this), proto = m.proto;
     m.proto = this;
