@@ -11,12 +11,12 @@ li{bind-attr class=":task completed isEditing:editing"}
             span is assigned
 
       .actions
-        span.assign data-dropdown="assign"
+        span.assign data-dropdown=guid
         span.complete{action "toggleCompleted"}
         span.edit{action "editTask"}
         span.destroy{action "removeTask"}
 
-      ul#assign.f-dropdown.content data-dropdown-content=true
+      ul.f-dropdown.content data-dropdown-content=true id=guid
         each parentController.users
           li
             a{action "assignUser" this}

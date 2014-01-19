@@ -2,6 +2,10 @@ Notdvs.TaskController = Ember.ObjectController.extend(
   isEditing: false
   bufferedTitle: Ember.computed.oneWay('title')
 
+  guid: (->
+    Ember.guidFor(this)
+  ).property()
+
   actions:
     editTask: ->
       @set('isEditing', true)
