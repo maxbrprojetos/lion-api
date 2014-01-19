@@ -4,10 +4,10 @@ Notdvs.Notice = Notdvs.Model.extend
   app: DS.attr('string', { defaultValue: 'pistachio' })
 
   ranking: (->
-    # check created_at first so records coming from pusher cannot alter ordering
-    # by providing a different kind of client_id
-    @get('created_at')?.getTime().toString() || @get('client_id')
-  ).property('client_id', 'created_at')
+    # check createdAt first so records coming from pusher cannot alter ordering
+    # by providing a different kind of clientId
+    @get('createdAt')?.getTime().toString() || @get('clientId')
+  ).property('clientId', 'createdAt')
 
 Notdvs.Task = Notdvs.Model.extend
   title: DS.attr('string')

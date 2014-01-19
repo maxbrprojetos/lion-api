@@ -1,11 +1,4 @@
-Notdvs.Store = DS.Store.extend
-  # pushPayload doesn't work with single records
-  pushRecord: (type, record) ->
-    key = type.underscore().pluralize()
-    payload = {}
-    payload[key] = [record]
-    @pushPayload type, payload
-    @getById type, record.id
+Notdvs.Store = DS.Store.extend()
 
 Notdvs.ApplicationAdapter = DS.RESTAdapter.reopen
   namespace: 'api'

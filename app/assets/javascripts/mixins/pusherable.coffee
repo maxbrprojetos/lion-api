@@ -2,10 +2,10 @@ Notdvs.Pusherable = (modelName) ->
   actions = {}
 
   actions["#{modelName}Create"] = (payload) ->
-    @store.pushRecord(modelName, payload[modelName]) unless @get('newRecords').anyBy('client_id', payload[modelName].client_id)
+    @store.pushPayload(payload) unless @get('newRecords').anyBy('clientId', payload[modelName].clientId)
 
   actions["#{modelName}Update"] = (payload) ->
-    @store.pushRecord(modelName, payload[modelName])
+    @store.pushPayload(payload)
 
   actions["#{modelName}Destroy"] = (payload) ->
     model = @store.getById(modelName, payload[modelName].id)

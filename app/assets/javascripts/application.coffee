@@ -25,9 +25,9 @@ Ember.SimpleAuth.Session.reopen
     Notdvs.LocalStorage.getItem('currentUser')
   ).property()
 
-  login: (user) ->
-    currentUser = Notdvs.lookup('store:main').pushRecord('user', user)
-    Notdvs.LocalStorage.setItem('currentUser', user)
+  login: (data) ->
+    currentUser = Notdvs.lookup('store:main').pushPayload('user', data)
+    Notdvs.LocalStorage.setItem('currentUser', data.user)
 
 Ember.Application.initializer
   name: 'authentication'

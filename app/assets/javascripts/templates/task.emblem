@@ -2,7 +2,7 @@ li{bind-attr class=":task completed isEditing:editing"}
   article
     header
       img{bind-attr src=user.avatar_url}
-      span.info added this task {{from-now value=created_at}}
+      span.info added this task {{from-now value=createdAt}}
       .actions
         = input type="checkbox" checked=isCompleted
         span.edit{action "editTask"}

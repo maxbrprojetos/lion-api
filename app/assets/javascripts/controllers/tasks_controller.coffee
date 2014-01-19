@@ -9,7 +9,7 @@ Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('tas
 
       task = @store.createRecord('task',
         title: title
-        client_id: new Date().getTime().toString()
+        clientId: new Date().getTime().toString()
       )
 
       @get('newRecords').pushObject(task)
