@@ -75,6 +75,7 @@ GEM
     columnize (0.3.6)
     coolline (0.4.2)
     daemons (1.1.9)
+    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger (1.6.5)
       columnize (>= 0.3.1)
@@ -318,6 +319,7 @@ DEPENDENCIES
   annotate!
   bourbon
   coffee-rails (~> 4.0.0)
+  database_cleaner
   dotenv
   ember-rails
   emblem-rails

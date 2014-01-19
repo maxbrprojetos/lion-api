@@ -43,9 +43,25 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :request
 
   config.before(:each, type: :request) do
-    @user = User.create(api_token: 'test', nickname: 'lol', avatar_url: 'omg')
-    header 'Authorization', "Bearer #{@user.api_token}"
+    header 'Authorization', "Bearer #{current_user.api_token}"
     header 'Accept', 'application/json'
     header 'Content-Type', 'application/json'
   end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+end
+
+def current_user
+  @current_user ||= User.create(api_token: 'test', nickname: 'lol', avatar_url: 'omg')
 end

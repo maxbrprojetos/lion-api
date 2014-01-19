@@ -1,12 +1,27 @@
 li{bind-attr class=":task completed isEditing:editing"}
   article
     header
-      img{bind-attr src=user.avatar_url}
-      span.info added this task {{from-now value=createdAt}}
+      img{bind-attr src=user.avatarUrl}
+      .info
+        span added this task {{from-now value=createdAt}}
+
+        if assignee
+          .assignee
+            img src=assignee.avatarUrl
+            span is assigned
+
       .actions
+        span.assign data-dropdown="assign"
         span.complete{action "toggleCompleted"}
         span.edit{action "editTask"}
         span.destroy{action "removeTask"}
+
+      ul#assign.f-dropdown.content data-dropdown-content=true
+        each parentController.users
+          li
+            a{action "assignUser" this}
+              img src=avatarUrl
+              span.nickname = nickname
 
     .content
       if isEditing

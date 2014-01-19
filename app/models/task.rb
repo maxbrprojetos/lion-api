@@ -4,4 +4,5 @@ class Task < ActiveRecord::Base
   pusherable serializer: TaskSerializer
 
   belongs_to :user
+  belongs_to :assignee, class_name: 'User'
 end

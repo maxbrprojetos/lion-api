@@ -3,7 +3,7 @@ class TaskSerializer < ActiveModel::Serializer
 
   embed :ids, include: true
 
-  attributes :id, :title, :created_at, :completed
+  attributes :id, :title, :created_at, :completed, :assignee_id
 
   has_one :user
 end

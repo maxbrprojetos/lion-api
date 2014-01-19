@@ -1,6 +1,6 @@
 aside
   .profile-picture
-    img src=session.currentUser.avatar_url
+    img src=session.currentUser.avatarUrl
   nav
     ul
       link-to "notices" tagName="li"

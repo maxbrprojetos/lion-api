@@ -1,4 +1,7 @@
 Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('task'),
+  sortProperties: ['createdAt']
+  sortAscending: false
+
   actions:
     createTask: ->
       title = undefined
@@ -18,8 +21,8 @@ Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('tas
       @set 'newTitle', ''
 
   remaining: (->
-    @get('filteredTasks').filterProperty('completed', false).get('length')
-  ).property('filteredTasks.@each.completed')
+    @filterProperty('completed', false).get('length')
+  ).property('@each.completed')
 
   remainingFormatted: (->
     remaining = @get('remaining')

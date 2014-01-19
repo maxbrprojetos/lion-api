@@ -7,10 +7,3 @@ Notdvs.ApplicationView = Ember.View.extend
     @rerender()
   ).observes('templateName')
 
-  didInsertElement: ->
-    @_super.apply(this, arguments)
-    Ember.run.scheduleOnce('afterRender', this, @didRenderElement)
-
-  didRenderElement: ->
-    $(document).foundation()
-

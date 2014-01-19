@@ -16,8 +16,8 @@ section.tasks
             a Mine
 
       ul
-        each filteredTasks itemController="task"
-          partial "task"
+        each controller itemController="task"
+          view "task"
 
 section.issues
   header

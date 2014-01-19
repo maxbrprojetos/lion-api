@@ -36,4 +36,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec', require: false
+  gem 'database_cleaner'
 end

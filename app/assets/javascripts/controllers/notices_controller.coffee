@@ -1,5 +1,5 @@
 Notdvs.NoticesController = Ember.ArrayController.extend(new Notdvs.Pusherable('notice'),
-  sortProperties: ['ranking']
+  sortProperties: ['createdAt']
   sortAscending: false
   title: ''
   itemController: 'notice'

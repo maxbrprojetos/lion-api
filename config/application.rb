@@ -24,7 +24,7 @@ module Notdvs
     # config.i18n.default_locale = :de
 
     config.assets.precompile += [
-      'foundation.js', 'vendor/modernizr.js'
+      'foundation.js', 'vendor/modernizr.js', 'foundation.dropdown.js'
     ]
   end
 end
