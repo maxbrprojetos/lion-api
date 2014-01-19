@@ -1,6 +1,10 @@
 .task
   margin-bottom: 15px
 
+  &:hover
+    header .actions
+      display: block
+
   header
     padding: 5px
     background-color: $secondary-color
@@ -17,6 +21,8 @@
     .actions
       float: right
       letter-spacing: 5px
+      display: none
+      color: darken($secondary-color, 60%)
 
   .content
     border: 1px solid $secondary-color
