@@ -1,4 +1,5 @@
 #= require jquery
+#= require jquery.notification
 #= require handlebars
 #= require pusher
 #= require moment

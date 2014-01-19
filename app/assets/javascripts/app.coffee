@@ -19,5 +19,4 @@ unless window.NotdvsApplication
       @_super.apply(this, arguments)
 
     ready: ->
-      if window.Notification
-        Notification.requestPermission() unless Notification.permission == 'granted'
+      $.notification.requestPermission()
