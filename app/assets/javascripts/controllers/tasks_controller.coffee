@@ -21,8 +21,8 @@ Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('tas
       @set 'newTitle', ''
 
   remaining: (->
-    @filterProperty('completed', false).get('length')
-  ).property('@each.completed')
+    @get('filteredTasks').filterProperty('completed', false).get('length')
+  ).property('filteredTasks.@each.completed')
 
   remainingFormatted: (->
     remaining = @get('remaining')
