@@ -11,7 +11,7 @@ Notdvs.NoticesRoute = Notdvs.AuthenticatedRoute.extend
 
 Notdvs.TasksRoute = Notdvs.AuthenticatedRoute.extend
   beforeModel: (transition) ->
-    new Notify().requestPermission()
+    Notify.prototype.requestPermission()
 
     @store.find('user').then((users) =>
       @controllerFor('tasks').set('users', users)

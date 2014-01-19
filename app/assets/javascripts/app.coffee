@@ -19,4 +19,4 @@ unless window.NotdvsApplication
       @_super.apply(this, arguments)
 
     ready: ->
-      new Notify().requestPermission()
+      Notify.prototype.requestPermission()
