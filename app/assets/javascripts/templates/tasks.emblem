@@ -5,18 +5,18 @@ section.tasks
 
   if length
     section.main
+      h4 == remainingFormatted
+
+      dl.filters
+        dt Filter
+        link-to "tasks.index" tagName="dd"
+          a All
+        link-to "tasks.mine" tagName="dd"
+          a Mine
+
       ul
         each filteredTasks itemController="task"
           partial "task"
-
-    footer
-      span == remainingFormatted
-
-      ul.filters
-        li
-          link-to "tasks.index" activeClass="selected" | All
-        li
-          link-to "tasks.mine" activeClass="selected" | Mine
 
 section.issues
   header
