@@ -2,7 +2,7 @@ Notdvs.NoticeInput = (input) ->
   regexp: /app:([^\s]+)/
 
   title: ->
-    input.replace(@regexp, '')
+    input.replace(@regexp, '').trim()
 
   app: ->
     if @regexp.test(input)

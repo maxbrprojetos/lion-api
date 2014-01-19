@@ -33,6 +33,8 @@ Notdvs.NoticesController = Ember.ArrayController.extend(new Notdvs.Pusherable('n
   actions:
     createNotice: ->
       input = new Notdvs.NoticeInput(@get('title'))
+      return unless input.title()
+
       noticeAttributes = {
         title: input.title(),
         clientId: (new Date()).getTime().toString()
