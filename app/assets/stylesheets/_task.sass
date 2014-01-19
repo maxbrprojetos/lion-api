@@ -16,6 +16,7 @@
 
     .actions
       float: right
+      letter-spacing: 5px
 
   .content
     border: 1px solid $secondary-color
@@ -25,17 +26,17 @@
   &.completed
     opacity: 0.5
 
-    input[type="checkbox"]
+    .complete
       color: $success-color
 
   .edit
-    +icon('pencil')
+    +icon('pen')
 
     cursor: pointer
+    font-size: 15px
 
-  input[type="checkbox"]
+  .complete
     +icon('checkmark')
-    +appearance(none)
 
     cursor: pointer
     outline: none
@@ -45,4 +46,3 @@
 
     vertical-align: middle
     cursor: pointer
-    font-size: 22px

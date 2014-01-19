@@ -2,14 +2,6 @@ Notdvs.TaskController = Ember.ObjectController.extend(
   isEditing: false
   bufferedTitle: Ember.computed.oneWay('title')
 
-  isCompleted: ((key, value)->
-    if arguments.length == 1
-      @get('completed')
-    else
-      @set('completed', value)
-      @get('model').save()
-  ).property('completed')
-
   actions:
     editTask: ->
       @set('isEditing', true)
@@ -40,4 +32,7 @@ Notdvs.TaskController = Ember.ObjectController.extend(
       task = @get('model')
       task.deleteRecord()
       task.save()
+
+    toggleCompleted: ->
+      @set('completed', !@get('completed'))
 )

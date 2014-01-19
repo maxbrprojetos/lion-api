@@ -1,7 +1,7 @@
-@font-face
-  $font-path: 'icomoon/icomoon'
-  $font-name: 'icomoon'
+$font-path: 'iconic/iconic'
+$font-name: 'iconic'
 
+@font-face
   font-family: $font-name
   src: url(font-path('#{$font-path}.eot'))
   src: url(font-path('#{$font-path}.eot') + '?#iefix') format('embedded-opentype'), url(font-path('#{$font-path}.woff')) format('woff'), url(font-path('#{$font-path}.ttf')) format('truetype'), url(font-path('#{$font-path}.svg') + $font-name) format('svg')
@@ -10,7 +10,7 @@
 
 =icon($name)
   &:before
-    font-family: 'icomoon'
+    font-family: $font-name
     speak: none
     font-style: normal
     font-weight: normal
@@ -21,8 +21,8 @@
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
 
-    $name-list: (checkmark, cross, trophy, warning, plus, minus, cog, add-to-list, batman, pencil)
-    $value-list: ("600", "601", "602", "603", "604", "605", "606", "607", "608", "609")
+    $name-list: (checkmark, cross, award, pen, home, batman)
+    $value-list: ("600", "601", "602", "603", "604", "608")
 
     @for $i from 1 through length($name-list)
       $icon-name: nth($name-list, $i)

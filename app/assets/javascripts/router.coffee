@@ -6,3 +6,4 @@ Notdvs.Router.map ->
   @resource('tasks', ->
     @route('mine')
   )
+  @route('leaderboard')

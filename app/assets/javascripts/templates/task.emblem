@@ -4,7 +4,7 @@ li{bind-attr class=":task completed isEditing:editing"}
       img{bind-attr src=user.avatar_url}
       span.info added this task {{from-now value=createdAt}}
       .actions
-        = input type="checkbox" checked=isCompleted
+        span.complete{action "toggleCompleted"}
         span.edit{action "editTask"}
         span.destroy{action "removeTask"}
 
