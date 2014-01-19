@@ -13,4 +13,8 @@ Notdvs.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMi
       $.getJSON("#{location.protocol}//#{location.host}/api/users/me").then((data) =>
         @get('session').login(data)
       )
+
+    logout: ->
+      @get('session').logout()
+      @_super.apply(this, arguments)
 )
