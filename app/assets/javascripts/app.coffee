@@ -19,4 +19,4 @@ unless window.NotdvsApplication
       @_super.apply(this, arguments)
 
     ready: ->
-      $.notification.requestPermission()
+      new Notify().requestPermission()

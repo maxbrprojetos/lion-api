@@ -11,7 +11,7 @@ Notdvs.Task = Notdvs.Model.extend
 
   didUpdate: ->
     if @get('user.id') == @get('assignee.id')
-      $.notification(title: 'You have been assigned an issue', body: @get('title'))
+      new Notify('You have been assigned an issue', { body: @get('title') }).show()
 
 Notdvs.User = DS.Model.extend
   nickname: DS.attr('string')
