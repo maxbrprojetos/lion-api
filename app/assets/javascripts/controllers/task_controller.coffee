@@ -2,6 +2,11 @@ Notdvs.TaskController = Ember.ObjectController.extend(
   isEditing: false
   bufferedTitle: Ember.computed.oneWay('title')
 
+  mine: (->
+    currentUserId = @get('session.currentUser.id')
+    @get('user.id') == currentUserId || @get('assignee.id') == currentUserId
+  ).property('user', 'assignee')
+
   actions:
     editTask: ->
       @set('isEditing', true)
