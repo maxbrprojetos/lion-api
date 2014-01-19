@@ -28,7 +28,11 @@ Notdvs.TasksMineRoute = Ember.Route.extend(
   setupController: ->
     tasks = @store.filter('task', (task) =>
       currentUserId = @get('session.currentUser.id')
-      task.get('user.id') == currentUserId || task.get('assignee.id') == currentUserId
+
+      if !Ember.isEmpty(task.get('assignee'))
+        task.get('assignee.id') == currentUserId
+      else
+        task.get('user.id') == currentUserId
     )
 
     @controllerFor('tasks').set('filteredTasks', tasks)
