@@ -5,14 +5,15 @@ section.tasks
 
   if length
     section.main
-      h4 == remainingFormatted
+      .filters
+        span.remaining-items == remainingFormatted
 
-      dl.filters
-        dt Filter
-        link-to "tasks.index" tagName="dd"
-          a All
-        link-to "tasks.mine" tagName="dd"
-          a Mine
+        dl
+          dt Filter
+          link-to "tasks.index" tagName="dd"
+            a All
+          link-to "tasks.mine" tagName="dd"
+            a Mine
 
       ul
         each filteredTasks itemController="task"
