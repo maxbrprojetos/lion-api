@@ -17,3 +17,7 @@ unless window.NotdvsApplication
       @lookup('controller:pusher').get('connection').disconnect()
       @setup()
       @_super.apply(this, arguments)
+
+    ready: ->
+      if window.Notification
+        Notification.requestPermission() unless Notification.permission == 'granted'
