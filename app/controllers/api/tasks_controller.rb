@@ -1,6 +1,6 @@
 class Api::TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.all.includes(:user)
 
     render json: @tasks
   end
