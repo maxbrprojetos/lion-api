@@ -1,11 +1,11 @@
 // Fetched from channel: canary, with url http://builds.emberjs.com/canary/ember-data.js
-// Fetched on: 2014-01-18T08:54:12Z
+// Fetched on: 2014-01-19T09:50:54Z
 /*!
  * @overview  Ember Data
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors.
  *            Portions Copyright 2011 LivingSocial Inc.
  * @license   Licensed under MIT license (see license.js)
- * @version   1.0.0-beta.6+canary.19426ec6
+ * @version   1.0.0-beta.6+canary.e8e0c99c
  */
 
 
@@ -64,11 +64,11 @@ if ('undefined' === typeof DS) {
   /**
     @property VERSION
     @type String
-    @default '1.0.0-beta.6+canary.19426ec6'
+    @default '1.0.0-beta.6+canary.e8e0c99c'
     @static
   */
   DS = Ember.Namespace.create({
-    VERSION: '1.0.0-beta.6+canary.19426ec6'
+    VERSION: '1.0.0-beta.6+canary.e8e0c99c'
   });
 
   if ('undefined' !== typeof window) {
@@ -97,11 +97,11 @@ function aliasMethod(methodName) {
 
 /**
   In Ember Data a Serializer is used to serialize and deserialize
-  records when they are transfered in and out of an external source.
+  records when they are transferred in and out of an external source.
   This process involves normalizing property names, transforming
-  attribute values and serializeing relationships.
+  attribute values and serializing relationships.
 
-  For maximum performance Ember Data recomends you use the
+  For maximum performance Ember Data recommends you use the
   [RESTSerializer](DS.RESTSerializer.html) or one of its subclasses.
 
   `JSONSerializer` is useful for simpler or legacy backends that may
@@ -113,9 +113,9 @@ function aliasMethod(methodName) {
 DS.JSONSerializer = Ember.Object.extend({
   /**
     The primaryKey is used when serializing and deserializing
-    data. Ember Data always uses the `id` propery to store the id of
+    data. Ember Data always uses the `id` property to store the id of
     the record. The external source may not always follow this
-    convention. In these cases it is usesful to override the
+    convention. In these cases it is useful to override the
     primaryKey property to match the primaryKey of your external
     store.
 
@@ -519,7 +519,7 @@ DS.JSONSerializer = Ember.Object.extend({
     such as the `RESTSerializer` may push records into the store as
     part of the extract call.
 
-    This method deletegates to a more specific extract method based on
+    This method delegates to a more specific extract method based on
     the `requestType`.
 
     Example
@@ -779,7 +779,7 @@ DS.JSONSerializer = Ember.Object.extend({
 
   /**
    `keyForRelationship` can be used to define a custom key when
-   serializeing relationship properties. By default `JSONSerializer`
+   serializing relationship properties. By default `JSONSerializer`
    does not provide an implementation of this method.
 
    Example
@@ -1122,7 +1122,7 @@ DS.DateTransform = DS.Transform.extend({
     } else {
       return null;
     }
-  } 
+  }
 
 });
 
@@ -4070,7 +4070,7 @@ var RootState = {
     }
   },
 
-  // A record enters this state when the store askes
+  // A record enters this state when the store asks
   // the adapter for its data. It remains in this state
   // until the adapter provides the requested data.
   //
@@ -4541,7 +4541,7 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
   isEmpty: retrieveFromCurrentState,
   /**
     If this property is `true` the record is in the `loading` state. A
-    record enters this state when the store askes the adapter for its
+    record enters this state when the store asks the adapter for its
     data. It remains in this state until the adapter provides the
     requested data.
 
@@ -4775,7 +4775,7 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
   /**
     When the record is in the `invalid` state this object will contain
     any errors returned by the adapter. When present the errors hash
-    typically contains keys coresponding to the invalid property names
+    typically contains keys corresponding to the invalid property names
     and values which are an array of error messages.
 
     ```javascript
@@ -5690,7 +5690,7 @@ DS.Model.reopenClass({
     ```
 
     - `name` the name of the current property in the iteration
-    - `type` a tring contrining the name of the type of transformed
+    - `type` a string containing the name of the type of transformed
       applied to the attribute
 
     Note that in addition to a callback, you can also pass an optional target
@@ -5906,7 +5906,7 @@ var forEach = Ember.EnumerableUtils.forEach;
   @class RelationshipChange
   @namespace DS
   @private
-  @construtor
+  @constructor
 */
 DS.RelationshipChange = function(options) {
   this.parentRecord = options.parentRecord;
@@ -5927,7 +5927,7 @@ DS.RelationshipChange = function(options) {
   @class RelationshipChangeAdd
   @namespace DS
   @private
-  @construtor
+  @constructor
 */
 DS.RelationshipChangeAdd = function(options){
   DS.RelationshipChange.call(this, options);
@@ -5937,7 +5937,7 @@ DS.RelationshipChangeAdd = function(options){
   @class RelationshipChangeRemove
   @namespace DS
   @private
-  @construtor
+  @constructor
 */
 DS.RelationshipChangeRemove = function(options){
   DS.RelationshipChange.call(this, options);
@@ -6806,7 +6806,7 @@ DS.Model.reopenClass({
     var options = this.metaForProperty(name).options;
 
     if (options.inverse === null) { return null; }
-    
+
     var inverseName, inverseKind;
 
     if (options.inverse) {
@@ -8306,7 +8306,7 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
     The key under `normalizeHash` is usually just the original key
     that was in the original payload. However, key names will be
     impacted by any modifications done in the `normalizePayload`
-    method. The `DS.RESTSerializer`'s default implemention makes no
+    method. The `DS.RESTSerializer`'s default implementation makes no
     changes to the payload keys.
 
     @property normalizeHash
@@ -9176,7 +9176,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     The `find` method makes an Ajax request to a URL computed by `buildURL`, and returns a
     promise for the resulting payload.
 
-    This method performs an HTTP `GET` request with the id provided as part of the querystring.
+    This method performs an HTTP `GET` request with the id provided as part of the query string.
 
     @method find
     @param {DS.Store} store
@@ -9511,7 +9511,7 @@ DS.RESTAdapter = DS.Adapter.extend({
   },
 
   /**
-    Takes an ajax response, and returns a relavant error.
+    Takes an ajax response, and returns a relevant error.
 
     Returning a `DS.InvalidError` from this method will cause the
     record to transition into the `invalid` state and make the
@@ -9572,7 +9572,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     @method ajax
     @private
     @param {String} url
-    @param {String} type The request type GET, POST, PUT, DELETE ect.
+    @param {String} type The request type GET, POST, PUT, DELETE etc.
     @param {Object} hash
     @return {Promise} promise
   */
@@ -9598,7 +9598,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     @method ajaxOptions
     @private
     @param {String} url
-    @param {String} type The request type GET, POST, PUT, DELETE ect.
+    @param {String} type The request type GET, POST, PUT, DELETE etc.
     @param {Object} hash
     @return {Object} hash
   */
