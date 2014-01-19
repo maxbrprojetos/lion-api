@@ -43,7 +43,5 @@ Notdvs.TaskController = Ember.ObjectController.extend(
     assignUser: (user) ->
       task = @get('model')
       task.set('assignee', user)
-      task.save().then =>
-        if task.get('user.id') == user.get('id')
-          $.notification(title: 'You have been assigned an issue', body: task.get('title'))
+      task.save()
 )

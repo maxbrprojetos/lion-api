@@ -9,6 +9,10 @@ Notdvs.Task = Notdvs.Model.extend
   user: DS.belongsTo('user')
   assignee: DS.belongsTo('user')
 
+  didUpdate: ->
+    if @get('user.id') == @get('assignee.id')
+      $.notification(title: 'You have been assigned an issue', body: @get('title'))
+
 Notdvs.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')
