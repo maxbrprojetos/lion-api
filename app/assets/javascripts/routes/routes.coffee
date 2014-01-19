@@ -11,6 +11,8 @@ Notdvs.NoticesRoute = Notdvs.AuthenticatedRoute.extend
 
 Notdvs.TasksRoute = Notdvs.AuthenticatedRoute.extend
   beforeModel: (transition) ->
+    $.notification.requestPermission()
+
     @store.find('user').then((users) =>
       @controllerFor('tasks').set('users', users)
     )
