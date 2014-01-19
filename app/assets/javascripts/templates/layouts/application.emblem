@@ -9,6 +9,8 @@ aside
         i class="batcave"
       link-to "leaderboard" tagName="li"
         i class="leaderboard"
+      li{action "logout"}
+        i class="logout"
 
 main
   .content
