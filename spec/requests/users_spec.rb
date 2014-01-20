@@ -39,4 +39,22 @@ describe 'Users Requests' do
       )
     end
   end
+
+  describe 'GET /user/{id}' do
+    it 'responds with a json representing the requested user' do
+      user = User.create(nickname: "test", avatar_url: "http://lol.com/omg.png")
+
+      get api_user_path(user)
+
+      last_response.status.should eq(200)
+
+      JSON.parse(last_response.body)['user'].should eq(
+        {
+          'id' => user.id,
+          'nickname' => user.nickname,
+          'avatar_url' => user.avatar_url
+        }
+      )
+    end
+  end
 end
