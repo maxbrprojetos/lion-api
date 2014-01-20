@@ -29,7 +29,7 @@ Notdvs.TasksIndexRoute = Ember.Route.extend
 Notdvs.TasksMineRoute = Ember.Route.extend(
   setupController: ->
     tasks = @store.filter('task', (task) =>
-      currentUserId = @get('session.currentUser.id')
+      currentUserId = Notdvs.get('currentUser.id')
 
       if !Ember.isEmpty(task.get('assignee'))
         task.get('assignee.id') == currentUserId
