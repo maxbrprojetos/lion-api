@@ -37,6 +37,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.5)
     arel (5.0.0)
     atomic (1.1.14)
     awesome_print (1.2.0)
@@ -179,6 +180,8 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    octokit (2.7.0)
+      sawyer (~> 0.5.2)
     omniauth (1.2.1)
       hashie (>= 1.2, < 3)
       rack (~> 1.0)
@@ -266,6 +269,9 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
+    sawyer (0.5.2)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
     selenium-webdriver (2.39.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
@@ -328,6 +334,7 @@ DEPENDENCIES
   jazz_hands
   jquery-rails
   konacha
+  octokit
   omniauth
   omniauth-github
   pg

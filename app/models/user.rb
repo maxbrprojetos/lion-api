@@ -31,7 +31,15 @@ class User < ActiveRecord::Base
     if user
       user.update(user_info)
     else
-      user = User.create(user_info)
+      client = Octokit::Client.new(access_token: user_info[:api_token])
+      user = client.user
+      user.login
+
+      if client.organizations.map(&:login).include?('alphasights')
+        user = User.create(user_info)
+      else
+        user = nil
+      end
     end
 
     user

@@ -1,4 +1,6 @@
 class Api::NoticesController < ApplicationController
+  before_action :authenticate!
+
   def index
     @notices = Notice.all
 
