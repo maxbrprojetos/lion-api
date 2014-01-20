@@ -16,7 +16,7 @@
 require 'spec_helper'
 
 describe User do
-  describe '#self.find_or_create_from_auth_hash' do
+  describe '#self.find_or_create_from_auth_hash', :vcr do
     let(:auth_hash) do
       {
         "provider" => "github",

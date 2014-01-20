@@ -12,6 +12,11 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
+VCR.configure do |config|
+  config.cassette_library_dir = Rails.root.join("spec", "vcr")
+  config.hook_into :webmock
+end
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
@@ -40,12 +45,20 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
   config.include Rack::Test::Methods, type: :request
 
   config.before(:each, type: :request) do
     header 'Authorization', "Bearer #{current_user.api_token}"
     header 'Accept', 'application/json'
     header 'Content-Type', 'application/json'
+  end
+
+  config.around(:each, :vcr) do |example|
+    name = example.metadata[:full_description].split(/\s+/, 2).join('/').underscore.gsub(/[^\w\/]+/, '_')
+    options = example.metadata.slice(:record, :match_requests_on).except(:example_group)
+    VCR.use_cassette(name, options) { example.call }
   end
 
   config.before(:suite) do

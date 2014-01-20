@@ -38,4 +38,6 @@ group :test, :development do
   gem 'spring-commands-rspec'
   gem 'guard-rspec', require: false
   gem 'database_cleaner'
+  gem 'vcr'
+  gem 'webmock'
 end
