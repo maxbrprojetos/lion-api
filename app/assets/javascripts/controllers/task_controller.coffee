@@ -38,7 +38,9 @@ Notdvs.TaskController = Ember.ObjectController.extend(
       task.save()
 
     toggleCompleted: ->
-      @set('completed', !@get('completed'))
+      task = @get('model')
+      task.set('completed', !@get('completed'))
+      task.save()
 
     assignUser: (user) ->
       task = @get('model')

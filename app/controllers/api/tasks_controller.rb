@@ -2,7 +2,7 @@ class Api::TasksController < ApplicationController
   before_action :authenticate!
 
   def index
-    @tasks = Task.all.includes(:user)
+    @tasks = Task.where(completed: false).includes(:user)
 
     render json: @tasks
   end
