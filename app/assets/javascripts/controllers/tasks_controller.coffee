@@ -1,6 +1,11 @@
 Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('task'),
-  sortProperties: ['createdAt']
-  sortAscending: false
+  sortedTasks: Ember.computed.sort('filteredTasks', (a, b) ->
+    if a.get('createdAt') < b.get('createdAt')
+      return 1
+    else if a.get('createdAt') > b.get('createdAt')
+      return -1
+    return 0
+  )
 
   actions:
     createTask: ->
@@ -12,7 +17,6 @@ Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('tas
 
       task = @store.createRecord('task',
         title: title
-        clientId: new Date().getTime().toString()
       )
 
       @get('newRecords').pushObject(task)

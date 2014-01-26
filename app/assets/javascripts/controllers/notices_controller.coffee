@@ -36,8 +36,7 @@ Notdvs.NoticesController = Ember.ArrayController.extend(new Notdvs.Pusherable('n
       return unless input.title()
 
       noticeAttributes = {
-        title: input.title(),
-        clientId: (new Date()).getTime().toString()
+        title: input.title()
       }
 
       $.extend(noticeAttributes, app: input.app()) if input.app().length > 0

@@ -16,7 +16,7 @@ section.tasks
             a Mine
 
       ul
-        each filteredTasks itemController="task"
+        each sortedTasks itemController="task"
           view "task"
 
 section.issues
