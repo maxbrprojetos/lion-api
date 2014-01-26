@@ -27,6 +27,7 @@ gem 'rails_12factor', group: :production
 group :development do
   gem 'annotate', github: 'ctran/annotate_models'
   gem 'spring'
+  gem 'quiet_assets'
 end
 
 group :test, :development do
