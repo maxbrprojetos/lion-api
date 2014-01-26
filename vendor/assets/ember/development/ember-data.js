@@ -1,11 +1,11 @@
 // Fetched from channel: canary, with url http://builds.emberjs.com/canary/ember-data.js
-// Fetched on: 2014-01-19T09:50:54Z
+// Fetched on: 2014-01-26T15:18:40Z
 /*!
  * @overview  Ember Data
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors.
  *            Portions Copyright 2011 LivingSocial Inc.
  * @license   Licensed under MIT license (see license.js)
- * @version   1.0.0-beta.6+canary.e8e0c99c
+ * @version   1.0.0-beta.7+canary.238bb5ce
  */
 
 
@@ -64,11 +64,11 @@ if ('undefined' === typeof DS) {
   /**
     @property VERSION
     @type String
-    @default '1.0.0-beta.6+canary.e8e0c99c'
+    @default '1.0.0-beta.7+canary.238bb5ce'
     @static
   */
   DS = Ember.Namespace.create({
-    VERSION: '1.0.0-beta.6+canary.e8e0c99c'
+    VERSION: '1.0.0-beta.7+canary.238bb5ce'
   });
 
   if ('undefined' !== typeof window) {
@@ -79,6 +79,60 @@ if ('undefined' === typeof DS) {
     Ember.libraries.registerCoreLibrary('Ember Data', DS.VERSION);
   }
 }
+
+})();
+
+
+
+(function() {
+/**
+  This is used internally to enable deprecation of container paths and provide
+  a decent message to the user indicating how to fix the issue.
+
+  @class ContainerProxy
+  @namespace DS
+  @private
+*/
+var ContainerProxy = function (container){
+  this.container = container;
+};
+
+ContainerProxy.prototype.aliasedFactory = function(path, preLookup) {
+  var _this = this;
+
+  return {create: function(){ 
+    if (preLookup) { preLookup(); }
+
+    return _this.container.lookup(path); 
+  }};
+};
+
+ContainerProxy.prototype.registerAlias = function(source, dest, preLookup) {
+  var factory = this.aliasedFactory(dest, preLookup);
+
+  return this.container.register(source, factory);
+};
+
+ContainerProxy.prototype.registerDeprecation = function(deprecated, valid) {
+  var preLookupCallback = function(){
+    Ember.deprecate("You tried to look up '" + deprecated + "', " +
+                    "but this has been deprecated in favor of '" + valid + "'.", false);
+  };
+
+  return this.registerAlias(deprecated, valid, preLookupCallback);
+};
+
+ContainerProxy.prototype.registerDeprecations = function(proxyPairs) {
+  for (var i = proxyPairs.length; i > 0; i--) {
+    var proxyPair = proxyPairs[i - 1],
+        deprecated = proxyPair['deprecated'],
+        valid = proxyPair['valid'];
+
+    this.registerDeprecation(deprecated, valid);
+  }
+};
+
+DS.ContainerProxy = ContainerProxy;
 
 })();
 
@@ -1097,28 +1151,8 @@ DS.DateTransform = DS.Transform.extend({
 
   serialize: function(date) {
     if (date instanceof Date) {
-      var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-      var pad = function(num) {
-        return num < 10 ? "0"+num : ""+num;
-      };
-
-      var utcYear = date.getUTCFullYear(),
-          utcMonth = date.getUTCMonth(),
-          utcDayOfMonth = date.getUTCDate(),
-          utcDay = date.getUTCDay(),
-          utcHours = date.getUTCHours(),
-          utcMinutes = date.getUTCMinutes(),
-          utcSeconds = date.getUTCSeconds();
-
-
-      var dayOfWeek = days[utcDay];
-      var dayOfMonth = pad(utcDayOfMonth);
-      var month = months[utcMonth];
-
-      return dayOfWeek + ", " + dayOfMonth + " " + month + " " + utcYear + " " +
-             pad(utcHours) + ":" + pad(utcMinutes) + ":" + pad(utcSeconds) + " GMT";
+      // Serialize it as a number to maintain millisecond precision
+      return Number(date);
     } else {
       return null;
     }
@@ -1257,9 +1291,20 @@ Ember.onLoad('Ember.Application', function(Application) {
 
     initialize: function(container, application) {
       application.register('store:main', application.Store || DS.Store);
-      application.register('serializer:_default', DS.JSONSerializer);
-      application.register('serializer:_rest', DS.RESTSerializer);
-      application.register('adapter:_rest', DS.RESTAdapter);
+
+      // allow older names to be looked up
+
+      var proxy = new DS.ContainerProxy(container);
+      proxy.registerDeprecations([
+        {deprecated: 'serializer:_default',  valid: 'serializer:-default'},
+        {deprecated: 'serializer:_rest',     valid: 'serializer:-rest'},
+        {deprecated: 'adapter:_rest',        valid: 'adapter:-rest'}
+      ]);
+
+      // new go forward paths
+      application.register('serializer:-default', DS.JSONSerializer);
+      application.register('serializer:-rest', DS.RESTSerializer);
+      application.register('adapter:-rest', DS.RESTAdapter);
 
       // Eagerly generate the store so defaultStore is populated.
       // TODO: Do this in a finisher hook
@@ -2028,7 +2073,7 @@ DS.Store = Ember.Object.extend({
     @default DS.RESTAdapter
     @type {DS.Adapter|String}
   */
-  adapter: '_rest',
+  adapter: '-rest',
 
   /**
     Returns a JSON representation of the record using a custom
@@ -2069,7 +2114,7 @@ DS.Store = Ember.Object.extend({
     Ember.assert('You tried to set `adapter` property to an instance of `DS.Adapter`, where it should be a name or a factory', !(adapter instanceof DS.Adapter));
 
     if (typeof adapter === 'string') {
-      adapter = this.container.lookup('adapter:' + adapter) || this.container.lookup('adapter:application') || this.container.lookup('adapter:_rest');
+      adapter = this.container.lookup('adapter:' + adapter) || this.container.lookup('adapter:application') || this.container.lookup('adapter:-rest');
     }
 
     if (DS.Adapter.detect(adapter)) {
@@ -2699,7 +2744,7 @@ DS.Store = Ember.Object.extend({
     }).then(function(unreadPosts) {
       unreadPosts.get('length'); // 5
       var unreadPost = unreadPosts.objectAt(0);
-      unreadPosts.set('unread', false);
+      unreadPost.set('unread', false);
       unreadPosts.get('length'); // 4
     });
     ```
@@ -3458,12 +3503,12 @@ function serializerFor(container, type, defaultSerializer) {
   return container.lookup('serializer:'+type) ||
                  container.lookup('serializer:application') ||
                  container.lookup('serializer:' + defaultSerializer) ||
-                 container.lookup('serializer:_default');
+                 container.lookup('serializer:-default');
 }
 
 function defaultSerializer(container) {
   return container.lookup('serializer:application') ||
-         container.lookup('serializer:_default');
+         container.lookup('serializer:-default');
 }
 
 function serializerForAdapter(adapter, type) {
@@ -4509,7 +4554,7 @@ DS.Errors = Ember.Object.extend(Ember.Enumerable, Ember.Evented, {
 */
 
 var get = Ember.get, set = Ember.set,
-    merge = Ember.merge, once = Ember.run.once;
+    merge = Ember.merge;
 
 var retrieveFromCurrentState = Ember.computed('currentState', function(key, value) {
   return get(get(this, 'currentState'), key);
@@ -5101,6 +5146,7 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
     @private
   */
   updateRecordArrays: function() {
+    this._updatingRecordArraysLater = false;
     get(this, 'store').dataWasUpdated(this.constructor, this);
   },
 
@@ -5215,7 +5261,11 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
     @private
   */
   updateRecordArraysLater: function() {
-    Ember.run.once(this, this.updateRecordArrays);
+    // quick hack (something like this could be pushed into run.once
+    if (this._updatingRecordArraysLater) { return; }
+    this._updatingRecordArraysLater = true;
+
+    Ember.run.schedule('actions', this, this.updateRecordArrays);
   },
 
   /**
@@ -5281,7 +5331,7 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
   },
 
   /**
-    If the model `isDirty` this function will which discard any unsaved
+    If the model `isDirty` this function will discard any unsaved
     changes
 
     Example
@@ -5482,8 +5532,8 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
   },
 
   triggerLater: function() {
-    this._deferredTriggers.push(arguments);
-    once(this, '_triggerDeferredTriggers');
+    if (this._deferredTriggers.push(arguments) !== 1) { return; }
+    Ember.run.schedule('actions', this, '_triggerDeferredTriggers');
   },
 
   _triggerDeferredTriggers: function() {
@@ -5491,7 +5541,7 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
       this.trigger.apply(this, this._deferredTriggers[i]);
     }
 
-    this._deferredTriggers = [];
+    this._deferredTriggers.length = 0;
   }
 });
 
@@ -7174,7 +7224,6 @@ DS.Model.reopen({
 */
 
 var get = Ember.get, set = Ember.set;
-var once = Ember.run.once;
 var forEach = Ember.EnumerableUtils.forEach;
 
 /**
@@ -7193,8 +7242,9 @@ DS.RecordArrayManager = Ember.Object.extend({
   },
 
   recordDidChange: function(record) {
-    this.changedRecords.push(record);
-    once(this, this.updateRecordArrays);
+    if (this.changedRecords.push(record) !== 1) { return; }
+
+    Ember.run.schedule('actions', this, this.updateRecordArrays);
   },
 
   recordArraysForRecord: function(record) {
@@ -7223,7 +7273,7 @@ DS.RecordArrayManager = Ember.Object.extend({
       }
     }, this);
 
-    this.changedRecords = [];
+    this.changedRecords.length = 0;
   },
 
   _recordWasDeleted: function (record) {
@@ -9118,7 +9168,7 @@ var forEach = Ember.ArrayPolyfills.forEach;
   @extends DS.Adapter
 */
 DS.RESTAdapter = DS.Adapter.extend({
-  defaultSerializer: '_rest',
+  defaultSerializer: '-rest',
 
 
   /**
@@ -10474,7 +10524,7 @@ var decamelize = Ember.String.decamelize,
 **/
 
 DS.ActiveModelAdapter = DS.RESTAdapter.extend({
-  defaultSerializer: '_ams',
+  defaultSerializer: '-active-model',
   /**
     The ActiveModelAdapter overrides the `pathForType` method to build
     underscored URLs by decamelizing and pluralizing the object type name.
@@ -10548,8 +10598,14 @@ Ember.onLoad('Ember.Application', function(Application) {
     name: "activeModelAdapter",
 
     initialize: function(container, application) {
-      application.register('serializer:_ams', DS.ActiveModelSerializer);
-      application.register('adapter:_ams', DS.ActiveModelAdapter);
+      var proxy = new DS.ContainerProxy(container);
+      proxy.registerDeprecations([
+        {deprecated: 'serializer:_ams',  valid: 'serializer:-active-model'},
+        {deprecated: 'adapter:_ams',     valid: 'adapter:-active-model'}
+      ]);
+
+      application.register('serializer:-active-model', DS.ActiveModelSerializer);
+      application.register('adapter:-active-model', DS.ActiveModelAdapter);
     }
   });
 });
