@@ -9,17 +9,18 @@ Notdvs.CurrentUserController = Ember.ObjectController.extend
     @set('content', null)
 
   content: (->
-    content = @_super.apply(this, arguments)
-    return content if content
+    if arguments.length > 1
+      # setter
+      @_super.apply(this, arguments)
+    else
+      # getter
+      currentUser = Notdvs.LocalStorage.getItem('currentUser')
 
-    currentUser = Notdvs.LocalStorage.getItem('currentUser')
-
-    # getter
-    if arguments.length == 1
       if !Ember.isEmpty(currentUser)
         @set('content', @store.push('user', currentUser))
       else
         @sync()
+
   ).property()
 
   contentDidChange: (->
