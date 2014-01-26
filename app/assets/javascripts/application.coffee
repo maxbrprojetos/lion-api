@@ -23,12 +23,11 @@ window.Notdvs = NotdvsApplication.create(
 Notdvs.deferReadiness()
 
 Ember.SimpleAuth.Session.reopen
-  login: (data) ->
-    currentUser = Notdvs.lookup('store:main').pushPayload('user', data)
-    Notdvs.LocalStorage.setItem('currentUser', data.user)
+  login: ->
+    Notdvs.lookup('controller:currentUser').sync()
 
   logout: ->
-    Notdvs.LocalStorage.removeItem('currentUser')
+    Notdvs.lookup('controller:currentUser').logout()
 
 Ember.Application.initializer
   name: 'authentication'

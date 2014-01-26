@@ -1,6 +1,6 @@
 aside
   .profile-picture
-    img src=Notdvs.currentUser.avatarUrl
+    img src=currentUser.avatarUrl
   nav
     ul
       link-to "notices" tagName="li"

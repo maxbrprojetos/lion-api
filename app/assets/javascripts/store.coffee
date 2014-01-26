@@ -1,6 +1,6 @@
 Notdvs.Store = DS.Store.extend()
 
-Notdvs.ApplicationAdapter = DS.RESTAdapter.reopen
+Notdvs.ApplicationAdapter = DS.ActiveModelAdapter.reopen
   namespace: 'api'
 
 Notdvs.ApplicationSerializer = DS.ActiveModelSerializer.extend

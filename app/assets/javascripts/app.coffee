@@ -20,7 +20,3 @@ unless window.NotdvsApplication
 
     ready: ->
       Notify.prototype.requestPermission() if Notify.prototype.needsPermission()
-
-    currentUser: (->
-      Notdvs.LocalStorage.getItem('currentUser')
-    ).property()

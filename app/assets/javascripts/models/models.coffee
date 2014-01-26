@@ -10,7 +10,7 @@ Notdvs.Task = Notdvs.Model.extend
   assignee: DS.belongsTo('user')
 
   didUpdate: ->
-    if Notdvs.get('currentUser.id') == @get('assignee.id')
+    if Notdvs.lookup('controller:currentUser').get('content.id') == @get('assignee.id')
       new Notify('You have been assigned an issue', { body: @get('title') }).show()
 
 Notdvs.User = DS.Model.extend

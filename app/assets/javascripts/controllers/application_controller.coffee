@@ -1,4 +1,6 @@
 Notdvs.ApplicationController = Ember.Controller.extend
+  needs: ['currentUser']
+  currentUserBinding: 'controllers.currentUser'
   layoutName: 'layouts/application'
 
   connectLayout: (name) ->

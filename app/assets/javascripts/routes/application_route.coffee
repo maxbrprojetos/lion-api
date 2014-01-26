@@ -9,10 +9,7 @@ Notdvs.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMi
     loginSucceeded: ->
       # move this inside the ajax promise resolution
       @_super.apply(this, arguments)
-
-      $.getJSON("#{location.protocol}//#{location.host}/api/users/me").then((data) =>
-        @get('session').login(data)
-      )
+      @get('session').login()
 
     logout: ->
       @get('session').logout()
