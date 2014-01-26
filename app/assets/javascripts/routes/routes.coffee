@@ -1,3 +1,13 @@
+Notdvs.LoadingRoute = Ember.Route.extend(
+  activate: ->
+    @_super.apply(this, arguments)
+    Pace.restart()
+
+  deactivate: ->
+    @_super.apply(this, arguments)
+    Pace.stop()
+)
+
 Notdvs.LoginRoute = Ember.Route.extend
   beforeModel: ->
     @transitionTo(Ember.SimpleAuth.routeAfterLogin) if @get('session.isAuthenticated')

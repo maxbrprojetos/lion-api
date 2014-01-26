@@ -1,4 +1,5 @@
 #= require jquery
+#= require pace
 #= require notify
 #= require handlebars
 #= require pusher
