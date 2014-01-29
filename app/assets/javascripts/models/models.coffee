@@ -9,10 +9,6 @@ Notdvs.Task = Notdvs.Model.extend
   user: DS.belongsTo('user')
   assignee: DS.belongsTo('user')
 
-  didUpdate: ->
-    if Notdvs.lookup('controller:currentUser').get('content.id') == @get('assignee.id')
-      new Notify('You have been assigned an issue', { body: @get('title') }).show()
-
 Notdvs.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')
