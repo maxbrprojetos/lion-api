@@ -6,9 +6,12 @@ Notdvs.TaskController = Ember.ObjectController.extend(
     Ember.guidFor(this)
   ).property()
 
+  toggleEditing: ->
+    @set('isEditing', !@get('isEditing'))
+
   actions:
     editTask: ->
-      @set('isEditing', true)
+      Ember.run.debounce(this, @toggleEditing, 100)
 
     doneEditing: ->
       bufferedTitle = @get('bufferedTitle').trim()
@@ -22,11 +25,14 @@ Notdvs.TaskController = Ember.ObjectController.extend(
         Ember.run.debounce(this, @send, 'removeTask', 0)
       else
         task = @get('model')
-        task.set('title', bufferedTitle)
-        task.save()
+        title = task.get('title')
+
+        if title != bufferedTitle
+          task.set('title', bufferedTitle)
+          task.save()
 
       @set('bufferedTitle', bufferedTitle)
-      @set('isEditing', false)
+      Ember.run.debounce(this, @toggleEditing, 100)
 
     cancelEditing: ->
       @set('bufferedTitle', @get('title'))
