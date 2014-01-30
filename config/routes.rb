@@ -8,6 +8,12 @@ Notdvs::Application.routes.draw do
         get :me
       end
     end
+
+    resources :completions, only: [:create] do
+      collection do
+        delete :destroy
+      end
+    end
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'

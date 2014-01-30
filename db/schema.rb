@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140119153421) do
+ActiveRecord::Schema.define(version: 20140130114414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "completions", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "user_id"
+    t.uuid     "completable_id"
+    t.string   "completable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "notices", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.text     "title"
@@ -25,7 +33,7 @@ ActiveRecord::Schema.define(version: 20140119153421) do
     t.string   "app"
   end
 
-  create_table "tasks", force: true do |t|
+  create_table "tasks", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.text     "title"
     t.boolean  "completed",   default: false
     t.datetime "created_at"
@@ -43,6 +51,7 @@ ActiveRecord::Schema.define(version: 20140119153421) do
     t.string   "github_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points",     default: 0
   end
 
 end

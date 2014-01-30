@@ -9,6 +9,24 @@ Notdvs.Task = Notdvs.Model.extend
   user: DS.belongsTo('user')
   assignee: DS.belongsTo('user')
 
+  toggleComplete: (completed) ->
+    verb = if completed == true then 'DELETE' else 'POST'
+
+    $.ajax(
+      type: verb,
+      url: '/api/completions',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify({
+        completable: {
+          id: @get('id'),
+          type: 'Task'
+        }
+      })
+    ).then((data) =>
+      Ember.run => @store.pushPayload(data)
+    )
+
 Notdvs.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')

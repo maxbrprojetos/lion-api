@@ -29,7 +29,8 @@ describe 'Tasks Requests' do
           {
             'id' => task.user.id,
             'avatar_url' => task.user.avatar_url,
-            'nickname' => task.user.nickname
+            'nickname' => task.user.nickname,
+            'points' => task.user.points
           }
         end.uniq
       )
@@ -56,7 +57,7 @@ describe 'Tasks Requests' do
     it 'updates a task and responds with the corresponding json' do
       task = Task.create(title: 'test')
       assignee = User.create(nickname: 'test')
-      task_params = { title: 'omg', completed: true, assignee_id: assignee.id }
+      task_params = { title: 'omg', assignee_id: assignee.id }
 
       patch api_task_path(task), { task: task_params }.to_json
 
@@ -64,7 +65,6 @@ describe 'Tasks Requests' do
 
       JSON.parse(last_response.body)['task'].should include({
         'title' => task_params[:title],
-        'completed' => task_params[:completed],
         'assignee_id' => task_params[:assignee_id]
       })
     end

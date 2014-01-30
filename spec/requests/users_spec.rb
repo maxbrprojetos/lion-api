@@ -10,7 +10,8 @@ describe 'Users Requests' do
       JSON.parse(last_response.body)['user'].should eq({
         'id' => current_user.id,
         'avatar_url' => current_user.avatar_url,
-        'nickname' => current_user.nickname
+        'nickname' => current_user.nickname,
+        'points' => current_user.points
       })
     end
   end
@@ -29,12 +30,14 @@ describe 'Users Requests' do
           {
             'id' => user.id,
             'nickname' => user.nickname,
-            'avatar_url' => user.avatar_url
+            'avatar_url' => user.avatar_url,
+            'points' => current_user.points
           }
         end.push({
           'id' => current_user.id,
           'nickname' => current_user.nickname,
-          'avatar_url' => current_user.avatar_url
+          'avatar_url' => current_user.avatar_url,
+          'points' => current_user.points
         })
       )
     end
@@ -52,7 +55,8 @@ describe 'Users Requests' do
         {
           'id' => user.id,
           'nickname' => user.nickname,
-          'avatar_url' => user.avatar_url
+          'avatar_url' => user.avatar_url,
+          'points' => current_user.points
         }
       )
     end
