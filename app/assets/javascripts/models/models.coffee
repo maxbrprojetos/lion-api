@@ -11,6 +11,7 @@ Notdvs.Task = Notdvs.Model.extend
 
   toggleComplete: (completed) ->
     verb = if completed == true then 'DELETE' else 'POST'
+    @set('completed', !completed)
 
     $.ajax(
       type: verb,

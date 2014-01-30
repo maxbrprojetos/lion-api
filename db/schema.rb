@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20140130114414) do
   enable_extension "uuid-ossp"
 
   create_table "completions", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
-    t.uuid     "user_id"
     t.uuid     "completable_id"
     t.string   "completable_type"
     t.datetime "created_at"
