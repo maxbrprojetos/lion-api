@@ -18,7 +18,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'ember-rails'
 gem 'emblem-rails'
-gem 'foundation-rails', '5.0.2'
+gem 'foundation-rails'
 gem 'bourbon'
 gem 'zocial-rails'
 

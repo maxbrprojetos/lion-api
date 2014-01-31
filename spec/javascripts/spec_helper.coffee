@@ -22,7 +22,4 @@ $.fx.off = true
 beforeEach ->
   Notdvs.reset()
 
-after ->
-  Notdvs.reset()
-
 Notdvs.setup()

@@ -1,4 +1,7 @@
 #= require jquery
+#= require vendor/modernizr
+#= require foundation/foundation
+#= require foundation/foundation.dropdown
 #= require pace
 #= require notify
 #= require handlebars
