@@ -2,6 +2,7 @@
 #= require pace
 #= require notify
 #= require handlebars
+#= require pusher
 #= require moment
 #= require ember
 #= require ember-data
