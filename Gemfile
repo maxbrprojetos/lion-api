@@ -38,6 +38,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec', require: false
+  gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
 end
 
 group :test do

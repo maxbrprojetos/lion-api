@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'spec_helper'
-
 describe 'Completions Requests' do
   describe 'POST /completions' do
     it 'responds with a json containing the completable object marked as completed' do
