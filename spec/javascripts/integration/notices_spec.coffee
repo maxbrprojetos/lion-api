@@ -4,8 +4,8 @@ describe 'Notices - Integration', ->
   beforeEach ->
     visit('/')
 
-  it 'shows Pistachio', ->
-    find('.status-circle p').text().should.equal('Pistachio')
+  it 'shows Ok status', ->
+    find('p').text().should.equal('ok')
 
   it 'adds a Notice to the list', ->
     fillIn('input[type="text"]', 'test')
