@@ -12,7 +12,7 @@ Notdvs.setupForTesting()
 Notdvs.injectTestHelpers()
 
 mocha.globals(['Ember', 'DS', 'Notdvs', 'MD5'])
-mocha.timeout(2000)
+mocha.timeout(15000)
 chai.Assertion.includeStack = true
 
 Konacha.reset = Ember.K

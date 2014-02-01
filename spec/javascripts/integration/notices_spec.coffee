@@ -5,16 +5,25 @@ describe 'Notices - Integration', ->
     visit('/')
 
   it 'shows Ok status', ->
-    find('p').text().should.equal('ok')
+    find('.status p').text().should.equal('ok')
 
   it 'adds a Notice to the list', ->
     fillIn('input[type="text"]', 'test')
-    .click('input[type="submit"]').then ->
+    click('input[type="submit"]')
+    andThen ->
       find('.title').text().should.equal('test')
 
   it 'deletes a Notice', ->
-    Ember.run ->
-      notice = Notdvs.lookup('store:main').createRecord('notice', { title: 'test' })
-      notice.save().then ->
-        click('.close').then ->
-          find('.title').length.should.equal(0)
+    fillIn('input[type="text"]', 'test')
+    click('input[type="submit"]')
+    click('.close')
+    andThen ->
+      find('.closing .title').length.should.equal(1)
+
+  it 'adds a Notice with an app', ->
+    fillIn('input[type="text"]', 'app:lol test')
+    click('input[type="submit"]')
+    andThen ->
+      find('.title').text().should.equal('test')
+      find('.app').text().should.equal('lol')
+      find('.status p').text().should.equal('lol')
