@@ -9,33 +9,39 @@ body
 aside
   +grid-column($columns: 1, $collapse: true)
 
+form
+  +row
+
+  .input
+    +grid-column($columns: 9, $collapse: true)
+
+  .submit
+    +grid-column($columns: 3, $collapse: true)
+
+  input[type="submit"]
+    +prefix-postfix-base
+    +postfix($is-button: false)
+
 main
   +grid-column($columns: 11, $offset: 1)
 
   & > .content
     +grid-row
 
+
+
 .notices-container
   +grid-column($columns: 6, $center: true, $collapse: true)
+  // remove once fixed https://github.com/zurb/foundation/issues/4161
+  float: none !important
 
   section.status
     +row
 
     & > div
       +grid-column($columns: 6, $center: true, $collapse: true)
-
-  form
-    +row
-
-    .input
-      +grid-column($columns: 9, $collapse: true)
-
-    .submit
-      +grid-column($columns: 3, $collapse: true)
-
-      input
-        +prefix-postfix-base
-        +postfix($is-button: false)
+      // remove once fixed https://github.com/zurb/foundation/issues/4161
+      float: none !important
 
   section.notices
     +row

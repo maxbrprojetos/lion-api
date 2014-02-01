@@ -20,7 +20,6 @@ Notdvs.CurrentUserController = Ember.ObjectController.extend
         @set('content', @store.push('user', currentUser))
       else
         @sync()
-
   ).property()
 
   contentDidChange: (->

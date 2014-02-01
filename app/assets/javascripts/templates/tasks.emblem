@@ -1,7 +1,11 @@
 section.tasks
   header
     h1 Tasks
-    = input type="text" value=newTitle action="createTask" placeholder="What needs to be done?"
+    form submit=createTask
+      div.input
+        = input type="text" value=newTitle placeholder="What needs to be done?"
+      div.submit
+        input type="submit" value="Add Task"
 
   if length
     section.main
