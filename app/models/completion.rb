@@ -9,10 +9,10 @@ class Completion < ActiveRecord::Base
   private
 
   def mark_completable_as_completed
-    completable.update_column(:completed, true)
+    completable.update(completed: true)
   end
 
   def mark_completable_as_not_completed
-    completable.update_column(:completed, false)
+    completable.update(completed: false)
   end
 end
