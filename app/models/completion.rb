@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: completions
+#
+#  id               :uuid             not null, primary key
+#  completable_id   :uuid
+#  completable_type :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 class Completion < ActiveRecord::Base
   POINTS = 5
 

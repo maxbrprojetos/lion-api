@@ -4,7 +4,7 @@
 #
 #  id         :uuid             not null, primary key
 #  title      :text
-#  type       :string(255)
+#  type       :string(255)      default("warning")
 #  created_at :datetime
 #  updated_at :datetime
 #  app        :string(255)

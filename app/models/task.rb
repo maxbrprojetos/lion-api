@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id          :uuid             not null, primary key
+#  title       :text
+#  completed   :boolean          default(FALSE)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  user_id     :uuid
+#  assignee_id :uuid
+#
+
 class Task < ActiveRecord::Base
   include Pusherable
 
