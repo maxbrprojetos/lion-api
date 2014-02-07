@@ -58,9 +58,9 @@ describe 'Tasks Requests' do
       task_params = { title: 'test', client_id: '1234' }
 
       $flow.should_receive(:push_to_team_inbox).with(
-        subject: 'New Task',
+        subject: 'Added Task',
         content: task_params[:title],
-        tags: ['notdvs', 'task'],
+        tags: ['task', 'new'],
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 

@@ -8,9 +8,9 @@ class Api::CompletionsController < ApplicationController
 
     if @completion.save
       $flow.push_to_team_inbox(
-        subject: "#{@completion.completable.class.name} Completed",
+        subject: "Completed #{@completion.completable.class.name}",
         content: @completion.completable.title,
-        tags: ['notdvs', 'task'],
+        tags: ['task', 'completed'],
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 

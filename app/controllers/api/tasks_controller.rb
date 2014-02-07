@@ -12,9 +12,9 @@ class Api::TasksController < ApplicationController
 
     if @task.save
       $flow.push_to_team_inbox(
-        subject: 'New Task',
+        subject: 'Added Task',
         content: @task.title,
-        tags: ['notdvs', 'task'],
+        tags: ['task', 'new'],
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 

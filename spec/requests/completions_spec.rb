@@ -22,9 +22,9 @@ describe 'Completions Requests' do
       $flow = double(:flow)
 
       $flow.should_receive(:push_to_team_inbox).with(
-        subject: 'Task Completed',
+        subject: 'Completed Task',
         content: @task.title,
-        tags: ['notdvs', 'task'],
+        tags: ['task', 'completed'],
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 
