@@ -87,12 +87,27 @@ describe 'Tasks Requests' do
 
   describe 'DESTROY /tasks/{id}' do
     it 'destroys a task and responds with no content' do
+      $flow = double(:flow).as_null_object
       task = Task.create(title: 'test')
 
       delete api_task_path(task)
 
       last_response.status.should eq(204)
       last_response.body.should eq('')
+    end
+
+    it 'notifies flowdock' do
+      $flow = double(:flow)
+      task = Task.create(title: 'test')
+
+      $flow.should_receive(:push_to_team_inbox).with(
+        subject: 'Deleted Task',
+        content: task.title,
+        tags: ['task', 'deleted'],
+        link: 'https://notdvs.herokuapp.com/#/tasks'
+      )
+
+      delete api_task_path(task)
     end
   end
 end

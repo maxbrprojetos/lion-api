@@ -39,6 +39,13 @@ class Api::TasksController < ApplicationController
 
     @task.destroy
 
+    $flow.push_to_team_inbox(
+      subject: 'Deleted Task',
+      content: @task.title,
+      tags: ['task', 'deleted'],
+      link: 'https://notdvs.herokuapp.com/#/tasks'
+    )
+
     head :no_content
   end
 
