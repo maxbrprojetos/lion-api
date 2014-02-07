@@ -11,6 +11,13 @@ class Api::TasksController < ApplicationController
     @task = current_user.tasks.build(task_params)
 
     if @task.save
+      $flow.push_to_team_inbox(
+        subject: 'New Task',
+        content: @task.title,
+        tags: ['notdvs', 'task'],
+        link: 'https://notdvs.herokuapp.com/#/tasks'
+      )
+
       render json: @task, status: :created
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity

@@ -39,6 +39,7 @@ describe 'Tasks Requests' do
 
   describe 'POST /tasks' do
     it 'creates a task and responds with the corresponding json' do
+      $flow = double(:flow).as_null_object
       task_params = { title: 'test', client_id: '1234' }
       post api_tasks_path, { task: task_params }.to_json
 
@@ -50,6 +51,20 @@ describe 'Tasks Requests' do
           'client_id' => task_params[:client_id]
         }
       )
+    end
+
+    it 'sends a notification to flowdock' do
+      $flow = double(:flow)
+      task_params = { title: 'test', client_id: '1234' }
+
+      $flow.should_receive(:push_to_team_inbox).with(
+        subject: 'New Task',
+        content: task_params[:title],
+        tags: ['notdvs', 'task'],
+        link: 'https://notdvs.herokuapp.com/#/tasks'
+      )
+
+      post api_tasks_path, { task: task_params }.to_json
     end
   end
 
