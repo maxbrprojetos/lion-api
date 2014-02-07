@@ -27,6 +27,10 @@ Notdvs.Task = Notdvs.Model.extend
       Ember.run => @store.pushPayload(data)
     )
 
+  didUpdate: ->
+    if @get('assignee.id') == Notdvs.lookup('controller:currentUser').get('id')
+      new Notify('You have been assigned an issue', { body: @get('title') }).show()
+
 Notdvs.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')

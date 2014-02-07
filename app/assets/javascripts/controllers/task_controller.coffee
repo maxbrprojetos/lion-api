@@ -1,4 +1,5 @@
 Notdvs.TaskController = Ember.ObjectController.extend(
+  needs: ['currentUser']
   isEditing: false
   bufferedTitle: Ember.computed.oneWay('title')
 
@@ -52,7 +53,5 @@ Notdvs.TaskController = Ember.ObjectController.extend(
 
       if task.get('assignee.id') != user.get('id')
         task.set('assignee', user)
-        task.save().then((task) ->
-          new Notify('You have been assigned an issue', { body: task.get('title') }).show()
-        )
+        task.save()
 )
