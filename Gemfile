@@ -41,6 +41,7 @@ group :test, :development do
   gem 'guard-rspec', require: false
   gem 'guard-rubocop'
   gem 'guard-cucumber'
+  gem 'guard-konacha'
   gem 'rubocop'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
 end
