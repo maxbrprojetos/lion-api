@@ -18,9 +18,22 @@ class User < ActiveRecord::Base
   has_many :tasks
 
   def self.find_or_create_from_auth_hash(auth_hash)
-    user = self.where(github_id: auth_hash['uid']).first
+    user = where(github_id: auth_hash['uid']).first
+    info = user_info(auth_hash)
 
-    user_info = {
+    if user
+      user.update(info)
+    else
+      user = create_from_github(info)
+    end
+
+    user
+  end
+
+  private
+
+  def self.user_info(auth_hash)
+    {
       name: auth_hash['info']['name'],
       github_id: auth_hash['uid'],
       nickname: auth_hash['info']['nickname'],
@@ -28,21 +41,17 @@ class User < ActiveRecord::Base
       avatar_url: auth_hash['info']['image'],
       api_token: auth_hash['credentials']['token']
     }
+  end
 
-    if user
-      user.update(user_info)
+  def self.create_from_github(info)
+    client = Octokit::Client.new(access_token: info[:api_token])
+    user = client.user
+    user.login
+
+    if client.organizations.map(&:login).include?('alphasights')
+      User.create(info)
     else
-      client = Octokit::Client.new(access_token: user_info[:api_token])
-      user = client.user
-      user.login
-
-      if client.organizations.map(&:login).include?('alphasights')
-        user = User.create(user_info)
-      else
-        user = nil
-      end
+      nil
     end
-
-    user
   end
 end

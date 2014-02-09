@@ -32,12 +32,10 @@ describe 'Notices Requests' do
       last_response.status.should eq(201)
 
       JSON.parse(last_response.body)['notice'].should include(
-        {
-          'title' => notice_params[:title],
-          'client_id' => notice_params[:client_id],
-          'app' => notice_params[:app],
-          'type' => notice_params[:type]
-        }
+        'title' => notice_params[:title],
+        'client_id' => notice_params[:client_id],
+        'app' => notice_params[:app],
+        'type' => notice_params[:type]
       )
     end
   end

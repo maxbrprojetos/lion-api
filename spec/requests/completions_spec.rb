@@ -7,24 +7,22 @@ describe 'Completions Requests' do
 
   describe 'POST /completions' do
     it 'responds with a json containing the completable object marked as completed' do
-      $flow = double(:flow).as_null_object
+      Notdvs.stub(flow: double(:flow).as_null_object)
       post api_completions_path, { completable: { type: 'Task', id: @task.id } }.to_json
 
       last_response.status.should eq(201)
       parsed_response = JSON.parse(last_response.body)
 
-      parsed_response['task'].should include({
-        'completed' => true
-      })
+      parsed_response['task'].should include('completed' => true)
     end
 
     it 'sends a notification to flowdock' do
-      $flow = double(:flow)
+      Notdvs.stub(flow: double(:flow))
 
-      $flow.should_receive(:push_to_team_inbox).with(
+      Notdvs.flow.should_receive(:push_to_team_inbox).with(
         subject: 'Completed Task',
         content: @task.title,
-        tags: ['task', 'completed'],
+        tags: %w(task completed),
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 
@@ -34,15 +32,13 @@ describe 'Completions Requests' do
 
   describe 'DELETE /completions' do
     it 'responds with a json containing the completable object marked as not completed' do
-      completion = Completion.create(completable: @task)
+      Completion.create(completable: @task)
       delete api_completions_path, { completable: { type: 'Task', id: @task.id } }.to_json
 
       last_response.status.should eq(200)
       parsed_response = JSON.parse(last_response.body)
 
-      parsed_response['task'].should include({
-        'completed' => false
-      })
+      parsed_response['task'].should include('completed' => false)
     end
 
     it "responds with 404 if it can't find the completion" do

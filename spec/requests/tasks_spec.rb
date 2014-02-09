@@ -39,28 +39,26 @@ describe 'Tasks Requests' do
 
   describe 'POST /tasks' do
     it 'creates a task and responds with the corresponding json' do
-      $flow = double(:flow).as_null_object
+      Notdvs.stub(flow: double(:flow).as_null_object)
       task_params = { title: 'test', client_id: '1234' }
       post api_tasks_path, { task: task_params }.to_json
 
       last_response.status.should eq(201)
 
       JSON.parse(last_response.body)['task'].should include(
-        {
-          'title' => task_params[:title],
-          'client_id' => task_params[:client_id]
-        }
+        'title' => task_params[:title],
+        'client_id' => task_params[:client_id]
       )
     end
 
     it 'sends a notification to flowdock' do
-      $flow = double(:flow)
+      Notdvs.stub(flow: double(:flow))
       task_params = { title: 'test', client_id: '1234' }
 
-      $flow.should_receive(:push_to_team_inbox).with(
+      Notdvs.flow.should_receive(:push_to_team_inbox).with(
         subject: 'Added Task',
         content: task_params[:title],
-        tags: ['task', 'new'],
+        tags: %w(task new),
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 
@@ -78,16 +76,16 @@ describe 'Tasks Requests' do
 
       last_response.status.should eq(200)
 
-      JSON.parse(last_response.body)['task'].should include({
+      JSON.parse(last_response.body)['task'].should include(
         'title' => task_params[:title],
         'assignee_id' => task_params[:assignee_id]
-      })
+      )
     end
   end
 
   describe 'DESTROY /tasks/{id}' do
     it 'destroys a task and responds with no content' do
-      $flow = double(:flow).as_null_object
+      Notdvs.stub(flow: double(:flow).as_null_object)
       task = Task.create(title: 'test')
 
       delete api_task_path(task)
@@ -97,13 +95,13 @@ describe 'Tasks Requests' do
     end
 
     it 'notifies flowdock' do
-      $flow = double(:flow)
+      Notdvs.stub(flow: double(:flow))
       task = Task.create(title: 'test')
 
-      $flow.should_receive(:push_to_team_inbox).with(
+      Notdvs.flow.should_receive(:push_to_team_inbox).with(
         subject: 'Deleted Task',
         content: task.title,
-        tags: ['task', 'deleted'],
+        tags: %w(task deleted),
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 

@@ -7,12 +7,12 @@ describe 'Users Requests' do
 
       last_response.status.should eq(200)
 
-      JSON.parse(last_response.body)['user'].should eq({
+      JSON.parse(last_response.body)['user'].should eq(
         'id' => current_user.id,
         'avatar_url' => current_user.avatar_url,
         'nickname' => current_user.nickname,
         'points' => current_user.points
-      })
+      )
     end
   end
 
@@ -25,7 +25,7 @@ describe 'Users Requests' do
 
       last_response.status.should eq(200)
 
-      JSON.parse(last_response.body)['users'].should =~(
+      JSON.parse(last_response.body)['users'].should =~
         users.map do |user|
           {
             'id' => user.id,
@@ -33,31 +33,28 @@ describe 'Users Requests' do
             'avatar_url' => user.avatar_url,
             'points' => current_user.points
           }
-        end.push({
+        end.push(
           'id' => current_user.id,
           'nickname' => current_user.nickname,
           'avatar_url' => current_user.avatar_url,
           'points' => current_user.points
-        })
-      )
+        )
     end
   end
 
   describe 'GET /user/{id}' do
     it 'responds with a json representing the requested user' do
-      user = User.create(nickname: "test", avatar_url: "http://lol.com/omg.png")
+      user = User.create(nickname: 'test', avatar_url: 'http://lol.com/omg.png')
 
       get api_user_path(user)
 
       last_response.status.should eq(200)
 
       JSON.parse(last_response.body)['user'].should eq(
-        {
-          'id' => user.id,
-          'nickname' => user.nickname,
-          'avatar_url' => user.avatar_url,
-          'points' => current_user.points
-        }
+        'id' => user.id,
+        'nickname' => user.nickname,
+        'avatar_url' => user.avatar_url,
+        'points' => current_user.points
       )
     end
   end

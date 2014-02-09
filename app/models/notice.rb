@@ -13,11 +13,15 @@
 class Notice < ActiveRecord::Base
   include Pusherable
 
-  pusherable serializer: NoticeSerializer
+  validates :type, inclusion: { in: %w(warning error) }
 
-  validates :type, inclusion: { in: ['warning', 'error'] }
+  private
 
   def self.inheritance_column
     '_type_disabled'
+  end
+
+  def self.serializer
+    NoticeSerializer
   end
 end

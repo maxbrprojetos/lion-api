@@ -39,6 +39,9 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec', require: false
+  gem 'guard-rubocop'
+  gem 'guard-cucumber'
+  gem 'rubocop'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
 end
 
@@ -46,4 +49,5 @@ group :test do
   gem 'database_cleaner'
   gem 'vcr'
   gem 'webmock'
+  gem 'cucumber-rails', require: false
 end

@@ -11,13 +11,7 @@ class Api::TasksController < ApplicationController
     @task = current_user.tasks.build(task_params)
 
     if @task.save
-      $flow.push_to_team_inbox(
-        subject: 'Added Task',
-        content: @task.title,
-        tags: ['task', 'new'],
-        link: 'https://notdvs.herokuapp.com/#/tasks'
-      )
-
+      notify_task_creation
       render json: @task, status: :created
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
@@ -38,21 +32,32 @@ class Api::TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     @task.destroy
-
-    $flow.push_to_team_inbox(
-      subject: 'Deleted Task',
-      content: @task.title,
-      tags: ['task', 'deleted'],
-      link: 'https://notdvs.herokuapp.com/#/tasks'
-    )
+    notify_task_destruction
 
     head :no_content
   end
-
 
   private
 
   def task_params
     params.require(:task).permit(:title, :client_id, :assignee_id)
+  end
+
+  def notify_task_creation
+    Notdvs.flow.push_to_team_inbox(
+      subject: 'Added Task',
+      content: @task.title,
+      tags: %w(task new),
+      link: 'https://notdvs.herokuapp.com/#/tasks'
+    )
+  end
+
+  def notify_task_destruction
+    Notdvs.flow.push_to_team_inbox(
+      subject: 'Deleted Task',
+      content: @task.title,
+      tags: %w(task deleted),
+      link: 'https://notdvs.herokuapp.com/#/tasks'
+    )
   end
 end

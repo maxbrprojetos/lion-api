@@ -14,7 +14,7 @@ require 'spec_helper'
 describe Completion do
   it 'marks the task as completed when created' do
     task = Task.create
-    completion = Completion.create(completable: task)
+    Completion.create(completable: task)
 
     task.completed.should eq(true)
   end

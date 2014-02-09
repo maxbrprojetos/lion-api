@@ -7,13 +7,7 @@ class Api::CompletionsController < ApplicationController
     )
 
     if @completion.save
-      $flow.push_to_team_inbox(
-        subject: "Completed #{@completion.completable.class.name}",
-        content: @completion.completable.title,
-        tags: ['task', 'completed'],
-        link: 'https://notdvs.herokuapp.com/#/tasks'
-      )
-
+      notify_completion_creation
       render json: @completion.completable, status: :created
     else
       render json: @completion.errors, status: :unprocessable_entity
@@ -29,5 +23,16 @@ class Api::CompletionsController < ApplicationController
 
     @completion.destroy
     render json: @completion.completable, status: :ok
+  end
+
+  private
+
+  def notify_completion_creation
+    Notdvs.flow.push_to_team_inbox(
+      subject: "Completed #{@completion.completable.class.name}",
+      content: @completion.completable.title,
+      tags: %w(task completed),
+      link: 'https://notdvs.herokuapp.com/#/tasks'
+    )
   end
 end
