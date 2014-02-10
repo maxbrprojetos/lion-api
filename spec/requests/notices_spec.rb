@@ -26,6 +26,7 @@ describe 'Notices Requests' do
 
   describe 'POST /notices' do
     it 'creates a notice and responds with the corresponding json' do
+      Notdvs.stub(flow: double(:flow).as_null_object)
       notice_params = { title: 'test', client_id: '1234', app: 'testapp', type: 'error' }
       post api_notices_path, { notice: notice_params }.to_json
 
@@ -38,16 +39,45 @@ describe 'Notices Requests' do
         'type' => notice_params[:type]
       )
     end
+
+    it 'sends a notification to flowdock' do
+      Notdvs.stub(flow: double(:flow))
+      notice_params = { title: 'test', client_id: '1234', app: 'testapp', type: 'error' }
+
+      Notdvs.flow.should_receive(:push_to_team_inbox).with(
+        subject: "Added Notice for #{notice_params[:app].capitalize}",
+        content: notice_params[:title],
+        tags: %w(notice new),
+        link: 'https://notdvs.herokuapp.com'
+      )
+
+      post api_notices_path, { notice: notice_params }.to_json
+    end
   end
 
   describe 'DESTROY /notices/{id}' do
     it 'destroys a notice and responds with no content' do
-      notice = Notice.create(title: 'test')
+      Notdvs.stub(flow: double(:flow).as_null_object)
+      notice = Notice.create(title: 'test', app: 'testapp')
 
       delete api_notice_path(notice)
 
       last_response.status.should eq(204)
       last_response.body.should eq('')
+    end
+
+    it 'notifies flowdock' do
+      Notdvs.stub(flow: double(:flow))
+      notice = Notice.create(title: 'test', app: 'testapp')
+
+      Notdvs.flow.should_receive(:push_to_team_inbox).with(
+        subject: "Deleted Notice for #{notice.app.capitalize}",
+        content: notice.title,
+        tags: %w(notice deleted),
+        link: 'https://notdvs.herokuapp.com'
+      )
+
+      delete api_notice_path(notice)
     end
   end
 end

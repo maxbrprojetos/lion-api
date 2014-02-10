@@ -11,6 +11,7 @@ class Api::NoticesController < ApplicationController
     @notice = Notice.new(notice_params)
 
     if @notice.save
+      notify_notice_creation
       render json: @notice, status: :created
     else
       render json: { errors: @notice.errors }, status: :unprocessable_entity
@@ -21,6 +22,7 @@ class Api::NoticesController < ApplicationController
     @notice = Notice.find(params[:id])
 
     @notice.destroy
+    notify_notice_destruction
 
     head :no_content
   end
@@ -29,5 +31,23 @@ class Api::NoticesController < ApplicationController
 
   def notice_params
     params.require(:notice).permit(:title, :client_id, :type, :app)
+  end
+
+  def notify_notice_creation
+    Notdvs.flow.push_to_team_inbox(
+      subject: "Added Notice for #{@notice.app.capitalize}",
+      content: @notice.title,
+      tags: %w(notice new),
+      link: 'https://notdvs.herokuapp.com'
+    )
+  end
+
+  def notify_notice_destruction
+    Notdvs.flow.push_to_team_inbox(
+      subject: "Deleted Notice for #{@notice.app.capitalize}",
+      content: @notice.title,
+      tags: %w(notice deleted),
+      link: 'https://notdvs.herokuapp.com'
+    )
   end
 end
