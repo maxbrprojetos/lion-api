@@ -56,6 +56,10 @@ RSpec.configure do |config|
     header 'Content-Type', 'application/json'
   end
 
+  config.before(:each, type: :controller) do
+    ApplicationController.any_instance.stub(current_user: current_user)
+  end
+
   config.around(:each, :vcr) do |example|
     name = example.metadata[:full_description].split(/\s+/, 2).join('/').underscore.gsub(/[^\w\/]+/, '_')
     options = example.metadata.slice(:record, :match_requests_on).except(:example_group)

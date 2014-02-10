@@ -39,7 +39,7 @@ describe 'Tasks Requests' do
 
   describe 'POST /tasks' do
     it 'creates a task and responds with the corresponding json' do
-      Notdvs.stub(flow: double(:flow).as_null_object)
+      ApplicationController.any_instance.stub(flow: double(:flow).as_null_object)
       task_params = { title: 'test', client_id: '1234' }
       post api_tasks_path, { task: task_params }.to_json
 
@@ -52,10 +52,11 @@ describe 'Tasks Requests' do
     end
 
     it 'sends a notification to flowdock' do
-      Notdvs.stub(flow: double(:flow))
+      flow = double(:flow)
+      ApplicationController.any_instance.stub(flow: flow)
       task_params = { title: 'test', client_id: '1234' }
 
-      Notdvs.flow.should_receive(:push_to_team_inbox).with(
+      flow.should_receive(:push_to_team_inbox).with(
         subject: 'Added Task',
         content: task_params[:title],
         tags: %w(task new),
@@ -85,7 +86,7 @@ describe 'Tasks Requests' do
 
   describe 'DESTROY /tasks/{id}' do
     it 'destroys a task and responds with no content' do
-      Notdvs.stub(flow: double(:flow).as_null_object)
+      ApplicationController.any_instance.stub(flow: double(:flow).as_null_object)
       task = Task.create(title: 'test')
 
       delete api_task_path(task)
@@ -95,10 +96,11 @@ describe 'Tasks Requests' do
     end
 
     it 'notifies flowdock' do
-      Notdvs.stub(flow: double(:flow))
+      flow = double(:flow)
+      ApplicationController.any_instance.stub(flow: flow)
       task = Task.create(title: 'test')
 
-      Notdvs.flow.should_receive(:push_to_team_inbox).with(
+      flow.should_receive(:push_to_team_inbox).with(
         subject: 'Deleted Task',
         content: task.title,
         tags: %w(task deleted),

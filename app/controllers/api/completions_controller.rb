@@ -28,7 +28,7 @@ class Api::CompletionsController < ApplicationController
   private
 
   def notify_completion_creation
-    Notdvs.flow.push_to_team_inbox(
+    flow.push_to_team_inbox(
       subject: "Completed #{@completion.completable.class.name}",
       content: @completion.completable.title,
       tags: %w(task completed),

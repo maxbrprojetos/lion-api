@@ -44,7 +44,7 @@ class Api::TasksController < ApplicationController
   end
 
   def notify_task_creation
-    Notdvs.flow.push_to_team_inbox(
+    flow.push_to_team_inbox(
       subject: 'Added Task',
       content: @task.title,
       tags: %w(task new),
@@ -53,7 +53,7 @@ class Api::TasksController < ApplicationController
   end
 
   def notify_task_destruction
-    Notdvs.flow.push_to_team_inbox(
+    flow.push_to_team_inbox(
       subject: 'Deleted Task',
       content: @task.title,
       tags: %w(task deleted),

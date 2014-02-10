@@ -34,7 +34,7 @@ class Api::NoticesController < ApplicationController
   end
 
   def notify_notice_creation
-    Notdvs.flow.push_to_team_inbox(
+    flow.push_to_team_inbox(
       subject: "Added Notice for #{@notice.app.capitalize}",
       content: @notice.title,
       tags: %w(notice new),
@@ -43,7 +43,7 @@ class Api::NoticesController < ApplicationController
   end
 
   def notify_notice_destruction
-    Notdvs.flow.push_to_team_inbox(
+    flow.push_to_team_inbox(
       subject: "Deleted Notice for #{@notice.app.capitalize}",
       content: @notice.title,
       tags: %w(notice deleted),

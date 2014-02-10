@@ -7,7 +7,7 @@ describe 'Completions Requests' do
 
   describe 'POST /completions' do
     it 'responds with a json containing the completable object marked as completed' do
-      Notdvs.stub(flow: double(:flow).as_null_object)
+      ApplicationController.any_instance.stub(flow: double(:flow).as_null_object)
       post api_completions_path, { completable: { type: 'Task', id: @task.id } }.to_json
 
       last_response.status.should eq(201)
@@ -17,9 +17,10 @@ describe 'Completions Requests' do
     end
 
     it 'sends a notification to flowdock' do
-      Notdvs.stub(flow: double(:flow))
+      flow = double(:flow)
+      ApplicationController.any_instance.stub(flow: flow)
 
-      Notdvs.flow.should_receive(:push_to_team_inbox).with(
+      flow.should_receive(:push_to_team_inbox).with(
         subject: 'Completed Task',
         content: @task.title,
         tags: %w(task completed),
