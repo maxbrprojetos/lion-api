@@ -10,9 +10,14 @@ Notdvs.TaskController = Ember.ObjectController.extend(
   toggleEditing: ->
     @set('isEditing', !@get('isEditing'))
 
+  removeTask: ->
+    task = @get('model')
+    task.deleteRecord()
+    task.save()
+
   actions:
     editTask: ->
-      Ember.run.debounce(this, @toggleEditing, 100)
+      Ember.run.debounce(this, 'toggleEditing', 0)
 
     doneEditing: ->
       bufferedTitle = @get('bufferedTitle').trim()
@@ -23,7 +28,7 @@ Notdvs.TaskController = Ember.ObjectController.extend(
         #
         # We debounce our call to 'removeTask' so that it only gets
         # sent once.
-        Ember.run.debounce(this, @send, 'removeTask', 0)
+        Ember.run.debounce(this, 'removeTask', 0)
       else
         task = @get('model')
         title = task.get('title')
@@ -33,16 +38,14 @@ Notdvs.TaskController = Ember.ObjectController.extend(
           task.save()
 
       @set('bufferedTitle', bufferedTitle)
-      Ember.run.debounce(this, @toggleEditing, 100)
+      Ember.run.debounce(this, 'toggleEditing', 0)
 
     cancelEditing: ->
       @set('bufferedTitle', @get('title'))
       @set('isEditing', false)
 
     removeTask: ->
-      task = @get('model')
-      task.deleteRecord()
-      task.save()
+      @removeTask()
 
     toggleCompleted: ->
       task = @get('model')
