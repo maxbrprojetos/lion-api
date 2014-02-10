@@ -10,12 +10,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def flow
-    if ENV['FLOWDOCK_API_TOKEN']
-      @flow ||= Flowdock::Flow.new(
-        api_token: ENV['FLOWDOCK_API_TOKEN'],
-        source: 'NOTDVS',
-        from: { name: current_user.nickname, address: current_user.email }
-      )
-    end
+    @flow ||= Flowdock::Flow.new(
+      api_token: ENV['FLOWDOCK_API_TOKEN'],
+      source: 'NOTDVS',
+      from: { name: current_user.nickname, address: current_user.email }
+    )
   end
 end
