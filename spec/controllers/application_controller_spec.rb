@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ApplicationController do
   it 'should build the flow object with the correct paramters' do
-    ENV['FLOWDOCK_API_TOKEN'] = 'test'
+    ENV.stub(:[]).with('FLOWDOCK_API_TOKEN').and_return('test')
 
     Flowdock::Flow.should_receive(:new).with(
       api_token: 'test',
