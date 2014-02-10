@@ -7,7 +7,6 @@ describe 'Completions Requests' do
 
   describe 'POST /completions' do
     it 'responds with a json containing the completable object marked as completed' do
-      ApplicationController.any_instance.stub(flow: double(:flow).as_null_object)
       post api_completions_path, { completable: { type: 'Task', id: @task.id } }.to_json
 
       last_response.status.should eq(201)

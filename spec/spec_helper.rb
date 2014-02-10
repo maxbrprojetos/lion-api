@@ -81,5 +81,5 @@ RSpec.configure do |config|
 end
 
 def current_user
-  @current_user ||= User.create(api_token: 'test', nickname: 'lol', avatar_url: 'omg')
+  @current_user ||= User.create(api_token: 'test', nickname: 'lol', avatar_url: 'omg', email: 'test@test.com')
 end

@@ -26,7 +26,6 @@ describe 'Notices Requests' do
 
   describe 'POST /notices' do
     it 'creates a notice and responds with the corresponding json' do
-      ApplicationController.any_instance.stub(flow: double(:flow).as_null_object)
       notice_params = { title: 'test', client_id: '1234', app: 'testapp', type: 'error' }
       post api_notices_path, { notice: notice_params }.to_json
 
@@ -58,7 +57,6 @@ describe 'Notices Requests' do
 
   describe 'DESTROY /notices/{id}' do
     it 'destroys a notice and responds with no content' do
-      ApplicationController.any_instance.stub(flow: double(:flow).as_null_object)
       notice = Notice.create(title: 'test', app: 'testapp')
 
       delete api_notice_path(notice)
