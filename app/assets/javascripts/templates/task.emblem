@@ -29,4 +29,4 @@ li{bind-attr class=":task completed isEditing:editing"}
       if isEditing
         edit-task class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"
       else
-        span.title{action "editTask" on="doubleClick"} = title
+        span.title == processedTitle

@@ -1,3 +1,4 @@
+#= require extensions
 #= require jquery
 #= require vendor/modernizr
 #= require foundation/foundation

@@ -7,6 +7,10 @@ Notdvs.TaskController = Ember.ObjectController.extend(
     Ember.guidFor(this)
   ).property()
 
+  processedTitle: (->
+    @get('title').linkify()
+  ).property('title')
+
   toggleEditing: ->
     @set('isEditing', !@get('isEditing'))
 
