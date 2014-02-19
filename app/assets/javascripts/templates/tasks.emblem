@@ -22,7 +22,3 @@ section.tasks
       ul
         each sortedTasks itemController="task"
           view "task"
-
-section.issues
-  header
-    h1 CST Issues
