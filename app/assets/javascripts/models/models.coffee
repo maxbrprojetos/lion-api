@@ -9,6 +9,8 @@ Notdvs.Task = Notdvs.Model.extend
   user: DS.belongsTo('user')
   assignee: DS.belongsTo('user')
 
+  assigneeWas: Ember.Object.create()
+
   toggleCompleted: ->
     @set('completed', !@get('completed'))
 
@@ -27,7 +29,16 @@ Notdvs.Task = Notdvs.Model.extend
       Ember.run => @store.pushPayload(data)
     )
 
-  didUpdate: ->
+  assigneeDidChange: (->
+    if @get('assigneeWas.id') != @get('assignee.id')
+      @notifyAssignment()
+  ).observes('assignee.id')
+
+  assigneeWillChange: (->
+    @assigneeWas = @get('assignee')
+  ).observesBefore('assignee.id')
+
+  notifyAssignment: ->
     if @get('assignee.id') == Notdvs.lookup('controller:currentUser').get('id')
       new Notify('You have been assigned an issue', { body: @get('title') }).show()
 
