@@ -8,7 +8,7 @@ Notdvs.TaskController = Ember.ObjectController.extend(
   ).property()
 
   processedTitle: (->
-    @get('title').linkify()
+    @get('title').linkify().htmlSafe()
   ).property('title')
 
   toggleEditing: ->
