@@ -27,6 +27,6 @@ li{bind-attr class=":task completed isEditing:editing"}
 
     .content
       if isEditing
-        edit-task class="edit" value=bufferedTitle focus-out="doneEditing" insert-newline="doneEditing" escape-press="cancelEditing"
+        edit-task class="edit" value=bufferedTitle focus-out="cancelEditing" insert-newline="doneEditing" escape-press="cancelEditing"
       else
         span.title = processedTitle
