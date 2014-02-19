@@ -9,10 +9,7 @@ Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('tas
 
   actions:
     createTask: ->
-      title = undefined
-      task = undefined
-
-      title = @get('newTitle').trim()
+      title = @get('newTitle')?.trim()
       return unless title
 
       task = @store.createRecord('task',

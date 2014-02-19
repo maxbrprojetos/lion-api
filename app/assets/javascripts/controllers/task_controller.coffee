@@ -21,18 +21,13 @@ Notdvs.TaskController = Ember.ObjectController.extend(
 
   actions:
     editTask: ->
-      Ember.run.debounce(this, 'toggleEditing', 0)
+      @set('isEditing', true)
 
     doneEditing: ->
       bufferedTitle = @get('bufferedTitle').trim()
 
       if Ember.isEmpty(bufferedTitle)
-        # The `doneEditing` action gets sent twice when the user hits
-        # enter (once via 'insert-newline' and once via 'focus-out').
-        #
-        # We debounce our call to 'removeTask' so that it only gets
-        # sent once.
-        Ember.run.debounce(this, 'removeTask', 0)
+        @removeTask()
       else
         task = @get('model')
         title = task.get('title')
@@ -41,8 +36,8 @@ Notdvs.TaskController = Ember.ObjectController.extend(
           task.set('title', bufferedTitle)
           task.save()
 
-      @set('bufferedTitle', bufferedTitle)
-      Ember.run.debounce(this, 'toggleEditing', 0)
+        @set('bufferedTitle', bufferedTitle)
+        @set('isEditing', false)
 
     cancelEditing: ->
       @set('bufferedTitle', @get('title'))
