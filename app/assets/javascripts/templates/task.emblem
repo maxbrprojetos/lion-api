@@ -8,8 +8,7 @@ li{bind-attr class=":task completed isEditing:editing"}
 
         if assignee
           .assignee
-            a{bind-attr href=assignee.githubUrl} target="_blank"
-              img.avatar src=assignee.avatarUrl
+            img.avatar src=assignee.avatarUrl data-dropdown=guid
             span is assigned
 
       .actions
