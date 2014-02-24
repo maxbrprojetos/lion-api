@@ -31,8 +31,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    DatabaseCleaner.clean
-
     OmniAuth.config.test_mode = true
     OmniAuth.config.add_mock(:github, matteo_auth_hash)
     Octokit::Client.any_instance.stub(
@@ -41,6 +39,10 @@ RSpec.configure do |config|
     )
 
     DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 end
 
