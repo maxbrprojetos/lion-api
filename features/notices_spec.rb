@@ -1,4 +1,4 @@
-require 'acceptance_helper'
+require_relative 'acceptance_helper'
 
 feature 'Notices', %q{
   In order to know if there are problems in the system
