@@ -3,7 +3,7 @@
 
 guard :rspec, cmd: 'bundle exec spring rspec' do
   watch(/^spec\/.+_spec\.rb$/)
-  watch('spec/spec_helper.rb') { 'spec' }
+  watch('spec/.+_helper.rb') { 'spec' }
 
   watch(/^app\/(.+)\.rb$/) { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/controllers/api/(.+)_(controller)\.rb$})  { |m| ["spec/requests/#{m[1]}_spec.rb"] }
@@ -12,12 +12,6 @@ end
 guard :rubocop do
   watch(/.+\.rb$/)
   watch(/(?:.+\/)?\.rubocop\.yml$/) { |m| File.dirname(m[0]) }
-end
-
-guard :cucumber do
-  watch(/^features\/.+\.feature/)
-  watch(%r{^features/support/.+$})          { 'features' }
-  watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
 end
 
 ### Guard::Konacha

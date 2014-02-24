@@ -19,4 +19,4 @@ unless window.NotdvsApplication
       @_super.apply(this, arguments)
 
     ready: ->
-      Notify.prototype.requestPermission() if Notify.prototype.needsPermission()
+      Notify.prototype.requestPermission() if Notify.prototype.isSupported() && Notify.prototype.needsPermission()

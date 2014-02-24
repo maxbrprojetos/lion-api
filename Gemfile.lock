@@ -156,9 +156,6 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
-    guard-cucumber (1.4.1)
-      cucumber (>= 1.2.0)
-      guard (>= 1.1.0)
     guard-konacha (1.0.3)
       guard (>= 1.1)
       konacha (>= 3.0)
@@ -393,7 +390,6 @@ DEPENDENCIES
   emblem-rails
   flowdock
   foundation-rails
-  guard-cucumber
   guard-konacha
   guard-rspec
   guard-rubocop
