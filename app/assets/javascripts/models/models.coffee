@@ -20,10 +20,13 @@ Notdvs.Task = Notdvs.Model.extend
       dataType: 'json',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify({
-        completable: {
-          id: @get('id'),
-          type: 'Task'
-        }
+        completion: {
+          user_id: Notdvs.lookup('controller:currentUser').get('id')
+          completable: {
+            id: @get('id'),
+            type: 'Task'
+          }
+        },
       })
     ).then((data) =>
       Ember.run => @store.pushPayload(data)

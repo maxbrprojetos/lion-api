@@ -7,12 +7,14 @@
 #  completable_type :string(255)
 #  created_at       :datetime
 #  updated_at       :datetime
+#  user_id          :uuid
 #
 
 class Completion < ActiveRecord::Base
   POINTS = 5
 
   belongs_to :completable, polymorphic: true
+  belongs_to :user
 
   after_create :mark_completable_as_completed
   after_destroy :mark_completable_as_not_completed

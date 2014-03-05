@@ -52,7 +52,8 @@ CREATE TABLE completions (
     completable_id uuid,
     completable_type character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    user_id uuid
 );
 
 
@@ -178,4 +179,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140119153421');
 INSERT INTO schema_migrations (version) VALUES ('20140130113827');
 
 INSERT INTO schema_migrations (version) VALUES ('20140130114414');
+
+INSERT INTO schema_migrations (version) VALUES ('20140305145044');
 

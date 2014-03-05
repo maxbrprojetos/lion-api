@@ -7,12 +7,18 @@ describe 'Completions Requests' do
 
   describe 'POST /completions' do
     it 'responds with a json containing the completable object marked as completed' do
-      post api_completions_path, { completable: { type: 'Task', id: @task.id } }.to_json
+      post api_completions_path, {
+        completion: {
+          user_id: current_user.id,
+          completable: { type: 'Task', id: @task.id }
+        }
+      }.to_json
 
       last_response.status.should eq(201)
       parsed_response = JSON.parse(last_response.body)
 
-      parsed_response['task'].should include('completed' => true)
+      parsed_response['completion']['completable']['task'].should include('completed' => true)
+      parsed_response['completion']['user_id'].should eq(current_user.id)
     end
 
     it 'sends a notification to flowdock' do
@@ -26,7 +32,12 @@ describe 'Completions Requests' do
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 
-      post api_completions_path, { completable: { type: 'Task', id: @task.id } }.to_json
+      post api_completions_path, {
+        completion: {
+          user_id: current_user.id,
+          completable: { type: 'Task', id: @task.id }
+        }
+      }.to_json
     end
   end
 
@@ -38,7 +49,7 @@ describe 'Completions Requests' do
       last_response.status.should eq(200)
       parsed_response = JSON.parse(last_response.body)
 
-      parsed_response['task'].should include('completed' => false)
+      parsed_response['completion']['completable']['task'].should include('completed' => false)
     end
 
     it "responds with 404 if it can't find the completion" do

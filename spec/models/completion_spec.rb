@@ -7,6 +7,7 @@
 #  completable_type :string(255)
 #  created_at       :datetime
 #  updated_at       :datetime
+#  user_id          :uuid
 #
 
 require 'spec_helper'

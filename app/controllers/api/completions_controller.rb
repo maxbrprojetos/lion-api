@@ -3,12 +3,14 @@ class Api::CompletionsController < ApplicationController
 
   def create
     @completion = Completion.new(
-      completable_id: params[:completable][:id], completable_type: params[:completable][:type]
+      completable_id: completion_params[:completable][:id],
+      completable_type: completion_params[:completable][:type],
+      user_id: completion_params[:user_id]
     )
 
     if @completion.save
       notify_completion_creation
-      render json: @completion.completable, status: :created
+      render json: @completion, status: :created
     else
       render json: @completion.errors, status: :unprocessable_entity
     end
@@ -22,10 +24,14 @@ class Api::CompletionsController < ApplicationController
     head :not_found and return unless @completion
 
     @completion.destroy
-    render json: @completion.completable, status: :ok
+    render json: @completion, status: :ok
   end
 
   private
+
+  def completion_params
+    params.require(:completion).permit(:user_id, completable: [:id, :type])
+  end
 
   def notify_completion_creation
     flow.push_to_team_inbox(

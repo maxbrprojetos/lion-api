@@ -16,6 +16,7 @@
 
 class User < ActiveRecord::Base
   has_many :tasks
+  has_many :completions
 
   def self.find_or_create_from_auth_hash(auth_hash)
     user = where(github_id: auth_hash['uid']).first
