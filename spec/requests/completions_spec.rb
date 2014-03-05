@@ -44,7 +44,9 @@ describe 'Completions Requests' do
   describe 'DELETE /completions' do
     it 'responds with a json containing the completable object marked as not completed' do
       Completion.create(completable: @task)
-      delete api_completions_path, { completable: { type: 'Task', id: @task.id } }.to_json
+      delete api_completions_path, {
+        completion: { completable: { type: 'Task', id: @task.id } }
+      }.to_json
 
       last_response.status.should eq(200)
       parsed_response = JSON.parse(last_response.body)
@@ -53,7 +55,9 @@ describe 'Completions Requests' do
     end
 
     it "responds with 404 if it can't find the completion" do
-      delete api_completions_path(completable: { type: 'Task', id: '98beb7fd-f051-4f94-8fb2-c30255de5fab' })
+      delete api_completions_path, {
+        completion: { completable: { type: 'Task', id: '98beb7fd-f051-4f94-8fb2-c30255de5fab' } }
+      }.to_json
 
       last_response.status.should eq(404)
     end
