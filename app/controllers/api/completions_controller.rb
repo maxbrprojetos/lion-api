@@ -2,11 +2,7 @@ class Api::CompletionsController < ApplicationController
   before_action :authenticate!
 
   def create
-    @completion = Completion.new(
-      completable_id: completion_params[:completable][:id],
-      completable_type: completion_params[:completable][:type],
-      user_id: completion_params[:user_id]
-    )
+    @completion = build_completion
 
     if @completion.save
       notify_completion_creation
@@ -17,9 +13,7 @@ class Api::CompletionsController < ApplicationController
   end
 
   def destroy
-    @completion = Completion.where(
-      completable_id: params[:completable][:id], completable_type: params[:completable][:type]
-    ).first
+    @completion = find_completion
 
     head :not_found and return unless @completion
 
@@ -28,6 +22,21 @@ class Api::CompletionsController < ApplicationController
   end
 
   private
+
+  def find_completion
+    Completion.where(
+      completable_id: completion_params[:completable][:id],
+      completable_type: completion_params[:completable][:type]
+    ).first
+  end
+
+  def build_completion
+    Completion.new(
+      completable_id: completion_params[:completable][:id],
+      completable_type: completion_params[:completable][:type],
+      user_id: completion_params[:user_id]
+    )
+  end
 
   def completion_params
     params.require(:completion).permit(:user_id, completable: [:id, :type])
