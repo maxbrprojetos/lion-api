@@ -10,5 +10,13 @@
 #
 
 class PullRequestMerger < ActiveRecord::Base
+  include Scorable
+
   belongs_to :user
+
+  private
+
+  def self.points
+    15
+  end
 end
