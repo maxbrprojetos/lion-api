@@ -17,7 +17,8 @@ Notdvs.CurrentUserController = Ember.ObjectController.extend
       currentUser = Notdvs.LocalStorage.getItem('currentUser')
 
       if !Ember.isEmpty(currentUser)
-        @set('content', @store.push('user', currentUser))
+        @store.push('user', currentUser)
+        @store.getById('user', currentUser.id)
       else
         @sync()
   ).property()

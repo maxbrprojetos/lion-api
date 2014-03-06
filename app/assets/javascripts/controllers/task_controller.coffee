@@ -1,5 +1,6 @@
 Notdvs.TaskController = Ember.ObjectController.extend(
   needs: ['currentUser']
+  currentUser: Ember.computed.alias("controllers.currentUser.content")
   isEditing: false
   bufferedTitle: Ember.computed.oneWay('title')
 
@@ -52,7 +53,7 @@ Notdvs.TaskController = Ember.ObjectController.extend(
 
     toggleCompleted: ->
       task = @get('model')
-      task.toggleCompleted()
+      task.toggleCompleted(@get('currentUser'))
 
     assignUser: (user) ->
       task = @get('model')

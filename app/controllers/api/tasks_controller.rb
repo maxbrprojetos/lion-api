@@ -47,7 +47,7 @@ class Api::TasksController < ApplicationController
     flow.push_to_team_inbox(
       subject: 'Added Task',
       content: @task.title,
-      tags: %w(task new),
+      tags: %w(task),
       link: 'https://notdvs.herokuapp.com/#/tasks'
     )
   end
@@ -56,7 +56,7 @@ class Api::TasksController < ApplicationController
     flow.push_to_team_inbox(
       subject: 'Deleted Task',
       content: @task.title,
-      tags: %w(task deleted),
+      tags: %w(task),
       link: 'https://notdvs.herokuapp.com/#/tasks'
     )
   end

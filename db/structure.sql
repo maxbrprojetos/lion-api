@@ -44,20 +44,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: completions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE completions (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    completable_id uuid,
-    completable_type character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    user_id uuid
-);
-
-
---
 -- Name: notices; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -77,6 +63,19 @@ CREATE TABLE notices (
 
 CREATE TABLE schema_migrations (
     version character varying(255) NOT NULL
+);
+
+
+--
+-- Name: task_completions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE task_completions (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    user_id uuid,
+    task_id uuid
 );
 
 
@@ -117,7 +116,7 @@ CREATE TABLE users (
 -- Name: completions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY completions
+ALTER TABLE ONLY task_completions
     ADD CONSTRAINT completions_pkey PRIMARY KEY (id);
 
 
@@ -181,4 +180,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140130113827');
 INSERT INTO schema_migrations (version) VALUES ('20140130114414');
 
 INSERT INTO schema_migrations (version) VALUES ('20140305145044');
+
+INSERT INTO schema_migrations (version) VALUES ('20140306095102');
 

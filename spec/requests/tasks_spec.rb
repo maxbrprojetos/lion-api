@@ -58,7 +58,7 @@ describe 'Tasks Requests' do
       flow.should_receive(:push_to_team_inbox).with(
         subject: 'Added Task',
         content: task_params[:title],
-        tags: %w(task new),
+        tags: %w(task),
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 
@@ -101,7 +101,7 @@ describe 'Tasks Requests' do
       flow.should_receive(:push_to_team_inbox).with(
         subject: 'Deleted Task',
         content: task.title,
-        tags: %w(task deleted),
+        tags: %w(task),
         link: 'https://notdvs.herokuapp.com/#/tasks'
       )
 

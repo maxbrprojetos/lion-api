@@ -10,3 +10,7 @@ Notdvs.User = DS.Model.extend
   githubUrl: (->
     "https://github.com/#{@get('nickname')}"
   ).property('nickname')
+
+Notdvs.TaskCompletion = DS.Model.extend
+  user: DS.belongsTo('user')
+  task: DS.belongsTo('task')

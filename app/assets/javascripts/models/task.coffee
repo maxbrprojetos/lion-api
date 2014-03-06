@@ -6,26 +6,24 @@ Notdvs.Task = Notdvs.Model.extend
   assigneeWas: Ember.Object.create()
   deleted: false
 
-  toggleCompleted: ->
+  toggleCompleted: (user) ->
     @set('completed', !@get('completed'))
 
-    $.ajax(
-      type: if @get('completed') == true then 'POST' else 'DELETE',
-      url: '/api/completions',
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify({
-        completion: {
-          user_id: Notdvs.lookup('controller:currentUser').get('id')
-          completable: {
-            id: @get('id'),
-            type: 'Task'
-          }
-        },
-      })
-    ).then((data) =>
-      Ember.run => @store.pushPayload(data)
-    )
+    if @get('completed')
+      @store.createRecord('taskCompletion', {
+        task: this,
+        user: user
+      }).save()
+    else
+      $.ajax(
+        type: 'DELETE',
+        url: '/api/task_completions',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ task_id: @get('id') })
+      ).then((data) =>
+        Ember.run => @store.pushPayload(data.task_completion)
+      )
 
   assigneeDidChange: (->
     if @get('assigneeWas.id') != @get('assignee.id')
