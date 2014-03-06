@@ -4,11 +4,9 @@ class Api::PullRequestMergersController < ApplicationController
       if user
         PullRequestMerger.create(user_id: user.id, pull_request: params[:pull_request])
       end
-
-      head :ok
-    else
-      head :bad_request
     end
+
+    head :ok
   end
 
   private
