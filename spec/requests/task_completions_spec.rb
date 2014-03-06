@@ -18,7 +18,7 @@ describe 'Task Completions Requests' do
       parsed_response = JSON.parse(last_response.body)
 
       parsed_response['task_completion']['task'].should include('completed' => true)
-      parsed_response['task_completion']['user_id'].should eq(current_user.id)
+      parsed_response['task_completion']['user']['id'].should eq(current_user.id)
     end
 
     it 'sends a notification to flowdock' do
