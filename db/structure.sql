@@ -24,6 +24,20 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
+-- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
+
+
+--
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -54,6 +68,19 @@ CREATE TABLE notices (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     app character varying(255)
+);
+
+
+--
+-- Name: pull_request_mergers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pull_request_mergers (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    pull_request hstore,
+    user_id uuid,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -129,6 +156,14 @@ ALTER TABLE ONLY notices
 
 
 --
+-- Name: pull_request_mergers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pull_request_mergers
+    ADD CONSTRAINT pull_request_mergers_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -182,4 +217,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140130114414');
 INSERT INTO schema_migrations (version) VALUES ('20140305145044');
 
 INSERT INTO schema_migrations (version) VALUES ('20140306095102');
+
+INSERT INTO schema_migrations (version) VALUES ('20140306144333');
+
+INSERT INTO schema_migrations (version) VALUES ('20140306144642');
 
