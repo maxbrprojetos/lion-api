@@ -28,8 +28,6 @@ main
   & > .content
     +grid-row
 
-
-
 .notices-container
   +grid-column($columns: 6, $center: true, $collapse: true)
   // remove once fixed https://github.com/zurb/foundation/issues/4161
@@ -57,3 +55,15 @@ main
 
 section.tasks
   +grid-column($columns: 8)
+
+section.leaderboard
+  +grid-column($columns: 8)
+
+  li
+    +grid-row
+
+    .description
+      +grid-column($columns: 2, $collapse: true)
+
+    .bar
+      +grid-column($columns: 10, $collapse: true)

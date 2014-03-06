@@ -15,6 +15,8 @@
 #
 
 class User < ActiveRecord::Base
+  include Pusherable
+
   has_many :tasks
   has_many :task_completions
 
@@ -31,7 +33,23 @@ class User < ActiveRecord::Base
     user
   end
 
+  def increment_points_by(points_to_add)
+    transaction do
+      update(points: points + points_to_add)
+    end
+  end
+
+  def decrement_points_by(points_to_remove)
+    transaction do
+      update(points: points - points_to_remove)
+    end
+  end
+
   private
+
+  def self.serializer
+    UserSerializer
+  end
 
   def self.user_info(auth_hash)
     {

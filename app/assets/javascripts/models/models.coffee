@@ -6,6 +6,7 @@ Notdvs.Notice = Notdvs.Model.extend
 Notdvs.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')
+  points: DS.attr('number')
 
   githubUrl: (->
     "https://github.com/#{@get('nickname')}"

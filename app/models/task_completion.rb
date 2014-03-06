@@ -16,6 +16,8 @@ class TaskCompletion < ActiveRecord::Base
   belongs_to :user
 
   after_create :mark_task_as_completed
+  after_create :give_points_to_user
+  after_destroy :take_points_from_user
   after_destroy :mark_task_as_not_completed
 
   private
@@ -26,5 +28,13 @@ class TaskCompletion < ActiveRecord::Base
 
   def mark_task_as_not_completed
     task.update(completed: false)
+  end
+
+  def give_points_to_user
+    user && user.increment_points_by(POINTS)
+  end
+
+  def take_points_from_user
+    user && user.decrement_points_by(POINTS)
   end
 end

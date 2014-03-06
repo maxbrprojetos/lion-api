@@ -1,0 +1,13 @@
+section.leaderboard
+  header
+    h1 Leaderboard
+
+    ul
+      each itemController="userStats"
+        li
+          .description
+            img.big-avatar{bind-attr src=avatarUrl}
+            span.points = points
+          .bar
+            .progress
+              span.meter{bind-attr style=progressBarWidth}

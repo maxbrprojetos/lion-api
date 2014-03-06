@@ -49,3 +49,8 @@ Notdvs.TasksMineRoute = Ember.Route.extend(
 
     @controllerFor('tasks').set('filteredTasks', tasks)
 )
+
+Notdvs.LeaderboardRoute = Ember.Route.extend(
+  model: ->
+    @store.findAll('user')
+)
