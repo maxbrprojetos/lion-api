@@ -9,11 +9,13 @@ Notdvs::Application.routes.draw do
       end
     end
 
-    resources :task_completions, only: [:create] do
+    resources :task_completions, only: :create do
       collection do
         delete :destroy
       end
     end
+
+    resources :pull_request_mergers, only: :create
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'

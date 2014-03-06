@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   has_many :tasks
   has_many :task_completions
+  has_many :pull_request_mergers
 
   def self.find_or_create_from_auth_hash(auth_hash)
     user = where(github_id: auth_hash['uid']).first
