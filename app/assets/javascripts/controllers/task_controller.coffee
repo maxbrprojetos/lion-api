@@ -16,6 +16,8 @@ Notdvs.TaskController = Ember.ObjectController.extend(
     @set('isEditing', !@get('isEditing'))
 
   removeTask: ->
+    return unless confirm('Are you sure?')
+
     task = @get('model')
 
     if !task.get('completed')
