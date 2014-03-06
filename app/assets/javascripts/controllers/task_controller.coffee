@@ -23,7 +23,7 @@ Notdvs.TaskController = Ember.ObjectController.extend(
       task.deleteRecord()
       task.save()
     else
-      task.set('deleted', true)
+      task.set('hidden', true)
 
   actions:
     editTask: ->

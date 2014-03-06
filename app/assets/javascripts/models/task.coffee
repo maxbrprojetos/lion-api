@@ -4,7 +4,7 @@ Notdvs.Task = Notdvs.Model.extend
   user: DS.belongsTo('user')
   assignee: DS.belongsTo('user')
   assigneeWas: Ember.Object.create()
-  deleted: false
+  hidden: false
 
   toggleCompleted: (user) ->
     @set('completed', !@get('completed'))

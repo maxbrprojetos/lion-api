@@ -1,5 +1,5 @@
 Notdvs.TasksController = Ember.ArrayController.extend(new Notdvs.Pusherable('task'),
-  persistedTasks: Ember.computed.filterBy('filteredTasks', 'deleted', false)
+  persistedTasks: Ember.computed.filterBy('filteredTasks', 'hidden', false)
   sortedTasks: Ember.computed.sort('persistedTasks', (a, b) ->
     if a.get('createdAt') < b.get('createdAt')
       return 1
