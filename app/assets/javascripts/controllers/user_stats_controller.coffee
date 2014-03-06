@@ -4,8 +4,12 @@ Notdvs.UserStatsController = Ember.ObjectController.extend(
 
   progressBarWidth: (->
     if @get('points') == 0
-      "width: 0%"
+      0
     else
-      "width: #{(@get('points') / @get('maximumPoints')) * 100}%"
+      (@get('points') / @get('maximumPoints')) * 100
   ).property('points', 'maximumPoints')
+
+  progressBarStyle: (->
+    "width: %@%".fmt(@get('progressBarWidth'))
+  ).property('progressBarWidth')
 )

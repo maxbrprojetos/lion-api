@@ -10,4 +10,4 @@ section.leaderboard
             span.points = points
           .bar
             .progress
-              span.meter{bind-attr style=progressBarWidth}
+              span.meter{bind-attr style=progressBarStyle}
