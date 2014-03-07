@@ -13,7 +13,7 @@ It notifies developers of problems, it keeps track of tasks and rewards develope
 ## Features
 
 All the features presented here have a summary page which updates live.
-Every action can be either performed via the interface of using the RESTful API.
+Every action can be either performed via the interface or using the RESTful API.
 
 ### Notices
 
