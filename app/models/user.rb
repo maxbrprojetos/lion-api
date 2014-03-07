@@ -54,6 +54,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  # used only from the console
+  def github_client
+    @github_client ||= self.class.github_client(api_token)
+  end
+
   private
 
   def self.serializer
@@ -71,13 +76,15 @@ class User < ActiveRecord::Base
     }
   end
 
-  def self.create_from_github(info)
-    client = Octokit::Client.new(access_token: info[:api_token])
-    user = client.user
-    user.login
+  def self.github_client(api_token)
+    client = Octokit::Client.new(access_token: api_token)
+    client.user.login
+    client
+  end
 
-    if client.organizations.map(&:login).include?('alphasights')
-      User.create(info)
+  def self.create_from_github(info)
+    if github_client(info[:api_token]).organizations.map(&:login).include?('alphasights')
+      create(info)
     else
       nil
     end
