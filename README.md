@@ -17,7 +17,7 @@ Every action can be either performed via the interface of using the RESTful API.
 
 ### Notices
 
-![notices](http://cl.ly/image/2U1C0i1p0T2Z)
+![notices](http://f.cl.ly/items/3g1p1Q3822293K0P3g0S/Image%202014-03-07%20at%2012.20.16%20pm.png)
 
 Whenever something goes wrong in your system, you can POST to the /notices path and create a new notice, like this:
 
@@ -54,7 +54,7 @@ If you don't specify any type `notice` will be used.
 
 ### Tasks
 
-![tasks](http://cl.ly/image/2n2w0c3J3x3Y)
+![tasks](http://f.cl.ly/items/0c2E3k3G0M3P303J3W26/Image%202014-03-07%20at%2012.21.39%20pm.png)
 
 You can create your tasks with the API like this:
 
@@ -131,7 +131,7 @@ If you want to assign someone you can update the task like this:
 
 ### Leaderboard
 
-![leaderboard](http://cl.ly/image/211U1A033h3J)
+![leaderboard](http://f.cl.ly/items/3c0m3e2J2s3k2x0H0A0U/Image%202014-03-07%20at%2012.27.04%20pm.png)
 
 Points are calculated this way:
 
