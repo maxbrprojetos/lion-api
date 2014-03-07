@@ -68,8 +68,8 @@ describe 'Tasks Requests' do
 
   describe 'PATCH /tasks/{id}' do
     it 'updates a task and responds with the corresponding json' do
-      task = Task.create(title: 'test')
-      assignee = User.create(nickname: 'test')
+      task = create(:task)
+      assignee = create(:user)
       task_params = { title: 'omg', assignee_id: assignee.id }
 
       patch api_task_path(task), { task: task_params }.to_json
@@ -85,7 +85,7 @@ describe 'Tasks Requests' do
 
   describe 'DESTROY /tasks/{id}' do
     it 'destroys a task and responds with no content' do
-      task = Task.create(title: 'test')
+      task = create(:task)
 
       delete api_task_path(task)
 
@@ -96,7 +96,7 @@ describe 'Tasks Requests' do
     it 'notifies flowdock' do
       flow = double(:flow)
       ApplicationController.any_instance.stub(flow: flow)
-      task = Task.create(title: 'test')
+      task = create(:task)
 
       flow.should_receive(:push_to_team_inbox).with(
         subject: 'Deleted Task',

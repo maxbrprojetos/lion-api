@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Task Completions Requests' do
   before do
-    @task = Task.create(title: 'test')
+    @task = create(:task)
   end
 
   describe 'POST /task_completions' do
@@ -43,7 +43,7 @@ describe 'Task Completions Requests' do
 
   describe 'DELETE /task_completions' do
     it 'responds with a json containing the task marked as not completed' do
-      TaskCompletion.create(task: @task)
+      TaskCompletion.create(task: @task, user: create(:user))
 
       delete api_task_completions_path, { task_id: @task.id }.to_json
 

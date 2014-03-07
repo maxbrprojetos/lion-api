@@ -18,8 +18,7 @@ describe 'Users Requests' do
 
   describe 'GET /users' do
     it 'responds with a json representing the list of registered users' do
-      users = []
-      2.times { |i| users << User.create(nickname: "test#{i}", avatar_url: "http://lol.com/omg#{i}.png") }
+      users = create_list(:user, 2)
 
       get api_users_path
 
@@ -31,7 +30,7 @@ describe 'Users Requests' do
             'id' => user.id,
             'nickname' => user.nickname,
             'avatar_url' => user.avatar_url,
-            'points' => current_user.points
+            'points' => user.points
           }
         end.push(
           'id' => current_user.id,
@@ -44,7 +43,7 @@ describe 'Users Requests' do
 
   describe 'GET /user/{id}' do
     it 'responds with a json representing the requested user' do
-      user = User.create(nickname: 'test', avatar_url: 'http://lol.com/omg.png')
+      user = create(:user)
 
       get api_user_path(user)
 

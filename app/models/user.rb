@@ -21,6 +21,14 @@ class User < ActiveRecord::Base
   has_many :task_completions
   has_many :pull_request_mergers
 
+  validates :name, presence: true
+  validates :nickname, presence: true
+  validates :email, presence: true
+  validates :avatar_url, presence: true
+  validates :api_token, presence: true
+  validates :github_id, presence: true
+  validates :points, numericality: { greater_than_or_equal_to: 0 }
+
   def self.find_or_create_from_auth_hash(auth_hash)
     user = where(github_id: auth_hash['uid']).first
     info = user_info(auth_hash)

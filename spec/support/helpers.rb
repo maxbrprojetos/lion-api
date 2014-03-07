@@ -1,4 +1,15 @@
 module Helpers
+  def current_user
+    User.where(
+      api_token: 'api_token_test',
+      nickname: 'current_user',
+      avatar_url: 'omg',
+      email: 'test@test.com',
+      name: 'Test',
+      github_id: '1'
+    ).first_or_create
+  end
+
   def matteo_auth_hash
     {
       'provider' => 'github',

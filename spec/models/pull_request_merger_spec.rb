@@ -14,9 +14,9 @@ require 'spec_helper'
 describe PullRequestMerger do
   describe 'create' do
     it 'gives points to the user' do
-      user = User.create(nickname: 'test')
+      user = create(:user)
 
-      PullRequestMerger.create(user: user)
+      PullRequestMerger.create!(user: user, pull_request: { test: 'lol' })
 
       user.points.should eq(PullRequestMerger.points)
     end

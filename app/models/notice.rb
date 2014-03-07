@@ -14,6 +14,8 @@ class Notice < ActiveRecord::Base
   include Pusherable
 
   validates :type, inclusion: { in: %w(warning error) }
+  validates :app, presence: true
+  validates :title, presence: true
 
   private
 

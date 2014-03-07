@@ -14,6 +14,9 @@ class PullRequestMerger < ActiveRecord::Base
 
   belongs_to :user
 
+  validates :user, presence: true
+  validates :pull_request, presence: true
+
   private
 
   def self.points

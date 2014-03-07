@@ -12,32 +12,29 @@
 require 'spec_helper'
 
 describe TaskCompletion do
+  let(:task) { create(:task) }
+  let(:user) { create(:user) }
+
   it 'marks the task as completed when created' do
-    task = Task.create
-    TaskCompletion.create(task: task)
+    TaskCompletion.create(task: task, user: user)
 
     task.completed.should eq(true)
   end
 
   it 'marks the task as not completed when destroyed' do
-    task = Task.create
-    task_completion = TaskCompletion.create(task: task)
+    task_completion = TaskCompletion.create(task: task, user: user)
     task_completion.destroy
 
     task.completed.should eq(false)
   end
 
   it 'adds points to the user' do
-    task = Task.create
-    user = User.create
     TaskCompletion.create(task: task, user: user)
 
     user.points.should eq(TaskCompletion.points)
   end
 
   it 'removes points from the user' do
-    user = User.create
-    task = Task.create
     task_completion = TaskCompletion.create(task: task, user: user)
     task_completion.destroy
 

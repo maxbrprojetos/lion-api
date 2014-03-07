@@ -2,7 +2,7 @@ class Api::PullRequestMergersController < ApplicationController
   def create
     if action == 'closed' && params[:pull_request][:merged] == true
       if user
-        PullRequestMerger.create(user_id: user.id, pull_request: params[:pull_request])
+        PullRequestMerger.create!(user_id: user.id, pull_request: params[:pull_request])
       end
     end
 
