@@ -52,6 +52,8 @@ Whenever something goes wrong in your system, you can POST to the /notices path 
 Mandatory fields: `app`, `title`.
 If you don't specify any type `notice` will be used.
 
+In order to specify the `app` via the interface you can write "app:my-app this is the notice".
+
 ### Tasks
 
 ![tasks](http://f.cl.ly/items/0c2E3k3G0M3P303J3W26/Image%202014-03-07%20at%2012.21.39%20pm.png)
