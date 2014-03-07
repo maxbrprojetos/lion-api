@@ -146,4 +146,4 @@ In order to get your PRs merged you need to setup a webhook in your repos that p
 https://your.notdvs.installation.com/api/pull_request_mergers
 ```
 
-The top person in the ladder will always have their bar full, and the others are calculated based on the top one.
+The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
