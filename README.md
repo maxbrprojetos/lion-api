@@ -140,7 +140,7 @@ Points are calculated this way:
 - 5 points for completing tasks
 - 15 points for getting your PRs merged
 
-In order to get your PRs merged you need to setup a webhook in your repos that points to:
+In order to get points for merging PRs you need to setup a webhook in your repos that points to:
 
 ```
 https://your.notdvs.installation.com/api/pull_request_mergers
