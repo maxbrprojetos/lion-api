@@ -15,6 +15,9 @@ class TaskCompletion < ActiveRecord::Base
   belongs_to :task
   belongs_to :user
 
+  validates :user, presence: true
+  validates :task, presence: true
+
   after_create :mark_task_as_completed
   after_destroy :mark_task_as_not_completed
 

@@ -18,6 +18,9 @@ class Task < ActiveRecord::Base
   belongs_to :assignee, class_name: 'User'
   has_one :task_completion
 
+  validates :title, presence: true
+  validates :user, presence: true
+
   private
 
   def self.serializer

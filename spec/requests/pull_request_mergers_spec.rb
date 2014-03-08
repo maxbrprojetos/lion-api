@@ -191,7 +191,8 @@ describe 'PullRequest Mergers Requests' do
           }
         },
         'user' => {
-          'login' => 'lol',
+          # change this when changing current_user nickname in your fixtures
+          'login' => 'current_user',
           'id' => 1,
           'avatar_url' => 'https =>//github.com/images/error/octocat_happy.gif',
           'gravatar_id' => 'somehexcode',

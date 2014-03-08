@@ -44,6 +44,7 @@ group :test, :development do
   gem 'guard-konacha'
   gem 'rubocop'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
+  gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
 end
 
 group :test do

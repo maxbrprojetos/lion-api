@@ -3,8 +3,7 @@ require 'spec_helper'
 describe 'Notices Requests' do
   describe 'GET /notices' do
     it 'responds with a json containing the current list of notices' do
-      notices = []
-      2.times { notices << Notice.create(title: 'lol') }
+      notices = create_list(:notice, 2)
       get api_notices_path
 
       last_response.status.should eq(200)
@@ -57,7 +56,7 @@ describe 'Notices Requests' do
 
   describe 'DESTROY /notices/{id}' do
     it 'destroys a notice and responds with no content' do
-      notice = Notice.create(title: 'test', app: 'testapp')
+      notice = create(:notice)
 
       delete api_notice_path(notice)
 
@@ -68,7 +67,7 @@ describe 'Notices Requests' do
     it 'notifies flowdock' do
       flow = double(:flow)
       ApplicationController.any_instance.stub(flow: flow)
-      notice = Notice.create(title: 'test', app: 'testapp')
+      notice = create(:notice)
 
       flow.should_receive(:push_to_team_inbox).with(
         subject: "Deleted Notice for #{notice.app.capitalize}",
