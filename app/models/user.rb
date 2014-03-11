@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :nickname, presence: true
-  validates :email, presence: true
   validates :avatar_url, presence: true
   validates :api_token, presence: true
   validates :github_id, presence: true
