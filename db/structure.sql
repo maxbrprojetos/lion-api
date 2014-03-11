@@ -85,6 +85,72 @@ CREATE TABLE pull_request_mergers (
 
 
 --
+-- Name: pull_request_reviews; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pull_request_reviews (
+    id integer NOT NULL,
+    user_id uuid,
+    pull_request_merger_id uuid,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: pull_request_reviews_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pull_request_reviews_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pull_request_reviews_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pull_request_reviews_id_seq OWNED BY pull_request_reviews.id;
+
+
+--
+-- Name: pull_requests; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pull_requests (
+    id integer NOT NULL,
+    data json,
+    repo_full_name character varying(255),
+    number integer,
+    user_id uuid,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: pull_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pull_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pull_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pull_requests_id_seq OWNED BY pull_requests.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -140,6 +206,20 @@ CREATE TABLE users (
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pull_request_reviews ALTER COLUMN id SET DEFAULT nextval('pull_request_reviews_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pull_requests ALTER COLUMN id SET DEFAULT nextval('pull_requests_id_seq'::regclass);
+
+
+--
 -- Name: completions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -161,6 +241,22 @@ ALTER TABLE ONLY notices
 
 ALTER TABLE ONLY pull_request_mergers
     ADD CONSTRAINT pull_request_mergers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pull_request_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pull_request_reviews
+    ADD CONSTRAINT pull_request_reviews_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pull_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pull_requests
+    ADD CONSTRAINT pull_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -221,4 +317,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140306095102');
 INSERT INTO schema_migrations (version) VALUES ('20140306144333');
 
 INSERT INTO schema_migrations (version) VALUES ('20140306144642');
+
+INSERT INTO schema_migrations (version) VALUES ('20140307174301');
+
+INSERT INTO schema_migrations (version) VALUES ('20140308163203');
 
