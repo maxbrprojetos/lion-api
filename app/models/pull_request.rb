@@ -41,7 +41,7 @@ class PullRequest < ActiveRecord::Base
     self.number_of_commits ||= data['commits']
     self.number_of_additions ||= data['additions']
     self.number_of_deletions ||= data['deletions']
-    self.number_of_changed_files ||= data['changed_filles']
+    self.number_of_changed_files ||= data['changed_files']
 
     @data = data
   end

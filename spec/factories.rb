@@ -21,15 +21,22 @@ FactoryGirl.define do
   factory :pull_request do
     base_repo_full_name 'alphasights/pistachio'
     sequence(:number) { |n| n }
+
     data do
       {
         'merged' => true,
         'user' => { 'login' => 'current_user' },
         'base' => {
           'repo' => { 'full_name' => 'alphasights/pistachio' }
-        }
+        },
+        'comments' => 10,
+        'commits' => 3,
+        'additions' => 100,
+        'deletions' => 3,
+        'changed_files' => 5
       }
     end
+
     user
   end
 end

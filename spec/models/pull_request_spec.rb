@@ -32,7 +32,7 @@ describe PullRequest do
       pull_request.number_of_commits.should eq(data['commits'])
       pull_request.number_of_additions.should eq(data['additions'])
       pull_request.number_of_deletions.should eq(data['deletions'])
-      pull_request.number_of_changed_files.should eq(data['changed_filles'])
+      pull_request.number_of_changed_files.should eq(data['changed_files'])
     end
   end
 
