@@ -32,11 +32,11 @@ Notdvs.TasksRoute = Notdvs.AuthenticatedRoute.extend
   model: ->
     @store.find('task')
 
-Notdvs.TasksIndexRoute = Ember.Route.extend
+Notdvs.TasksIndexRoute = Notdvs.AuthenticatedRoute.extend
   setupController: ->
     @controllerFor('tasks').set('filteredTasks', @modelFor('tasks'))
 
-Notdvs.TasksMineRoute = Ember.Route.extend(
+Notdvs.TasksMineRoute = Notdvs.AuthenticatedRoute.extend(
   setupController: ->
     tasks = @store.filter('task', (task) =>
       currentUserId = @controllerFor('currentUser').get('content.id')
@@ -50,7 +50,7 @@ Notdvs.TasksMineRoute = Ember.Route.extend(
     @controllerFor('tasks').set('filteredTasks', tasks)
 )
 
-Notdvs.LeaderboardRoute = Ember.Route.extend(
+Notdvs.LeaderboardRoute = Notdvs.AuthenticatedRoute.extend(
   model: ->
     @store.findAll('user')
 )
