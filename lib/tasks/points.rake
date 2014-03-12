@@ -27,5 +27,5 @@ task recalculate_points: :environment do
     end
   end
 
-  TaskCompletion.all.each { |tc| tc.user && tc.user.increment_points_by(TaskCompletion.points) }
+  TaskCompletion.all.each { |tc| tc.user && tc.user.increment_points_by(tc.points) }
 end
