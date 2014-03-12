@@ -13,22 +13,23 @@
 class PullRequest < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessor :pull_request_data
+  attr_accessor :data
 
   validates :user, presence: true
   validates :number, presence: true, numericality: true
-  validates :repo_full_name, presence: true
+  validates :base_repo_full_name, presence: true
   validate :must_be_merged
 
-  def pull_request_data=(pull_request)
-    self.user = User.where(nickname: pull_request[:user][:login]).first
-    self.base_repo_full_name = pull_request[:base][:repo][:full_name]
-    super
+  def data=(data)
+    self.user ||= User.where(nickname: data['user']['login']).first
+    self.base_repo_full_name ||= data['base']['repo']['full_name']
+
+    @data = data
   end
 
   private
 
   def must_be_merged
-    errors.add(:base, 'PR must be merged') unless pull_request_data[:merged] == true
+    errors.add(:base, 'PR must be merged') unless data['merged'] == 'true'
   end
 end

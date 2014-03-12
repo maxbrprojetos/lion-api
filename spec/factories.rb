@@ -17,4 +17,19 @@ FactoryGirl.define do
     title 'test'
     user
   end
+
+  factory :pull_request do
+    base_repo_full_name 'alphasights/pistachio'
+    sequence(:number) { |n| n }
+    data do
+      {
+        'merged' => 'true',
+        'user' => { 'login' => 'current_user' },
+        'base' => {
+          'repo' => { 'full_name' => 'alphasights/pistachio' }
+        }
+      }
+    end
+    user
+  end
 end
