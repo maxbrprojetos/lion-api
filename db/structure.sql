@@ -72,17 +72,6 @@ CREATE TABLE notices (
 
 
 --
--- Name: pull_request_mergers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE pull_request_mergers (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
 -- Name: pull_request_reviews; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -207,14 +196,6 @@ ALTER TABLE ONLY notices
 
 
 --
--- Name: pull_request_mergers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY pull_request_mergers
-    ADD CONSTRAINT pull_request_mergers_pkey PRIMARY KEY (id);
-
-
---
 -- Name: pull_request_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -294,4 +275,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140307174301');
 INSERT INTO schema_migrations (version) VALUES ('20140308163203');
 
 INSERT INTO schema_migrations (version) VALUES ('20140311150434');
+
+INSERT INTO schema_migrations (version) VALUES ('20140312142045');
 

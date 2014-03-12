@@ -15,7 +15,7 @@ Notdvs::Application.routes.draw do
       end
     end
 
-    resources :pull_request_mergers, only: :create
+    resources :pull_requests, only: :create
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'

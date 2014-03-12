@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   has_many :tasks
   has_many :task_completions
-  has_many :pull_request_mergers
+  has_many :pull_requests
 
   validates :name, presence: true
   validates :nickname, presence: true

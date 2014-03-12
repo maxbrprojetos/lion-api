@@ -14,7 +14,7 @@ require 'spec_helper'
 
 describe PullRequest do
   describe '#data=' do
-    it 'sets the user and base_repo_full_name' do
+    it 'sets the user, base_repo_full_name and number' do
       current_user
       pull_request = PullRequest.new
 
@@ -22,6 +22,7 @@ describe PullRequest do
       pull_request.data = data
       pull_request.user.nickname.should eq(data['user']['login'])
       pull_request.base_repo_full_name.should eq(data['base']['repo']['full_name'])
+      pull_request.number.should eq(data['number'])
     end
   end
 end

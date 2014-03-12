@@ -1,8 +1,6 @@
-class Api::PullRequestMergersController < ApplicationController
+class Api::PullRequestsController < ApplicationController
   def create
-    if action == 'closed'
-      PullRequestMerger.create(pull_request: params[:pull_request])
-    end
+    PullRequest.create(data: params['pull_request']) if action == 'closed'
 
     head :ok
   end

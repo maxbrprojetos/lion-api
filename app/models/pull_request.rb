@@ -11,9 +11,11 @@
 #
 
 class PullRequest < ActiveRecord::Base
+  include Scorable
+
   belongs_to :user
 
-  attr_accessor :data
+  attr_accessor :data, :merged
 
   validates :user, presence: true
   validates :number, presence: true, numericality: true
@@ -23,13 +25,19 @@ class PullRequest < ActiveRecord::Base
   def data=(data)
     self.user ||= User.where(nickname: data['user']['login']).first
     self.base_repo_full_name ||= data['base']['repo']['full_name']
+    self.number ||= data['number']
+    self.merged ||= data['merged'].to_s
 
     @data = data
   end
 
   private
 
+  def self.points
+    15
+  end
+
   def must_be_merged
-    errors.add(:base, 'PR must be merged') unless data['merged'] == 'true'
+    errors.add(:base, 'PR must be merged') unless merged == 'true'
   end
 end
