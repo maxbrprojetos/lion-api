@@ -2,12 +2,17 @@
 #
 # Table name: pull_requests
 #
-#  id                  :uuid             not null, primary key
-#  base_repo_full_name :string(255)
-#  number              :integer
-#  user_id             :uuid
-#  created_at          :datetime
-#  updated_at          :datetime
+#  id                      :uuid             not null, primary key
+#  base_repo_full_name     :string(255)
+#  number                  :integer
+#  user_id                 :uuid
+#  created_at              :datetime
+#  updated_at              :datetime
+#  number_of_comments      :integer
+#  number_of_commits       :integer
+#  number_of_additions     :integer
+#  number_of_deletions     :integer
+#  number_of_changed_files :integer
 #
 
 class PullRequest < ActiveRecord::Base
@@ -26,7 +31,7 @@ class PullRequest < ActiveRecord::Base
     self.user ||= User.where(nickname: data['user']['login']).first
     self.base_repo_full_name ||= data['base']['repo']['full_name']
     self.number ||= data['number']
-    self.merged ||= data['merged'].to_s
+    self.merged ||= data['merged']
     self.number_of_comments ||= data['comments']
     self.number_of_commits ||= data['commits']
     self.number_of_additions ||= data['additions']
@@ -53,6 +58,6 @@ class PullRequest < ActiveRecord::Base
   private
 
   def must_be_merged
-    errors.add(:base, 'PR must be merged') unless merged == 'true'
+    errors.add(:base, 'PR must be merged') unless merged == true
   end
 end

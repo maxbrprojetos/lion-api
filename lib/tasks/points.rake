@@ -22,7 +22,7 @@ task recalculate_points: :environment do
 
       PullRequest.create!(
         user: user,
-        merged: 'true',
+        merged: true,
         number: pr.number,
         base_repo_full_name: pr.base.repo.full_name,
         number_of_comments: pr.comments,

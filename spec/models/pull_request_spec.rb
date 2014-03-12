@@ -2,12 +2,17 @@
 #
 # Table name: pull_requests
 #
-#  id                  :uuid             not null, primary key
-#  base_repo_full_name :string(255)
-#  number              :integer
-#  user_id             :uuid
-#  created_at          :datetime
-#  updated_at          :datetime
+#  id                      :uuid             not null, primary key
+#  base_repo_full_name     :string(255)
+#  number                  :integer
+#  user_id                 :uuid
+#  created_at              :datetime
+#  updated_at              :datetime
+#  number_of_comments      :integer
+#  number_of_commits       :integer
+#  number_of_additions     :integer
+#  number_of_deletions     :integer
+#  number_of_changed_files :integer
 #
 
 require 'spec_helper'

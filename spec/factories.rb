@@ -23,7 +23,7 @@ FactoryGirl.define do
     sequence(:number) { |n| n }
     data do
       {
-        'merged' => 'true',
+        'merged' => true,
         'user' => { 'login' => 'current_user' },
         'base' => {
           'repo' => { 'full_name' => 'alphasights/pistachio' }
