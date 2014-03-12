@@ -36,3 +36,10 @@ task recalculate_points: :environment do
 
   TaskCompletion.all.each { |tc| tc.user && tc.user.increment_points_by(tc.points) }
 end
+
+
+task update_points_system: :environment do
+  User.update_all(points: 0)
+  PullRequest.all.each { |pr| pr.user && pr.user.increment_points_by(pr.points) }
+  TaskCompletion.all.each { |tc| tc.user && tc.user.increment_points_by(tc.points) }
+end
