@@ -13,7 +13,17 @@ task recalculate_points: :environment do
 
       next unless user
 
-      PullRequest.create!(user: user, merged: 'true', number: pr.number, base_repo_full_name: pr.base.repo.full_name)
+      PullRequest.create!(
+        user: user,
+        merged: 'true',
+        number: pr.number,
+        base_repo_full_name: pr.base.repo.full_name,
+        number_of_comments: pr.comments,
+        number_of_commits: pr.commits,
+        number_of_additions: pr.additions,
+        number_of_deletions: pr.deletions,
+        number_of_changed_files: pr.changed_files
+      )
     end
   end
 
