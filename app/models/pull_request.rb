@@ -36,8 +36,6 @@ class PullRequest < ActiveRecord::Base
     @data = data
   end
 
-  private
-
   def points
     return 10 unless number_of_deletions && number_of_additions
 
@@ -51,6 +49,8 @@ class PullRequest < ActiveRecord::Base
       10
     end
   end
+
+  private
 
   def must_be_merged
     errors.add(:base, 'PR must be merged') unless merged == 'true'

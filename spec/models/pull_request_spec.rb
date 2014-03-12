@@ -35,6 +35,6 @@ describe PullRequest do
     user = create(:user)
     pull_request = create(:pull_request, user: user)
 
-    user.points.should eq(pull_request.send(:points))
+    user.points.should eq(pull_request.points)
   end
 end

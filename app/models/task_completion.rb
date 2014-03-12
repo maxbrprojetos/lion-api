@@ -21,11 +21,11 @@ class TaskCompletion < ActiveRecord::Base
   after_create :mark_task_as_completed
   after_destroy :mark_task_as_not_completed
 
-  private
-
   def points
     5
   end
+
+  private
 
   def mark_task_as_completed
     task.update(completed: true)
