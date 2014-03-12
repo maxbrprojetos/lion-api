@@ -9,10 +9,10 @@ module Scorable
   private
 
   def give_points_to_user
-    user && user.increment_points_by(self.class.points)
+    user && user.increment_points_by(points)
   end
 
   def take_points_from_user
-    user && user.decrement_points_by(self.class.points)
+    user && user.decrement_points_by(points)
   end
 end

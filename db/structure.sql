@@ -113,7 +113,12 @@ CREATE TABLE pull_requests (
     number integer,
     user_id uuid,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    number_of_comments integer,
+    number_of_commits integer,
+    number_of_additions integer,
+    number_of_deletions integer,
+    number_of_changed_files integer
 );
 
 
@@ -277,4 +282,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140308163203');
 INSERT INTO schema_migrations (version) VALUES ('20140311150434');
 
 INSERT INTO schema_migrations (version) VALUES ('20140312142045');
+
+INSERT INTO schema_migrations (version) VALUES ('20140312155402');
 

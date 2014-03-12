@@ -27,14 +27,29 @@ class PullRequest < ActiveRecord::Base
     self.base_repo_full_name ||= data['base']['repo']['full_name']
     self.number ||= data['number']
     self.merged ||= data['merged'].to_s
+    self.number_of_comments ||= data['comments']
+    self.number_of_commits ||= data['commits']
+    self.number_of_additions ||= data['additions']
+    self.number_of_deletions ||= data['deletions']
+    self.number_of_changed_files ||= data['changed_filles']
 
     @data = data
   end
 
   private
 
-  def self.points
-    15
+  def points
+    return 10 unless number_of_deletions && number_of_additions
+
+    if number_of_deletions > 2 * number_of_additions && number_of_deletions > 20
+      30
+    elsif number_of_additions > 100
+      15
+    elsif number_of_additions < 10
+      5
+    else
+      10
+    end
   end
 
   def must_be_merged

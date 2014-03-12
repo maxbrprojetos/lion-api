@@ -23,7 +23,7 @@ class TaskCompletion < ActiveRecord::Base
 
   private
 
-  def self.points
+  def points
     5
   end
 

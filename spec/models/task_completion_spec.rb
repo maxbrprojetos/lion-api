@@ -29,9 +29,9 @@ describe TaskCompletion do
   end
 
   it 'adds points to the user' do
-    TaskCompletion.create(task: task, user: user)
+    task_completion = TaskCompletion.create(task: task, user: user)
 
-    user.points.should eq(TaskCompletion.points)
+    user.points.should eq(task_completion.send(:points))
   end
 
   it 'removes points from the user' do
