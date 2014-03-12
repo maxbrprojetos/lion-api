@@ -34,7 +34,7 @@ task recalculate_points: :environment do
     end
   end
 
-  TaskCompletion.all.each { |tc| tc.user && tc.user.increment_points_by(tc.points) }
+  TaskCompletion.all.each { |tc| tc.send(:give_points_to_user) }
 end
 
 task update_points_system: :environment do
