@@ -25,6 +25,11 @@ class PullRequest < ActiveRecord::Base
   validates :user, presence: true
   validates :number, presence: true, numericality: true
   validates :base_repo_full_name, presence: true
+  validates :number_of_comments, presence: true, numericality: true
+  validates :number_of_commits, presence: true, numericality: true
+  validates :number_of_additions, presence: true, numericality: true
+  validates :number_of_deletions, presence: true, numericality: true
+  validates :number_of_changed_files, presence: true, numericality: true
   validate :must_be_merged
 
   def data=(data)
