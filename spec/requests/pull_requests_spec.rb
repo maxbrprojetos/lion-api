@@ -7,6 +7,8 @@ describe 'PullRequests Requests' do
 
   describe 'POST /pull_requests' do
     it 'creates a PullRequest' do
+      # TODO: test with VCR
+      PullRequest.any_instance.stub(comments: [])
       post api_pull_requests_path, params.to_json
 
       pull_request = PullRequest.first

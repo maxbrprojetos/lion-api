@@ -19,6 +19,7 @@ class PullRequest < ActiveRecord::Base
   include Scorable
 
   belongs_to :user
+  has_many :pull_request_reviews, dependent: :destroy
 
   attr_accessor :data, :merged
 
@@ -31,6 +32,8 @@ class PullRequest < ActiveRecord::Base
   validates :number_of_deletions, presence: true, numericality: true
   validates :number_of_changed_files, presence: true, numericality: true
   validate :must_be_merged
+
+  after_create :create_reviews
 
   def data=(data)
     self.user ||= User.where(nickname: data['user']['login']).first
@@ -60,7 +63,17 @@ class PullRequest < ActiveRecord::Base
     end
   end
 
+  def comments
+    user.github_client.pull_request(base_repo_full_name, number).rels[:comments].get.data
+  end
+
   private
+
+  def create_reviews
+    comments.each do |c|
+      PullRequestReview.create(user: User.where(nickname: c.user.login).first, body: c.body, pull_request: self)
+    end
+  end
 
   def must_be_merged
     errors.add(:base, 'PR must be merged') unless merged == true
