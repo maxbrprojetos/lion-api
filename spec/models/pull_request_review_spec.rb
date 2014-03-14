@@ -17,6 +17,7 @@ describe PullRequestReview do
 
   it 'gives points to the user' do
     pull_request = build(:pull_request)
+    # TODO: have this stub inside the factory itself
     pull_request.stub(comments: [])
     pull_request.save!
 
