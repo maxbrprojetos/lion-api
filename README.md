@@ -146,7 +146,7 @@ Points are calculated this way:
 In order to get points for merging PRs you need to setup a webhook in your repos that points to:
 
 ```
-https://your.notdvs.installation.com/api/pull_request_mergers
+https://your.notdvs.installation.com/api/pull_requests
 ```
 
 The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
