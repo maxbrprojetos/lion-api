@@ -2,8 +2,6 @@ module Pusherable
   extend ActiveSupport::Concern
 
   included do
-    fail 'Please `gem install pusher` and configure it to run in your app!' if Pusher.app_id.blank? || Pusher.key.blank? || Pusher.secret.blank?
-
     attr_accessor :client_id
 
     after_commit :pusherable_trigger_create, on: :create
