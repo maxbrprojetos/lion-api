@@ -33,8 +33,11 @@ group :development do
   gem 'quiet_assets'
 end
 
-group :test, :development do
+group :tddium_ignore do
   gem 'jazz_hands'
+end
+
+group :test, :development do
   gem 'konacha'
   gem 'sinon-rails'
   gem 'poltergeist'
