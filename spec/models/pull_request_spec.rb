@@ -24,7 +24,7 @@ describe PullRequest do
     it 'sets fields from data' do
       current_user
 
-      data = pull_request_notification['pull_request']
+      data = pull_request_notification['payload']['pull_request']
       pull_request.data = data
       pull_request.user.nickname.should eq(data['user']['login'])
       pull_request.base_repo_full_name.should eq(data['base']['repo']['full_name'])
