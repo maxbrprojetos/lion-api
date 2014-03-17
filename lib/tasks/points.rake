@@ -46,5 +46,5 @@ task update_points_system: :environment do
   User.update_all(points: 0)
   PullRequest.all.each { |pr| pr.send(:give_points_to_user) }
   PullRequestReview.all.each { |prr| prr.send(:give_points_to_user) }
-  TaskCompletion.all.each { |tc| pr.send(:give_points_to_user) }
+  TaskCompletion.all.each { |tc| tc.send(:give_points_to_user) }
 end
