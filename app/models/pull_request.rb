@@ -13,6 +13,7 @@
 #  number_of_additions     :integer
 #  number_of_deletions     :integer
 #  number_of_changed_files :integer
+#  merged_at               :datetime
 #
 
 class PullRequest < ActiveRecord::Base
@@ -31,6 +32,7 @@ class PullRequest < ActiveRecord::Base
   validates :number_of_additions, presence: true, numericality: true
   validates :number_of_deletions, presence: true, numericality: true
   validates :number_of_changed_files, presence: true, numericality: true
+  validates :merged_at, presence: true
   validate :must_be_merged
 
   after_create :create_reviews
@@ -45,6 +47,7 @@ class PullRequest < ActiveRecord::Base
     self.number_of_additions ||= data['additions']
     self.number_of_deletions ||= data['deletions']
     self.number_of_changed_files ||= data['changed_files']
+    self.merged_at ||= Time.parse(data['merged_at'])
 
     @data = data
   end

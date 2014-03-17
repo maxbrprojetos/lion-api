@@ -25,6 +25,7 @@ FactoryGirl.define do
     data do
       {
         'merged' => true,
+        'merged_at' => '2011-01-26T19 =>01 =>12Z',
         'user' => { 'login' => 'current_user' },
         'base' => {
           'repo' => { 'full_name' => 'alphasights/pistachio' }

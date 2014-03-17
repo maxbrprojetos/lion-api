@@ -32,7 +32,8 @@ task recalculate_points: :environment do
         number_of_commits: pr_data.commits,
         number_of_additions: pr_data.additions,
         number_of_deletions: pr_data.deletions,
-        number_of_changed_files: pr_data.changed_files
+        number_of_changed_files: pr_data.changed_files,
+        merged_at: pr_data.merged_at
       )
 
       puts pull_request.errors.full_messages unless pull_request.save

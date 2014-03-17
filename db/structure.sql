@@ -119,7 +119,8 @@ CREATE TABLE pull_requests (
     number_of_commits integer,
     number_of_additions integer,
     number_of_deletions integer,
-    number_of_changed_files integer
+    number_of_changed_files integer,
+    merged_at timestamp without time zone
 );
 
 
@@ -283,4 +284,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140312142045');
 INSERT INTO schema_migrations (version) VALUES ('20140312155402');
 
 INSERT INTO schema_migrations (version) VALUES ('20140314164600');
+
+INSERT INTO schema_migrations (version) VALUES ('20140317174840');
 
