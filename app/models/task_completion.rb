@@ -22,7 +22,7 @@ class TaskCompletion < ActiveRecord::Base
   after_destroy :mark_task_as_not_completed
 
   def points
-    5
+    1
   end
 
   private
