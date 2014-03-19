@@ -134,6 +134,20 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: scores; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE scores (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    user_id uuid,
+    points integer DEFAULT 0,
+    time_span character varying(255) DEFAULT 'all_time'::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
 -- Name: task_completions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -174,8 +188,7 @@ CREATE TABLE users (
     api_token character varying(255),
     github_id character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    points integer DEFAULT 0
+    updated_at timestamp without time zone
 );
 
 
@@ -216,6 +229,14 @@ ALTER TABLE ONLY pull_request_reviews
 
 ALTER TABLE ONLY pull_requests
     ADD CONSTRAINT pull_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: scores_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY scores
+    ADD CONSTRAINT scores_pkey PRIMARY KEY (id);
 
 
 --
@@ -286,4 +307,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140312155402');
 INSERT INTO schema_migrations (version) VALUES ('20140314164600');
 
 INSERT INTO schema_migrations (version) VALUES ('20140317174840');
+
+INSERT INTO schema_migrations (version) VALUES ('20140317181014');
+
+INSERT INTO schema_migrations (version) VALUES ('20140317181219');
 

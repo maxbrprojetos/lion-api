@@ -22,8 +22,4 @@ class Notice < ActiveRecord::Base
   def self.inheritance_column
     '_type_disabled'
   end
-
-  def self.serializer
-    NoticeSerializer
-  end
 end

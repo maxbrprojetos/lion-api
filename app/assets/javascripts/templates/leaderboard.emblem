@@ -2,11 +2,18 @@ section.leaderboard
   header
     h1 Leaderboard
 
+    .filters
+      dl
+        link-to "leaderboard.all-time" tagName="dd"
+          a All Time
+        link-to "leaderboard.weekly" tagName="dd"
+          a Weekly
+
     ul
-      each itemController="userStats"
+      each itemController="score"
         li
           .description
-            img.big-avatar{bind-attr src=avatarUrl}
+            img.big-avatar{bind-attr src=user.avatarUrl}
             span.points = points
           .bar
             .progress

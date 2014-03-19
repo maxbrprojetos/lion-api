@@ -1,6 +1,6 @@
 task recalculate_points: :environment do
-  PullRequest.destroy_all
-  User.update_all(points: 0)
+  PullRequest.delete_all
+  Score.reset
 
   Octokit.auto_paginate = true
 
@@ -44,7 +44,7 @@ task recalculate_points: :environment do
 end
 
 task update_points_system: :environment do
-  User.update_all(points: 0)
+  Score.reset
   PullRequest.all.each { |pr| pr.send(:give_points_to_user) }
   PullRequestReview.all.each { |prr| prr.send(:give_points_to_user) }
   TaskCompletion.all.each { |tc| tc.send(:give_points_to_user) }

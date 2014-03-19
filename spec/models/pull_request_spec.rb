@@ -44,7 +44,9 @@ describe PullRequest do
     pull_request = build(:pull_request, user: user).tap { |pr| pr.stub(comments: []) }
     pull_request.save!
 
-    user.points.should eq(pull_request.points)
+    score = Score.first
+    score.user.should eq(pull_request.user)
+    score.points.should eq(pull_request.points)
   end
 
   it 'adds pull request reviews' do

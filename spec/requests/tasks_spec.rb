@@ -29,8 +29,7 @@ describe 'Tasks Requests' do
           {
             'id' => task.user.id,
             'avatar_url' => task.user.avatar_url,
-            'nickname' => task.user.nickname,
-            'points' => task.user.points
+            'nickname' => task.user.nickname
           }
         end.uniq
       )

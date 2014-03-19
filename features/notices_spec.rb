@@ -1,10 +1,10 @@
 require_relative 'acceptance_helper'
 
-feature 'Notices', %q{
+feature 'Notices', %q(
   In order to know if there are problems in the system
   As a developer
   I want see notifications
-} do
+) do
 
   scenario 'Notices index' do
     visit '/'

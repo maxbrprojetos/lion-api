@@ -33,8 +33,11 @@ describe PullRequestReview do
     pull_request.stub(comments: [])
     pull_request.save!
 
-    pull_request_review = PullRequestReview.new(body: ':+1:', user: create(:user), pull_request: pull_request)
+    user = create(:user)
+    pull_request_review = PullRequestReview.new(body: ':+1:', user: user, pull_request: pull_request)
     pull_request_review.save!
-    pull_request_review.user.points.should eq(pull_request_review.points)
+
+    score = Score.where(user: user).first
+    score.points.should eq(pull_request_review.points)
   end
 end

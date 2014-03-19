@@ -6,7 +6,6 @@ Notdvs.Notice = Notdvs.Model.extend
 Notdvs.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')
-  points: DS.attr('number')
 
   githubUrl: (->
     "https://github.com/#{@get('nickname')}"
@@ -15,3 +14,8 @@ Notdvs.User = DS.Model.extend
 Notdvs.TaskCompletion = DS.Model.extend
   user: DS.belongsTo('user')
   task: DS.belongsTo('task')
+
+Notdvs.Score = DS.Model.extend
+  points: DS.attr('number')
+  user: DS.belongsTo('user')
+  timeSpan: DS.attr('string')

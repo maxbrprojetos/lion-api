@@ -1,4 +1,4 @@
-Notdvs.LeaderboardController = Ember.ArrayController.extend(new Notdvs.Pusherable('user'),
+Notdvs.LeaderboardController = Ember.ArrayController.extend(new Notdvs.Pusherable('score'),
   sortProperties: ['points']
   sortAscending: false
 

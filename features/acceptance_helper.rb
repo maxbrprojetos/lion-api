@@ -8,12 +8,12 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 Capybara.default_driver = :poltergeist
 Capybara.register_driver :poltergeist do |app|
   options = {
-      js_errors: true,
-      timeout: 120,
-      debug: false,
-      phantomjs_options: ['--load-images=no', '--disk-cache=false'],
-      inspector: true,
-      stderr: nil
+    js_errors: true,
+    timeout: 120,
+    debug: false,
+    phantomjs_options: ['--load-images=no', '--disk-cache=false'],
+    inspector: true,
+    stderr: nil
   }
 
   Capybara::Poltergeist::Driver.new(app, options)

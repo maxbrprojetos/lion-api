@@ -17,3 +17,6 @@ Documentation:
 
 AndOr:
   Enabled: false
+
+MethodLength:
+  Max: 15

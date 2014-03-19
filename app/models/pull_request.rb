@@ -72,6 +72,10 @@ class PullRequest < ActiveRecord::Base
 
   private
 
+  def scoring_time
+    merged_at
+  end
+
   def create_reviews
     comments.each do |c|
       PullRequestReview.create(user: User.where(nickname: c.user.login).first, body: c.body, pull_request: self)

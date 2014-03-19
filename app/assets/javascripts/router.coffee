@@ -10,4 +10,8 @@ Notdvs.Router.map ->
   @resource('tasks', ->
     @route('mine')
   )
-  @route('leaderboard')
+  @resource('leaderboard', ->
+    @route('all-time')
+    @route('weekly')
+  )
+

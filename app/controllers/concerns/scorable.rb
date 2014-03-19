@@ -9,10 +9,14 @@ module Scorable
   private
 
   def give_points_to_user
-    user && user.increment_points_by(points)
+    Score.give(time: scoring_time, user: user, points: points)
   end
 
   def take_points_from_user
-    user && user.decrement_points_by(points)
+    Score.take(user: user, points: points)
+  end
+
+  def scoring_time
+    created_at
   end
 end

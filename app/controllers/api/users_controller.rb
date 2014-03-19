@@ -1,19 +1,21 @@
-class Api::UsersController < ApplicationController
-  before_action :authenticate!
+module Api
+  class UsersController < ApplicationController
+    before_action :authenticate!
 
-  def me
-    render json: current_user
-  end
+    def me
+      render json: current_user
+    end
 
-  def index
-    @users = User.all
+    def index
+      @users = User.all
 
-    render json: @users
-  end
+      render json: @users
+    end
 
-  def show
-    @user = User.find(params[:id])
+    def show
+      @user = User.find(params[:id])
 
-    render json: @user
+      render json: @user
+    end
   end
 end

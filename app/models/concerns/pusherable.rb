@@ -15,11 +15,9 @@ module Pusherable
     end
 
     def serialized_model
-      if self.class.serializer
-        self.class.serializer.new(self).to_json
-      else
-        to_json
-      end
+      "#{self.class.name}Serializer".constantize.new(self).to_json
+    rescue NameError
+      to_json
     end
 
     %w(create update destroy).each do |action_name|

@@ -36,7 +36,7 @@ Notdvs.TasksIndexRoute = Notdvs.AuthenticatedRoute.extend
   setupController: ->
     @controllerFor('tasks').set('filteredTasks', @modelFor('tasks'))
 
-Notdvs.TasksMineRoute = Notdvs.AuthenticatedRoute.extend(
+Notdvs.TasksMineRoute = Notdvs.AuthenticatedRoute.extend
   setupController: ->
     tasks = @store.filter('task', (task) =>
       currentUserId = @controllerFor('currentUser').get('content.id')
@@ -48,9 +48,16 @@ Notdvs.TasksMineRoute = Notdvs.AuthenticatedRoute.extend(
     )
 
     @controllerFor('tasks').set('filteredTasks', tasks)
-)
 
-Notdvs.LeaderboardRoute = Notdvs.AuthenticatedRoute.extend(
-  model: ->
-    @store.findAll('user')
-)
+Notdvs.LeaderboardIndexRoute = Notdvs.AuthenticatedRoute.extend
+  beforeModel: ->
+    @transitionTo('leaderboard.all-time')
+
+Notdvs.LeaderboardAllTimeRoute = Notdvs.AuthenticatedRoute.extend
+  setupController: ->
+    @controllerFor('leaderboard').set('content', @store.find('score', { time_span: 'all_time' }))
+
+Notdvs.LeaderboardWeeklyRoute = Notdvs.AuthenticatedRoute.extend
+  setupController: ->
+    @controllerFor('leaderboard').set('content', @store.find('score', { time_span: 'weekly' }))
+

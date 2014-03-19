@@ -20,10 +20,4 @@ class Task < ActiveRecord::Base
 
   validates :title, presence: true
   validates :user, presence: true
-
-  private
-
-  def self.serializer
-    TaskSerializer
-  end
 end

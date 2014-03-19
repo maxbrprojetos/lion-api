@@ -1,4 +1,4 @@
-Notdvs.UserStatsController = Ember.ObjectController.extend(
+Notdvs.ScoreController = Ember.ObjectController.extend(
   needs: ['leaderboard']
   maximumPoints: Ember.computed.alias('controllers.leaderboard.maximumPoints')
 

@@ -16,6 +16,7 @@ Notdvs::Application.routes.draw do
     end
 
     resources :pull_requests, only: :create
+    resources :scores, only: :index
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'
