@@ -17,7 +17,7 @@ class Score < ActiveRecord::Base
     where(user: user).all_time.first_or_create.increment_points_by(points)
 
     # weekly
-    if time > 1.week.ago
+    if time > Time.now.beginning_of_week
       where(user: user).weekly.first_or_create.increment_points_by(points)
     end
   end
