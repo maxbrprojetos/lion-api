@@ -51,7 +51,7 @@ Notdvs.TasksMineRoute = Notdvs.AuthenticatedRoute.extend
 
 Notdvs.LeaderboardIndexRoute = Notdvs.AuthenticatedRoute.extend
   beforeModel: ->
-    @transitionTo('leaderboard.all-time')
+    @transitionTo('leaderboard.weekly')
 
 Notdvs.LeaderboardAllTimeRoute = Notdvs.AuthenticatedRoute.extend
   setupController: ->

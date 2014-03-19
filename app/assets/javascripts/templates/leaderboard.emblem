@@ -4,10 +4,10 @@ section.leaderboard
 
     .filters
       dl
-        link-to "leaderboard.all-time" tagName="dd"
-          a All Time
         link-to "leaderboard.weekly" tagName="dd"
           a Weekly
+        link-to "leaderboard.all-time" tagName="dd"
+          a All Time
 
     ul
       each itemController="score"
