@@ -19,9 +19,9 @@ task recalculate_points: :environment do
 
       next unless user
 
-      puts "#{repo} #{pr.number} #{pr.user.login}"
-
       pr_data = pr.rels[:self].get.data
+
+      puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at}"
 
       pull_request = PullRequest.new(
         user: user,
