@@ -37,7 +37,22 @@ describe PullRequestReview do
     pull_request_review = PullRequestReview.new(body: ':+1:', user: user, pull_request: pull_request)
     pull_request_review.save!
 
-    score = Score.where(user: user).first
+    score = Score.where(user: user).all_time.first
     score.points.should eq(pull_request_review.points)
+  end
+
+  context 'when the pull request is more than one week old' do
+    it "doesn't give points to the user for the weekly score" do
+      pull_request = build(:pull_request, merged_at: 1.month.ago)
+
+      pull_request.stub(comments: [])
+      pull_request.save!
+
+      user = create(:user)
+      pull_request_review = PullRequestReview.new(body: ':+1:', user: user, pull_request: pull_request)
+      pull_request_review.save!
+
+      Score.where(user: user).weekly.first.should_not be_present
+    end
   end
 end
