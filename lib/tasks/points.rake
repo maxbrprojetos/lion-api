@@ -21,7 +21,7 @@ task recalculate_points: :environment do
 
       pr_data = pr.rels[:self].get.data
 
-      puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at}"
+      puts "#{repo} #{pr.number} #{pr.user.login} #{'weekly' if pr_data.merged_at > 1.week.ago}"
 
       pull_request = PullRequest.new(
         user: user,
