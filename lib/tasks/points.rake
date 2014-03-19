@@ -19,7 +19,7 @@ task recalculate_points: :environment do
 
       next unless user
 
-      puts "#{repo} #{pr.number}"
+      puts "#{repo} #{pr.number} #{pr.user.login}"
 
       pr_data = pr.rels[:self].get.data
 
