@@ -154,7 +154,7 @@ Merging PRs:
 
 Reviewing PRs:
 
-- 15 points for commeting with `:+1:`
+- 5 points for commeting with `:+1:`
 
 #### Caveats
 
