@@ -6,14 +6,7 @@ task recalculate_points: :environment do
 
   client = User.first.github_client
 
-  [
-    'alphasights/pistachio',
-    'alphasights/notdvs',
-    'alphasights/bee',
-    'alphasights/brazil',
-    'alphasights/octopus',
-    'alphasights/candlenut'
-  ].each do |repo|
+  client.organization_repositories('alphasights').map(&:full_name).each do |repo|
     client.pull_requests(repo, state: 'closed').each do |pr|
       user = User.where(nickname: pr.user.login).first
 
