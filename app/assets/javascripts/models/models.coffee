@@ -18,4 +18,3 @@ Notdvs.TaskCompletion = DS.Model.extend
 Notdvs.Score = DS.Model.extend
   points: DS.attr('number')
   user: DS.belongsTo('user')
-  timeSpan: DS.attr('string')
