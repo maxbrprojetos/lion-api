@@ -136,12 +136,7 @@ If you want to assign someone you can update the task like this:
 
 ### Leaderboard
 
-![leaderboard](http://f.cl.ly/items/3c0m3e2J2s3k2x0H0A0U/Image%202014-03-07%20at%2012.27.04%20pm.png)
-
-Points are calculated this way:
-
-- 5 points for completing tasks
-- 15 points for getting your PRs merged
+![leaderboard](http://cl.ly/image/280O052c2E3C/download/Image%202014-03-20%20at%201.44.44%20pm.png)
 
 In order to get points for merging PRs you need to setup a webhook in your repos that points to:
 
@@ -150,3 +145,21 @@ https://your.notdvs.installation.com/api/pull_requests
 ```
 
 The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
+
+#### Rules
+
+Completing tasks:
+
+- 1 point
+
+Merging PRs:
+
+- 50 points if the number of additions is greater than 500
+- 30 points if the number of deletions is double the number of additions and is greater than 100
+- 15 points if the number of additions is greater than 100
+- 5 points if the number of additions is less than 10
+- 10 points in all the other cases
+
+Reviewing PRs:
+
+- 15 points for commeting with `:+1:`
