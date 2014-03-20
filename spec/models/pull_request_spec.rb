@@ -35,7 +35,7 @@ describe PullRequest do
       pull_request.number_of_additions.should eq(data['additions'])
       pull_request.number_of_deletions.should eq(data['deletions'])
       pull_request.number_of_changed_files.should eq(data['changed_files'])
-      pull_request.merged_at.should eq(data['merged_at'])
+      pull_request.merged_at.should eq(Time.parse(data['merged_at']))
     end
   end
 
