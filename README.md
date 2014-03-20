@@ -138,14 +138,6 @@ If you want to assign someone you can update the task like this:
 
 ![leaderboard](http://cl.ly/image/280O052c2E3C/download/Image%202014-03-20%20at%201.44.44%20pm.png)
 
-In order to get points for merging PRs you need to setup a webhook in your repos that points to:
-
-```
-https://your.notdvs.installation.com/api/pull_requests
-```
-
-The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
-
 #### Rules
 
 Completing tasks:
@@ -163,3 +155,13 @@ Merging PRs:
 Reviewing PRs:
 
 - 15 points for commeting with `:+1:`
+
+#### Caveats
+
+In order to get points for merging PRs you need to setup a webhook in your repos that points to:
+
+```
+https://your.notdvs.installation.com/api/pull_requests
+```
+
+The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
