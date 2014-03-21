@@ -3,9 +3,12 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.0.rc1'
 
+# Needs to load first, so that gems that configure themself by enviroment
+# variables will see the variables when they load
+gem 'dotenv'
+
 gem 'active_model_serializers'
 gem 'pusher'
-gem 'dotenv'
 gem 'thin'
 gem 'pg'
 gem 'omniauth'
