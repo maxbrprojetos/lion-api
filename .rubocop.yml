@@ -3,11 +3,6 @@ AllCops:
     - vendor/**/**
     - bin/**
     - spec/support/helpers.rb
-    # tddium
-    - db/**
-    - config/boot.rb
-    - rgloader/loader.rb
-    - !ruby/regexp /.*tddium.*\.rb$/
 
 LineLength:
   Enabled: false
