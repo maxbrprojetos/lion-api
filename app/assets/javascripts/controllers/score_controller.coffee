@@ -1,15 +1,13 @@
-Notdvs.ScoreController = Ember.ObjectController.extend(
+Notdvs.ScoreController = Ember.ObjectController.extend
   needs: ['leaderboard']
   maximumPoints: Ember.computed.alias('controllers.leaderboard.maximumPoints')
 
-  progressBarWidth: (->
+  progressBarStyle: (->
+    "width: %@%".fmt(@_progressBarWidth())
+  ).property('points', 'maximumPoints')
+
+  _progressBarWidth: ->
     if @get('points') == 0
       0
     else
       (@get('points') / @get('maximumPoints')) * 100
-  ).property('points', 'maximumPoints')
-
-  progressBarStyle: (->
-    "width: %@%".fmt(@get('progressBarWidth'))
-  ).property('progressBarWidth')
-)
