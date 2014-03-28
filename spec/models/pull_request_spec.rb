@@ -27,15 +27,15 @@ describe PullRequest do
 
       data = pull_request_notification['payload']['pull_request']
       pull_request.data = data
-      pull_request.user.nickname.should eq(data['user']['login'])
-      pull_request.base_repo_full_name.should eq(data['base']['repo']['full_name'])
-      pull_request.number.should eq(data['number'])
-      pull_request.number_of_comments.should eq(data['comments'])
-      pull_request.number_of_commits.should eq(data['commits'])
-      pull_request.number_of_additions.should eq(data['additions'])
-      pull_request.number_of_deletions.should eq(data['deletions'])
-      pull_request.number_of_changed_files.should eq(data['changed_files'])
-      pull_request.merged_at.should eq(Time.parse(data['merged_at']))
+      expect(pull_request.user.nickname).to eq(data['user']['login'])
+      expect(pull_request.base_repo_full_name).to eq(data['base']['repo']['full_name'])
+      expect(pull_request.number).to eq(data['number'])
+      expect(pull_request.number_of_comments).to eq(data['comments'])
+      expect(pull_request.number_of_commits).to eq(data['commits'])
+      expect(pull_request.number_of_additions).to eq(data['additions'])
+      expect(pull_request.number_of_deletions).to eq(data['deletions'])
+      expect(pull_request.number_of_changed_files).to eq(data['changed_files'])
+      expect(pull_request.merged_at).to eq(Time.parse(data['merged_at']))
     end
   end
 
@@ -45,8 +45,8 @@ describe PullRequest do
     pull_request.save!
 
     score = Score.first
-    score.user.should eq(pull_request.user)
-    score.points.should eq(pull_request.points)
+    expect(score.user).to eq(pull_request.user)
+    expect(score.points).to eq(pull_request.points)
   end
 
   it 'adds pull request reviews' do
@@ -56,6 +56,6 @@ describe PullRequest do
     )])
 
     pull_request.save
-    PullRequestReview.count.should eq(1)
+    expect(PullRequestReview.count).to eq(1)
   end
 end

@@ -6,9 +6,9 @@ describe 'Notices Requests' do
       notices = create_list(:notice, 2)
       get api_notices_path
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
 
-      JSON.parse(last_response.body)['notices'].should eq(
+      expect(JSON.parse(last_response.body)['notices']).to eq(
         notices.map do |notice|
           {
             'id' => notice.id,
@@ -28,9 +28,9 @@ describe 'Notices Requests' do
       notice_params = { title: 'test', client_id: '1234', app: 'testapp', type: 'error' }
       post api_notices_path, { notice: notice_params }.to_json
 
-      last_response.status.should eq(201)
+      expect(last_response.status).to eq(201)
 
-      JSON.parse(last_response.body)['notice'].should include(
+      expect(JSON.parse(last_response.body)['notice']).to include(
         'title' => notice_params[:title],
         'client_id' => notice_params[:client_id],
         'app' => notice_params[:app],
@@ -60,8 +60,8 @@ describe 'Notices Requests' do
 
       delete api_notice_path(notice)
 
-      last_response.status.should eq(204)
-      last_response.body.should eq('')
+      expect(last_response.status).to eq(204)
+      expect(last_response.body).to eq('')
     end
 
     it 'notifies flowdock' do

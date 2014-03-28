@@ -19,6 +19,12 @@ VCR.configure do |config|
 end
 
 RSpec.configure do |config|
+
+  # Only permit expect syntax in specs.
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

@@ -18,12 +18,12 @@ describe PullRequestReview do
       pull_request_review = PullRequestReview.new(body: 'test')
       pull_request_review.valid?
 
-      pull_request_review.errors.full_messages.should include('Body must contain positive signs')
+      expect(pull_request_review.errors.full_messages).to include('Body must contain positive signs')
 
       pull_request_review.body = ':+1:'
       pull_request_review.valid?
 
-      pull_request_review.errors.full_messages.should_not include('Body must contain positive signs')
+      expect(pull_request_review.errors.full_messages).not_to include('Body must contain positive signs')
     end
   end
 
@@ -38,7 +38,7 @@ describe PullRequestReview do
     pull_request_review.save!
 
     score = Score.where(user: user).all_time.first
-    score.points.should eq(pull_request_review.points)
+    expect(score.points).to eq(pull_request_review.points)
   end
 
   context 'when the pull request is more than one week old' do
@@ -52,7 +52,7 @@ describe PullRequestReview do
       pull_request_review = PullRequestReview.new(body: ':+1:', user: user, pull_request: pull_request)
       pull_request_review.save!
 
-      Score.where(user: user).weekly.first.should_not be_present
+      expect(Score.where(user: user).weekly.first).not_to be_present
     end
   end
 end

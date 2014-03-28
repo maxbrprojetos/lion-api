@@ -5,9 +5,9 @@ describe 'Users Requests' do
     it 'responds with a json representing the current user' do
       get me_api_users_path
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
 
-      JSON.parse(last_response.body)['user'].should eq(
+      expect(JSON.parse(last_response.body)['user']).to eq(
         'id' => current_user.id,
         'avatar_url' => current_user.avatar_url,
         'nickname' => current_user.nickname
@@ -21,9 +21,9 @@ describe 'Users Requests' do
 
       get api_users_path
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
 
-      JSON.parse(last_response.body)['users'].should =~
+      expect(JSON.parse(last_response.body)['users']).to match_array(
         users.map do |user|
           {
             'id' => user.id,
@@ -35,6 +35,7 @@ describe 'Users Requests' do
           'nickname' => current_user.nickname,
           'avatar_url' => current_user.avatar_url
         )
+      )
     end
   end
 
@@ -44,9 +45,9 @@ describe 'Users Requests' do
 
       get api_user_path(user)
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
 
-      JSON.parse(last_response.body)['user'].should eq(
+      expect(JSON.parse(last_response.body)['user']).to eq(
         'id' => user.id,
         'nickname' => user.nickname,
         'avatar_url' => user.avatar_url

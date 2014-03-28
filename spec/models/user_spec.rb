@@ -21,22 +21,22 @@ describe User do
     it 'creates a new user from github credentials' do
       user = User.find_or_create_from_auth_hash(matteo_auth_hash)
 
-      user.name.should eq('Matteo Depalo')
-      user.email.should eq('matteodepalo@gmail.com')
-      user.api_token.should eq('78f58e63e8035da8e50970736e71f592c8b3513f')
-      user.avatar_url.should eq('https://gravatar.com/avatar/abb04b4653729868f052994150255f97?d=https%3A%2F%2Fidenticons')
-      user.github_id.should eq('151725')
-      user.nickname.should eq('matteodepalo')
+      expect(user.name).to eq('Matteo Depalo')
+      expect(user.email).to eq('matteodepalo@gmail.com')
+      expect(user.api_token).to eq('78f58e63e8035da8e50970736e71f592c8b3513f')
+      expect(user.avatar_url).to eq('https://gravatar.com/avatar/abb04b4653729868f052994150255f97?d=https%3A%2F%2Fidenticons')
+      expect(user.github_id).to eq('151725')
+      expect(user.nickname).to eq('matteodepalo')
     end
 
     it 'updates infos about a github user already in the database' do
       user = User.find_or_create_from_auth_hash(matteo_auth_hash)
-      user.name.should eq('Matteo Depalo')
+      expect(user.name).to eq('Matteo Depalo')
       id = user.id
 
       user = User.find_or_create_from_auth_hash(matteo_auth_hash.deep_merge!('info' => { 'name' => 'Ciccio Depalo' }))
-      user.name.should eq('Ciccio Depalo')
-      user.id.should eq(id)
+      expect(user.name).to eq('Ciccio Depalo')
+      expect(user.id).to eq(id)
     end
   end
 end
