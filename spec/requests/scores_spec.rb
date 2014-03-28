@@ -9,9 +9,9 @@ describe 'Scores Requests' do
 
       get api_scores_path(time_span: 'all_time')
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
 
-      JSON.parse(last_response.body)['users'].should =~
+      expect(JSON.parse(last_response.body)['users']).to match_array(
         users.map do |user|
           {
             'id' => user.id,
@@ -19,8 +19,9 @@ describe 'Scores Requests' do
             'avatar_url' => user.avatar_url
           }
         end
+      )
 
-      JSON.parse(last_response.body)['scores'].should =~
+      expect(JSON.parse(last_response.body)['scores']).to match_array(
         [
           {
             'id' => joe_score.id,
@@ -33,6 +34,7 @@ describe 'Scores Requests' do
             'points' => matteo_score.points
           }
         ]
+      )
     end
   end
 end

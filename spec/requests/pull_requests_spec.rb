@@ -12,8 +12,8 @@ describe 'PullRequests Requests' do
       post api_pull_requests_path, params.to_json
 
       pull_request = PullRequest.first
-      pull_request.should be_present
-      pull_request.user.should eq(current_user)
+      expect(pull_request).to be_present
+      expect(pull_request.user).to eq(current_user)
     end
   end
 end

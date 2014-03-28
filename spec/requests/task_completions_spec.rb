@@ -14,11 +14,11 @@ describe 'Task Completions Requests' do
         }
       }.to_json
 
-      last_response.status.should eq(201)
+      expect(last_response.status).to eq(201)
       parsed_response = JSON.parse(last_response.body)
 
-      parsed_response['task_completion']['task'].should include('completed' => true)
-      parsed_response['task_completion']['user']['id'].should eq(current_user.id)
+      expect(parsed_response['task_completion']['task']).to include('completed' => true)
+      expect(parsed_response['task_completion']['user']['id']).to eq(current_user.id)
     end
 
     it 'sends a notification to flowdock' do
@@ -47,16 +47,16 @@ describe 'Task Completions Requests' do
 
       delete api_task_completions_path, { task_id: @task.id }.to_json
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
       parsed_response = JSON.parse(last_response.body)
 
-      parsed_response['task_completion']['task'].should include('completed' => false)
+      expect(parsed_response['task_completion']['task']).to include('completed' => false)
     end
 
     it "responds with 404 if it can't find the task completion" do
       delete api_task_completions_path, { task_id: '98beb7fd-f051-4f94-8fb2-c30255de5fab' }.to_json
 
-      last_response.status.should eq(404)
+      expect(last_response.status).to eq(404)
     end
   end
 end

@@ -7,10 +7,10 @@ describe 'Tasks Requests' do
       2.times { tasks << current_user.tasks.create(title: 'lol') }
       get api_tasks_path
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
       parsed_response = JSON.parse(last_response.body)
 
-      parsed_response['tasks'].should eq(
+      expect(parsed_response['tasks']).to eq(
         tasks.map do |task|
           {
             'id' => task.id,
@@ -24,7 +24,7 @@ describe 'Tasks Requests' do
         end
       )
 
-      parsed_response['users'].should eq(
+      expect(parsed_response['users']).to eq(
         tasks.map do |task|
           {
             'id' => task.user.id,
@@ -41,9 +41,9 @@ describe 'Tasks Requests' do
       task_params = { title: 'test', client_id: '1234' }
       post api_tasks_path, { task: task_params }.to_json
 
-      last_response.status.should eq(201)
+      expect(last_response.status).to eq(201)
 
-      JSON.parse(last_response.body)['task'].should include(
+      expect(JSON.parse(last_response.body)['task']).to include(
         'title' => task_params[:title],
         'client_id' => task_params[:client_id]
       )
@@ -73,9 +73,9 @@ describe 'Tasks Requests' do
 
       patch api_task_path(task), { task: task_params }.to_json
 
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
 
-      JSON.parse(last_response.body)['task'].should include(
+      expect(JSON.parse(last_response.body)['task']).to include(
         'title' => task_params[:title],
         'assignee_id' => task_params[:assignee_id]
       )
@@ -88,8 +88,8 @@ describe 'Tasks Requests' do
 
       delete api_task_path(task)
 
-      last_response.status.should eq(204)
-      last_response.body.should eq('')
+      expect(last_response.status).to eq(204)
+      expect(last_response.body).to eq('')
     end
 
     it 'notifies flowdock' do
