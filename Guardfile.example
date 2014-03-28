@@ -29,7 +29,7 @@ guard :konacha do
 end
 
 guard 'annotate', position: 'before', tests: true, show_indexes: true do
-  watch( 'db/schema.rb' )
+  watch( 'db/structure.sql' )
 
   # Uncomment the following line if you also want to run annotate anytime
   # a model file changes
