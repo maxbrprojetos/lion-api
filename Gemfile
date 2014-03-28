@@ -44,8 +44,9 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec', require: false
-  gem 'guard-rubocop'
-  gem 'guard-konacha'
+  gem 'guard-rubocop', require: false
+  gem 'guard-konacha', require: false
+  gem 'guard-annotate', require: false
   gem 'rubocop'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'

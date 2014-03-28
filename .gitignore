@@ -19,3 +19,4 @@
 /.env
 
 /api_docs/
+Guardfile
