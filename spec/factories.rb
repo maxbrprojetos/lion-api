@@ -18,6 +18,10 @@ FactoryGirl.define do
     user
   end
 
+  factory :comment do
+    body 'This is a comment'
+  end
+
   factory :pull_request do
     base_repo_full_name 'alphasights/pistachio'
     sequence(:number) { |n| n }
