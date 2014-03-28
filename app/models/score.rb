@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: scores
+#
+#  id         :uuid             not null, primary key
+#  user_id    :uuid
+#  points     :integer          default(0)
+#  time_span  :string(255)      default("all_time")
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Score < ActiveRecord::Base
   include Pusherable
 
