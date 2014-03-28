@@ -75,7 +75,6 @@ describe 'Comments Requests' do
   end
 
   describe 'DESTROY /comments/{id}' do
-
     it 'destroys a comment and responds with no content' do
       comment = create(:comment)
       delete api_comment_path(comment)
