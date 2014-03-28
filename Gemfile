@@ -47,6 +47,7 @@ group :test, :development do
   gem 'guard-rubocop', require: false
   gem 'guard-konacha', require: false
   gem 'guard-annotate', require: false
+  gem 'terminal-notifier-guard', require: false
   gem 'rubocop'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
