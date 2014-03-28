@@ -1,11 +1,11 @@
-// Fetched from channel: canary, with url http://builds.emberjs.com/canary/ember-data.js
-// Fetched on: 2014-02-01T09:56:34Z
+// Fetched from channel: release, with url http://builds.emberjs.com/beta/ember-data.js
+// Fetched on: 2014-03-28T20:04:24Z
 /*!
  * @overview  Ember Data
  * @copyright Copyright 2011-2014 Tilde Inc. and contributors.
  *            Portions Copyright 2011 LivingSocial Inc.
  * @license   Licensed under MIT license (see license.js)
- * @version   1.0.0-beta.7+canary.59c41853
+ * @version   1.0.0-beta.7.f87cba88
  */
 (function(global) {
 var define, requireModule, require, requirejs;
@@ -813,7 +813,7 @@ define("ember-data/lib/adapters/fixture_adapter",
       findQuery: function(store, type, query, array) {
         var fixtures = this.fixturesForType(type);
 
-        Ember.assert("Unable to find fixtures for model type "+type.toString(), fixtures);
+        Ember.assert("Unable to find fixtures for model type " + type.toString(), fixtures);
 
         fixtures = this.queryFixtures(fixtures, query, type);
 
@@ -1589,11 +1589,11 @@ define("ember-data/lib/core",
       /**
         @property VERSION
         @type String
-        @default '1.0.0-beta.7+canary.59c41853'
+        @default '1.0.0-beta.7.f87cba88'
         @static
       */
       DS = Ember.Namespace.create({
-        VERSION: '1.0.0-beta.7+canary'
+        VERSION: '1.0.0-beta.7.f87cba88'
       });
 
       if ('undefined' !== typeof window) {
@@ -2547,7 +2547,7 @@ define("ember-data/lib/serializers/json_serializer",
         App.PostSerializer = DS.JSONSerializer.extend({
           extractArray: function(store, type, payload) {
             return payload.map(function(json) {
-              return this.extractSingle(json);
+              return this.extractSingle(store, type, json);
             }, this);
           }
         });
@@ -3490,6 +3490,17 @@ define("ember-data/lib/system/adapter",
             return error;
           }
         }
+      });
+      ```
+      
+      The `DS.InvalidError` must be constructed with a single object whose
+      keys are the invalid model properties, and whose values are the
+      corresponding error messages. For example:
+      
+      ```javascript
+      return new DS.InvalidError({
+        length: 'Must be less than 15',
+        name: 'Must not be blank
       });
       ```
 
@@ -5251,6 +5262,9 @@ define("ember-data/lib/system/model/model",
       @uses Ember.Evented
     */
     var Model = Ember.Object.extend(Ember.Evented, {
+      _recordArrays: undefined,
+      _relationships: undefined,
+      _loadingRecordArrays: undefined,
       /**
         If this property is `true` the record is in the `empty`
         state. Empty is the first state all records enter after they have
@@ -5805,7 +5819,7 @@ define("ember-data/lib/system/model/model",
         @private
       */
       unloadRecord: function() {
-        Ember.assert("You can only unload a loaded, non-dirty record.", !get(this, 'isDirty'));
+        if (this.isDestroyed) { return; }
 
         this.send('unloadRecord');
       },
@@ -5819,8 +5833,10 @@ define("ember-data/lib/system/model/model",
           if (relationship.kind === 'belongsTo') {
             set(this, name, null);
           } else if (relationship.kind === 'hasMany') {
-            var hasMany = this._relationships[relationship.name];
-            if (hasMany) { hasMany.clear(); }
+            var hasMany = this._relationships[name];
+            if (hasMany) { // relationships are created lazily
+              hasMany.destroy();
+            }
           }
         }, this);
       },
@@ -6226,6 +6242,11 @@ define("ember-data/lib/system/model/model",
         }
 
         this._deferredTriggers.length = 0;
+      },
+
+      willDestroy: function() {
+        this._super();
+        this.clearRelationships();
       }
     });
 
@@ -6567,6 +6588,10 @@ define("ember-data/lib/system/model/states",
         becomeDirty: Ember.K,
         pushedData: Ember.K,
 
+        unloadRecord: function(record) {
+          Ember.assert("You can only unload a record which is not inFlight. `" + Ember.inspect(record) + " `", false);
+        },
+
         // TODO: More robust semantics around save-while-in-flight
         willCommit: Ember.K,
 
@@ -6657,7 +6682,6 @@ define("ember-data/lib/system/model/states",
 
     var createdState = dirtyState({
       dirtyType: 'created',
-
       // FLAGS
       isNew: true
     });
@@ -6682,6 +6706,12 @@ define("ember-data/lib/system/model/states",
 
     createdState.uncommitted.propertyWasReset = Ember.K;
 
+    function assertAgainstUnloadRecord(record) {
+      Ember.assert("You can only unload a record which is not inFlight. `" + Ember.inspect(record) + "`", false);
+    }
+
+    updatedState.inFlight.unloadRecord = assertAgainstUnloadRecord;
+
     updatedState.uncommitted.deleteRecord = function(record) {
       record.transitionTo('deleted.uncommitted');
       record.clearRelationships();
@@ -6705,6 +6735,13 @@ define("ember-data/lib/system/model/states",
       // in-flight state, rolling back the record doesn't move
       // you out of the in-flight state.
       rolledBack: Ember.K,
+      unloadRecord: function(record) {
+        // clear relationships before moving to deleted state
+        // otherwise it fails
+        record.clearRelationships();
+        record.transitionTo('deleted.saved');
+      },
+
 
       propertyWasReset: Ember.K,
 
@@ -6898,6 +6935,8 @@ define("ember-data/lib/system/model/states",
 
           // EVENTS
 
+          unloadRecord: assertAgainstUnloadRecord,
+
           // TODO: More robust semantics around save-while-in-flight
           willCommit: Ember.K,
           didCommit: function(record) {
@@ -6988,6 +7027,7 @@ define("ember-data/lib/system/record_array_manager",
         });
 
         this.changedRecords = [];
+        this._adapterPopulatedRecordArrays = [];
       },
 
       recordDidChange: function(record) {
@@ -7188,12 +7228,16 @@ define("ember-data/lib/system/record_array_manager",
         @return {DS.AdapterPopulatedRecordArray}
       */
       createAdapterPopulatedRecordArray: function(type, query) {
-        return DS.AdapterPopulatedRecordArray.create({
+        var array = DS.AdapterPopulatedRecordArray.create({
           type: type,
           query: query,
           content: Ember.A(),
           store: this.store
         });
+
+        this._adapterPopulatedRecordArrays.push(array);
+
+        return array;
       },
 
       /**
@@ -7223,8 +7267,41 @@ define("ember-data/lib/system/record_array_manager",
         var loadingRecordArrays = record._loadingRecordArrays || [];
         loadingRecordArrays.push(array);
         record._loadingRecordArrays = loadingRecordArrays;
+      },
+
+      willDestroy: function(){
+        this._super();
+
+        flatten(values(this.filteredRecordArrays.values)).forEach(destroy);
+        this._adapterPopulatedRecordArrays.forEach(destroy);
       }
     });
+
+    function values(obj) {
+      var result = [];
+      var keys = Ember.keys(obj);
+
+      for (var i = 0; i < keys.length; i++) {
+        result.push(obj[keys[i]]);
+      }
+
+      return result;
+    }
+
+    function destroy(entry) {
+      entry.destroy();
+    }
+
+    function flatten(list) {
+      var length = list.length;
+      var result = Ember.A();
+
+      for (var i = 0; i < length; i++) {
+        result = result.concat(list[i]);
+      }
+
+      return result;
+    }
 
     __exports__["default"] = RecordArrayManager;
   });
@@ -7776,6 +7853,23 @@ define("ember-data/lib/system/record_arrays/record_array",
         }, null, "DS: RecordArray#save apply Ember.NativeArray");
 
         return PromiseArray.create({ promise: promise });
+      },
+
+      _dissociateFromOwnRecords: function() {
+        var array = this;
+
+        this.forEach(function(record){
+          var recordArrays = record._recordArrays;
+
+          if (recordArrays) {
+            recordArrays.remove(array);
+          }
+        });
+      },
+
+      willDestroy: function(){
+        this._dissociateFromOwnRecords();
+        this._super();
       }
     });
 
@@ -7815,7 +7909,8 @@ define("ember-data/lib/system/relationships/belongs_to",
       return Ember.computed('data', function(key, value) {
         var data = get(this, 'data'),
             store = get(this, 'store'),
-            promiseLabel = "DS: Async belongsTo " + this + " : " + key;
+            promiseLabel = "DS: Async belongsTo " + this + " : " + key,
+            promise;
 
         if (arguments.length === 2) {
           Ember.assert("You can only add a '" + type + "' record to this relationship", !value || value instanceof store.modelFor(type));
@@ -7828,15 +7923,14 @@ define("ember-data/lib/system/relationships/belongs_to",
             belongsTo = data[key];
 
         if(!isNone(belongsTo)) {
-          var promise = store.fetchRecord(belongsTo) || Promise.cast(belongsTo, promiseLabel);
+          promise = store.fetchRecord(belongsTo) || Promise.cast(belongsTo, promiseLabel);
           return DS.PromiseObject.create({
             promise: promise
           });
         } else if (link) {
-          var resolver = Ember.RSVP.defer("DS: Async belongsTo (link) " + this + " : " + key);
-          store.findBelongsTo(this, link, meta, resolver);
+          promise = store.findBelongsTo(this, link, meta);
           return DS.PromiseObject.create({
-            promise: resolver.promise
+            promise: promise
           });
         } else {
           return null;
@@ -9116,9 +9210,9 @@ define("ember-data/lib/system/store",
         @private
         @param {Array} records
         @param {DS.Model} owner
-        @param {Resolver} resolver
+        @return {Promise} promise
       */
-      fetchMany: function(records, owner, resolver) {
+      fetchMany: function(records, owner) {
         if (!records.length) { return; }
 
         // Group By Type
@@ -9130,6 +9224,8 @@ define("ember-data/lib/system/store",
           recordsByTypeMap.get(record.constructor).push(record);
         });
 
+        var promises = [];
+
         forEach(recordsByTypeMap, function(type, records) {
           var ids = records.mapProperty('id'),
               adapter = this.adapterFor(type);
@@ -9137,8 +9233,10 @@ define("ember-data/lib/system/store",
           Ember.assert("You tried to load many records but you have no adapter (for " + type + ")", adapter);
           Ember.assert("You tried to load many records but your adapter does not implement `findMany`", adapter.findMany);
 
-          resolver.resolve(_findMany(adapter, this, type, ids, owner));
+          promises.push(_findMany(adapter, this, type, ids, owner));
         }, this);
+
+        return Ember.RSVP.all(promises);
       },
 
       /**
@@ -9207,7 +9305,7 @@ define("ember-data/lib/system/store",
             this.recordArrayManager.registerWaitingRecordArray(record, manyArray);
           }, this);
 
-          this.fetchMany(unloadedRecords, owner, resolver);
+          resolver.resolve(this.fetchMany(unloadedRecords, owner));
         } else {
           if (resolver) { resolver.resolve(); }
           manyArray.set('isLoaded', true);
@@ -9233,8 +9331,7 @@ define("ember-data/lib/system/store",
         @param {DS.Model} owner
         @param {any} link
         @param {String or subclass of DS.Model} type
-        @param {Resolver} resolver
-        @return {DS.ManyArray}
+        @return {Promise} promise
       */
       findHasMany: function(owner, link, relationship, resolver) {
         var adapter = this.adapterFor(owner.constructor);
@@ -9253,15 +9350,15 @@ define("ember-data/lib/system/store",
         @param {DS.Model} owner
         @param {any} link
         @param {Relationship} relationship
-        @param {Resolver} resolver
+        @return {Promise} promise
       */
-      findBelongsTo: function(owner, link, relationship, resolver) {
+      findBelongsTo: function(owner, link, relationship) {
         var adapter = this.adapterFor(owner.constructor);
 
         Ember.assert("You tried to load a belongsTo relationship but you have no adapter (for " + owner.constructor + ")", adapter);
         Ember.assert("You tried to load a belongsTo relationship from a specified `link` in the original payload but your adapter does not implement `findBelongsTo`", adapter.findBelongsTo);
 
-        resolver.resolve(_findBelongsTo(adapter, this, owner, link, relationship));
+        return _findBelongsTo(adapter, this, owner, link, relationship);
       },
 
       /**
@@ -9385,13 +9482,15 @@ define("ember-data/lib/system/store",
         @param {String or subclass of DS.Model} type
       */
       unloadAll: function(type) {
-        type = this.modelFor(type);
+        var modelType = this.modelFor(type);
+        var typeMap = this.typeMapFor(modelType);
+        var records = typeMap.records.slice();
+        var record;
 
-        var typeMap = this.typeMapFor(type),
-            records = typeMap.records.splice(0), record;
-
-        while(record = records.pop()) {
+        for (var i = 0; i < records.length; i++) {
+          record = records[i];
           record.unloadRecord();
+          record.destroy(); // maybe within unloadRecord
         }
 
         typeMap.findAllCache = null;
@@ -9655,7 +9754,8 @@ define("ember-data/lib/system/store",
         typeMap = {
           idToRecord: {},
           records: [],
-          metadata: {}
+          metadata: {},
+          type: type
         };
 
         typeMaps[guid] = typeMap;
@@ -10040,6 +10140,21 @@ define("ember-data/lib/system/store",
         var adapter = this.adapterFor(type);
 
         return serializerFor(this.container, type.typeKey, adapter && adapter.defaultSerializer);
+      },
+
+      willDestroy: function() {
+        var map = this.typeMaps;
+        var keys = Ember.keys(map);
+        var store = this;
+        var types = keys.map(byType);
+
+        this.recordArrayManager.destroy();
+
+        types.forEach(this.unloadAll, this);
+
+        function byType(entry) {
+          return map[entry].type;
+        }
       }
     });
 

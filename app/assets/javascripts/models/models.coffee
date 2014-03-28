@@ -18,3 +18,8 @@ Notdvs.TaskCompletion = DS.Model.extend
 Notdvs.Score = DS.Model.extend
   points: DS.attr('number')
   user: DS.belongsTo('user')
+
+Notdvs.Comment = Notdvs.Model.extend
+  body: DS.attr('string')
+  user: DS.belongsTo('user')
+  task: DS.belongsTo('task')

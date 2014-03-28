@@ -5,6 +5,7 @@ Notdvs.Task = Notdvs.Model.extend
   assignee: DS.belongsTo('user')
   assigneeWas: Ember.Object.create()
   hidden: false
+  comments: DS.hasMany('comment', { async: true} )
 
   toggleCompleted: (user) ->
     @set('completed', !@get('completed'))

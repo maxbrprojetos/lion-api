@@ -1,2 +1,3 @@
 //= require ./model
-//= require_tree .
+//= require ./models
+//= require ./task
