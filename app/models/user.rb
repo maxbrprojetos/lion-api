@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :task_completions
   has_many :pull_requests
   has_many :scores
+  has_many :comments
 
   validates :name, presence: true
   validates :nickname, presence: true

@@ -16,6 +16,10 @@
 #
 
 class Comment < ActiveRecord::Base
+  include Pusherable
+
   belongs_to :user
   belongs_to :task
+
+  validates :body, presence: true
 end

@@ -20,6 +20,8 @@ FactoryGirl.define do
 
   factory :comment do
     body 'This is a comment'
+    user
+    task
   end
 
   factory :pull_request do
