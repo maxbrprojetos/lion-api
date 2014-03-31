@@ -28,7 +28,7 @@ class Score < ActiveRecord::Base
     where(user: user).each { |s| s.decrement_points_by(points) }
   end
 
-  def self.reset
+  def self.reset_points
     update_all(points: 0)
   end
 

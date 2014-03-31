@@ -57,7 +57,7 @@ describe Score do
     it 'resets scores points' do
       score = Score.create(user: user, points: 10)
 
-      Score.reset
+      Score.reset_points
 
       expect(score.reload.points).to eq(0)
     end
