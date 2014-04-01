@@ -17,4 +17,4 @@ MethodLength:
   Max: 15
 
 CyclomaticComplexity:
-  Severity: warning
+  Enabled: false
