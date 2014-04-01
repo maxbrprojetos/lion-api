@@ -17,6 +17,8 @@ class PullRequestReview < ActiveRecord::Base
   belongs_to :pull_request
 
   validates :body, presence: true
+  validates :pull_request, presence: true
+  validates :user, presence: true
   validate :body_must_contain_positive_signs
 
   def points
