@@ -53,7 +53,9 @@ class PullRequest < ActiveRecord::Base
   end
 
   def points
-    if number_of_additions > 500
+    if number_of_deletions > 2 * number_of_additions && number_of_deletions > 1000
+      100
+    elsif number_of_additions > 500
       50
     elsif number_of_deletions > 2 * number_of_additions && number_of_deletions > 100
       30
