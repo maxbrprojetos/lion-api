@@ -15,3 +15,6 @@ AndOr:
 
 MethodLength:
   Max: 15
+
+CyclomaticComplexity:
+  Severity: warning
