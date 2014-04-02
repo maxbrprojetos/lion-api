@@ -3,8 +3,6 @@ aside
     img src=currentUser.avatarUrl
   nav
     ul
-      link-to "notices" tagName="li"
-        i class="status"
       link-to "tasks" tagName="li"
         i class="batcave"
       link-to "leaderboard" tagName="li"

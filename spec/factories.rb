@@ -8,11 +8,6 @@ FactoryGirl.define do
     sequence(:github_id) { |n| n }
   end
 
-  factory :notice do
-    app 'Pistachio'
-    title 'test'
-  end
-
   factory :task do
     title 'test'
     user

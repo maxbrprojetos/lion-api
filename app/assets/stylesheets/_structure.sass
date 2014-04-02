@@ -28,31 +28,6 @@ main
   & > .content
     +grid-row
 
-.notices-container
-  +grid-column($columns: 6, $center: true, $collapse: true)
-  // remove once fixed https://github.com/zurb/foundation/issues/4161
-  float: none !important
-
-  section.status
-    +row
-
-    & > div
-      +grid-column($columns: 6, $center: true, $collapse: true)
-      // remove once fixed https://github.com/zurb/foundation/issues/4161
-      float: none !important
-
-  section.notices
-    +row
-
-  .notice
-    +grid-row
-
-    .content
-      +grid-column($columns: 11, $collapse: true)
-
-    .actions
-      +grid-column($columns: 1, $collapse: true)
-
 section.tasks
   +grid-column($columns: 8)
 

@@ -15,10 +15,6 @@ Notdvs.LoginRoute = Ember.Route.extend
   setupController: ->
     @controllerFor('application').connectLayout('simple')
 
-Notdvs.NoticesRoute = Notdvs.AuthenticatedRoute.extend
-  model: ->
-    @store.find('notice')
-
 Notdvs.TasksRoute = Notdvs.AuthenticatedRoute.extend
   beforeModel: (transition) ->
     Notify.prototype.requestPermission() if Notify.prototype.isSupported() && Notify.prototype.needsPermission()

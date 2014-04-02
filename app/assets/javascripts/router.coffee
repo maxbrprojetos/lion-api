@@ -5,9 +5,8 @@ Notdvs.Router.reopen(
 )
 
 Notdvs.Router.map ->
-  @resource('notices', path: '/')
   @route('login')
-  @resource('tasks', ->
+  @resource('tasks', path: '/', ->
     @route('mine')
   )
   @resource('leaderboard', ->

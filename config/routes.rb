@@ -1,6 +1,5 @@
 Notdvs::Application.routes.draw do
   namespace :api do
-    resources :notices, only: [:index, :create, :destroy]
     resources :tasks, only: [:index, :create, :update, :destroy]
 
     resources :users do
