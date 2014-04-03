@@ -98,7 +98,9 @@ If you want to assign someone you can update the task like this:
 
 ![leaderboard](http://cl.ly/image/280O052c2E3C/download/Image%202014-03-20%20at%201.44.44%20pm.png)
 
-There are currently two leaderboards: weekly and all time. Points are given according to the following rules.
+There are currently two leaderboards: weekly and all time. The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
+
+Points are given according to the following rules.
 
 #### Rules
 
@@ -126,5 +128,3 @@ In order to get points for merging PRs you need to setup a webhook in your repos
 ```
 https://your.notdvs.installation.com/api/pull_requests
 ```
-
-The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
