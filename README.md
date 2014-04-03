@@ -98,6 +98,8 @@ If you want to assign someone you can update the task like this:
 
 ![leaderboard](http://cl.ly/image/280O052c2E3C/download/Image%202014-03-20%20at%201.44.44%20pm.png)
 
+There are currently two leaderboards: weekly and all time. Points are given according to the following rules.
+
 #### Rules
 
 Completing tasks:
@@ -106,6 +108,7 @@ Completing tasks:
 
 Merging PRs:
 
+- 100 points if the number of deletions is double the number of additions and is greater than 1000
 - 50 points if the number of additions is greater than 500
 - 30 points if the number of deletions is double the number of additions and is greater than 100
 - 15 points if the number of additions is greater than 100
