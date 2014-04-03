@@ -1,5 +1,4 @@
 # NOTDVS
-[![](https://api.tddium.com:443/alphasights/notdvs/badges/65079.png?badge_token=84482063fe8b05882d51d4d99a917760aca6bd96)](https://api.tddium.com:443/alphasights/notdvs/suites/65079)
 
 ## What sorcery is this?
 
