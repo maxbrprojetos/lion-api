@@ -27,6 +27,15 @@ describe PullRequestReview do
     end
   end
 
+  describe '#points' do
+    it 'returns a fraction of pr points' do
+      pull_request = build(:pull_request)
+      pull_request_review = PullRequestReview.new(body: 'test', pull_request: pull_request)
+      pull_request.stub(points: 130)
+      expect(pull_request_review.points).to eq(pull_request.points / 2)
+    end
+  end
+
   it 'gives points to the user' do
     pull_request = build(:pull_request)
     # TODO: have this stub inside the factory itself
