@@ -1,5 +1,6 @@
 task recalculate_points: :environment do
   PullRequest.delete_all
+  PullRequestReview.delete_all
   Score.reset_points
 
   Octokit.auto_paginate = true

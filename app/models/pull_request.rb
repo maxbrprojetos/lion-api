@@ -80,7 +80,7 @@ class PullRequest < ActiveRecord::Base
 
   def create_reviews
     comments.each do |c|
-      PullRequestReview.create(user: User.where(nickname: c.user.login).first, body: c.body, pull_request: self)
+      PullRequestReview.create!(user: User.where(nickname: c.user.login).first, body: c.body, pull_request: self)
     end
   end
 
