@@ -20,10 +20,12 @@ describe PullRequestReview do
 
       expect(pull_request_review.errors.full_messages).to include('Body must contain positive signs')
 
-      pull_request_review.body = ':+1:'
-      pull_request_review.valid?
+      [':+1:', ':shipit:', ':thumbsup:'].each do |message|
+        pull_request_review.body = message
+        pull_request_review.valid?
 
-      expect(pull_request_review.errors.full_messages).not_to include('Body must contain positive signs')
+        expect(pull_request_review.errors.full_messages).not_to include('Body must contain positive signs')
+      end
     end
   end
 

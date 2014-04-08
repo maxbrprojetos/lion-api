@@ -28,7 +28,7 @@ class PullRequestReview < ActiveRecord::Base
   private
 
   def body_must_contain_positive_signs
-    errors.add(:body, 'must contain positive signs') unless body.match(/:\+1:/)
+    errors.add(:body, 'must contain positive signs') unless body.match(/:\+1:|:thumbsup:|:shipit:/)
   end
 
   def scoring_time
