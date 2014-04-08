@@ -30,7 +30,7 @@ task recalculate_points: :environment do
         merged_at: pr_data.merged_at
       )
 
-      pull_request.save!
+      pull_request.save
     end
   end
 
