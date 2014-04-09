@@ -5,7 +5,7 @@ http_interactions:
     uri: http://api.pusherapp.com/apps/63834/events?auth_key=b97fe1ecbf31373c3699&auth_signature=56c1e629d740965620b6edde2cf3492fb548bbc8f1942ac0bb23d197c533715d&auth_timestamp=1394816953&auth_version=1.0&body_md5=a4ba4e73e3a65799feefb9e80d99217c
     body:
       encoding: UTF-8
-      string: '{"name":"user.create","channels":["notdvs"],"data":"{\"user\":{\"id\":\"d5113b5b-7bb4-4aef-a56d-d4b9d28793f6\",\"avatar_url\":\"omg\",\"nickname\":\"current_user\",\"points\":0}}"}'
+      string: '{"name":"user.create","channels":["lion"],"data":"{\"user\":{\"id\":\"d5113b5b-7bb4-4aef-a56d-d4b9d28793f6\",\"avatar_url\":\"omg\",\"nickname\":\"current_user\",\"points\":0}}"}'
     headers:
       Content-Type:
       - application/json
@@ -31,7 +31,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: "{}"
-    http_version: 
+    http_version:
   recorded_at: Fri, 14 Mar 2014 17:09:14 GMT
 - request:
     method: get
@@ -85,6 +85,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"message":"Bad credentials","documentation_url":"http://developer.github.com/v3"}'
-    http_version: 
+    http_version:
   recorded_at: Fri, 14 Mar 2014 17:09:15 GMT
 recorded_with: VCR 2.4.0

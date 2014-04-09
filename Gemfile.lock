@@ -334,11 +334,12 @@ GEM
       powerpack (~> 0.0.6)
       rainbow (>= 1.99.1, < 3.0)
     safe_yaml (0.9.4)
-    sass (3.2.14)
-    sass-rails (4.0.1)
+    sass (3.2.19)
+    sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
-      sass (>= 3.1.10)
-      sprockets-rails (~> 2.0.0)
+      sass (~> 3.2.0)
+      sprockets (~> 2.8, <= 2.11.0)
+      sprockets-rails (~> 2.0)
     sawyer (0.5.3)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
@@ -349,12 +350,12 @@ GEM
     spring (1.1.2)
     spring-commands-rspec (1.0.1)
       spring (>= 0.9.1)
-    sprockets (2.12.0)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.0.1)
+    sprockets-rails (2.1.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
@@ -392,7 +393,7 @@ DEPENDENCIES
   active_model_serializers
   annotate!
   bourbon
-  coffee-rails (~> 4.0.0)
+  coffee-rails
   cucumber-rails
   database_cleaner
   dotenv
@@ -421,12 +422,12 @@ DEPENDENCIES
   rspec-rails
   rspec_api_blueprint!
   rubocop
-  sass-rails (~> 4.0.0)
+  sass-rails
   sinon-rails
   spring
   spring-commands-rspec
   thin
-  uglifier (>= 1.3.0)
+  uglifier
   vcr
   webmock
   zocial-rails

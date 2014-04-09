@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Notdvs::Application.config.secret_key_base = '313cf4f430ef7082b9fbe0ff8ea597eb8ccc8d2a35f301a3b0c8ff6a6a7e9b994b75f1cafa6b6e467fe9ef301d648ad6a93bbb7f0a2381ca2ce4d1212585274c'
+Lion::Application.config.secret_key_base = '313cf4f430ef7082b9fbe0ff8ea597eb8ccc8d2a35f301a3b0c8ff6a6a7e9b994b75f1cafa6b6e467fe9ef301d648ad6a93bbb7f0a2381ca2ce4d1212585274c'

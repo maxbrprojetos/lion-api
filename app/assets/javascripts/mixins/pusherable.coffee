@@ -1,4 +1,4 @@
-Notdvs.Pusherable = (modelName) ->
+Lion.Pusherable = (modelName) ->
   actions = {}
 
   actions["#{modelName}Create"] = (payload) ->
@@ -13,7 +13,7 @@ Notdvs.Pusherable = (modelName) ->
 
   Ember.Mixin.create(EmberPusher.Bindings,
     PUSHER_SUBSCRIPTIONS:
-      notdvs: ["#{modelName}.create", "#{modelName}.update", "#{modelName}.destroy"]
+      lion: ["#{modelName}.create", "#{modelName}.update", "#{modelName}.destroy"]
 
     newRecords: Ember.A([])
 

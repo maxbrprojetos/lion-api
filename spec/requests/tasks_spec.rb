@@ -58,7 +58,7 @@ describe 'Tasks Requests' do
         subject: 'Added Task',
         content: task_params[:title],
         tags: %w(task),
-        link: 'https://notdvs.herokuapp.com/#/tasks'
+        link: 'https://lion.herokuapp.com/#/tasks'
       )
 
       post api_tasks_path, { task: task_params }.to_json
@@ -101,7 +101,7 @@ describe 'Tasks Requests' do
         subject: 'Deleted Task',
         content: task.title,
         tags: %w(task),
-        link: 'https://notdvs.herokuapp.com/#/tasks'
+        link: 'https://lion.herokuapp.com/#/tasks'
       )
 
       delete api_task_path(task)

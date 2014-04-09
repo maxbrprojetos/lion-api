@@ -1,4 +1,4 @@
-Notdvs.LoadingRoute = Ember.Route.extend(
+Lion.LoadingRoute = Ember.Route.extend(
   activate: ->
     @_super.apply(this, arguments)
     Pace.restart()
@@ -8,14 +8,14 @@ Notdvs.LoadingRoute = Ember.Route.extend(
     Pace.stop()
 )
 
-Notdvs.LoginRoute = Ember.Route.extend
+Lion.LoginRoute = Ember.Route.extend
   beforeModel: ->
     @transitionTo(Ember.SimpleAuth.routeAfterLogin) if @get('session.isAuthenticated')
 
   setupController: ->
     @controllerFor('application').connectLayout('simple')
 
-Notdvs.TasksRoute = Notdvs.AuthenticatedRoute.extend
+Lion.TasksRoute = Lion.AuthenticatedRoute.extend
   beforeModel: (transition) ->
     Notify.prototype.requestPermission() if Notify.prototype.isSupported() && Notify.prototype.needsPermission()
 
@@ -28,11 +28,11 @@ Notdvs.TasksRoute = Notdvs.AuthenticatedRoute.extend
   model: ->
     @store.find('task')
 
-Notdvs.TasksIndexRoute = Notdvs.AuthenticatedRoute.extend
+Lion.TasksIndexRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
     @controllerFor('tasks').set('filteredTasks', @modelFor('tasks'))
 
-Notdvs.TasksMineRoute = Notdvs.AuthenticatedRoute.extend
+Lion.TasksMineRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
     tasks = @store.filter('task', (task) =>
       currentUserId = @controllerFor('currentUser').get('content.id')
@@ -45,15 +45,15 @@ Notdvs.TasksMineRoute = Notdvs.AuthenticatedRoute.extend
 
     @controllerFor('tasks').set('filteredTasks', tasks)
 
-Notdvs.LeaderboardIndexRoute = Notdvs.AuthenticatedRoute.extend
+Lion.LeaderboardIndexRoute = Lion.AuthenticatedRoute.extend
   beforeModel: ->
     @transitionTo('leaderboard.weekly')
 
-Notdvs.LeaderboardAllTimeRoute = Notdvs.AuthenticatedRoute.extend
+Lion.LeaderboardAllTimeRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
     @controllerFor('leaderboard').set('content', @store.find('score', { time_span: 'all_time' }))
 
-Notdvs.LeaderboardWeeklyRoute = Notdvs.AuthenticatedRoute.extend
+Lion.LeaderboardWeeklyRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
     @controllerFor('leaderboard').set('content', @store.find('score', { time_span: 'weekly' }))
 

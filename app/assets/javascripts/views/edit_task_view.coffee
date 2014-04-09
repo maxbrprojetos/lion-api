@@ -1,7 +1,7 @@
-Notdvs.EditTaskView = Ember.TextField.extend
+Lion.EditTaskView = Ember.TextField.extend
   focusOnInsert: (->
     @$().val @$().val()
     @$().focus()
   ).on('didInsertElement')
 
-Ember.Handlebars.helper 'edit-task', Notdvs.EditTaskView
+Ember.Handlebars.helper 'edit-task', Lion.EditTaskView

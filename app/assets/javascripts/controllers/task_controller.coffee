@@ -1,4 +1,4 @@
-Notdvs.TaskController = Ember.ObjectController.extend(
+Lion.TaskController = Ember.ObjectController.extend(
   needs: ['currentUser']
   currentUser: Ember.computed.alias("controllers.currentUser.content")
   isEditing: false

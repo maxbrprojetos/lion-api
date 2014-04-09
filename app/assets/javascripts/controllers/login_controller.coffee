@@ -1,2 +1,2 @@
-Notdvs.LoginController = Ember.Controller.extend
+Lion.LoginController = Ember.Controller.extend
   layoutName: 'simple'

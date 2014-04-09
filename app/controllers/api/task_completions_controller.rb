@@ -33,7 +33,7 @@ module Api
         subject: 'Completed Task',
         content: @task_completion.task.title,
         tags: %w(task),
-        link: 'https://notdvs.herokuapp.com/#/tasks'
+        link: 'https://lion.herokuapp.com/#/tasks'
       )
     end
   end

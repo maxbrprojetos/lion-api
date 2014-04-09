@@ -1,8 +1,8 @@
-# NOTDVS
+# Lion
 
 ## What sorcery is this?
 
-NOtices To DeveloperS is a dashboard for developers written with Ember and Rails.
+Lion is a dashboard for developers written with Ember and Rails.
 It notifies developers of problems, it keeps track of tasks and rewards developers when they get shit done®.
 
 ## Dependencies
@@ -126,5 +126,5 @@ Reviewing PRs:
 In order to get points for merging PRs you need to setup a webhook in your repos that points to:
 
 ```
-https://your.notdvs.installation.com/api/pull_requests
+https://your.lion.installation.com/api/pull_requests
 ```

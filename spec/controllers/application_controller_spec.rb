@@ -6,7 +6,7 @@ describe ApplicationController do
 
     Flowdock::Flow.should_receive(:new).with(
       api_token: 'test',
-      source: 'NOTDVS',
+      source: 'Lion',
       from: { name: current_user.nickname, address: current_user.email }
     )
 

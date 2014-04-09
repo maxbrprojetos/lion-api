@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NOTDVS</title>
+    <title>Lion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= stylesheet_link_tag    "application", media: "all" %>
@@ -15,8 +15,8 @@
     <script>
       window.ENV = <%= raw ENV.to_h.slice('PUSHER_KEY', 'GITHUB_APP_ID', 'GITHUB_CALLBACK_URL').to_json %>
 
-      Notdvs.setup()
-      Notdvs.advanceReadiness()
+      Lion.setup()
+      Lion.advanceReadiness()
     </script>
   </body>
 </html>

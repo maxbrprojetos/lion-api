@@ -58,20 +58,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE comments (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    body text,
-    user_id uuid,
-    task_id uuid,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
 -- Name: pull_request_reviews; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -200,14 +186,6 @@ ALTER TABLE ONLY pull_request_reviews ALTER COLUMN id SET DEFAULT nextval('pull_
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
-
-
---
 -- Name: completions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -253,20 +231,6 @@ ALTER TABLE ONLY tasks
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: index_comments_on_task_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_comments_on_task_id ON comments USING btree (task_id);
-
-
---
--- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
 
 
 --
@@ -325,8 +289,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140317174840');
 INSERT INTO schema_migrations (version) VALUES ('20140317181014');
 
 INSERT INTO schema_migrations (version) VALUES ('20140317181219');
-
-INSERT INTO schema_migrations (version) VALUES ('20140328152146');
 
 INSERT INTO schema_migrations (version) VALUES ('20140402201031');
 

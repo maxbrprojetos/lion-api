@@ -1,4 +1,4 @@
-Notdvs.ScoreController = Ember.ObjectController.extend
+Lion.ScoreController = Ember.ObjectController.extend
   needs: ['leaderboard']
   maximumPoints: Ember.computed.alias('controllers.leaderboard.maximumPoints')
 

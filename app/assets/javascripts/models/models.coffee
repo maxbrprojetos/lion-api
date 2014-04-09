@@ -1,4 +1,4 @@
-Notdvs.User = DS.Model.extend
+Lion.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')
 
@@ -6,10 +6,10 @@ Notdvs.User = DS.Model.extend
     "https://github.com/#{@get('nickname')}"
   ).property('nickname')
 
-Notdvs.TaskCompletion = DS.Model.extend
+Lion.TaskCompletion = DS.Model.extend
   user: DS.belongsTo('user')
   task: DS.belongsTo('task')
 
-Notdvs.Score = DS.Model.extend
+Lion.Score = DS.Model.extend
   points: DS.attr('number')
   user: DS.belongsTo('user')

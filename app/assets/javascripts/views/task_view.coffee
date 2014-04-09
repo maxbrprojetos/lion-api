@@ -1,4 +1,4 @@
-Notdvs.TaskView = Ember.View.extend
+Lion.TaskView = Ember.View.extend
   templateName: 'task'
 
   didInsertElement: ->
