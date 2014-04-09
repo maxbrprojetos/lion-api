@@ -50,6 +50,8 @@ describe PullRequest do
   end
 
   it 'adds pull request reviews' do
+    current_user
+
     pull_request = build(:pull_request)
     pull_request.stub(comments: [double(
       body: ':+1:', user_nickname: 'current_user', user: double(login: 'current_user')
