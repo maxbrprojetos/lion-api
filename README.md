@@ -110,16 +110,16 @@ Completing tasks:
 
 Merging PRs:
 
-- 100 points if the number of deletions is double the number of additions and is greater than 1000
+- 100 points if the number of deletions is double the number of additions and it's greater than 1000
 - 50 points if the number of additions is greater than 500
-- 30 points if the number of deletions is double the number of additions and is greater than 100
+- 30 points if the number of deletions is double the number of additions and it's greater than 100
 - 15 points if the number of additions is greater than 100
 - 5 points if the number of additions is less than 10
 - 10 points in all the other cases
 
 Reviewing PRs:
 
-- 5 points for commeting with `:+1:`
+- 5 points for commeting with `:+1:`, `:thumbsup:`, `:shipit:`
 
 #### Caveats
 
