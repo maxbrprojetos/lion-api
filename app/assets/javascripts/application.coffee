@@ -8,8 +8,8 @@
 #= require handlebars
 #= require pusher
 #= require moment
-#= require ember
-#= require ember-data
+#= require ember/ember
+#= require ember-data/ember-data
 #= require ember-pusher
 #= require ember-simple-auth
 #= require app

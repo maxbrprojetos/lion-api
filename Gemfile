@@ -1,5 +1,6 @@
 ruby '2.1.1'
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 gem 'rails', '4.1'
 
@@ -21,12 +22,16 @@ gem 'honeybadger'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
-gem 'jquery-rails'
-gem 'ember-rails'
 gem 'emblem-rails'
 gem 'foundation-rails'
 gem 'bourbon'
 gem 'zocial-rails'
+gem 'rails-assets-jquery', '2.0'
+gem 'rails-assets-ember', '1.5.0'
+gem 'rails-assets-ember-data', '1.0.0.beta7'
+gem 'rails-assets-pusher'
+gem 'rails-assets-pace'
+gem 'rails-assets-moment'
 
 gem 'rails_12factor', group: :production
 
