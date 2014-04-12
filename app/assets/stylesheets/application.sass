@@ -15,6 +15,10 @@ $side-nav-list-margin: 0
 $ok-color: $success-color
 $warning-color: orange
 $error-color: $alert-color
+$active-white: #eff1f2
+$nav-background: #3d444b
+$nav-active-background: #292d33
+$nav-hover-background: #373d44
 
 @import "status_circle"
 @import "task"
@@ -49,7 +53,7 @@ aside
   position: fixed
   width: 120px
   color: #828b93
-  background-color: #3d444b
+  background-color: $nav-background
   text-align: center
   top: 0
   left: 0
@@ -59,8 +63,11 @@ aside
     padding: 1em
 
     img
-      border: 2px solid white
-      border-radius: 50%
+      border: 2px solid $active-white
+
+.profile-picture
+  img
+    border-radius: 50%
 
 nav
   ul
@@ -74,14 +81,14 @@ nav
     margin: 0
 
     &.active
-      background-color: #292d33
+      background-color: $nav-active-background
       border-right: 5px solid #50b1ff
 
     &:hover
-      background-color: #373d44
+      background-color: $nav-hover-background
 
     &.active, &:hover
-      color: #eff1f2
+      color: $active-white
 
   i
     font-size: 35px
