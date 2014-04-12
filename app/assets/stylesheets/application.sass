@@ -1,5 +1,6 @@
 $include-open-sans: false
 $row-width: 100%
+$side-nav-list-margin: 0
 
 @import "normalize"
 @import "foundation"
@@ -69,15 +70,21 @@ nav
   li
     cursor: pointer
     min-height: 50px
-    padding: 12px 0
+    padding: 13px 0
+    margin: 0
+
+    &.active
+      background-color: #292d33
+      border-right: 5px solid #50b1ff
+
+    &:hover
+      background-color: #373d44
+
+    &.active, &:hover
+      color: #eff1f2
 
   i
     font-size: 35px
-
-  .active
-    color: #eff1f2
-    background-color: #292d33
-    border-right: 5px solid #50b1ff
 
 .github-login
   position: absolute
