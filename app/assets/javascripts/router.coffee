@@ -13,4 +13,7 @@ Lion.Router.map ->
     @route('all-time')
     @route('weekly')
   )
+  @route('hall-of-fame')
+  @route('stats')
+  @route('badges')
 

@@ -1,5 +1,6 @@
 $include-open-sans: false
 $row-width: 100%
+$side-nav-list-margin: 0 0 20px 0
 
 @import "normalize"
 @import "foundation"
@@ -7,7 +8,7 @@ $row-width: 100%
 @import "structure"
 @import "animations"
 @import "zocial"
-@import "icons"
+@import "font-awesome"
 @import "pace-theme-flash"
 
 $ok-color: $success-color
@@ -46,20 +47,8 @@ nav
     cursor: pointer
     min-height: 50px
 
-    i
-      font-size: 40px
-
-    .batcave
-      +icon('batman')
-      font-size: 45px
-
-    .leaderboard
-      +icon('award')
-
-    .logout
-      +icon('exit')
-      font-size: 38px
-      margin-left: 10px
+  i
+    font-size: 35px
 
 .profile-picture
   padding: 1em

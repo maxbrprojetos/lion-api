@@ -12,10 +12,10 @@ li{bind-attr class=":task completed isEditing:editing"}
             span is assigned
 
       .actions
-        span.assign data-dropdown=guid
-        span.complete{action "toggleCompleted"}
-        span.edit{action "editTask"}
-        span.destroy{action "removeTask"}
+        span.fa.fa-user data-dropdown=guid
+        span.fa.fa-check.complete{action "toggleCompleted"}
+        span.fa.fa-pencil{action "editTask"}
+        span.fa.fa-trash-o{action "removeTask"}
 
       ul.f-dropdown.content data-dropdown-content=true id=guid
         each parentController.users
