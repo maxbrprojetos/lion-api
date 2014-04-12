@@ -57,3 +57,7 @@ Lion.LeaderboardWeeklyRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
     @controllerFor('leaderboard').set('content', @store.find('score', { time_span: 'weekly' }))
 
+Lion.HallOfFameRoute = Lion.AuthenticatedRoute.extend
+  model: ->
+    @store.find('weeklyWinning')
+

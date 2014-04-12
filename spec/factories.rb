@@ -35,4 +35,10 @@ FactoryGirl.define do
 
     user
   end
+
+  factory :weekly_winning do
+    association :winner, factory: :user
+    sequence(:start_date) { |n| n.week.ago }
+    points { rand(1..100) }
+  end
 end

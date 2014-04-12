@@ -11,7 +11,6 @@
 #  github_id  :string(255)
 #  created_at :datetime
 #  updated_at :datetime
-#  points     :integer          default(0)
 #
 
 require 'spec_helper'

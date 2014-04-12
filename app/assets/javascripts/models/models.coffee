@@ -13,3 +13,8 @@ Lion.TaskCompletion = DS.Model.extend
 Lion.Score = DS.Model.extend
   points: DS.attr('number')
   user: DS.belongsTo('user')
+
+Lion.WeeklyWinning = DS.Model.extend
+  startDate: DS.attr('date')
+  winner: DS.belongsTo('user')
+  points: DS.attr('number')

@@ -10,6 +10,7 @@ $side-nav-list-margin: 0 0 20px 0
 @import "zocial"
 @import "font-awesome"
 @import "pace-theme-flash"
+@import "hall_of_fame"
 
 $ok-color: $success-color
 $warning-color: orange
@@ -38,6 +39,13 @@ aside
   overflow-y: auto
   height: 100%
 
+  .profile-picture
+    padding: 1em
+
+    img
+      border: 2px solid white
+      border-radius: 50%
+
 nav
   ul
     +side-nav($divider-color: '#eee')
@@ -49,13 +57,6 @@ nav
 
   i
     font-size: 35px
-
-.profile-picture
-  padding: 1em
-
-  img
-    border: 2px solid white
-    border-radius: 50%
 
 .github-login
   position: absolute

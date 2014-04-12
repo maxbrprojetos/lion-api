@@ -11,7 +11,6 @@
 #  github_id  :string(255)
 #  created_at :datetime
 #  updated_at :datetime
-#  points     :integer          default(0)
 #
 
 class User < ActiveRecord::Base
@@ -22,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :pull_requests
   has_many :scores
   has_many :pull_request_reviews
+  has_many :weekly_winnings
 
   validates :name, presence: true
   validates :nickname, presence: true

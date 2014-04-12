@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: scores
+#
+#  id         :uuid             not null, primary key
+#  user_id    :uuid
+#  points     :integer          default(0)
+#  time_span  :string(255)      default("all_time")
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Score < ActiveRecord::Base
   include Pusherable
 
@@ -30,6 +42,10 @@ class Score < ActiveRecord::Base
 
   def self.reset_points
     update_all(points: 0)
+  end
+
+  def self.top_weekly
+    order(points: :desc).first
   end
 
   def increment_points_by(points_to_add)

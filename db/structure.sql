@@ -179,6 +179,20 @@ CREATE TABLE users (
 
 
 --
+-- Name: weekly_winnings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE weekly_winnings (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    winner_id uuid,
+    start_date date,
+    points integer DEFAULT 0,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -231,6 +245,14 @@ ALTER TABLE ONLY tasks
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: weekly_winnings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY weekly_winnings
+    ADD CONSTRAINT weekly_winnings_pkey PRIMARY KEY (id);
 
 
 --
@@ -291,4 +313,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140317181014');
 INSERT INTO schema_migrations (version) VALUES ('20140317181219');
 
 INSERT INTO schema_migrations (version) VALUES ('20140402201031');
+
+INSERT INTO schema_migrations (version) VALUES ('20140412113638');
 
