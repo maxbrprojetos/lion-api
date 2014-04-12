@@ -74,4 +74,14 @@ describe Score do
       expect(score.reload.points).to eq(0)
     end
   end
+
+  describe '#self.top_weekly' do
+    it 'returns the top weekly score' do
+      Score.create(user: user, points: 50, time_span: 'all_time')
+      Score.create(user: user, points: 10, time_span: 'weekly')
+      top_score = Score.create(user: user, points: 20, time_span: 'weekly')
+
+      expect(Score.top_weekly).to eq(top_score)
+    end
+  end
 end

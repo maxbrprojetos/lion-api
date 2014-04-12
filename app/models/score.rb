@@ -45,7 +45,7 @@ class Score < ActiveRecord::Base
   end
 
   def self.top_weekly
-    order(points: :desc).first
+    weekly.order(points: :desc).first
   end
 
   def increment_points_by(points_to_add)
