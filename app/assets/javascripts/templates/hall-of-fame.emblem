@@ -6,6 +6,6 @@ ul.weekly-winners
       .profile-picture
         img src=winner.avatarUrl
       p
-        span = formattedDate startDate 'MMMM Do'
+        span = formattedDate startDate 'MMMM Do YY'
         br
         span.points = points
