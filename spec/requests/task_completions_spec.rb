@@ -29,7 +29,7 @@ describe 'Task Completions Requests' do
         subject: 'Completed Task',
         content: @task.title,
         tags: %w(task),
-        link: 'https://lion.herokuapp.com/#/tasks'
+        link: 'https://as-lion.herokuapp.com/#/tasks'
       )
 
       post api_task_completions_path, {
