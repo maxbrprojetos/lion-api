@@ -1,6 +1,5 @@
 $include-open-sans: false
 $row-width: 100%
-$side-nav-list-margin: 0 0 20px 0
 
 @import "normalize"
 @import "foundation"
@@ -22,6 +21,21 @@ $error-color: $alert-color
 html, body
   height: 100%
 
+body
+  padding-left: 120px
+  margin: 0
+  background-color: #e7e8ef
+
+main
+  min-height: 600px
+  background-color: white
+  margin: 15px
+  border-radius: 5px
+  border: 1px solid #d9d6d6
+
+.content
+  padding: 13px
+
 .ember-view
   height: inherit
 
@@ -30,13 +44,14 @@ ul
   list-style: none
 
 aside
+  +box-shadow(1px 1px 2px rgba(0,0,0,.3))
   position: fixed
-  background-color: $secondary-color
+  width: 120px
+  color: #828b93
+  background-color: #3d444b
   text-align: center
   top: 0
   left: 0
-  overflow-x: hidden
-  overflow-y: auto
   height: 100%
 
   .profile-picture
@@ -54,9 +69,15 @@ nav
   li
     cursor: pointer
     min-height: 50px
+    padding: 12px 0
 
   i
     font-size: 35px
+
+  .active
+    color: #eff1f2
+    background-color: #292d33
+    border-right: 5px solid #50b1ff
 
 .github-login
   position: absolute
@@ -64,9 +85,6 @@ nav
   margin: -17.5px 0 0 -107px
   left: 50%
   top: 50%
-
-.active
-  color: $primary-color
 
 .filters
   +clearfix

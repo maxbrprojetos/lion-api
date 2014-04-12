@@ -22,18 +22,13 @@ form
     +prefix-postfix-base
     +postfix($is-button: false)
 
-main
-  +grid-column($columns: 11, $offset: 1)
+main > .content
+  +grid-row
 
-  & > .content
-    +grid-row
-
-section.tasks
-  +grid-column($columns: 8)
+  & > *
+    +grid-column($columns: 8)
 
 section.leaderboard
-  +grid-column($columns: 8)
-
   li
     +grid-row
 
