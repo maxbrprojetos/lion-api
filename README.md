@@ -119,7 +119,7 @@ Merging PRs:
 
 Reviewing PRs:
 
-- 5 points for commeting with `:+1:`, `:thumbsup:`, `:shipit:`
+- 5 points for commenting with `:+1:`, `:thumbsup:`, `:shipit:`
 
 #### Caveats
 
