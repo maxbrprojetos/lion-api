@@ -19,7 +19,7 @@ Every action can be either performed via the interface or using the RESTful API.
 
 ### Tasks
 
-![tasks](http://f.cl.ly/items/0c2E3k3G0M3P303J3W26/Image%202014-03-07%20at%2012.21.39%20pm.png)
+![tasks](http://cl.ly/image/3n341S0m3b3m/tasks.png)
 
 You can create your tasks with the API like this:
 
