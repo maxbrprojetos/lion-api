@@ -96,7 +96,7 @@ If you want to assign someone you can update the task like this:
 
 ### Leaderboard
 
-![leaderboard](http://cl.ly/image/280O052c2E3C/download/Image%202014-03-20%20at%201.44.44%20pm.png)
+![leaderboard](http://cl.ly/image/0e3Q3001280M/Image%202014-04-13%20at%208.11.59%20pm.png)
 
 There are currently two leaderboards: weekly and all time. The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
 
