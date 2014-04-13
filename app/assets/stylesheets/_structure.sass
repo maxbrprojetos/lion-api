@@ -19,10 +19,14 @@ form
 main > .content
   +grid-row
 
-  & > *
-    +grid-column($columns: 8)
+section.hall-of-fame, section.leaderboard, section.tasks
+  +grid-column($columns: 8)
 
-.stats
+section.stats
+  & > section
+    +grid-column($columns: 6)
+
+.ranking
   li
     +grid-row
 
@@ -31,15 +35,3 @@ main > .content
 
     .bar
       +grid-column($columns: 10.7, $collapse: true)
-
-section.pull-requests
-  +grid-column($columns: 6)
-
-section.additions
-  +grid-column($columns: 6)
-
-section.deletions
-  +grid-column($columns: 6)
-
-section.reviews
-  +grid-column($columns: 6)

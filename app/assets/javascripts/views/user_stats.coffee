@@ -1,6 +1,6 @@
 Lion.UserStats = Ember.CollectionView.extend(Ember.SortableMixin,
   tagName: 'ul'
-  classNames: ['stats']
+  classNames: ['ranking']
 
   pointsPropertyDidChange: (->
     Ember.defineProperty(this, 'points',

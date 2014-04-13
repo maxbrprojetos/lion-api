@@ -1,5 +1,5 @@
 class StatsSerializer < UserSerializer
-  attributes :pull_requests_count, :number_of_additions, :number_of_deletions, :pull_request_reviews_count
+  attributes :pull_requests_count, :number_of_additions, :number_of_deletions, :pull_request_reviews_count, :tasks_count
 
   def pull_requests_count
     object.pull_requests.count
@@ -15,5 +15,9 @@ class StatsSerializer < UserSerializer
 
   def number_of_deletions
     object.pull_requests.sum(:number_of_deletions)
+  end
+
+  def tasks_count
+    object.tasks.count
   end
 end
