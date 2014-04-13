@@ -23,8 +23,12 @@ section.hall-of-fame, section.leaderboard, section.tasks
   +grid-column($columns: 8)
 
 section.stats
+  +grid-column($columns: 12)
+
   & > section
     +grid-column($columns: 6)
+    padding-left: 0
+    padding-right: $column-gutter
 
 .ranking
   li
