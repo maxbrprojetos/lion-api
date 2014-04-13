@@ -3,12 +3,6 @@
 
   margin-top: 30px
 
-body
-  +grid-row
-
-aside
-  +grid-column($columns: 1, $collapse: true)
-
 form
   +row
 
@@ -28,7 +22,7 @@ main > .content
   & > *
     +grid-column($columns: 8)
 
-section.leaderboard
+.stats
   li
     +grid-row
 
@@ -37,3 +31,15 @@ section.leaderboard
 
     .bar
       +grid-column($columns: 10, $collapse: true)
+
+section.pull-requests
+  +grid-column($columns: 6)
+
+section.additions
+  +grid-column($columns: 6)
+
+section.deletions
+  +grid-column($columns: 6)
+
+section.reviews
+  +grid-column($columns: 6)

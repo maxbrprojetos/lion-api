@@ -1,0 +1,6 @@
+.description
+  img.big-avatar{bind-attr src=view.avatarUrl}
+  span.points = view.points
+.bar
+  .progress
+    span.meter{bind-attr style=view.progressBarStyle}

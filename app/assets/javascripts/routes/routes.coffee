@@ -61,3 +61,7 @@ Lion.HallOfFameRoute = Lion.AuthenticatedRoute.extend
   model: ->
     @store.find('weeklyWinning')
 
+Lion.StatsRoute = Lion.AuthenticatedRoute.extend
+  model: ->
+    @store.find('stats')
+

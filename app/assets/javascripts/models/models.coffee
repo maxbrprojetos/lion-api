@@ -1,3 +1,5 @@
+Ember.Inflector.inflector.uncountable('stats');
+
 Lion.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')
@@ -18,3 +20,9 @@ Lion.WeeklyWinning = DS.Model.extend
   startDate: DS.attr('date')
   winner: DS.belongsTo('user')
   points: DS.attr('number')
+
+Lion.Stats = Lion.User.extend
+  pullRequestsCount: DS.attr('number')
+  numberOfAdditions: DS.attr('number')
+  numberOfDeletions: DS.attr('number')
+  pullRequestReviewsCount: DS.attr('number')
