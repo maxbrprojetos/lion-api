@@ -6,6 +6,16 @@ section.stats
 
     Lion.UserStats content=pullRequestStats pointsProperty="pullRequestsCount" avatarUrlProperty="avatarUrl"
 
+  section.reviews
+    h3 Reviews
+
+    Lion.UserStats content=reviewStats pointsProperty="pullRequestReviewsCount" avatarUrlProperty="avatarUrl"
+
+  section.tasks
+    h3 Completed Tasks
+
+    Lion.UserStats content=tasksStats pointsProperty="tasksCount" avatarUrlProperty="avatarUrl"
+
   section.additions
     h3 Additions
 
@@ -16,12 +26,3 @@ section.stats
 
     Lion.UserStats content=deletionStats pointsProperty="numberOfDeletions" avatarUrlProperty="avatarUrl"
 
-  section.reviews
-    h3 Reviews
-
-    Lion.UserStats content=reviewStats pointsProperty="pullRequestReviewsCount" avatarUrlProperty="avatarUrl"
-
-  section.tasks
-    h3 Completed Tasks
-
-    Lion.UserStats content=tasksStats pointsProperty="tasksCount" avatarUrlProperty="avatarUrl"
