@@ -4,9 +4,10 @@ section.hall-of-fame
   ul.weekly-winners
     each
       li
-        .profile-picture
-          img src=winner.avatarUrl
-        p
-          span = formattedDate startDate 'MMMM Do YY'
-          br
-          span.points = points
+        div
+          .profile-picture
+            img src=winner.avatarUrl
+          p
+            span = formattedDate startDate 'MMMM Do YY'
+            br
+            span.points = points
