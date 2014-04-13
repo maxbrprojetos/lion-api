@@ -1,6 +1,14 @@
+$active-white: #eff1f2
+$nav-background: #3d444b
+$nav-active-background: #292d33
+$nav-hover-background: #373d44
+
 $include-open-sans: false
 $row-width: 100%
 $side-nav-list-margin: 0
+$progress-meter-color: #3498db
+$progress-bar-height: 30px
+$progress-bar-color: #bdc3c7
 
 @import "normalize"
 @import "foundation"
@@ -15,10 +23,6 @@ $side-nav-list-margin: 0
 $ok-color: $success-color
 $warning-color: orange
 $error-color: $alert-color
-$active-white: #eff1f2
-$nav-background: #3d444b
-$nav-active-background: #292d33
-$nav-hover-background: #373d44
 
 @import "status_circle"
 @import "task"
@@ -128,11 +132,24 @@ section.tasks
 .stats
   li
     margin-bottom: 10px
+    position: relative
+    color: white
 
   .points
     font-size: 20px
     margin-left: 15px
     vertical-align: middle
+    position: absolute
+    left: 0
+    top: 0
+    z-index: 100
+    line-height: 30px
+
+  .progress
+    position: absolute
+    left: 0
+    top: 0
+    right: 0
 
   .bar
-    margin-top: 13px
+    margin-top: 10px
