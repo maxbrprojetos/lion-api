@@ -22,7 +22,7 @@ describe 'Stats Requests' do
             'number_of_additions' => user.number_of_additions,
             'number_of_deletions' => user.number_of_deletions,
             'pull_request_reviews_count' => user.pull_request_reviews_count,
-            'tasks_count' => user.tasks_count
+            'completed_tasks_count' => user.completed_tasks_count
           }
         end
       )

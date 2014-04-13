@@ -14,7 +14,7 @@ section.stats
   section.tasks
     h3 Completed Tasks
 
-    Lion.UserStats content=tasksStats pointsProperty="tasksCount" avatarUrlProperty="avatarUrl"
+    Lion.UserStats content=completedTasksStats pointsProperty="completedTasksCount" avatarUrlProperty="avatarUrl"
 
   section.additions
     h3 Additions
