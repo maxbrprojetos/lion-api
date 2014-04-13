@@ -1,13 +1,17 @@
+// custom variables
 $active-white: #eff1f2
 $nav-background: #3d444b
 $nav-active-background: #292d33
 $nav-hover-background: #373d44
 
+// foundation variables
 $include-open-sans: false
 $row-width: 100%
 $side-nav-list-margin: 0
 $primary-color: #3498db
 $progress-bar-height: 30px
+$header-font-family: inherit
+$paragraph-font-family: inherit
 
 @import "normalize"
 @import "foundation"
@@ -34,6 +38,7 @@ body
   padding-left: 120px
   margin: 0
   background-color: #e7e8ef
+  font-family: 'Whitney SSm A', 'Whitney SSm B'
 
 main
   min-height: 600px
@@ -76,6 +81,7 @@ aside
 nav
   ul
     +side-nav($divider-color: '#eee')
+    font-family: inherit
     text-align: center
 
   li
@@ -109,8 +115,10 @@ nav
 
   dl
     +sub-nav
-
     float: left
+
+    dt, dd, li
+      font-family: inherit
 
 section.tasks
   footer
