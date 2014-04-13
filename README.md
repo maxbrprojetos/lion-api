@@ -131,12 +131,14 @@ https://your.lion.installation.com/api/pull_requests
 
 ### Hall of Fame
 
+![hall-of-fame](http://cl.ly/image/0w3F2g2L1n3a/Image%202014-04-13%20at%208.14.26%20pm.png)
+
 Weekly winners will be placed here.
 In order to declare a weekly winner run the `hall_of_fame:declare_weekly_winner` rake task every monday morning.
 
-![hall-of-fame](http://cl.ly/image/0w3F2g2L1n3a/Image%202014-04-13%20at%208.14.26%20pm.png)
-
 ### Stats
+
+![stats](http://cl.ly/image/3z1A0C2D0x0p/Image%202014-04-13%20at%208.16.57%20pm.png)
 
 Displayed stats:
 
@@ -145,8 +147,6 @@ Displayed stats:
 - Total number of additions across merged PRs
 - Total number of deletions across merged PRs
 - Number of completed tasks
-
-![stats](http://cl.ly/image/3z1A0C2D0x0p/Image%202014-04-13%20at%208.16.57%20pm.png)
 
 ### Badges
 
