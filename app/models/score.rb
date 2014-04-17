@@ -40,8 +40,12 @@ class Score < ActiveRecord::Base
     where(user: user).each { |s| s.decrement_points_by(points) }
   end
 
-  def self.reset
+  def self.reset_points
     update_all(points: 0)
+  end
+
+  def self.top_weekly
+    weekly.order(points: :desc).first
   end
 
   def increment_points_by(points_to_add)

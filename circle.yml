@@ -1,5 +1,7 @@
 deployment:
   production:
     branch: master
-    heroku:
-      appname: notdvs
+    commands:
+      - "git push git@heroku.com:as-lion.git HEAD:master"
+      - "heroku run rake db:migrate --app as-lion"
+      - "heroku restart --app as-lion"

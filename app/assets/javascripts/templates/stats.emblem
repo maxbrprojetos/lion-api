@@ -1,0 +1,28 @@
+section.stats
+  h1 Stats
+
+  section.pull-requests
+    h3 Pull Requests
+
+    Lion.UserStats content=pullRequestStats pointsProperty="pullRequestsCount" avatarUrlProperty="avatarUrl"
+
+  section.reviews
+    h3 Reviews
+
+    Lion.UserStats content=reviewStats pointsProperty="pullRequestReviewsCount" avatarUrlProperty="avatarUrl"
+
+  section.tasks
+    h3 Completed Tasks
+
+    Lion.UserStats content=completedTasksStats pointsProperty="completedTasksCount" avatarUrlProperty="avatarUrl"
+
+  section.additions
+    h3 Additions
+
+    Lion.UserStats content=additionStats pointsProperty="numberOfAdditions" avatarUrlProperty="avatarUrl"
+
+  section.deletions
+    h3 Deletions
+
+    Lion.UserStats content=deletionStats pointsProperty="numberOfDeletions" avatarUrlProperty="avatarUrl"
+

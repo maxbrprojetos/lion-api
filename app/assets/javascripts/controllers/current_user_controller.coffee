@@ -1,4 +1,4 @@
-Notdvs.CurrentUserController = Ember.ObjectController.extend
+Lion.CurrentUserController = Ember.ObjectController.extend
   sync: ->
     $.getJSON("#{location.protocol}//#{location.host}/api/users/me").then((data) =>
       @store.pushPayload(data)
@@ -14,7 +14,7 @@ Notdvs.CurrentUserController = Ember.ObjectController.extend
       @_super.apply(this, arguments)
     else
       # getter
-      currentUser = Notdvs.LocalStorage.getItem('currentUser')
+      currentUser = Lion.LocalStorage.getItem('currentUser')
 
       if !Ember.isEmpty(currentUser)
         @store.push('user', currentUser)
@@ -24,5 +24,5 @@ Notdvs.CurrentUserController = Ember.ObjectController.extend
   ).property()
 
   contentDidChange: (->
-    Notdvs.LocalStorage.setItem('currentUser', @get('content')?.toJSON({ includeId: true }))
+    Lion.LocalStorage.setItem('currentUser', @get('content')?.toJSON({ includeId: true }))
   ).observes('content')

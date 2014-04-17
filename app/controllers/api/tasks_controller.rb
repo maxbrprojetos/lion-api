@@ -49,7 +49,7 @@ module Api
         subject: 'Added Task',
         content: @task.title,
         tags: %w(task),
-        link: 'https://notdvs.herokuapp.com/#/tasks'
+        link: 'https://as-lion.herokuapp.com/#/tasks'
       )
     end
 
@@ -58,7 +58,7 @@ module Api
         subject: 'Deleted Task',
         content: @task.title,
         tags: %w(task),
-        link: 'https://notdvs.herokuapp.com/#/tasks'
+        link: 'https://as-lion.herokuapp.com/#/tasks'
       )
     end
   end

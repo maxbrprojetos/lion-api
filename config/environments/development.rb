@@ -1,4 +1,4 @@
-Notdvs::Application.configure do
+Lion::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -26,6 +26,4 @@ Notdvs::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
-
-  config.ember.variant = :development
 end

@@ -9,7 +9,7 @@ module Flowable
     if ENV['FLOWDOCK_API_TOKEN']
       Flowdock::Flow.new(
         api_token: ENV['FLOWDOCK_API_TOKEN'],
-        source: 'NOTDVS',
+        source: 'Lion',
         from: { name: current_user.nickname, address: current_user.email }
       )
     else

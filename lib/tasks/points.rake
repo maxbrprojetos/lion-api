@@ -1,6 +1,7 @@
 task recalculate_points: :environment do
   PullRequest.delete_all
-  Score.reset
+  PullRequestReview.delete_all
+  Score.reset_points
 
   Octokit.auto_paginate = true
 
@@ -13,8 +14,6 @@ task recalculate_points: :environment do
       next unless user
 
       pr_data = pr.rels[:self].get.data
-
-      puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
 
       pull_request = PullRequest.new(
         user: user,
@@ -29,7 +28,9 @@ task recalculate_points: :environment do
         merged_at: pr_data.merged_at
       )
 
-      puts pull_request.errors.full_messages unless pull_request.save
+      if pull_request.save
+        puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
+      end
     end
   end
 
@@ -37,7 +38,7 @@ task recalculate_points: :environment do
 end
 
 task update_points_system: :environment do
-  Score.reset
+  Score.reset_points
   PullRequest.all.each { |pr| pr.send(:give_points_to_user) }
   PullRequestReview.all.each { |prr| prr.send(:give_points_to_user) }
   TaskCompletion.all.each { |tc| tc.send(:give_points_to_user) }

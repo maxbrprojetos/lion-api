@@ -3,12 +3,6 @@
 
   margin-top: 30px
 
-body
-  +grid-row
-
-aside
-  +grid-column($columns: 1, $collapse: true)
-
 form
   +row
 
@@ -22,48 +16,26 @@ form
     +prefix-postfix-base
     +postfix($is-button: false)
 
-main
-  +grid-column($columns: 11, $offset: 1)
+main > .content
+  +grid-row
 
-  & > .content
-    +grid-row
-
-.notices-container
-  +grid-column($columns: 6, $center: true, $collapse: true)
-  // remove once fixed https://github.com/zurb/foundation/issues/4161
-  float: none !important
-
-  section.status
-    +row
-
-    & > div
-      +grid-column($columns: 6, $center: true, $collapse: true)
-      // remove once fixed https://github.com/zurb/foundation/issues/4161
-      float: none !important
-
-  section.notices
-    +row
-
-  .notice
-    +grid-row
-
-    .content
-      +grid-column($columns: 11, $collapse: true)
-
-    .actions
-      +grid-column($columns: 1, $collapse: true)
-
-section.tasks
+section.hall-of-fame, section.leaderboard, section.tasks
   +grid-column($columns: 8)
 
-section.leaderboard
-  +grid-column($columns: 8)
+section.stats
+  +grid-column($columns: 12)
 
+  & > section
+    +grid-column($columns: 6)
+    padding-left: 0
+    padding-right: $column-gutter
+
+.ranking
   li
     +grid-row
 
     .description
-      +grid-column($columns: 2, $collapse: true)
+      +grid-column($columns: 1.3, $collapse: true)
 
     .bar
-      +grid-column($columns: 10, $collapse: true)
+      +grid-column($columns: 10.7, $collapse: true)

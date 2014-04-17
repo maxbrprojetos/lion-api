@@ -20,10 +20,21 @@ describe PullRequestReview do
 
       expect(pull_request_review.errors.full_messages).to include('Body must contain positive signs')
 
-      pull_request_review.body = ':+1:'
-      pull_request_review.valid?
+      [':+1:', ':shipit:', ':thumbsup:'].each do |message|
+        pull_request_review.body = message
+        pull_request_review.valid?
 
-      expect(pull_request_review.errors.full_messages).not_to include('Body must contain positive signs')
+        expect(pull_request_review.errors.full_messages).not_to include('Body must contain positive signs')
+      end
+    end
+  end
+
+  describe '#points' do
+    it 'returns a fraction of pr points' do
+      pull_request = build(:pull_request)
+      pull_request_review = PullRequestReview.new(body: 'test', pull_request: pull_request)
+      pull_request.stub(points: 130)
+      expect(pull_request_review.points).to eq(pull_request.points / 2)
     end
   end
 

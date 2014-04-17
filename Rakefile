@@ -3,6 +3,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Notdvs::Application.load_tasks
+Lion::Application.load_tasks
 
 Rake::Task['db:structure:dump'].clear unless Rails.env.development?

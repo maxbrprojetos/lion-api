@@ -1,4 +1,4 @@
-Notdvs.CommentsController = Ember.ArrayController.extend(new Notdvs.Pusherable('comment'),
+Lion.CommentsController = Ember.ArrayController.extend(new Lion.Pusherable('comment'),
   actions:
     createComment: (task) ->
       body = @get('body')?.trim()

@@ -1,5 +1,17 @@
+// custom variables
+$active-white: #eff1f2
+$nav-background: #3d444b
+$nav-active-background: #292d33
+$nav-hover-background: #373d44
+
+// foundation variables
 $include-open-sans: false
 $row-width: 100%
+$side-nav-list-margin: 0
+$primary-color: #3498db
+$progress-bar-height: 30px
+$header-font-family: inherit
+$paragraph-font-family: inherit
 
 @import "normalize"
 @import "foundation"
@@ -7,19 +19,39 @@ $row-width: 100%
 @import "structure"
 @import "animations"
 @import "zocial"
-@import "icons"
+@import "font-awesome"
 @import "pace-theme-flash"
+@import "hall_of_fame"
+@import "ranking"
 
 $ok-color: $success-color
 $warning-color: orange
 $error-color: $alert-color
 
-@import "notice"
 @import "status_circle"
 @import "task"
 
 html, body
   height: 100%
+
+body
+  padding-left: 120px
+  margin: 0
+  background-color: #e7e8ef
+  font-family: 'Whitney SSm A', 'Whitney SSm B'
+
+main
+  min-height: 600px
+  background-color: white
+  margin: 15px
+  border-radius: 5px
+  border: 1px solid #d9d6d6
+
+h1
+  font-weight: bold
+
+.content
+  padding: 13px
 
 .ember-view
   height: inherit
@@ -29,48 +61,50 @@ ul
   list-style: none
 
 aside
+  +box-shadow(1px 1px 2px rgba(0,0,0,.3))
   position: fixed
-  background-color: $secondary-color
+  width: 120px
+  color: #828b93
+  background-color: $nav-background
   text-align: center
   top: 0
   left: 0
-  overflow-x: hidden
-  overflow-y: auto
   height: 100%
+
+  .profile-picture
+    padding: 1em
+
+    img
+      border: 2px solid $active-white
+
+.profile-picture
+  img
+    border-radius: 50%
 
 nav
   ul
     +side-nav($divider-color: '#eee')
+    font-family: inherit
     text-align: center
 
   li
     cursor: pointer
     min-height: 50px
+    padding: 15px 0
+    margin: 0
 
-    i
-      font-size: 40px
+    &.active
+      background-color: $nav-active-background
+      border-right: 5px solid #50b1ff
 
-    .status
-      +icon('home')
+    &:hover
+      background-color: $nav-hover-background
 
-    .batcave
-      +icon('batman')
-      font-size: 45px
+    &.active, &:hover
+      color: $active-white
 
-    .leaderboard
-      +icon('award')
-
-    .logout
-      +icon('exit')
-      font-size: 38px
-      margin-left: 10px
-
-.profile-picture
-  padding: 1em
-
-  img
-    border: 2px solid white
-    border-radius: 50%
+  i
+    font-size: 35px
 
 .github-login
   position: absolute
@@ -79,16 +113,15 @@ nav
   left: 50%
   top: 50%
 
-.active
-  color: $primary-color
-
 .filters
   +clearfix
 
   dl
     +sub-nav
-
     float: left
+
+    dt, dd, li
+      font-family: inherit
 
 section.tasks
   footer
@@ -107,14 +140,6 @@ section.tasks
   height: 50px
   margin: 0 auto
 
-section.leaderboard
-  li
-    margin-bottom: 10px
-
-  .points
-    font-size: 20px
-    margin-left: 15px
-    vertical-align: middle
-
-  .bar
-    margin-top: 13px
+section.stats
+  h3
+    margin-top: 20px

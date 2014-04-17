@@ -1,9 +1,6 @@
-Notdvs.Notice = Notdvs.Model.extend
-  title: DS.attr('string')
-  type: DS.attr('string', { defaultValue: 'warning' })
-  app: DS.attr('string', { defaultValue: 'pistachio' })
+Ember.Inflector.inflector.uncountable('stats');
 
-Notdvs.User = DS.Model.extend
+Lion.User = DS.Model.extend
   nickname: DS.attr('string')
   avatarUrl: DS.attr('string')
 
@@ -11,15 +8,27 @@ Notdvs.User = DS.Model.extend
     "https://github.com/#{@get('nickname')}"
   ).property('nickname')
 
-Notdvs.TaskCompletion = DS.Model.extend
+Lion.TaskCompletion = DS.Model.extend
   user: DS.belongsTo('user')
   task: DS.belongsTo('task')
 
-Notdvs.Score = DS.Model.extend
+Lion.Score = DS.Model.extend
   points: DS.attr('number')
   user: DS.belongsTo('user')
 
-Notdvs.Comment = Notdvs.Model.extend
+Lion.Comment = Lion.Model.extend
   body: DS.attr('string')
   user: DS.belongsTo('user')
   task: DS.belongsTo('task')
+
+Lion.WeeklyWinning = DS.Model.extend
+  startDate: DS.attr('date')
+  winner: DS.belongsTo('user')
+  points: DS.attr('number')
+
+Lion.Stats = Lion.User.extend
+  pullRequestsCount: DS.attr('number')
+  numberOfAdditions: DS.attr('number')
+  numberOfDeletions: DS.attr('number')
+  pullRequestReviewsCount: DS.attr('number')
+  completedTasksCount: DS.attr('number')

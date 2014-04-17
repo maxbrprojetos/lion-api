@@ -1,4 +1,4 @@
-Notdvs.ApplicationView = Ember.View.extend
+Lion.ApplicationView = Ember.View.extend
   templateName: (->
     @get('controller.layoutName')
   ).property('controller.layoutName')

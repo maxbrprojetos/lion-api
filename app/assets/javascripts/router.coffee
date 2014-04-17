@@ -1,17 +1,19 @@
 # For more information see: http://emberjs.com/guides/routing/
 
-Notdvs.Router.reopen(
+Lion.Router.reopen(
   location: 'history'
 )
 
-Notdvs.Router.map ->
-  @resource('notices', path: '/')
+Lion.Router.map ->
   @route('login')
-  @resource('tasks', ->
+  @resource('tasks', path: '/', ->
     @route('mine')
   )
   @resource('leaderboard', ->
     @route('all-time')
     @route('weekly')
   )
+  @route('hall-of-fame')
+  @route('stats')
+  @route('badges')
 

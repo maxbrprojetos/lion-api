@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :pull_requests
   has_many :scores
   has_many :comments
+  has_many :pull_request_reviews
+  has_many :weekly_winnings
 
   validates :name, presence: true
   validates :nickname, presence: true

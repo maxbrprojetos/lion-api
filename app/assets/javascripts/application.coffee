@@ -8,15 +8,15 @@
 #= require handlebars
 #= require pusher
 #= require moment
-#= require ember
-#= require ember-data
+#= require ember/ember
+#= require ember-data/ember-data
 #= require ember-pusher
 #= require ember-simple-auth
 #= require app
 #= require_self
-#= require notdvs
+#= require lion
 
-window.Notdvs = NotdvsApplication.create(
+window.Lion = LionApplication.create(
   LOG_ACTIVE_GENERATION: true
   LOG_MODULE_RESOLVER: true
   LOG_TRANSITIONS: true
@@ -24,20 +24,20 @@ window.Notdvs = NotdvsApplication.create(
   LOG_VIEW_LOOKUPS: true
 )
 
-Notdvs.deferReadiness()
+Lion.deferReadiness()
 
 Ember.SimpleAuth.Session.reopen
   login: ->
-    Notdvs.lookup('controller:currentUser').sync()
+    Lion.lookup('controller:currentUser').sync()
 
   logout: ->
-    Notdvs.lookup('controller:currentUser').logout()
+    Lion.lookup('controller:currentUser').logout()
 
 Ember.Application.initializer
   name: 'authentication'
 
   initialize: (container, application) ->
     Ember.SimpleAuth.setup(container, application, {
-      routeAfterLogin: 'notices'
+      routeAfterLogin: 'tasks'
       routeAfterLogout: 'login'
     })

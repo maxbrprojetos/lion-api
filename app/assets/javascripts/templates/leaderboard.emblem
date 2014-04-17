@@ -9,12 +9,4 @@ section.leaderboard
         link-to "leaderboard.all-time" tagName="dd"
           a All Time
 
-    ul
-      each itemController="score"
-        li
-          .description
-            img.big-avatar{bind-attr src=user.avatarUrl}
-            span.points = points
-          .bar
-            .progress
-              span.meter{bind-attr style=progressBarStyle}
+  Lion.UserStats content=controller pointsProperty="points" avatarUrlProperty="user.avatarUrl"

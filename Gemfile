@@ -1,7 +1,8 @@
 ruby '2.1.1'
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
-gem 'rails', '4.1.0.rc1'
+gem 'rails', '4.1'
 
 # Needs to load first, so that gems that configure themself by enviroment
 # variables will see the variables when they load
@@ -18,15 +19,20 @@ gem 'flowdock'
 gem 'newrelic_rpm'
 gem 'honeybadger'
 
-gem 'sass-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
-gem 'ember-rails'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'emblem-rails'
 gem 'foundation-rails'
 gem 'bourbon'
 gem 'zocial-rails'
+gem 'font-awesome-rails'
+gem 'rails-assets-jquery', '2.0'
+gem 'rails-assets-ember', '1.5.0'
+gem 'rails-assets-ember-data', '1.0.0.beta7'
+gem 'rails-assets-pusher'
+gem 'rails-assets-pace'
+gem 'rails-assets-moment'
 
 gem 'rails_12factor', group: :production
 

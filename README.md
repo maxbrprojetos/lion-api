@@ -1,9 +1,8 @@
-# NOTDVS
-[![](https://api.tddium.com:443/alphasights/notdvs/badges/65079.png?badge_token=84482063fe8b05882d51d4d99a917760aca6bd96)](https://api.tddium.com:443/alphasights/notdvs/suites/65079)
+# Lion
 
 ## What sorcery is this?
 
-NOtices To DeveloperS is a dashboard for developers written with Ember and Rails.
+Lion is a dashboard for developers written with Ember and Rails.
 It notifies developers of problems, it keeps track of tasks and rewards developers when they get shit done®.
 
 ## Dependencies
@@ -18,48 +17,9 @@ It notifies developers of problems, it keeps track of tasks and rewards develope
 All the features presented here have a summary page which updates live.
 Every action can be either performed via the interface or using the RESTful API.
 
-### Notices
-
-![notices](http://f.cl.ly/items/3g1p1Q3822293K0P3g0S/Image%202014-03-07%20at%2012.20.16%20pm.png)
-
-Whenever something goes wrong in your system, you can POST to the /notices path and create a new notice, like this:
-
-```
-# POST /notices
-
-+ Request application/json
-
-        {
-          "notice": {
-            "title": "test",
-            "client_id": "1234",
-            "app": "testapp",
-            "type": "error"
-          }
-        }
-
-+ Response 201 application/json; charset=utf-8
-
-        {
-          "notice": {
-            "client_id": "1234",
-            "id": "2009bb77-edc8-4b81-9bd9-3ed90e7b7e46",
-            "title": "test",
-            "created_at": "2014-03-07T10:56:07.125Z",
-            "type": "error",
-            "app": "testapp"
-          }
-        }
-```
-
-Mandatory fields: `app`, `title`.
-If you don't specify any type `notice` will be used.
-
-In order to specify the `app` via the interface you can write "app:my-app this is the notice".
-
 ### Tasks
 
-![tasks](http://f.cl.ly/items/0c2E3k3G0M3P303J3W26/Image%202014-03-07%20at%2012.21.39%20pm.png)
+![tasks](http://cl.ly/image/3n341S0m3b3m/tasks.png)
 
 You can create your tasks with the API like this:
 
@@ -136,7 +96,11 @@ If you want to assign someone you can update the task like this:
 
 ### Leaderboard
 
-![leaderboard](http://cl.ly/image/280O052c2E3C/download/Image%202014-03-20%20at%201.44.44%20pm.png)
+![leaderboard](http://cl.ly/image/0e3Q3001280M/Image%202014-04-13%20at%208.11.59%20pm.png)
+
+There are currently two leaderboards: weekly and all time. The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
+
+Points are given according to the following rules.
 
 #### Rules
 
@@ -146,22 +110,44 @@ Completing tasks:
 
 Merging PRs:
 
+- 100 points if the number of deletions is double the number of additions and it's greater than 1000
 - 50 points if the number of additions is greater than 500
-- 30 points if the number of deletions is double the number of additions and is greater than 100
+- 30 points if the number of deletions is double the number of additions and it's greater than 100
 - 15 points if the number of additions is greater than 100
 - 5 points if the number of additions is less than 10
 - 10 points in all the other cases
 
 Reviewing PRs:
 
-- 5 points for commeting with `:+1:`
+- 5 points for commenting with `:+1:`, `:thumbsup:`, `:shipit:`
 
 #### Caveats
 
 In order to get points for merging PRs you need to setup a webhook in your repos that points to:
 
 ```
-https://your.notdvs.installation.com/api/pull_requests
+https://your.lion.installation.com/api/pull_requests
 ```
 
-The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
+### Hall of Fame
+
+![hall-of-fame](http://cl.ly/image/0w3F2g2L1n3a/Image%202014-04-13%20at%208.14.26%20pm.png)
+
+Weekly winners will be placed here.
+In order to declare a weekly winner run the `hall_of_fame:declare_weekly_winner` rake task every monday morning.
+
+### Stats
+
+![stats](http://cl.ly/image/3z1A0C2D0x0p/Image%202014-04-13%20at%208.16.57%20pm.png)
+
+Displayed stats:
+
+- Number of merged PRs
+- Number of reviews
+- Total number of additions across merged PRs
+- Total number of deletions across merged PRs
+- Number of completed tasks
+
+### Badges
+
+Coming soon :)

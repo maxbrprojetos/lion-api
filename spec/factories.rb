@@ -8,11 +8,6 @@ FactoryGirl.define do
     sequence(:github_id) { |n| n }
   end
 
-  factory :notice do
-    app 'Pistachio'
-    title 'test'
-  end
-
   factory :task do
     title 'test'
     user
@@ -45,5 +40,11 @@ FactoryGirl.define do
     end
 
     user
+  end
+
+  factory :weekly_winning do
+    association :winner, factory: :user
+    sequence(:start_date) { |n| n.week.ago }
+    points { rand(1..100) }
   end
 end

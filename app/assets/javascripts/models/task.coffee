@@ -1,4 +1,4 @@
-Notdvs.Task = Notdvs.Model.extend
+Lion.Task = Lion.Model.extend
   title: DS.attr('string')
   completed: DS.attr('boolean', { defaultValue: false })
   user: DS.belongsTo('user')
@@ -36,5 +36,5 @@ Notdvs.Task = Notdvs.Model.extend
   ).observesBefore('assignee.id')
 
   notifyAssignment: ->
-    if @get('assignee.id') == Notdvs.lookup('controller:currentUser').get('id')
+    if @get('assignee.id') == Lion.lookup('controller:currentUser').get('id')
       new Notify('You have been assigned an issue', { body: @get('title') }).show()

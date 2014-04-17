@@ -22,7 +22,7 @@ module Pusherable
 
     %w(create update destroy).each do |action_name|
       define_method("pusherable_trigger_#{action_name}") do
-        Pusher.trigger('notdvs', "#{pusherable_class_name}.#{action_name}", serialized_model)
+        Pusher.trigger('lion', "#{pusherable_class_name}.#{action_name}", serialized_model)
       end
     end
   end

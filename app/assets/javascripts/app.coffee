@@ -1,5 +1,5 @@
-unless window.NotdvsApplication
-  window.NotdvsApplication = Ember.Application.extend
+unless window.LionApplication
+  window.LionApplication = Ember.Application.extend
     LOG_TRANSITIONS: true
 
     lookup: ->

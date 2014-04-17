@@ -1,4 +1,4 @@
-Notdvs.FromNowComponent = Ember.Component.extend
+Lion.FromNowComponent = Ember.Component.extend
   tagName: 'time'
   layout: Ember.Handlebars.compile('{{view.timeFromNowInWords}}')
 

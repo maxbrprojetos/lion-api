@@ -1,9 +1,0 @@
-li{bind-attr class=":notice type"}
-  .content
-    span.title = title
-    span.created-at = from-now value=createdAt
-    if app
-      span.app = app
-
-  .actions
-    a href="#" class="close" &times

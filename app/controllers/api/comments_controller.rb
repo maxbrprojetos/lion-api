@@ -47,7 +47,7 @@ module Api
         subject: 'Added Comment',
         content: @comment.body,
         tags: %w(comment),
-        link: 'https://notdvs.herokuapp.com/#/tasks'
+        link: 'https://as-lion.herokuapp.com/#/tasks'
       )
     end
   end

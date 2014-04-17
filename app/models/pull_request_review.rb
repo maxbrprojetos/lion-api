@@ -17,16 +17,18 @@ class PullRequestReview < ActiveRecord::Base
   belongs_to :pull_request
 
   validates :body, presence: true
+  validates :pull_request, presence: true
+  validates :user, presence: true
   validate :body_must_contain_positive_signs
 
   def points
-    5
+    (pull_request.points / 2).round
   end
 
   private
 
   def body_must_contain_positive_signs
-    errors.add(:body, 'must contain positive signs') unless body.match(/:\+1:/)
+    errors.add(:body, 'must contain positive signs') unless body.match(/:\+1:|:thumbsup:|:shipit:/)
   end
 
   def scoring_time

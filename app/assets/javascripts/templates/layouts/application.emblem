@@ -3,14 +3,30 @@ aside
     img src=currentUser.avatarUrl
   nav
     ul
-      link-to "notices" tagName="li"
-        i class="status"
       link-to "tasks" tagName="li"
-        i class="batcave"
+        i class="fa fa-check-circle"
+        br
+        | Tasks
       link-to "leaderboard" tagName="li"
-        i class="leaderboard"
+        i class="fa fa-sort-amount-desc"
+        br
+        | Leaderboard
+      link-to "hall-of-fame" tagName="li"
+        i class="fa fa-trophy"
+        br
+        | Hall of Fame
+      link-to "stats" tagName="li"
+        i class="fa fa-bar-chart-o"
+        br
+        | Stats
+      link-to "badges" tagName="li"
+        i class="fa fa-certificate"
+        br
+        | Badges
       li{action "logout"}
-        i class="logout"
+        i class="fa fa-sign-out"
+        br
+        | Logout
 
 main
   .content
