@@ -15,7 +15,7 @@ module Api
         notify_comment_creation
         render json: @comment, status: :created
       else
-        render json: { errors: @comment.errrors }, status: :unprocessable_entity
+        render json: { errors: @comment.errors }, status: :unprocessable_entity
       end
     end
 
@@ -25,7 +25,7 @@ module Api
       if @comment.update(body: params[:comment][:body])
         render json: @comment, status: :ok
       else
-        render json: { errors: @comment.errrors }, status: :unprocessable_entity
+        render json: { errors: @comment.errors }, status: :unprocessable_entity
       end
     end
 

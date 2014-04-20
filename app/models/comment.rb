@@ -22,4 +22,6 @@ class Comment < ActiveRecord::Base
   belongs_to :task
 
   validates :body, presence: true
+  validates :user, presence: true
+  validates :task, presence: true
 end
