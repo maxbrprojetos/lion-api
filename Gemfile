@@ -18,6 +18,7 @@ gem 'octokit', github: 'octokit/octokit.rb'
 gem 'flowdock'
 gem 'newrelic_rpm'
 gem 'honeybadger'
+gem 'skylight'
 
 gem 'sass-rails'
 gem 'uglifier'
