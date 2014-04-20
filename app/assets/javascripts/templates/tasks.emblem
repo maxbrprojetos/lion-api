@@ -1,14 +1,13 @@
 section.tasks
   header
-    h1 Tasks
-    form submit=createTask
-      div.input
-        = input type="text" value=newTitle placeholder="What needs to be done?"
-      div.submit
-        input type="submit" value="Add Task"
+    div
+      h1 Tasks
+      form submit=createTask
+        div.input
+          = input type="text" value=newTitle placeholder="What needs to be done?"
+        div.submit
+          input type="submit" value="Add Task"
 
-  if length
-    section.main
       .filters
         span.remaining-items == remainingFormatted
 
@@ -19,6 +18,9 @@ section.tasks
           link-to "tasks.mine" tagName="dd"
             a Mine
 
-      ul
-        each sortedTasks itemController="task"
-          view "task"
+  section.content
+    ul
+      each sortedTasks itemController="task"
+        view "task"
+
+    outlet

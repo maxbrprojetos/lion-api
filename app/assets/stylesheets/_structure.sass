@@ -1,10 +1,6 @@
-=row($behavior: false)
-  +grid-row($behavior: $behavior)
-
-  margin-top: 30px
-
 form
-  +row
+  +grid-row
+  margin-top: 30px
 
   .input
     +grid-column($columns: 9, $collapse: true)
@@ -19,15 +15,27 @@ form
 main > .content
   +grid-row
 
-section.hall-of-fame, section.leaderboard, section.tasks
+section.hall-of-fame, section.leaderboard
   +grid-column($columns: 8)
+
+section.tasks
+  & > header
+    +grid-row
+
+    & > div
+      +grid-column($columns: 6)
+
+  & > section.content
+    +grid-row($behavior: nest)
+
+    & > ul, & > section.comments
+      +grid-column($columns: 6)
 
 section.stats
   +grid-column($columns: 12)
 
   & > section
-    +grid-column($columns: 6)
-    padding-left: 0
+    +grid-column($columns: 6, $collapse: true)
     padding-right: $column-gutter
 
 .ranking
