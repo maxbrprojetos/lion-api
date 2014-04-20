@@ -1,3 +1,4 @@
 Lion.IndexRoute = Lion.AuthenticatedRoute.extend
-  beforeModel: ->
+  beforeModel: (transition) ->
     @transitionTo('tasks')
+    @_super(transition)

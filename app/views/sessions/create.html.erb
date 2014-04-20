@@ -3,9 +3,9 @@
 <body>
   <script>
     <% if @user %>
-      window.opener.Ember.SimpleAuth.externalLoginSucceeded(<%= raw UserSerializer.new(@user).as_json.merge(access_token: @user.api_token).to_json %>);
+      window.opener.$(window.opener.document).trigger('loginSucceeded', <%= raw UserSerializer.new(@user).as_json.merge(access_token: @user.api_token).to_json %>);
     <% else %>
-      window.opener.Ember.SimpleAuth.externalLoginFailed({ error: 'invalid_grant' });
+      window.opener.$(window.opener.document).trigger('loginFailed', { error: 'invalid_grant' });
     <% end %>
 
     window.close();

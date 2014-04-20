@@ -1,17 +1,13 @@
 Lion.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMixin,
   actions:
-    signin: ->
-      window.open(
-        "#{location.protocol}//#{location.host}/auth/github", '_blank',
-        'menubar=no,status=no,height=400,width=800'
-      )
+    authenticateSession: ->
+      @get('session').authenticate('authenticator:omniauth')
 
-    loginSucceeded: ->
-      # move this inside the ajax promise resolution
+    sessionAuthenticationSucceeded: ->
       @_super.apply(this, arguments)
       @get('session').login()
 
-    logout: ->
+    sessionInvalidationSucceeded: ->
       @get('session').logout()
       @_super.apply(this, arguments)
 )

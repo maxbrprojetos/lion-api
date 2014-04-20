@@ -34,6 +34,8 @@ gem 'rails-assets-ember-data', '1.0.0.beta7'
 gem 'rails-assets-pusher'
 gem 'rails-assets-pace'
 gem 'rails-assets-moment'
+gem 'rails-assets-ember-mocha-adapter'
+gem 'rails-assets-ember-simple-auth'
 
 gem 'rails_12factor', group: :production
 

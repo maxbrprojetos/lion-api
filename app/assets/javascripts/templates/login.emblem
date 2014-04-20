@@ -1,1 +1,1 @@
-button class='zocial github github-login' click="signin" Sign in with Github
+button class='zocial github github-login' click="authenticateSession" Sign in with Github

@@ -15,6 +15,7 @@
 #= require app
 #= require_self
 #= require lion
+#= require omniauth_authenticator
 
 window.Lion = LionApplication.create(
   LOG_ACTIVE_GENERATION: true
@@ -37,7 +38,9 @@ Ember.Application.initializer
   name: 'authentication'
 
   initialize: (container, application) ->
+    container.register('authenticator:omniauth', Lion.OmniauthAuthenticator)
+
     Ember.SimpleAuth.setup(container, application, {
-      routeAfterLogin: 'tasks'
-      routeAfterLogout: 'login'
+      authorizerFactory: 'authorizer:oauth2-bearer'
+      routeAfterAuthentication: 'tasks'
     })

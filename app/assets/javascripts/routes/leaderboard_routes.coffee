@@ -1,11 +1,20 @@
 Lion.LeaderboardIndexRoute = Lion.AuthenticatedRoute.extend
-  beforeModel: ->
+  beforeModel: (transition) ->
     @transitionTo('leaderboard.weekly')
+    @_super(transition)
 
 Lion.LeaderboardAllTimeRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
-    @controllerFor('leaderboard').set('content', @store.find('score', { time_span: 'all_time' }))
+    @_super.apply(this, arguments)
+
+    @store.find('score', { time_span: 'all_time' }).then((scores) =>
+      @controllerFor('leaderboard').set('content', scores)
+    )
 
 Lion.LeaderboardWeeklyRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
-    @controllerFor('leaderboard').set('content', @store.find('score', { time_span: 'weekly' }))
+    @_super.apply(this, arguments)
+
+    @store.find('score', { time_span: 'weekly' }).then((scores) =>
+      @controllerFor('leaderboard').set('content', scores)
+    )

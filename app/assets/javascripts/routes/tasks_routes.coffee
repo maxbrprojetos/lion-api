@@ -17,10 +17,13 @@ Lion.TasksRoute = Lion.AuthenticatedRoute.extend
 
 Lion.TasksIndexRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
+    @_super.apply(this, arguments)
     @controllerFor('tasks').set('filteredTasks', @modelFor('tasks'))
 
 Lion.TasksMineRoute = Lion.AuthenticatedRoute.extend
   setupController: ->
+    @_super.apply(this, arguments)
+
     tasks = @store.filter('task', (task) =>
       currentUserId = @controllerFor('currentUser').get('content.id')
 

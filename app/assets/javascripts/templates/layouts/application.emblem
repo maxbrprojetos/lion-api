@@ -23,7 +23,7 @@ aside
         i class="fa fa-certificate"
         br
         | Badges
-      li{action "logout"}
+      li{action "invalidateSession"}
         i class="fa fa-sign-out"
         br
         | Logout
