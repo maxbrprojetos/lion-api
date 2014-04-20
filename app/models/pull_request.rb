@@ -1,3 +1,4 @@
+
 # == Schema Information
 #
 # Table name: pull_requests
@@ -69,7 +70,7 @@ class PullRequest < ActiveRecord::Base
   end
 
   def comments
-    user.github_client.pull_request(base_repo_full_name, number).rels[:comments].get.data
+    @comments ||= user.github_client.pull_request(base_repo_full_name, number).rels[:comments].get.data
   end
 
   private
