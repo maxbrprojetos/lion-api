@@ -49,8 +49,6 @@ class User < ActiveRecord::Base
     @github_client ||= self.class.github_client(api_token)
   end
 
-  private
-
   def self.user_info(auth_hash)
     {
       name: auth_hash['info']['name'],
