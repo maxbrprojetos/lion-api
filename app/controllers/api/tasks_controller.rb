@@ -3,7 +3,7 @@ module Api
     before_action :authenticate!
 
     def index
-      @tasks = Task.where(completed: false).includes(:user).includes(:comments)
+      @tasks = Task.where(completed: false).includes(:user, :comments)
 
       render json: @tasks
     end
