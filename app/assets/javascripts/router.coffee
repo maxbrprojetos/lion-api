@@ -6,8 +6,9 @@ Lion.Router.reopen(
 
 Lion.Router.map ->
   @route('login')
-  @resource('tasks', path: '/', ->
+  @resource('tasks', ->
     @route('mine')
+    @resource('task', path: ':task_id')
   )
   @resource('leaderboard', ->
     @route('all-time')

@@ -5,7 +5,7 @@ Lion.Task = Lion.Model.extend
   assignee: DS.belongsTo('user')
   assigneeWas: Ember.Object.create()
   hidden: false
-  comments: DS.hasMany('comment', { async: true} )
+  comments: DS.hasMany('comment')
 
   toggleCompleted: (user) ->
     @set('completed', !@get('completed'))

@@ -2,12 +2,6 @@ module Api
   class CommentsController < ApplicationController
     before_action :authenticate!
 
-    def index
-      @comments = Comment.where(task_id: params[:task_id])
-
-      render json: @comments
-    end
-
     def create
       @comment = current_user.comments.build(comment_params)
 

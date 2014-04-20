@@ -20,7 +20,7 @@ section.tasks
 
   section.content
     ul
-      each sortedTasks itemController="task"
-        view "task"
+      each sortedTasks itemController="taskItem"
+        view "taskItem"
 
     outlet

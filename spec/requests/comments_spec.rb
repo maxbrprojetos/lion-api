@@ -1,31 +1,6 @@
 require 'spec_helper'
 
 describe 'Comments Requests' do
-  describe 'GET /comments?task_id=#' do
-    it 'responds with a json containing all the comments for a task' do
-      task = create(:task)
-      comments = create_list(:comment, 2, task: task)
-
-      get api_comments_path(task_id: task.id)
-
-      expect(last_response.status).to eq(200)
-      parsed_response = JSON.parse(last_response.body)
-
-      expect(parsed_response['comments']).to eq(
-        comments.map do |comment|
-          {
-            'id' => comment.id,
-            'body' => comment.body,
-            'created_at' => comment.created_at.iso8601(3),
-            'client_id' => comment.client_id,
-            'user_id' => comment.user_id,
-            'task_id' => comment.task_id
-          }
-        end
-      )
-    end
-  end
-
   describe 'POST /comments' do
     let(:task) { create(:task) }
     let(:comment_params) do

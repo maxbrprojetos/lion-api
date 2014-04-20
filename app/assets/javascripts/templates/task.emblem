@@ -1,33 +1,9 @@
-li{bind-attr class=":task completed isEditing:editing"}
-  article
-    header
-      a{bind-attr href=user.githubUrl} target="_blank"
-        img.avatar{bind-attr src=user.avatarUrl}
-      .info
-        span added this task {{from-now value=createdAt}}
-
-        if assignee
-          .assignee
-            img.avatar src=assignee.avatarUrl data-dropdown=guid
-            span is assigned
-
-      .actions
-        span.fa.fa-user data-dropdown=guid
-        span.fa.fa-check.complete{action "toggleCompleted"}
-        span.fa.fa-pencil{action "editTask"}
-        span.fa.fa-trash-o{action "removeTask"}
-
-      ul.f-dropdown.content data-dropdown-content=true id=guid
-        each parentController.users
-          li
-            a{action "assignUser" this}
-              img.avatar src=avatarUrl
-              span.nickname = nickname
-
-    .content
-      if isEditing
-        edit-task class="edit" value=bufferedTitle focus-out="cancelEditing" insert-newline="doneEditing" escape-press="cancelEditing"
-      else
-        span.title = processedTitle
-
-render "comments" comments
+section.comments
+  ul
+    each comments
+      li = body
+  form submit=createComment
+    div.input
+      = input type="text" value=body placeholder="What comments do you have?"
+    div.submit
+      input type="submit" value="Add Comment"
