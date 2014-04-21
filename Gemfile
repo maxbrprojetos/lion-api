@@ -43,6 +43,7 @@ group :development do
   gem 'annotate', github: 'ctran/annotate_models'
   gem 'spring'
   gem 'quiet_assets'
+  gem 'bullet'
 end
 
 group :test, :development do
