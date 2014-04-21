@@ -3,7 +3,7 @@ module Api
     before_action :authenticate!
 
     def index
-      @weekly_winnings = WeeklyWinning.all.order(start_date: :desc)
+      @weekly_winnings = WeeklyWinning.all.order(start_date: :desc).includes(:winner)
 
       render json: @weekly_winnings
     end
