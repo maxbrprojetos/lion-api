@@ -1,7 +1,11 @@
 Lion.LocalStorage = Ember.Namespace.create
   getItem: (key) ->
-    unless window.localStorage.getItem(key) != undefined
-      JSON.parse(window.localStorage.getItem(key))
+    item = window.localStorage.getItem(key)
+
+    if item != 'undefined'
+      JSON.parse(item)
+    else
+      null
 
   setItem: (key, item) ->
     window.localStorage.setItem(key, JSON.stringify(item))
