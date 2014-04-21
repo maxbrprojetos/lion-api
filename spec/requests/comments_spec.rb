@@ -27,7 +27,7 @@ describe 'Comments Requests' do
         subject: 'Added Comment',
         content: comment_params[:body],
         tags: %w(comment),
-        link: 'https://as-lion.herokuapp.com/#/tasks'
+        link: "https://as-lion.herokuapp.com/tasks/#{Task.first.to_param}"
       )
 
       post api_comments_path, { comment: comment_params }.to_json

@@ -41,7 +41,7 @@ module Api
         subject: 'Added Comment',
         content: @comment.body,
         tags: %w(comment),
-        link: 'https://as-lion.herokuapp.com/#/tasks'
+        link: "https://as-lion.herokuapp.com/tasks/#{@comment.task.to_param}"
       )
     end
   end
