@@ -1,11 +1,10 @@
-section.comments
-  ul
-    each comments
-      li
-        | {{body}} -
-        span.nickname  {{user.nickname}}
-  form submit=createComment
-    div.input
-      = input type="text" value=body placeholder="What comments do you have?"
-    div.submit
-      input type="submit" value="Add Comment"
+ul
+  each comments
+    li
+      | {{body}} -
+      span.nickname  {{user.nickname}}
+form submit=createComment
+  div.input
+    = input type="text" value=body placeholder="What comments do you have?"
+  div.submit
+    input type="submit" value="Add Comment"

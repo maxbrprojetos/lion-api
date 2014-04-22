@@ -36,6 +36,7 @@ gem 'rails-assets-pace'
 gem 'rails-assets-moment'
 gem 'rails-assets-ember-mocha-adapter'
 gem 'rails-assets-ember-simple-auth'
+gem 'rails-assets-sticky-kit'
 
 gem 'rails_12factor', group: :production
 
