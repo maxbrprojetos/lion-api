@@ -4,7 +4,5 @@ ul
       | {{body}} -
       span.nickname  {{user.nickname}}
 form submit=createComment
-  div.input
-    = input type="text" value=body placeholder="What comments do you have?"
-  div.submit
-    input type="submit" value="Add Comment"
+  textarea value=body placeholder="What comments do you have?"
+  input type="submit" value="Add Comment" class="button"

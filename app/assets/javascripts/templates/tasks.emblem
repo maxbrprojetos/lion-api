@@ -2,7 +2,7 @@ section.tasks
   header
     div
       h1 Tasks
-      form submit=createTask
+      form.inline submit=createTask
         div.input
           = input type="text" value=newTitle placeholder="What needs to be done?"
         div.submit

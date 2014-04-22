@@ -4,12 +4,13 @@ Lion.TaskView = Ember.View.extend
 
   didInsertElement: ->
     element = this.$()
-    elementOffset = element.offset().left + ((element.outerWidth() - element.width()) / 2)
+    elementWidth = element.width()
+    elementOffset = element.offset().left + ((element.outerWidth() - elementWidth) / 2)
 
     element.stick_in_parent()
       .on('sticky_kit:stick', (e) =>
         element.css('left', elementOffset)
-        element.css('width', element.width())
+        element.css('width', elementWidth)
       )
       .on('sticky_kit:unstick', (e) ->
         element.css('left', 'auto')
