@@ -22,13 +22,16 @@ section.tasks
     +grid-row
 
     & > div
-      +grid-column($columns: 6)
+      +grid-column($columns: 7)
 
   & > section.content
     +grid-row($behavior: nest)
 
-    & > ul, & > section.comments
-      +grid-column($columns: 6)
+    & > ul
+      +grid-column($columns: 7)
+
+    & > section.comments
+      +grid-column($columns: 5)
 
 section.stats
   +grid-column($columns: 12)
