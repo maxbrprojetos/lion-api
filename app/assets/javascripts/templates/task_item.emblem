@@ -33,6 +33,5 @@ li{bind-attr class=":task completed isEditing:editing"}
         span.title = processedTitle
 
     if comments.length
-      footer
-        link-to "task" id tagName="span"
-          span {{comments.length}} {{pluralize comments.length single="comment"}}
+      link-to "task" id tagName="footer"
+        span {{comments.length}} {{pluralize comments.length single="comment"}}
