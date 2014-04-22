@@ -35,4 +35,4 @@ li{bind-attr class=":task completed isEditing:editing"}
     if comments.length
       footer
         link-to "task" id tagName="span"
-          span {{comments.length}} comments
+          span {{comments.length}} {{pluralize comments.length single="comment"}}
