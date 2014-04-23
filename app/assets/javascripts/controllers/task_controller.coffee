@@ -1,9 +1,10 @@
 Lion.TaskController = Ember.ObjectController.extend
   needs: ['currentUser']
+  newCommentBody: ''
 
   actions:
     createComment: ->
-      body = @get('body')?.trim()
+      body = @get('newCommentBody')?.trim()
       return unless body
 
       comment = @store.createRecord('comment', {
@@ -11,4 +12,4 @@ Lion.TaskController = Ember.ObjectController.extend
       })
       comment.save()
 
-      @set('body', '')
+      @set('newCommentBody', '')

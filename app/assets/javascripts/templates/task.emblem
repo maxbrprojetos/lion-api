@@ -3,6 +3,7 @@ ul
     li
       | {{body}} -
       span.nickname  {{user.nickname}}
+
 form submit=createComment
-  textarea value=body placeholder="What comments do you have?"
+  = textarea value=newCommentBody placeholder="What comments do you have?"
   input type="submit" value="Add Comment" class="button"
