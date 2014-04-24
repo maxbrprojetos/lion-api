@@ -1,5 +1,5 @@
 Lion.TaskView = Ember.View.extend
-  classNames: ['comments']
+  classNames: ['task']
   tagName: 'section'
 
   didInsertElement: ->
