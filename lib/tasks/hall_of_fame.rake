@@ -1,6 +1,6 @@
 namespace :hall_of_fame do
   task declare_weekly_winner: :environment do
-    return unless Time.now.wday == 1
+    abort('Not Monday!') unless Time.now.wday == 1
 
     top_score = Score.top_weekly
 
