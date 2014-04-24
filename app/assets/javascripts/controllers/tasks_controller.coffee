@@ -1,4 +1,9 @@
 Lion.TasksController = Ember.ArrayController.extend(new Lion.Pusherable('task'),
+  needs: ['currentUser']
+  queryParams: ['filter']
+  filter: null
+  null: null
+
   persistedTasks: Ember.computed.filterBy('filteredTasks', 'hidden', false)
   sortedTasks: Ember.computed.sort('persistedTasks', (a, b) ->
     if a.get('createdAt') < b.get('createdAt')
@@ -7,6 +12,22 @@ Lion.TasksController = Ember.ArrayController.extend(new Lion.Pusherable('task'),
       return -1
     return 0
   )
+
+  filteredTasks: (->
+    tasks = @get('model')
+
+    if @get('filter') == 'mine'
+      currentUserId = @get('controllers.currentUser').get('content.id')
+
+      tasks.filter((task) ->
+        if !Ember.isEmpty(task.get('assignee'))
+          task.get('assignee.id') == currentUserId
+        else
+          task.get('user.id') == currentUserId
+      )
+    else
+      tasks
+  ).property('filter', 'model')
 
   actions:
     createTask: ->

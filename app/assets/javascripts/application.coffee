@@ -10,7 +10,8 @@
 #= require handlebars
 #= require pusher
 #= require moment
-#= require ember/ember
+#= require feature_flags
+#= require ember/canary/ember
 #= require ember-data/ember-data
 #= require ember-pusher
 #= require ember-simple-auth
@@ -18,6 +19,8 @@
 #= require_self
 #= require lion
 #= require omniauth_authenticator
+
+Ember.null = null
 
 window.Lion = LionApplication.create(
   LOG_ACTIVE_GENERATION: true
