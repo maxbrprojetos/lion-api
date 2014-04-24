@@ -455,7 +455,6 @@ DEPENDENCIES
   pusher
   quiet_assets
   rails (= 4.1)
-  rails-assets-ember (= 1.5.0)
   rails-assets-ember-data (= 1.0.0.beta7)
   rails-assets-ember-mocha-adapter
   rails-assets-ember-simple-auth
