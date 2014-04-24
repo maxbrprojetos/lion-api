@@ -9,3 +9,7 @@ Ember.Handlebars.registerBoundHelper('pluralize', (number, options) ->
 
   if number == 1 then single else plural
 )
+
+Ember.Handlebars.registerBoundHelper('markdown', (text) ->
+  markdown.toHTML(text).htmlSafe()
+)

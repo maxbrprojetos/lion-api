@@ -6,6 +6,7 @@
 #= require pace
 #= require notify
 #= require sticky-kit/jquery.sticky-kit
+#= require markdown
 #= require handlebars
 #= require pusher
 #= require moment

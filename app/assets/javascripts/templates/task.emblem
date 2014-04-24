@@ -1,8 +1,8 @@
 ul
   each comments
     li
-      | {{body}} -
-      span.nickname  {{user.nickname}}
+      = markdown body
+      span.info {{user.nickname}} commented {{from-now value=createdAt}}
 
 form submit=createComment
   = textarea value=newCommentBody placeholder="What comments do you have?"
