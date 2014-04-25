@@ -27,7 +27,7 @@ article
 
   .content
     if isEditing
-      edit-task class="edit" value=bufferedTitle focus-out="cancelEditing" insert-newline="doneEditing" escape-press="cancelEditing"
+      edit-view class="edit" value=bufferedTitle focus-out="cancelEditing" insert-newline="doneEditing" escape-press="cancelEditing"
     else
       span.title = processedTitle
 

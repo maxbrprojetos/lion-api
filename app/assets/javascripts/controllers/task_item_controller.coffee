@@ -12,9 +12,6 @@ Lion.TaskItemController = Ember.ObjectController.extend(
     @get('title').linkify().htmlSafe()
   ).property('title')
 
-  toggleEditing: ->
-    @set('isEditing', !@get('isEditing'))
-
   removeTask: ->
     task = @get('model')
 
@@ -26,6 +23,9 @@ Lion.TaskItemController = Ember.ObjectController.extend(
       task.set('hidden', true)
 
   actions:
+    toggleEditing: ->
+      @set('isEditing', !@get('isEditing'))
+
     editTask: ->
       @set('isEditing', true)
 

@@ -1,10 +1,15 @@
 ul.comments
   each comments itemController="comment"
     li
-      = markdown body
+      if isEditing
+        edit-view class="edit" value=bufferedBody focus-out="cancelEditing" insert-newline="doneEditing" escape-press="cancelEditing"
+      else
+        = markdown body
+
       span.info {{user.nickname}} commented {{from-now value=createdAt}}
       span.actions
         span.fa.fa-trash-o{action "removeComment"}
+        span.fa.fa-pencil{action "editComment"}
 
 form submit=createComment
   = textarea value=newCommentBody placeholder="What comments do you have?"
