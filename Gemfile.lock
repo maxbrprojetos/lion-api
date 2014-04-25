@@ -326,7 +326,6 @@ GEM
     rails-assets-moment (2.6.0)
     rails-assets-pace (0.5.1)
     rails-assets-pusher (2.2.0)
-    rails-assets-sticky-kit (1.0.4)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -463,7 +462,6 @@ DEPENDENCIES
   rails-assets-moment
   rails-assets-pace
   rails-assets-pusher
-  rails-assets-sticky-kit
   rails_12factor
   rspec-rails
   rspec_api_blueprint!
