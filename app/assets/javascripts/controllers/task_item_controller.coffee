@@ -1,8 +1,7 @@
-Lion.TaskItemController = Ember.ObjectController.extend(
+Lion.TaskItemController = Ember.ObjectController.extend(Lion.Editable,
+  editableField: 'title'
   needs: ['currentUser']
   currentUser: Ember.computed.alias('controllers.currentUser.content')
-  isEditing: false
-  bufferedTitle: Ember.computed.oneWay('title')
 
   guid: (->
     Ember.guidFor(this)
@@ -12,7 +11,7 @@ Lion.TaskItemController = Ember.ObjectController.extend(
     @get('title').linkify().htmlSafe()
   ).property('title')
 
-  removeTask: ->
+  remove: ->
     task = @get('model')
 
     if !task.get('completed')
@@ -23,34 +22,8 @@ Lion.TaskItemController = Ember.ObjectController.extend(
       task.set('hidden', true)
 
   actions:
-    toggleEditing: ->
-      @set('isEditing', !@get('isEditing'))
-
-    editTask: ->
-      @set('isEditing', true)
-
-    doneEditing: ->
-      bufferedTitle = @get('bufferedTitle').trim()
-
-      if Ember.isEmpty(bufferedTitle)
-        @removeTask()
-      else
-        task = @get('model')
-        title = task.get('title')
-
-        if title != bufferedTitle
-          task.set('title', bufferedTitle)
-          task.save()
-
-        @set('bufferedTitle', bufferedTitle)
-        @set('isEditing', false)
-
-    cancelEditing: ->
-      @set('bufferedTitle', @get('title'))
-      @set('isEditing', false)
-
-    removeTask: ->
-      @removeTask()
+    remove: ->
+      @remove()
 
     toggleCompleted: ->
       task = @get('model')

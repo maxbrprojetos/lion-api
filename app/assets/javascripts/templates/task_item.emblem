@@ -15,8 +15,8 @@ article
         span.fa.fa-comments-o
       span.fa.fa-user data-dropdown=guid
       span.fa.fa-check.complete{action "toggleCompleted"}
-      span.fa.fa-pencil{action "editTask"}
-      span.fa.fa-trash-o{action "removeTask"}
+      span.fa.fa-pencil{action "edit"}
+      span.fa.fa-trash-o{action "remove"}
 
     ul.f-dropdown.content data-dropdown-content=true id=guid
       each parentController.users

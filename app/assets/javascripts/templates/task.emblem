@@ -8,8 +8,8 @@ ul.comments
 
       span.info {{user.nickname}} commented {{from-now value=createdAt}}
       span.actions
-        span.fa.fa-trash-o{action "removeComment"}
-        span.fa.fa-pencil{action "editComment"}
+        span.fa.fa-pencil{action "edit"}
+        span.fa.fa-trash-o{action "remove"}
 
 form submit=createComment
   = textarea value=newCommentBody placeholder="What comments do you have?"
