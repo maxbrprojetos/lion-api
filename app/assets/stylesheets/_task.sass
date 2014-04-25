@@ -14,14 +14,24 @@ section.task
   width: $task-width
   color: white
 
-  li
-    margin-bottom: 10px
-    padding: 10px
-    background-color: $nav-active-background
-    border-left: $blue-border
+  .comments
+    li
+      margin-bottom: 10px
+      padding: 10px
+      background-color: $nav-active-background
+      border-left: $blue-border
 
-  .info
-    font-size: 12px
+      &:hover
+        .actions
+          display: inline
+
+      .info
+        font-size: 12px
+
+      .actions
+        display: none
+        margin-left: 10px
+        cursor: pointer
 
 +keyframes(slide)
   100%

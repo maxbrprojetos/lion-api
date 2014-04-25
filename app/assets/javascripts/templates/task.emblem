@@ -1,8 +1,10 @@
-ul
-  each comments
+ul.comments
+  each comments itemController="comment"
     li
       = markdown body
       span.info {{user.nickname}} commented {{from-now value=createdAt}}
+      span.actions
+        span.fa.fa-trash-o{action "removeComment"}
 
 form submit=createComment
   = textarea value=newCommentBody placeholder="What comments do you have?"
