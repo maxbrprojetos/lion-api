@@ -1,7 +1,11 @@
-Lion.EditView = Ember.TextField.extend
+Lion.EditableView = Ember.Mixin.create
   focusOnInsert: (->
     @$().val @$().val()
     @$().focus()
   ).on('didInsertElement')
 
-Ember.Handlebars.helper 'edit-view', Lion.EditView
+Lion.EditTextField = Ember.TextField.extend(Lion.EditableView)
+Lion.EditTextArea = Ember.TextArea.extend(Lion.EditableView)
+
+Ember.Handlebars.helper 'edit-text-field', Lion.EditTextField
+Ember.Handlebars.helper 'edit-text-area', Lion.EditTextArea
