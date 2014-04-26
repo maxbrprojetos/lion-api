@@ -4,23 +4,11 @@
 
   .points
     font-size: 20px
-    margin-left: 15px
-    vertical-align: middle
-    position: absolute
-    left: 0
-    top: 0
     z-index: 100
-    line-height: 30px
     font-weight: bold
 
-  .progress
-    position: absolute
-    left: 0
-    top: 0
-    right: 0
-
   .meter
-    +linear-gradient(to right, lighten($primary-color, 40%), $primary-color)
+    +linear-gradient(to right, lighten($progress-meter-color, 40%), $progress-meter-color)
 
   .bar
     margin-top: 10px

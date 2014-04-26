@@ -1,5 +1,6 @@
 .description
-  img.big-avatar{bind-attr src=view.avatarUrl}
+  .profile-picture
+    img.big-avatar{bind-attr src=view.avatarUrl}
 .bar
   span.points = view.points
   .progress
