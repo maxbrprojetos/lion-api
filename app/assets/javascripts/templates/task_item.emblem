@@ -27,7 +27,7 @@ article
 
   .content
     if isEditing
-      edit-text-field class="edit" value=bufferedTitle focus-out="cancelEditing" insert-newline="doneEditing" escape-press="cancelEditing"
+      edit-text-field class="edit" value=bufferedTitle insert-newline="doneEditing" escape-press="cancelEditing"
     else
       span.title = processedTitle
 

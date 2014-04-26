@@ -2,13 +2,16 @@ ul.comments
   each comments itemController="comment"
     li
       if isEditing
-        edit-text-area class="edit" value=bufferedBody focus-out="cancelEditing" insert-newline="doneEditing" escape-press="cancelEditing"
+        edit-text-area class="edit" value=bufferedBody escape-press="cancelEditing"
       else
         = markdown body
 
       span.info {{user.nickname}} commented {{from-now value=createdAt}}
       span.actions
-        span.fa.fa-pencil{action "edit"}
+        if isEditing
+          span.fa.fa-check-circle{action "doneEditing"}
+        else
+          span.fa.fa-pencil{action "edit"}
         span.fa.fa-trash-o{action "remove"}
 
 form submit=createComment
