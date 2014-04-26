@@ -35,7 +35,7 @@ gem 'rails-assets-pace'
 gem 'rails-assets-moment'
 gem 'rails-assets-ember-mocha-adapter'
 gem 'rails-assets-ember-simple-auth'
-gem 'rails-assets-markdown'
+gem 'rails-assets-marked'
 
 gem 'rails_12factor', group: :production
 

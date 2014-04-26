@@ -5,7 +5,7 @@
 #= require foundation.dropdown
 #= require pace
 #= require notify
-#= require markdown
+#= require marked
 #= require handlebars
 #= require pusher
 #= require moment

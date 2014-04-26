@@ -11,5 +11,5 @@ Ember.Handlebars.registerBoundHelper('pluralize', (number, options) ->
 )
 
 Ember.Handlebars.registerBoundHelper('markdown', (text) ->
-  markdown.toHTML(text).htmlSafe()
+  marked(text).htmlSafe()
 )
