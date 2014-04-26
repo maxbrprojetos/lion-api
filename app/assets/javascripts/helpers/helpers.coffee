@@ -10,6 +10,10 @@ Ember.Handlebars.registerBoundHelper('pluralize', (number, options) ->
   if number == 1 then single else plural
 )
 
+marked.setOptions
+  highlight: (code) ->
+    hljs.highlightAuto(code).value
+
 Ember.Handlebars.registerBoundHelper('markdown', (text) ->
   marked(text).htmlSafe()
 )

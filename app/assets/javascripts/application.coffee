@@ -6,6 +6,7 @@
 #= require pace
 #= require notify
 #= require marked
+#= require highlight.pack
 #= require handlebars
 #= require pusher
 #= require moment
