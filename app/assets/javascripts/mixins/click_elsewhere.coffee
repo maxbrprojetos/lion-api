@@ -8,9 +8,9 @@ Lion.ClickElsewhere = Ember.Mixin.create
 
   elsewhereHandler: (event) ->
     isThisElement = $(event.target).closest(@get('element')).length == 1
-    isExcludedElement = $.inArray(event.target, $(@get('clickElsewhereExcludedSelector'))) != -1
+    isExcludedElement = event.target.matches(@get('clickElsewhereExcludedSelector'))
 
-    unless isThisElement || isExcludedElement
+    if !isExcludedElement && !isThisElement
       @onClickElsewhere(event)
 
   didInsertElement: ->

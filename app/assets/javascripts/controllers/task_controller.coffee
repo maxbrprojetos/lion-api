@@ -1,4 +1,4 @@
-Lion.TaskController = Ember.ObjectController.extend
+Lion.TaskController = Ember.ObjectController.extend(new Lion.Pusherable('comment'),
   needs: ['currentUser']
   newCommentBody: ''
 
@@ -10,6 +10,23 @@ Lion.TaskController = Ember.ObjectController.extend
       comment = @store.createRecord('comment', {
         body: body, user: @get('controllers.currentUser.content'), task: @get('model')
       })
+
+      @get('newRecords').pushObject(comment)
       comment.save()
 
       @set('newCommentBody', '')
+
+    commentCreate: (payload) ->
+      unless @get('newRecords').anyBy('clientId', payload.comment.client_id)
+        @store.pushPayload(payload)
+        comment = @store.getById('comment', payload.comment.id)
+        comment.get('task.comments').addObject(comment)
+
+    commentDestroy: (payload) ->
+      comment = @store.getById('comment', payload.comment.id)
+
+      if comment != null && !comment.get('isDirty')
+        comment.get('task.comments').removeObject(comment)
+        comment.unloadRecord()
+)
+

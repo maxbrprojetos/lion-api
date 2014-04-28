@@ -19,7 +19,7 @@ class Comment < ActiveRecord::Base
   include Pusherable
 
   belongs_to :user
-  belongs_to :task, touch: true
+  belongs_to :task
 
   validates :body, presence: true
   validates :user, presence: true
