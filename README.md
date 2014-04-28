@@ -40,20 +40,25 @@ You can create your tasks with the API like this:
         {
           "users": [
             {
-              "id": "7be0dd9f-402e-445b-aa61-c3d6ca9c6fcb",
+              "id": "0f6ac7e0-f244-4f92-b93a-6924b46161ee",
               "avatar_url": "omg",
-              "nickname": "current_user",
-              "points": 0
+              "nickname": "current_user"
             }
+          ],
+          "comments": [
+
           ],
           "task": {
             "client_id": "1234",
-            "id": "c7022279-768b-425f-9ea1-ff83921b4784",
+            "id": "cfb22b79-6907-4724-9c8b-451adf2aec6c",
             "title": "test",
-            "created_at": "2014-03-07T10:56:06.997Z",
+            "created_at": "2014-04-28T08:56:29.859Z",
             "completed": false,
             "assignee_id": null,
-            "user_id": "7be0dd9f-402e-445b-aa61-c3d6ca9c6fcb"
+            "user_id": "0f6ac7e0-f244-4f92-b93a-6924b46161ee",
+            "comment_ids": [
+
+            ]
           }
         }
 ```
