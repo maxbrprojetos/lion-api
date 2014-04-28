@@ -19,7 +19,7 @@ Every action can be either performed via the interface or using the RESTful API.
 
 ### Tasks
 
-![tasks](http://cl.ly/image/3n341S0m3b3m/tasks.png)
+![tasks](http://cl.ly/image/3x3d3W2t2y3l/tasks.png)
 
 You can create your tasks with the API like this:
 
@@ -99,9 +99,44 @@ If you want to assign someone you can update the task like this:
           }
 ```
 
+### Comments
+
+![task_with_comments](http://cl.ly/image/2n3Y0p1i163H/task_with_comment.png)
+
+Every comment fully supports markdown and code highlighting is colored with the beautiful monokai theme.
+
+You can add a comment to a task with the API like this:
+
+```
+# POST /comments
+
++ Request application/json
+
+        {
+          "comment": {
+            "body": "test",
+            "client_id": "1234",
+            "task_id": "41ee1cb0-00ed-4c67-8669-cbd2506f8a70"
+          }
+        }
+
++ Response 201 application/json; charset=utf-8
+
+        {
+          "comment": {
+            "client_id": "1234",
+            "id": "8eebdd63-3820-4d98-b00a-6475735254a3",
+            "body": "test",
+            "created_at": "2014-04-28T08:56:29.217Z",
+            "task_id": "41ee1cb0-00ed-4c67-8669-cbd2506f8a70",
+            "user_id": "0f6ac7e0-f244-4f92-b93a-6924b46161ee"
+          }
+        }
+```
+
 ### Leaderboard
 
-![leaderboard](http://cl.ly/image/0e3Q3001280M/Image%202014-04-13%20at%208.11.59%20pm.png)
+![leaderboard](http://cl.ly/image/033t1x3t041b/leaderboard.png)
 
 There are currently two leaderboards: weekly and all time. The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
 
@@ -136,14 +171,14 @@ https://your.lion.installation.com/api/pull_requests
 
 ### Hall of Fame
 
-![hall-of-fame](http://cl.ly/image/0w3F2g2L1n3a/Image%202014-04-13%20at%208.14.26%20pm.png)
+![hall-of-fame](http://cl.ly/image/020f0o420b2i/hall-of-fame.png)
 
 Weekly winners will be placed here.
 In order to declare a weekly winner run the `hall_of_fame:declare_weekly_winner` rake task every monday morning.
 
 ### Stats
 
-![stats](http://cl.ly/image/3z1A0C2D0x0p/Image%202014-04-13%20at%208.16.57%20pm.png)
+![stats](http://cl.ly/image/3R3W2e2c0Y2p/stats.png)
 
 Displayed stats:
 
