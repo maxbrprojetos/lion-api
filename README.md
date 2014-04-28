@@ -3,7 +3,7 @@
 ## What sorcery is this?
 
 Lion is a dashboard for developers written with Ember and Rails.
-It notifies developers of problems, it keeps track of tasks and rewards developers when they get shit done®.
+It rewards developers when they get shit done®.
 
 ## Dependencies
 
