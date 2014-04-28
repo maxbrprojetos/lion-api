@@ -73,7 +73,7 @@ If you want to assign someone you can update the task like this:
         {
           "task": {
             "title": "omg",
-            "assignee_id": "b4135486-69ba-4fee-9530-0eaeebe52209"
+            "assignee_id": "660403f2-f7ab-478f-9f7b-918ef57c9062"
           }
         }
 
@@ -82,21 +82,27 @@ If you want to assign someone you can update the task like this:
         {
           "users": [
             {
-              "id": "db2d88d3-f87f-45f8-9d04-055dd6fe49e2",
-              "avatar_url": "http://lol.com/omg14.png",
-              "nickname": "test14",
-              "points": 0
+              "id": "e638ac74-871f-4d3d-9079-c839932d75aa",
+              "avatar_url": "http://lol.com/omg50.png",
+              "nickname": "test50"
             }
+          ],
+          "comments": [
+
           ],
           "task": {
             "client_id": null,
-            "id": "cb7d8a67-88e9-4365-8411-b637fe306469",
+            "id": "9cca7044-80f5-4c78-b393-c1e8a66bdb41",
             "title": "omg",
-            "created_at": "2014-03-07T10:56:07.018Z",
+            "created_at": "2014-04-28T08:56:29.760Z",
             "completed": false,
-            "assignee_id": "b4135486-69ba-4fee-9530-0eaeebe52209",
-            "user_id": "db2d88d3-f87f-45f8-9d04-055dd6fe49e2"
+            "assignee_id": "660403f2-f7ab-478f-9f7b-918ef57c9062",
+            "user_id": "e638ac74-871f-4d3d-9079-c839932d75aa",
+            "comment_ids": [
+
+            ]
           }
+        }
 ```
 
 ### Comments
