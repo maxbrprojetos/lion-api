@@ -37,6 +37,7 @@ gem 'rails-assets-ember-mocha-adapter'
 gem 'rails-assets-ember-simple-auth'
 gem 'rails-assets-marked'
 gem 'rails-assets-jQuery-linkify'
+gem 'rails-assets-raven-js'
 
 gem 'rails_12factor', group: :production
 

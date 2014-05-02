@@ -1,3 +1,4 @@
+#= require raven-js
 #= require jquery
 #= require jquery.linkify
 #= require vendor/modernizr
@@ -15,6 +16,7 @@
 #= require ember-data/ember-data
 #= require ember-pusher
 #= require ember-simple-auth
+#= require ember-raven
 #= require app
 #= require_self
 #= require lion
@@ -49,3 +51,7 @@ Ember.Application.initializer
       authorizerFactory: 'authorizer:oauth2-bearer'
       routeAfterAuthentication: 'tasks'
     })
+
+Raven.config('https://552d73bcf3804b9a8dd7748984e70235@app.getsentry.com/23433', {
+  whitelistUrls: ['localhost', 'as-lion.herokuapp.com']
+}).install()
