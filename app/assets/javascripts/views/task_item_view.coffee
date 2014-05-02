@@ -4,5 +4,5 @@ Lion.TaskItemView = Ember.View.extend
   classNameBindings: [':task_item', 'controller.completed', 'isEditing:editing', 'active', 'controller.id']
 
   didInsertElement: ->
-    $(document).foundation()
+    @.$().foundation()
     @.$().linkify()
