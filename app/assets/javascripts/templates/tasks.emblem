@@ -20,7 +20,6 @@ section.tasks
 
   section.content
     ul
-      each sortedTasks itemController="taskItem"
-        view "taskItem"
+      each sortedTasks itemController="taskItem" itemViewClass="Lion.TaskItemView"
 
     outlet
