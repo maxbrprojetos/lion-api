@@ -1,5 +1,5 @@
-#= require extensions
 #= require jquery
+#= require jquery.linkify
 #= require vendor/modernizr
 #= require foundation/foundation
 #= require foundation.dropdown

@@ -5,3 +5,4 @@ Lion.TaskItemView = Ember.View.extend
 
   didInsertElement: ->
     $(document).foundation()
+    @.$().linkify()

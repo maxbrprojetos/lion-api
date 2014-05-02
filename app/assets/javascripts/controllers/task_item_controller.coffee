@@ -7,10 +7,6 @@ Lion.TaskItemController = Ember.ObjectController.extend(Lion.Editable,
     Ember.guidFor(this)
   ).property()
 
-  processedTitle: (->
-    @get('title').linkify().htmlSafe()
-  ).property('title')
-
   remove: ->
     task = @get('model')
 

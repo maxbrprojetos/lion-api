@@ -29,7 +29,7 @@ article
     if isEditing
       edit-text-field class="edit" value=bufferedTitle insert-newline="doneEditing" escape-press="cancelEditing"
     else
-      span.title = processedTitle
+      span.title = title
 
   if comments.length
     link-to "task" id tagName="footer" parentActiveView=view parentActiveClass="active"
