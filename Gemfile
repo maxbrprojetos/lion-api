@@ -19,6 +19,7 @@ gem 'flowdock'
 gem 'newrelic_rpm'
 gem 'honeybadger'
 gem 'skylight'
+gem 'pushable-rails', require: 'pushable'
 
 gem 'sass-rails'
 gem 'uglifier'

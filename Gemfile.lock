@@ -293,6 +293,9 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    pushable-rails (0.0.1)
+      pusher
+      rails
     pusher (0.12.0)
       httpclient (~> 2.3.0)
       multi_json (~> 1.0)
@@ -452,6 +455,7 @@ DEPENDENCIES
   omniauth-github
   pg
   poltergeist
+  pushable-rails
   pusher
   quiet_assets
   rails (= 4.1)
