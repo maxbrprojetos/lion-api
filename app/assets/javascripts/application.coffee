@@ -15,6 +15,7 @@
 #= require ember/canary/ember
 #= require ember-data/ember-data
 #= require ember-pusher
+#= require ember-pushable
 #= require ember-simple-auth
 #= require ember-raven
 #= require app
