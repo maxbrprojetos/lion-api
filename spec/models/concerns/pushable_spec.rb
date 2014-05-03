@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 class DummyModel < ActiveRecord::Base
-  include Pusherable
+  include Pushable
 
   def to_json
     '{}'
   end
 end
 
-describe Pusherable do
+describe Pushable do
   before(:all) do
     DatabaseCleaner.strategy = :truncation
     migration = ActiveRecord::Migration.new

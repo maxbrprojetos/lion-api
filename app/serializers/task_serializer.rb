@@ -1,5 +1,5 @@
 class TaskSerializer < ActiveModel::Serializer
-  include PusherableSerializer
+  include PushableSerializer
 
   embed :ids, include: true
 

@@ -11,7 +11,7 @@
 #
 
 class Score < ActiveRecord::Base
-  include Pusherable
+  include Pushable
 
   attr_accessor :time
 

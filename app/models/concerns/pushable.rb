@@ -1,4 +1,4 @@
-module Pusherable
+module Pushable
   extend ActiveSupport::Concern
 
   included do

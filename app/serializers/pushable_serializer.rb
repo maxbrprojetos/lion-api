@@ -1,4 +1,4 @@
-module PusherableSerializer
+module PushableSerializer
   extend ActiveSupport::Concern
 
   included do

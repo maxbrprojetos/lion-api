@@ -1,4 +1,4 @@
-Lion.Pusherable = (modelName) ->
+Lion.Pushable = (modelName) ->
   actions = {}
 
   actions["#{modelName}Create"] = (payload) ->

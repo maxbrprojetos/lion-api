@@ -1,4 +1,4 @@
-Lion.TaskController = Ember.ObjectController.extend(new Lion.Pusherable('comment'),
+Lion.TaskController = Ember.ObjectController.extend(new Lion.Pushable('comment'),
   needs: ['currentUser']
   newCommentBody: ''
 

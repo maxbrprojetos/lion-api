@@ -14,7 +14,7 @@
 #
 
 class User < ActiveRecord::Base
-  include Pusherable
+  include Pushable
 
   has_many :tasks
   has_many :task_completions

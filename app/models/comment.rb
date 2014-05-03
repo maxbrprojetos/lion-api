@@ -16,7 +16,7 @@
 #
 
 class Comment < ActiveRecord::Base
-  include Pusherable
+  include Pushable
 
   belongs_to :user
   belongs_to :task

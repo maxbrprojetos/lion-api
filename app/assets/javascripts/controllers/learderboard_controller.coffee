@@ -1,4 +1,4 @@
-Lion.LeaderboardController = Ember.ArrayController.extend(new Lion.Pusherable('score'),
+Lion.LeaderboardController = Ember.ArrayController.extend(new Lion.Pushable('score'),
   sortProperties: ['points']
   sortAscending: false
 )

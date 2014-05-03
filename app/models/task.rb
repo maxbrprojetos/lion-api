@@ -12,7 +12,7 @@
 #
 
 class Task < ActiveRecord::Base
-  include Pusherable
+  include Pushable
 
   belongs_to :user
   belongs_to :assignee, class_name: 'User'
