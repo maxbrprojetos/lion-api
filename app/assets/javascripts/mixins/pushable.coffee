@@ -1,4 +1,4 @@
-Lion.Pushable = (modelName) ->
+Ember.Pushable = (modelName) ->
   actions = {}
 
   actions["#{modelName}Create"] = (payload) ->
@@ -13,7 +13,7 @@ Lion.Pushable = (modelName) ->
 
   Ember.Mixin.create(EmberPusher.Bindings,
     PUSHER_SUBSCRIPTIONS:
-      lion: ["#{modelName}.create", "#{modelName}.update", "#{modelName}.destroy"]
+      pusher: ["#{modelName}.create", "#{modelName}.update", "#{modelName}.destroy"]
 
     newRecords: Ember.A([])
 

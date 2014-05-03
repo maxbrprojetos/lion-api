@@ -1,4 +1,4 @@
-Lion.TasksController = Ember.ArrayController.extend(new Lion.Pushable('task'),
+Lion.TasksController = Ember.ArrayController.extend(new Ember.Pushable('task'),
   needs: ['currentUser']
   queryParams: ['filter']
   filter: null
