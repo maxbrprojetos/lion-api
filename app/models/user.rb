@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_from_github(info)
-    if github_client(info[:api_token]).organizations.map(&:login).include?('alphasights')
+    if github_client(info[:api_token]).organizations.map(&:login).include?(ENV['ORGANIZATION_NAME'])
       create(info)
     else
       nil

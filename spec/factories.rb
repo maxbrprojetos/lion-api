@@ -20,7 +20,7 @@ FactoryGirl.define do
   end
 
   factory :pull_request do
-    base_repo_full_name 'alphasights/pistachio'
+    base_repo_full_name 'dummyorg/dummyrepo'
     sequence(:number) { |n| n }
 
     data do
@@ -29,7 +29,7 @@ FactoryGirl.define do
         'merged_at' => '2011-01-26T19 =>01 =>12Z',
         'user' => { 'login' => 'current_user' },
         'base' => {
-          'repo' => { 'full_name' => 'alphasights/pistachio' }
+          'repo' => { 'full_name' => 'dummyorg/dummyrepo' }
         },
         'comments' => 10,
         'commits' => 3,

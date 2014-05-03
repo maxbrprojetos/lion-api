@@ -35,7 +35,7 @@ RSpec.configure do |config|
     OmniAuth.config.add_mock(:github, matteo_auth_hash)
     Octokit::Client.any_instance.stub(
       user: double(:user, login: nil),
-      organizations: [double(:organization, login: 'alphasights')]
+      organizations: [double(:organization, login: ENV['ORGANIZATION_NAME'])]
     )
 
     DatabaseCleaner.start
