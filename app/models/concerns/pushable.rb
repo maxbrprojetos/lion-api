@@ -4,13 +4,13 @@ module Pushable
   included do
     attr_accessor :client_id
 
-    after_commit :pusherable_trigger_create, on: :create
-    after_commit :pusherable_trigger_update, on: :update
-    after_commit :pusherable_trigger_destroy, on: :destroy
+    after_commit :pushable_trigger_create, on: :create
+    after_commit :pushable_trigger_update, on: :update
+    after_commit :pushable_trigger_destroy, on: :destroy
 
     private
 
-    def pusherable_class_name
+    def pushable_class_name
       self.class.name.underscore
     end
 
@@ -21,8 +21,8 @@ module Pushable
     end
 
     %w(create update destroy).each do |action_name|
-      define_method("pusherable_trigger_#{action_name}") do
-        Pusher.trigger('lion', "#{pusherable_class_name}.#{action_name}", serialized_model)
+      define_method("pushable_trigger_#{action_name}") do
+        Pusher.trigger('lion', "#{pushable_class_name}.#{action_name}", serialized_model)
       end
     end
   end
