@@ -16,7 +16,7 @@ Lion.Score = DS.Model.extend
   points: DS.attr('number')
   user: DS.belongsTo('user')
 
-Lion.Comment = DS.Model.extend(DS.PushableModel, DS.CreatableModel,
+Lion.Comment = DS.Model.extend(DS.Pushable, DS.Creatable,
   body: DS.attr('string')
   user: DS.belongsTo('user')
   task: DS.belongsTo('task')

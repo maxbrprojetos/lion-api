@@ -1,4 +1,4 @@
-Lion.Task = DS.Model.extend(DS.PushableModel, DS.CreatableModel,
+Lion.Task = DS.Model.extend(DS.Pushable, DS.Creatable,
   title: DS.attr('string')
   completed: DS.attr('boolean', { defaultValue: false })
   user: DS.belongsTo('user')
