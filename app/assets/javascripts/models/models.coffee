@@ -1,4 +1,4 @@
-Ember.Inflector.inflector.uncountable('stats');
+Ember.Inflector.inflector.uncountable('stats')
 
 Lion.User = DS.Model.extend
   nickname: DS.attr('string')
@@ -16,10 +16,11 @@ Lion.Score = DS.Model.extend
   points: DS.attr('number')
   user: DS.belongsTo('user')
 
-Lion.Comment = Lion.Model.extend
+Lion.Comment = DS.Model.extend(DS.PushableModel, DS.CreatableModel,
   body: DS.attr('string')
   user: DS.belongsTo('user')
   task: DS.belongsTo('task')
+)
 
 Lion.WeeklyWinning = DS.Model.extend
   startDate: DS.attr('date')

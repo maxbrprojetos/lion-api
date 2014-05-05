@@ -1,4 +1,4 @@
-Lion.Task = Lion.Model.extend
+Lion.Task = DS.Model.extend(DS.PushableModel, DS.CreatableModel,
   title: DS.attr('string')
   completed: DS.attr('boolean', { defaultValue: false })
   user: DS.belongsTo('user')
@@ -38,3 +38,4 @@ Lion.Task = Lion.Model.extend
   notifyAssignment: ->
     if @get('assignee.id') == Lion.lookup('controller:currentUser').get('id')
       new Notify('You have been assigned an issue', { body: @get('title') }).show()
+)
