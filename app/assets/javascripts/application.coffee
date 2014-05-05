@@ -3,7 +3,7 @@
 #= require jquery.linkify
 #= require vendor/modernizr
 #= require foundation/foundation
-#= require foundation.dropdown
+#= require foundation/foundation.dropdown
 #= require pace
 #= require notify
 #= require marked
