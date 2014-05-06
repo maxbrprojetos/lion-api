@@ -2,10 +2,15 @@ Lion.TasksController = Ember.ArrayController.extend(new Ember.Pushable('task'),
   needs: ['currentUser']
   queryParams: ['filter']
   filter: null
-  tasksSorting: ['createdAt:desc']
 
   visibleTasks: Ember.computed.filterBy('filteredTasks', 'hidden', false)
-  sortedTasks: Ember.computed.sort('visibleTasks', 'tasksSorting')
+  sortedTasks: Ember.computed.sort('visibleTasks', (a, b) ->
+    if a.get('createdAt') < b.get('createdAt')
+      return 1
+    else if a.get('createdAt') > b.get('createdAt')
+      return -1
+    return 0
+  )
 
   filteredTasks: (->
     tasks = @get('model')
