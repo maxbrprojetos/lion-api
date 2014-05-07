@@ -2,7 +2,7 @@ ruby '2.1.1'
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-gem 'rails', '4.1'
+gem 'rails', '4.1.1'
 
 # Needs to load first, so that gems that configure themself by enviroment
 # variables will see the variables when they load
