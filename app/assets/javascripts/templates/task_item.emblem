@@ -11,8 +11,6 @@ article
           span is assigned
 
     .actions
-      link-to "task" id tagName="span" parentActiveView=view parentActiveClass="active"
-        span.fa.fa-comments-o
       span.fa.fa-user data-dropdown=guid
       span.fa.fa-check.complete{action "toggleCompleted"}
       span.fa.fa-pencil{action "edit"}
@@ -25,7 +23,7 @@ article
             img.avatar src=avatarUrl
             span.nickname = nickname
 
-  .content
+  link-to "task" id tagName="div" class="content" parentActiveView=view parentActiveClass="active" preventDefault=false
     if isEditing
       edit-text-field class="edit" value=bufferedTitle insert-newline="doneEditing" escape-press="cancelEditing"
     else
