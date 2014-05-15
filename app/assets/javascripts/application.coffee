@@ -1,6 +1,7 @@
 #= require raven-js
 #= require jquery
 #= require jquery.linkify
+#= require jquery.visible
 #= require vendor/modernizr
 #= require foundation/foundation
 #= require foundation/foundation.dropdown
