@@ -23,11 +23,12 @@ article
             img.avatar src=avatarUrl
             span.nickname = nickname
 
-  link-to "task" id tagName="div" class="content" parentActiveView=view parentActiveClass="active" preventDefault=false
+  .content
     if isEditing
       edit-text-field class="edit" value=bufferedTitle insert-newline="doneEditing" escape-press="cancelEditing"
     else
-      span.title = title
+      link-to "task" id tagName="div" parentActiveView=view parentActiveClass="active" preventDefault=false
+        span.title = title
 
   if comments.length
     link-to "task" id tagName="footer" parentActiveView=view parentActiveClass="active"
