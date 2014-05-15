@@ -1,0 +1,2 @@
+window.paceOptions =
+  restartOnPushState: false

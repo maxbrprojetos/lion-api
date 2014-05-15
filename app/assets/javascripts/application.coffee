@@ -4,6 +4,7 @@
 #= require vendor/modernizr
 #= require foundation/foundation
 #= require foundation/foundation.dropdown
+#= require pace.options
 #= require pace
 #= require notify
 #= require marked
