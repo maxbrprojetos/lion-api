@@ -11,8 +11,6 @@ article
           span is assigned
 
     .actions
-      link-to "task" id tagName="span" parentActiveView=view parentActiveClass="active"
-        span.fa.fa-comments-o
       span.fa.fa-user data-dropdown=guid
       span.fa.fa-check.complete{action "toggleCompleted"}
       span.fa.fa-pencil{action "edit"}
@@ -29,7 +27,8 @@ article
     if isEditing
       edit-text-field class="edit" value=bufferedTitle insert-newline="doneEditing" escape-press="cancelEditing"
     else
-      span.title = title
+      link-to "task" id tagName="div" parentActiveView=view parentActiveClass="active" preventDefault=false
+        span.title = title
 
   if comments.length
     link-to "task" id tagName="footer" parentActiveView=view parentActiveClass="active"
