@@ -6,15 +6,25 @@ Lion.Task = DS.Model.extend(DS.Pushable, DS.Creatable,
   assigneeWas: Ember.Object.create()
   hidden: false
   comments: DS.hasMany('comment')
+  hideAfterCompleteDelay: 5000
+  currentHideTimer: false
 
   toggleCompleted: (user) ->
     @set('completed', !@get('completed'))
+
+    if @currentHideTimer
+      Ember.run.cancel(@currentHideTimer)
+      @currentHideTimer = false
 
     if @get('completed')
       @store.createRecord('taskCompletion', {
         task: this,
         user: user
-      }).save()
+      }).save().then( =>
+        @currentHideTimer = Ember.run.later(@, ( =>
+          @set('hidden', true)
+        ), @hideAfterCompleteDelay)
+      )
     else
       $.ajax(
         type: 'DELETE',
