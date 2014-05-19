@@ -20,11 +20,11 @@ Lion.Task = DS.Model.extend(DS.Pushable, DS.Creatable,
       @store.createRecord('taskCompletion', {
         task: this,
         user: user
-      }).save()
-
-      @currentHideTimer = Ember.run.later(@, ( =>
-        @set('hidden', true)
-      ), @hideAfterCompleteDelay)
+      }).save().then( =>
+        @currentHideTimer = Ember.run.later(@, ( =>
+          @set('hidden', true)
+        ), @hideAfterCompleteDelay)
+      )
     else
       $.ajax(
         type: 'DELETE',
