@@ -56,5 +56,5 @@ Ember.Application.initializer
     })
 
 Raven.config('https://552d73bcf3804b9a8dd7748984e70235@app.getsentry.com/23433', {
-  whitelistUrls: ['localhost', 'as-lion.herokuapp.com']
+  whitelistUrls: ['as-lion.herokuapp.com']
 }).install()

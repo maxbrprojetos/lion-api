@@ -4,7 +4,8 @@ Lion.TasksController = Ember.ArrayController.extend(new Ember.Pushable('task'),
   filter: null
 
   visibleTasks: Ember.computed.filterBy('filteredTasks', 'hidden', false)
-  sortedTasks: Ember.computed.sort('visibleTasks', (a, b) ->
+
+  sortedTasks: Ember.computed.sort('visibleTasks.@each.{createdAt,title}', (a, b) ->
     if a.get('title').match(/^\[\d\]/) && b.get('title').match(/^\[\d\]/)
       if a.get('title') < b.get('title')
         return -1
