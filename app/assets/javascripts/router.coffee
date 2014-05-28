@@ -1,8 +1,7 @@
 # For more information see: http://emberjs.com/guides/routing/
 
-Lion.Router.reopen(
+Lion.Router.reopen
   location: 'history'
-)
 
 Lion.Router.map ->
   @route('login')

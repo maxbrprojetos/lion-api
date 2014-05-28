@@ -22,11 +22,8 @@ Lion.FromNowComponent = Ember.Component.extend
   tick: ->
     @notifyPropertyChange('value')
 
-    # don't use Ember.run.later because tests will wait for timers to expire and this will never happen
-    nextTick = setTimeout(=>
-      Ember.run(=>
-        @tick()
-      )
+    nextTick = Ember.run.later(=>
+      @tick()
     , 1000)
 
     @set('nextTick', nextTick)
