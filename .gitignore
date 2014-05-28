@@ -20,3 +20,4 @@
 
 /api_docs/
 *.dump
+/public/assets
