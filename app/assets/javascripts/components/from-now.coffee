@@ -30,4 +30,4 @@ Lion.FromNowComponent = Ember.Component.extend
 
   willDestroyElement: ->
     nextTick = @get('nextTick')
-    clearTimeout(nextTick)
+    Ember.run.cancel(nextTick)
