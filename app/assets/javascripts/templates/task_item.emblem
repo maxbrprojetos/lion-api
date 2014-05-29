@@ -21,7 +21,7 @@ article
         a{action "removeUser"} Remove from Task
 
     ul.f-dropdown.content data-dropdown-content=true id=assignUserGuid
-      each parentController.users
+      each parentController.sortedUsers
         li
           a{action "assignUser" this}
             img.avatar src=avatarUrl

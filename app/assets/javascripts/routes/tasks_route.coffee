@@ -3,7 +3,7 @@ Lion.TasksRoute = Lion.AuthenticatedRoute.extend
     Notify.prototype.requestPermission() if Notify.prototype.isSupported() && Notify.prototype.needsPermission()
 
     @store.find('user').then((users) =>
-      @controllerFor('tasks').set('users', users.sortBy('nickname'))
+      @controllerFor('tasks').set('users', users)
     )
 
     @_super(transition)
