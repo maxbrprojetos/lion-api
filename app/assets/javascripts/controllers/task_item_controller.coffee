@@ -7,6 +7,14 @@ Lion.TaskItemController = Ember.ObjectController.extend(Lion.Editable,
     Ember.guidFor(this)
   ).property()
 
+  assignUserGuid: (->
+    "assign_user_#{@get('guid')}"
+  ).property('guid')
+
+  removeUserGuid: (->
+    "remove_user_#{@get('guid')}"
+  ).property('guid')
+
   remove: ->
     task = @get('model')
 
@@ -31,4 +39,9 @@ Lion.TaskItemController = Ember.ObjectController.extend(Lion.Editable,
       if task.get('assignee.id') != user.get('id')
         task.set('assignee', user)
         task.save()
+
+    removeUser: ->
+      task = @get('model')
+      task.set('assignee', null)
+      task.save()
 )

@@ -7,16 +7,20 @@ article
 
       if assignee
         .assignee
-          img.avatar src=assignee.avatarUrl data-dropdown=guid
+          img.avatar src=assignee.avatarUrl data-dropdown=removeUserGuid
           span is assigned
 
     .actions
-      span.fa.fa-user data-dropdown=guid
+      span.fa.fa-user data-dropdown=assignUserGuid
       span.fa.fa-check.complete{action "toggleCompleted"}
       span.fa.fa-pencil{action "edit"}
       span.fa.fa-trash-o{action "remove"}
 
-    ul.f-dropdown.content data-dropdown-content=true id=guid
+    ul.f-dropdown.content data-dropdown-content=true id=removeUserGuid
+      li
+        a{action "removeUser"} Remove from Task
+
+    ul.f-dropdown.content data-dropdown-content=true id=assignUserGuid
       each parentController.users
         li
           a{action "assignUser" this}
