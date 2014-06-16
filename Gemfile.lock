@@ -7,6 +7,23 @@ GIT
       rake (>= 0.8.7)
 
 GIT
+  remote: git://github.com/nixme/jazz_hands.git
+  revision: 5e4b48f145883ecb14b55bf04eacc28ac9662676
+  branch: bring-your-own-debugger
+  specs:
+    jazz_hands (0.5.2)
+      awesome_print (~> 1.2)
+      coolline (>= 0.4.2)
+      hirb (~> 0.7.1)
+      pry (~> 0.9.12)
+      pry-doc (~> 0.4.6)
+      pry-git (~> 0.2.3)
+      pry-rails (~> 0.3.2)
+      pry-remote (>= 0.1.7)
+      pry-stack_explorer (~> 0.4.9)
+      railties (>= 3.0, < 5.0)
+
+GIT
   remote: git://github.com/octokit/octokit.rb.git
   revision: e866f508540481e29d3553d523814532b95bb5b3
   specs:
@@ -80,6 +97,9 @@ GEM
     bullet (4.8.0)
       activesupport
       uniform_notifier (>= 1.4.0)
+    byebug (2.7.0)
+      columnize (~> 0.3)
+      debugger-linecache (~> 1.2)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -119,12 +139,7 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
-    debugger (1.6.6)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.3.2)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.3.2)
     diff-lcs (1.2.5)
     diffy (3.0.4)
     dotenv (0.10.0)
@@ -189,7 +204,7 @@ GEM
     handlebars-source (1.3.0)
     hashie (2.1.1)
     hike (1.2.3)
-    hirb (0.7.1)
+    hirb (0.7.2)
     honeybadger (1.11.2)
       json
     httparty (0.13.1)
@@ -197,18 +212,6 @@ GEM
       multi_xml (>= 0.5.2)
     httpclient (2.3.4.1)
     i18n (0.6.9)
-    jazz_hands (0.5.2)
-      awesome_print (~> 1.2)
-      coolline (>= 0.4.2)
-      hirb (~> 0.7.1)
-      pry (~> 0.9.12)
-      pry-debugger (~> 0.2.2)
-      pry-doc (~> 0.4.6)
-      pry-git (~> 0.2.3)
-      pry-rails (~> 0.3.2)
-      pry-remote (>= 0.1.7)
-      pry-stack_explorer (~> 0.4.9)
-      railties (>= 3.0, < 5.0)
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -275,9 +278,9 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry-debugger (0.2.2)
-      debugger (~> 1.3)
-      pry (~> 0.9.10)
+    pry-byebug (1.3.2)
+      byebug (~> 2.7)
+      pry (~> 0.9.12)
     pry-doc (0.4.6)
       pry (>= 0.9)
       yard (>= 0.8)
@@ -449,7 +452,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   honeybadger
-  jazz_hands
+  jazz_hands!
   konacha
   newrelic_rpm
   octokit!
@@ -457,6 +460,7 @@ DEPENDENCIES
   omniauth-github
   pg
   poltergeist
+  pry-byebug
   pushable-rails
   pusher
   quiet_assets

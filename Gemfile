@@ -1,4 +1,4 @@
-ruby '2.1.1'
+ruby '2.1.2'
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
@@ -50,7 +50,8 @@ group :development do
 end
 
 group :test, :development do
-  gem 'jazz_hands'
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+  gem 'pry-byebug'
   gem 'konacha'
   gem 'sinon-rails'
   gem 'poltergeist'
