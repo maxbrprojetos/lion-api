@@ -24,13 +24,6 @@ GIT
       railties (>= 3.0, < 5.0)
 
 GIT
-  remote: git://github.com/octokit/octokit.rb.git
-  revision: e866f508540481e29d3553d523814532b95bb5b3
-  specs:
-    octokit (3.1.0)
-      sawyer (~> 0.5.3)
-
-GIT
   remote: git://github.com/playround/rspec_api_blueprint.git
   revision: 16d6e69bd65fcc4fe3b856c50962e24d0fb0ea85
   specs:
@@ -44,6 +37,13 @@ GIT
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+
+GIT
+  remote: git@github.com:octokit/octokit.rb.git
+  revision: 17f820c4316529c4c8f1d1a7e7a58e0890279118
+  specs:
+    octokit (3.2.0)
+      sawyer (~> 0.5.3)
 
 GEM
   remote: https://rubygems.org/
