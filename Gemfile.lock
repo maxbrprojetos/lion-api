@@ -39,8 +39,8 @@ GIT
       railties (>= 3.0.0)
 
 GIT
-  remote: git@github.com:octokit/octokit.rb.git
-  revision: 17f820c4316529c4c8f1d1a7e7a58e0890279118
+  remote: https://github.com/octokit/octokit.rb.git
+  revision: 196a637daf352702d6250188af16b825ecc02abb
   specs:
     octokit (3.2.0)
       sawyer (~> 0.5.3)
