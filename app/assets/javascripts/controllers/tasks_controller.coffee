@@ -5,24 +5,6 @@ Lion.TasksController = Ember.ArrayController.extend(new Ember.Pushable('task'),
 
   userSorting: ['nickname']
   sortedUsers: Ember.computed.sort('users', 'userSorting')
-  visibleTasks: Ember.computed.filterBy('filteredTasks', 'hidden', false)
-
-  sortedTasks: Ember.computed.sort('visibleTasks.@each.{createdAt,title}', (a, b) ->
-    aPriority = a.get('title').match(/^\[\d\]/)?[0]
-    bPriority = b.get('title').match(/^\[\d\]/)?[0]
-
-    if aPriority && bPriority
-      if aPriority < bPriority
-        return -1
-      else if aPriority > bPriority
-        return 1
-
-    if a.get('createdAt') < b.get('createdAt')
-      return 1
-    else if a.get('createdAt') > b.get('createdAt')
-      return -1
-    return 0
-  )
 
   filteredTasks: (->
     tasks = @get('model')
@@ -38,7 +20,26 @@ Lion.TasksController = Ember.ArrayController.extend(new Ember.Pushable('task'),
       )
     else
       tasks
-  ).property('filter', 'model')
+  ).property('filter', 'model.[]')
+
+  visibleTasks: (->
+    @get('filteredTasks').filter((task) -> !task.get('hidden'))
+  ).property('filteredTasks.@each.hidden')
+
+  sortedTasks: (->
+    @get('visibleTasks').toArray().sort((a, b) ->
+      aPriority = a.get('title').match(/^\[\d\]/)?[0]
+      bPriority = b.get('title').match(/^\[\d\]/)?[0]
+
+      if aPriority && bPriority
+        if aPriority < bPriority
+          return -1
+        else if aPriority > bPriority
+          return 1
+
+      Ember.compare(b.get('createdAt'), a.get('createdAt'))
+    )
+  ).property('visibleTasks.@each.{createdAt,title}')
 
   actions:
     createTask: ->
