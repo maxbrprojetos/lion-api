@@ -322,7 +322,7 @@ GEM
     rails-assets-ember (1.7.0.beta.1)
       rails-assets-handlebars (>= 1.0.0, < 2.0.0)
       rails-assets-jquery (>= 1.7.0, <= 2.1.0)
-    rails-assets-ember-data (1.0.0.beta.7)
+    rails-assets-ember-data (1.0.0.beta.8)
       rails-assets-ember (>= 1.0.0)
     rails-assets-ember-mocha-adapter (0.2.0)
     rails-assets-ember-simple-auth (0.3.1)
@@ -466,7 +466,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.1.1)
   rails-assets-ember (= 1.7.0.beta.1)
-  rails-assets-ember-data (= 1.0.0.beta7)
+  rails-assets-ember-data (= 1.0.0.beta8)
   rails-assets-ember-mocha-adapter
   rails-assets-ember-simple-auth
   rails-assets-jquery (= 2.0)
