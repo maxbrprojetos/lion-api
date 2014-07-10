@@ -14,7 +14,7 @@
 #= require pusher
 #= require moment
 #= require feature_flags
-#= require ember/canary/ember
+#= require ember/ember
 #= require ember-data/ember-data
 #= require ember-pusher
 #= require ember-pushable

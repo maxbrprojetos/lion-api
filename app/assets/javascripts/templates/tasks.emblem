@@ -13,9 +13,9 @@ section.tasks
 
         dl
           dt Filter
-          link-to "tasks" (query-params filter=Ember.null) tagName="dd"
+          link-to "tasks.index" (query-params filter=Ember.null) tagName="dd"
             a All
-          link-to "tasks" (query-params filter="mine") tagName="dd"
+          link-to "tasks.index" (query-params filter="mine") tagName="dd"
             a Mine
 
   section.content
