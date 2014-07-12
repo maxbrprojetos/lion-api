@@ -1,4 +1,4 @@
-Lion.Store = DS.Store.extend()
+Lion.ApplicationStore = DS.Store.extend()
 
 Lion.ApplicationAdapter = DS.ActiveModelAdapter.reopen
   namespace: 'api'
