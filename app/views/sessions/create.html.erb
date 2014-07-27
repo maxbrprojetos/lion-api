@@ -3,9 +3,9 @@
 <body>
   <script>
     <% if @user %>
-      window.opener.$(window.opener.document).trigger('loginSucceeded', <%= raw UserSerializer.new(@user).as_json.merge(access_token: @user.api_token).to_json %>);
+      window.opener.postMessage(<%= raw UserSerializer.new(@user).as_json.merge(access_token: @user.api_token).to_json %>,  "<%= ENV['CLIENT_URL'] %>")
     <% else %>
-      window.opener.$(window.opener.document).trigger('loginFailed', { error: 'invalid_grant' });
+      window.opener.postMessage({ error: 'invalid_grant' }, "<%= ENV['CLIENT_URL'] %>")
     <% end %>
 
     window.close();

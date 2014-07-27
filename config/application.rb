@@ -24,5 +24,12 @@ module Lion
     # config.i18n.default_locale = :de
 
     config.active_record.schema_format = :sql
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
   end
 end

@@ -20,6 +20,7 @@ gem 'newrelic_rpm'
 gem 'honeybadger'
 gem 'skylight'
 gem 'pushable-rails', require: 'pushable'
+gem 'rack-cors'
 
 gem 'sass-rails'
 gem 'uglifier'
