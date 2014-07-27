@@ -27,7 +27,7 @@ module Lion
 
     config.middleware.use Rack::Cors do
       allow do
-        origins '*'
+        origins ENV['CLIENT_URL']
         resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end
