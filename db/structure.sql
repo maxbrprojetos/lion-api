@@ -58,6 +58,39 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: badges; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE badges (
+    id integer NOT NULL,
+    user_id uuid,
+    pull_request_id uuid,
+    body text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: badges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE badges_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: badges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE badges_id_seq OWNED BY badges.id;
+
+
+--
 -- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -210,7 +243,22 @@ CREATE TABLE weekly_winnings (
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY badges ALTER COLUMN id SET DEFAULT nextval('badges_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pull_request_reviews ALTER COLUMN id SET DEFAULT nextval('pull_request_reviews_id_seq'::regclass);
+
+
+--
+-- Name: badges_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY badges
+    ADD CONSTRAINT badges_pkey PRIMARY KEY (id);
 
 
 --
@@ -353,4 +401,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140328152146');
 INSERT INTO schema_migrations (version) VALUES ('20140402201031');
 
 INSERT INTO schema_migrations (version) VALUES ('20140412113638');
+
+INSERT INTO schema_migrations (version) VALUES ('20140929114547');
 
