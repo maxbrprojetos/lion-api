@@ -49,7 +49,7 @@ class Badge < ActiveRecord::Base
   end
 
   def body_must_contain_badges
-    errors.add(:body, 'must contain badges') unless body.match("/#{badge_patterns}/")
+    errors.add(:body, 'must contain badges') unless body.match(badge_patterns)
   end
 
   def scoring_time
@@ -57,18 +57,18 @@ class Badge < ActiveRecord::Base
   end
 
   def trophy?
-    body.match(/:trophy:/)
+    body.match(/:trophy:/).present?
   end
 
   def one_hundred?
-    body.match(/:100:/)
+    body.match(/:100:/).present?
   end
 
   def star?
-    body.match(/:star:/)
+    body.match(/:star:/).present?
   end
 
   def dancer?
-    body.match(/:dancer:/)
+    body.match(/:dancer:/).present?
   end
 end
