@@ -33,28 +33,24 @@ describe Badge do
     it 'returns 20 points for the 100 badge' do
       pull_request = build(:pull_request)
       badge = Badge.new(body: ':100:', pull_request: pull_request)
-      pull_request.stub(points: 130)
       expect(badge.points).to eq(20)
     end
 
     it 'returns 10 points for the trophy badge' do
       pull_request = build(:pull_request)
       badge = Badge.new(body: ':trophy:', pull_request: pull_request)
-      pull_request.stub(points: 130)
       expect(badge.points).to eq(10)
     end
 
     it 'returns 5 points for the star badge' do
       pull_request = build(:pull_request)
       badge = Badge.new(body: ':star:', pull_request: pull_request)
-      pull_request.stub(points: 130)
       expect(badge.points).to eq(5)
     end
 
     it 'returns 5 points for the dancer badge' do
       pull_request = build(:pull_request)
       badge = Badge.new(body: ':dancer:', pull_request: pull_request)
-      pull_request.stub(points: 130)
       expect(badge.points).to eq(5)
     end
   end
@@ -64,6 +60,7 @@ describe Badge do
     pull_request = build(:pull_request, user: pull_request_creator)
     # TODO: have this stub inside the factory itself
     pull_request.stub(comments: [])
+    pull_request.stub(points: 0)
     pull_request.save!
 
     badge_giver = create(:user)
