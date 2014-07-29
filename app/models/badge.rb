@@ -71,5 +71,4 @@ class Badge < ActiveRecord::Base
   def dancer?
     body.match(/:dancer:/)
   end
-
 end
