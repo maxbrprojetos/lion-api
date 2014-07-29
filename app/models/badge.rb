@@ -26,12 +26,6 @@ class Badge < ActiveRecord::Base
   STAR = ':star:'
   ONE_HUNDRED = ':100:'
 
-  private
-
-  def points_recipient
-    pull_request.user
-  end
-
   def points
     if one_hundred?
       20
@@ -42,6 +36,12 @@ class Badge < ActiveRecord::Base
     else
       0
     end
+  end
+
+  private
+
+  def points_recipient
+    pull_request.user
   end
 
   def badge_patterns
