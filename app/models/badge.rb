@@ -33,8 +33,6 @@ class Badge < ActiveRecord::Base
       10
     elsif dancer? || star?
       5
-    else
-      0
     end
   end
 
