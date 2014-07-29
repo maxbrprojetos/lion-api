@@ -49,7 +49,7 @@ class Badge < ActiveRecord::Base
   end
 
   def body_must_contain_badges
-    errors.add(:body, 'must contain badges') unless body.match(badge_patterns)
+    errors.add(:body, 'must contain a special badge') unless body.match(badge_patterns)
   end
 
   def scoring_time
