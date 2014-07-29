@@ -25,6 +25,7 @@ class Badge < ActiveRecord::Base
   DANCER = ':dancer:'
   STAR = ':star:'
   ONE_HUNDRED = ':100:'
+  BADGE_PATTERNS = [TROPHY, DANCER, STAR, ONE_HUNDRED].join('|')
 
   def points
     if one_hundred?
@@ -42,12 +43,8 @@ class Badge < ActiveRecord::Base
     pull_request.user
   end
 
-  def badge_patterns
-    [TROPHY, DANCER, STAR, ONE_HUNDRED].join('|')
-  end
-
   def body_must_contain_badges
-    errors.add(:body, 'must contain a special badge') unless body.match(badge_patterns)
+    errors.add(:body, 'must contain a special badge') unless body.match(BADGE_PATTERNS)
   end
 
   def scoring_time
