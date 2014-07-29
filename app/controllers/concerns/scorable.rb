@@ -8,8 +8,12 @@ module Scorable
 
   private
 
+  def points_recipient
+    user
+  end
+
   def give_points_to_user
-    Score.give(time: scoring_time, user: user, points: points)
+    Score.give(time: scoring_time, user: points_recipient, points: points)
   end
 
   def take_points_from_user

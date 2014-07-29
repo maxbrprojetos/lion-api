@@ -21,17 +21,54 @@ class Badge < ActiveRecord::Base
   validates :user, presence: true
   validate :body_must_contain_badges
 
-  def points
-    (pull_request.points / 2).round
-  end
+  TROPHY = ':trophy:'
+  DANCER = ':dancer:'
+  STAR = ':star:'
+  ONE_HUNDRED = ':100:'
 
   private
 
+  def points_recipient
+    pull_request.user
+  end
+
+  def points
+    if one_hundred?
+      20
+    elsif trophy?
+      10
+    elsif dancer? || star?
+      5
+    else
+      0
+  end
+
+  def badge_patterns
+    [TROPHY, DANCER, STAR, ONE_HUNDRED].join('|')
+  end
+
   def body_must_contain_badges
-    errors.add(:body, 'must contain badges') unless body.match(/:100:|:trophy:|:star:/)
+    errors.add(:body, 'must contain badges') unless body.match("/#{badge_patterns}/")
   end
 
   def scoring_time
     pull_request.merged_at
   end
+
+  def trophy?
+    body.match(/:trophy:/)
+  end
+
+  def one_hundred?
+    body.match(/:100:/)
+  end
+
+  def star?
+    body.match(/:star:/)
+  end
+
+  def dancer?
+    body.match(/:dancer:/)
+  end
+
 end
