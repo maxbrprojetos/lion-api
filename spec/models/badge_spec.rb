@@ -53,6 +53,12 @@ describe Badge do
       badge = Badge.new(body: ':dancer:', pull_request: pull_request)
       expect(badge.points).to eq(5)
     end
+
+    it 'returns the points for the more valuable badge' do
+      pull_request = build(:pull_request)
+      badge = Badge.new(body: ':dancer: :100:', pull_request: pull_request)
+      expect(badge.points).to eq(20)
+    end
   end
 
   it 'gives points to the user who created the PR, not the reviewer' do
