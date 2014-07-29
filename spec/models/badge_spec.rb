@@ -20,8 +20,8 @@ describe Badge do
 
       expect(badge.errors.full_messages).to include('Body must contain a special badge')
 
-      [':trophy:', ':star:', ':dancer:', ':100:'].each do |message|
-        badge.body = message
+      [':trophy:', ':star:', ':dancer:', ':100:'].each do |comment_body|
+        badge.body = comment_body
         badge.valid?
 
         expect(badge.errors.full_messages).not_to include('Body must contain a special badge')
