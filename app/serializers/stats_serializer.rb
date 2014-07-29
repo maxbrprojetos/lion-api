@@ -1,5 +1,5 @@
 class StatsSerializer < UserSerializer
-  attributes :pull_requests_count, :number_of_additions, :number_of_deletions, :pull_request_reviews_count, :completed_tasks_count
+  attributes :pull_requests_count, :number_of_additions, :number_of_deletions, :pull_request_reviews_count, :completed_tasks_count, :badges_count
 
   def pull_requests_count
     object.pull_requests.count
@@ -19,5 +19,9 @@ class StatsSerializer < UserSerializer
 
   def completed_tasks_count
     object.task_completions.count
+  end
+
+  def badges_count
+    object.badges.count
   end
 end
