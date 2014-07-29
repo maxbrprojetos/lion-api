@@ -41,6 +41,7 @@ class Badge < ActiveRecord::Base
       5
     else
       0
+    end
   end
 
   def badge_patterns
