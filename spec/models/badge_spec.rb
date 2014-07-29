@@ -30,40 +30,63 @@ describe Badge do
   end
 
   describe '#points' do
-    it 'returns a specific number of points for a special badge' do
+    it 'returns 20 points for the 100 badge' do
       pull_request = build(:pull_request)
       badge = Badge.new(body: ':100:', pull_request: pull_request)
       pull_request.stub(points: 130)
       expect(badge.points).to eq(20)
     end
+
+    it 'returns 10 points for the trophy badge' do
+      pull_request = build(:pull_request)
+      badge = Badge.new(body: ':trophy:', pull_request: pull_request)
+      pull_request.stub(points: 130)
+      expect(badge.points).to eq(10)
+    end
+
+    it 'returns 5 points for the star badge' do
+      pull_request = build(:pull_request)
+      badge = Badge.new(body: ':star:', pull_request: pull_request)
+      pull_request.stub(points: 130)
+      expect(badge.points).to eq(5)
+    end
+
+    it 'returns 5 points for the dancer badge' do
+      pull_request = build(:pull_request)
+      badge = Badge.new(body: ':dancer:', pull_request: pull_request)
+      pull_request.stub(points: 130)
+      expect(badge.points).to eq(5)
+    end
   end
 
-  it 'gives points to the user' do
-    pull_request = build(:pull_request)
+  it 'gives points to the user who created the PR, not the reviewer' do
+    pull_request_creator = create(:user)
+    pull_request = build(:pull_request, user: pull_request_creator)
     # TODO: have this stub inside the factory itself
     pull_request.stub(comments: [])
     pull_request.save!
 
-    user = create(:user)
-    badge = Badge.new(body: ':100:', user: user, pull_request: pull_request)
+    badge_giver = create(:user)
+    badge = Badge.new(body: ':100:', user: badge_giver, pull_request: pull_request)
     badge.save!
 
-    score = Score.where(user: user).all_time.first
+    score = Score.where(user: pull_request_creator).all_time.first
     expect(score.points).to eq(badge.points)
   end
 
   context 'when the pull request is more than one week old' do
     it "doesn't give points to the user for the weekly score" do
-      pull_request = build(:pull_request, merged_at: 1.month.ago)
+      pull_request_creator = create(:user)
+      pull_request = build(:pull_request, merged_at: 1.month.ago, user: pull_request_creator)
 
       pull_request.stub(comments: [])
       pull_request.save!
 
-      user = create(:user)
-      badge = Badge.new(body: ':100:', user: user, pull_request: pull_request)
+      badge_giver = create(:user)
+      badge = Badge.new(body: ':100:', user: badge_giver, pull_request: pull_request)
       badge.save!
 
-      expect(Score.where(user: user).weekly.first).not_to be_present
+      expect(Score.where(user: pull_request_creator).weekly.first).not_to be_present
     end
   end
 end
