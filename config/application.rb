@@ -33,5 +33,9 @@ module Lion
         resource '*', headers: :any, methods: [:get, :post, :delete, :put, :patch, :options]
       end
     end
+
+    config.middleware.use config.session_store, config.session_options
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end
