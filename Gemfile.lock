@@ -81,18 +81,8 @@ GEM
     arel (5.0.1.20140414130214)
     ast (1.1.0)
     awesome_print (1.2.0)
-    barber (0.4.2)
-      ember-source
-      execjs
-      handlebars-source
-    barber-emblem (0.1.1)
-      barber (>= 0.4.1)
-      emblem-source
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bourbon (3.2.0)
-      sass (~> 3.2)
-      thor
     builder (3.2.2)
     bullet (4.8.0)
       activesupport
@@ -111,16 +101,7 @@ GEM
     celluloid-io (0.15.0)
       celluloid (>= 0.15.0)
       nio4r (>= 0.5.0)
-    cliver (0.3.2)
     coderay (1.1.0)
-    coffee-rails (4.0.1)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.0)
-    coffee-script (2.2.0)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.7.0)
-    colorize (0.7.2)
     columnize (0.8.9)
     coolline (0.4.3)
     crack (0.4.2)
@@ -143,26 +124,8 @@ GEM
     diff-lcs (1.2.5)
     diffy (3.0.4)
     dotenv (0.10.0)
-    ember-data-source (0.14)
-      ember-source
-    ember-rails (0.14.1)
-      active_model_serializers
-      barber (>= 0.4.1)
-      ember-data-source
-      ember-source
-      execjs (>= 1.2)
-      handlebars-source
-      jquery-rails (>= 1.0.17)
-      railties (>= 3.1)
-    ember-source (1.5.0)
-      handlebars-source (~> 1.0)
-    emblem-rails (0.2.1)
-      barber-emblem (~> 0.1.1)
-      ember-rails (>= 0.14.0)
-    emblem-source (0.3.15)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    execjs (2.0.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     faraday (0.9.0)
@@ -171,12 +134,7 @@ GEM
     flowdock (0.4.0)
       httparty (~> 0.7)
       multi_json
-    font-awesome-rails (4.0.3.1)
-      railties (>= 3.2, < 5.0)
     formatador (0.2.4)
-    foundation-rails (5.2.2.0)
-      railties (>= 3.1.0)
-      sass (>= 3.2.0)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     grit (2.5.0)
@@ -192,16 +150,9 @@ GEM
     guard-annotate (1.1.0)
       annotate (>= 2.4.0)
       guard (>= 0.2.2)
-    guard-konacha (1.0.5)
-      guard (>= 1.1)
-      konacha (>= 3.0)
     guard-rspec (4.2.8)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
-    guard-rubocop (1.1.0)
-      guard (~> 2.0)
-      rubocop (~> 0.20)
-    handlebars-source (1.3.0)
     hashie (2.1.1)
     hike (1.2.3)
     hirb (0.7.2)
@@ -212,18 +163,9 @@ GEM
       multi_xml (>= 0.5.2)
     httpclient (2.3.4.1)
     i18n (0.6.9)
-    jquery-rails (3.1.0)
-      railties (>= 3.0, < 5.0)
-      thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (0.1.11)
       multi_json (>= 1.5)
-    konacha (3.2.1)
-      actionpack (>= 3.1, < 5)
-      capybara
-      colorize
-      railties (>= 3.1, < 5)
-      sprockets
     listen (2.7.1)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
@@ -266,11 +208,6 @@ GEM
       ast (~> 1.1)
       slop (~> 3.4, >= 3.4.5)
     pg (0.17.1)
-    poltergeist (1.5.0)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      multi_json (~> 1.0)
-      websocket-driver (>= 0.2.0)
     polyglot (0.3.4)
     posix-spawn (0.3.8)
     powerpack (0.0.9)
@@ -304,8 +241,6 @@ GEM
       httpclient (~> 2.3.0)
       multi_json (~> 1.0)
       signature (~> 0.1.6)
-    quiet_assets (1.0.2)
-      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-cors (0.2.9)
     rack-test (0.6.2)
@@ -320,22 +255,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.1)
       sprockets-rails (~> 2.0)
-    rails-assets-ember (1.7.0.beta.1)
-      rails-assets-handlebars (>= 1.0.0, < 2.0.0)
-      rails-assets-jquery (>= 1.7.0, <= 2.1.0)
-    rails-assets-ember-data (1.0.0.beta.8)
-      rails-assets-ember (>= 1.0.0)
-    rails-assets-ember-mocha-adapter (0.2.0)
-    rails-assets-ember-simple-auth (0.3.1)
-      rails-assets-ember (>= 1.2)
-    rails-assets-handlebars (1.3.0)
-    rails-assets-jquery (2.0.0)
-    rails-assets-marked (0.3.2)
-    rails-assets-matteodepalo--ember-pushable (1.1.0)
-    rails-assets-moment (2.6.0)
-    rails-assets-pace (0.5.1)
-    rails-assets-pusher (2.2.0)
-    rails-assets-raven-js (1.1.14)
+    rails-api (0.2.1)
+      actionpack (>= 3.2.11)
+      railties (>= 3.2.11)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -375,18 +297,10 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.4.2)
     safe_yaml (1.0.2)
-    sass (3.2.19)
-    sass-rails (4.0.3)
-      railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.0)
-      sprockets (~> 2.8, <= 2.11.0)
-      sprockets-rails (~> 2.0)
     sawyer (0.5.4)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
     signature (0.1.7)
-    sinon-rails (1.9.0)
-      railties (>= 3.1)
     skylight (0.3.12)
       activesupport (>= 3.0.0)
     slop (3.5.0)
@@ -416,20 +330,14 @@ GEM
       polyglot (>= 0.3.1)
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
-    uglifier (2.5.0)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
     uniform_notifier (1.4.0)
     vcr (2.9.0)
     webmock (1.17.4)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
-    websocket-driver (0.3.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.7.4)
-    zocial-rails (1.0.2)
-      railties (>= 3.1)
 
 PLATFORMS
   ruby
@@ -437,59 +345,35 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   annotate!
-  bourbon
   bullet
-  coffee-rails
   cucumber-rails
   database_cleaner
   dotenv
-  emblem-rails
   factory_girl_rails!
   flowdock
-  font-awesome-rails
-  foundation-rails
   guard-annotate
-  guard-konacha
   guard-rspec
-  guard-rubocop
   honeybadger
   jazz_hands!
-  konacha
   newrelic_rpm
   octokit!
   omniauth
   omniauth-github
   pg
-  poltergeist
   pry-byebug
   pushable-rails
   pusher
-  quiet_assets
   rack-cors
   rails (= 4.1.1)
-  rails-assets-ember (= 1.7.0.beta.1)
-  rails-assets-ember-data (= 1.0.0.beta8)
-  rails-assets-ember-mocha-adapter
-  rails-assets-ember-simple-auth
-  rails-assets-jquery (= 2.0)
-  rails-assets-marked
-  rails-assets-matteodepalo--ember-pushable
-  rails-assets-moment
-  rails-assets-pace
-  rails-assets-pusher
-  rails-assets-raven-js
+  rails-api
   rails_12factor
   rspec-rails
   rspec_api_blueprint!
   rubocop
-  sass-rails
-  sinon-rails
   skylight
   spring
   spring-commands-rspec
   terminal-notifier-guard
   thin
-  uglifier
   vcr
   webmock
-  zocial-rails
