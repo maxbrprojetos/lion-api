@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 gem 'rails', '4.1.1'
+gem 'rails-api'
 
 # Needs to load first, so that gems that configure themself by enviroment
 # variables will see the variables when they load
@@ -22,46 +23,20 @@ gem 'skylight'
 gem 'pushable-rails', require: 'pushable'
 gem 'rack-cors'
 
-gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
-gem 'emblem-rails'
-gem 'foundation-rails'
-gem 'bourbon'
-gem 'zocial-rails'
-gem 'font-awesome-rails'
-gem 'rails-assets-jquery', '2.0'
-gem 'rails-assets-ember', '1.7.0.beta.1'
-gem 'rails-assets-ember-data', '1.0.0.beta8'
-gem 'rails-assets-pusher'
-gem 'rails-assets-pace'
-gem 'rails-assets-moment'
-gem 'rails-assets-ember-mocha-adapter'
-gem 'rails-assets-ember-simple-auth'
-gem 'rails-assets-marked'
-gem 'rails-assets-raven-js'
-gem 'rails-assets-matteodepalo--ember-pushable'
-
 gem 'rails_12factor', group: :production
 
 group :development do
   gem 'annotate', github: 'ctran/annotate_models'
   gem 'spring'
-  gem 'quiet_assets'
   gem 'bullet'
 end
 
 group :test, :development do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
-  gem 'konacha'
-  gem 'sinon-rails'
-  gem 'poltergeist'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec', require: false
-  gem 'guard-rubocop', require: false
-  gem 'guard-konacha', require: false
   gem 'guard-annotate', require: false
   gem 'terminal-notifier-guard', require: false
   gem 'rubocop'

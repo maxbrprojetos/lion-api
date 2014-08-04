@@ -1,4 +1,0 @@
-window.ENV = {
-  FEATURES: {
-  }
-}

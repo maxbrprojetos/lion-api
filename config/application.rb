@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
 require 'dotenv'
 
 Dotenv.load
@@ -31,5 +33,9 @@ module Lion
         resource '*', headers: :any, methods: [:get, :post, :delete, :put, :patch, :options]
       end
     end
+
+    config.middleware.use config.session_store, config.session_options
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end
