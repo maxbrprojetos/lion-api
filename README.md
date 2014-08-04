@@ -1,9 +1,11 @@
-# Lion
+# Lion API
 
 ## What sorcery is this?
 
 Lion is a dashboard for developers written with Ember and Rails.
 It rewards developers when they get shit done®.
+
+This is the API. [Here](https://github.com/alphasights/lion) you can find the web client.
 
 ## Dependencies
 
@@ -18,8 +20,6 @@ All the features presented here have a summary page which updates live.
 Every action can be either performed via the interface or using the RESTful API.
 
 ### Tasks
-
-![tasks](http://cl.ly/image/3x3d3W2t2y3l/tasks.png)
 
 You can create your tasks with the API like this:
 
@@ -107,8 +107,6 @@ If you want to assign someone you can update the task like this:
 
 ### Comments
 
-![task_with_comments](http://cl.ly/image/2n3Y0p1i163H/task_with_comment.png)
-
 Every comment fully supports markdown and code highlighting is colored with the beautiful monokai theme.
 
 You can add a comment to a task with the API like this:
@@ -141,8 +139,6 @@ You can add a comment to a task with the API like this:
 ```
 
 ### Leaderboard
-
-![leaderboard](http://cl.ly/image/033t1x3t041b/leaderboard.png)
 
 There are currently two leaderboards: weekly and all time. The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
 
@@ -177,14 +173,10 @@ https://your.lion.installation.com/api/pull_requests
 
 ### Hall of Fame
 
-![hall-of-fame](http://cl.ly/image/020f0o420b2i/hall-of-fame.png)
-
 Weekly winners will be placed here.
 In order to declare a weekly winner run the `hall_of_fame:declare_weekly_winner` rake task every monday morning.
 
 ### Stats
-
-![stats](http://cl.ly/image/3R3W2e2c0Y2p/stats.png)
 
 Displayed stats:
 
