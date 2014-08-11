@@ -188,4 +188,9 @@ Displayed stats:
 
 ### Badges
 
-Coming soon :)
+Adding a comment with one of the special emojis will increase the points given to the PR creator:
+
+- `:100:` 20 points
+- `:trophy:` 10 points
+- `:dancer:` or `:star:` 5 points
+
