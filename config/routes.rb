@@ -19,9 +19,9 @@ Lion::Application.routes.draw do
     resources :scores, only: :index
     resources :weekly_winnings, only: :index
     resources :stats, only: :index
+    resources :tokens, only: :create
   end
 
-  get '/auth/:provider/callback', to: 'sessions#create'
   get '*a', to: 'home#index'
 
   root 'home#index'
