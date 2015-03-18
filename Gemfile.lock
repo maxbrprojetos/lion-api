@@ -40,10 +40,10 @@ GIT
 
 GIT
   remote: https://github.com/octokit/octokit.rb.git
-  revision: 196a637daf352702d6250188af16b825ecc02abb
+  revision: 39c9bb9e7f1a85b840f1c328a934f0d6e65356cb
   specs:
-    octokit (3.2.0)
-      sawyer (~> 0.5.3)
+    octokit (3.8.0)
+      sawyer (~> 0.6.0, >= 0.5.3)
 
 GEM
   remote: https://rubygems.org/
@@ -77,7 +77,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    addressable (2.3.6)
+    addressable (2.3.7)
     arel (5.0.1.20140414130214)
     ast (1.1.0)
     awesome_print (1.2.0)
@@ -128,7 +128,7 @@ GEM
     eventmachine (1.0.3)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
-    faraday (0.9.0)
+    faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.3)
     flowdock (0.4.0)
@@ -297,7 +297,7 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.4.2)
     safe_yaml (1.0.2)
-    sawyer (0.5.4)
+    sawyer (0.6.0)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
     signature (0.1.7)
