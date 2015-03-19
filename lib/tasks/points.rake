@@ -4,9 +4,7 @@ task recalculate_points: :environment do
   Badge.delete_all
   Score.reset_points
 
-  Octokit.auto_paginate = true
-
-  client = User.first.github_client
+  client = User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
 
   client.organization_repositories(ENV['ORGANIZATION_NAME']).map(&:full_name).each do |repo|
     client.pull_requests(repo, state: 'closed').each do |pr|
