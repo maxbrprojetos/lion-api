@@ -76,10 +76,10 @@ class User < ActiveRecord::Base
   end
 
   def self.primary_client
-    @primary_client ||= User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
+    User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
   end
 
   def self.secondary_client
-    @secondary_client ||= User.find_by(nickname: ENV['SECONDARY_USER_NICKNAME']).github_client
+    User.find_by(nickname: ENV['SECONDARY_USER_NICKNAME']).github_client
   end
 end
