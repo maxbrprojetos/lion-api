@@ -20,6 +20,7 @@ class RecalculatePoints
           end
         end
 
+        next_page = client.last_response.rels[:next]
         pull_requests = next_page.get.data if next_page.present?
       end while next_page.present?
     end
