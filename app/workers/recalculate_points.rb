@@ -58,6 +58,8 @@ class RecalculatePoints
   def client
     @client ||= User.primary_client
 
+    puts "#{@client.rate_limit[:remaining]} API calls remaining"
+
     if @client.rate_limit[:remaining] < 100
       @client = User.secondary_client
     else
