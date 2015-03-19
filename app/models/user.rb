@@ -75,11 +75,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.global_client
+    client = primary_client
+
+    if client.rate_limit![:remaining] < 100
+      client = secondary_client
+    else
+      client
+    end
+  end
+
   def self.primary_client
-    User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
+    @primary_client ||= User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
   end
 
   def self.secondary_client
-    User.find_by(nickname: ENV['SECONDARY_USER_NICKNAME']).github_client
+    @secondary_client ||= User.find_by(nickname: ENV['SECONDARY_USER_NICKNAME']).github_client
   end
 end

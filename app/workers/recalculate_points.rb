@@ -45,6 +45,8 @@ class RecalculatePoints
       if pull_request.save
         puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
       end
+
+      puts "#{client.rate_limit[:remaining]} API calls remaining"
     end
   end
 
@@ -56,15 +58,7 @@ class RecalculatePoints
   end
 
   def client
-    @client ||= User.primary_client
-
-    puts "#{@client.rate_limit[:remaining]} API calls remaining"
-
-    if @client.rate_limit[:remaining] < 100
-      @client = User.secondary_client
-    else
-      @client
-    end
+    @client ||= User.global_client
   end
 
   def build_pull_request(user:, pr:, pr_data:, repo:)
