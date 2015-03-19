@@ -5,16 +5,23 @@ class RecalculatePoints
     reset_points
 
     client.organization_repositories(ENV['ORGANIZATION_NAME']).map(&:full_name).each do |repo|
-      client.pull_requests(repo, state: 'closed').each do |pr|
-        user = User.where(nickname: pr.user.login).first
-        next unless user
-        pr_data = pr.rels[:self].get.data
-        pull_request = build_pull_request(user: user, pr: pr, pr_data: pr_data, repo: repo)
+      pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100)
+      next_page = client.last_response.rels[:next]
 
-        if pull_request.save
-          puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
+      begin
+        pull_requests.each do |pr|
+          user = User.where(nickname: pr.user.login).first
+          next unless user
+          pr_data = pr.rels[:self].get.data
+          pull_request = build_pull_request(user: user, pr: pr, pr_data: pr_data, repo: repo)
+
+          if pull_request.save
+            puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
+          end
         end
-      end
+
+        pull_requests = next_page.get.data if next_page.present?
+      end while next_page.present?
     end
 
     TaskCompletion.all.each { |tc| tc.send(:give_points_to_user) }
@@ -30,9 +37,7 @@ class RecalculatePoints
   end
 
   def client
-    @client ||= User.primary_client.tap do |client|
-      client.auto_paginate = true
-    end
+    @client ||= User.primary_client
   end
 
   def build_pull_request(user:, pr:, pr_data:, repo:)
