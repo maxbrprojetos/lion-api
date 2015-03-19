@@ -72,7 +72,10 @@ class PullRequest < ActiveRecord::Base
   end
 
   def comments
-    @comments ||= user.github_client.pull_request(base_repo_full_name, number).rels[:comments].get.data
+    @comments ||= User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME'])
+      .github_client
+      .pull_request(base_repo_full_name, number)
+      .rels[:comments].get.data
   end
 
   private
