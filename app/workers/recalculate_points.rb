@@ -5,30 +5,37 @@ class RecalculatePoints
     reset_points
 
     client.organization_repositories(ENV['ORGANIZATION_NAME']).map(&:full_name).each do |repo|
-      pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100)
-      next_page = client.last_response.rels[:next]
+      page = 1
 
-      begin
-        pull_requests.each do |pr|
-          user = User.where(nickname: pr.user.login).first
-          next unless user
-          pr_data = pr.rels[:self].get.data
-          pull_request = build_pull_request(user: user, pr: pr, pr_data: pr_data, repo: repo)
+      loop do
+        pull_requests = client.pull_requests(repo, state: 'closed', per_page: 3, page: page)
 
-          if pull_request.save
-            puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
-          end
+        if pull_requests.present?
+          calculate_points_for(pull_requests: pull_requests, repo: repo)
+          page += 1
+        else
+          break
         end
-
-        next_page = client.last_response.rels[:next]
-        pull_requests = next_page.get.data if next_page.present?
-      end while next_page.present?
+      end
     end
 
     TaskCompletion.all.each { |tc| tc.send(:give_points_to_user) }
   end
 
   private
+
+  def calculate_points_for(pull_requests:, repo:)
+    pull_requests.each do |pr|
+      user = User.where(nickname: pr.user.login).first
+      next unless user
+      pr_data = pr.rels[:self].get.data
+      pull_request = build_pull_request(user: user, pr: pr, pr_data: pr_data, repo: repo)
+
+      if pull_request.save
+        puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
+      end
+    end
+  end
 
   def reset_points
     PullRequest.delete_all
