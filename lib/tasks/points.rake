@@ -4,10 +4,8 @@ task recalculate_points: :environment do
   Badge.delete_all
   Score.reset_points
 
-  client = User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
-
-  client.organization_repositories(ENV['ORGANIZATION_NAME']).map(&:full_name).each do |repo|
-    client.pull_requests(repo, state: 'closed').each do |pr|
+  $primary_user_client.organization_repositories(ENV['ORGANIZATION_NAME']).map(&:full_name).each do |repo|
+    $primary_user_client.pull_requests(repo, state: 'closed').each do |pr|
       user = User.where(nickname: pr.user.login).first
 
       next unless user
