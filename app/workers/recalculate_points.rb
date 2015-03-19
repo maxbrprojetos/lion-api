@@ -8,7 +8,7 @@ class RecalculatePoints
       page = 1
 
       loop do
-        pull_requests = client.pull_requests(repo, state: 'closed', per_page: 3, page: page)
+        pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: page)
 
         if pull_requests.present?
           calculate_points_for(pull_requests: pull_requests, repo: repo)
