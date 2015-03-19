@@ -74,4 +74,8 @@ class User < ActiveRecord::Base
       nil
     end
   end
+
+  def self.primary_client
+    @primary_client ||= User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
+  end
 end

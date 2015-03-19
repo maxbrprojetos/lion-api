@@ -72,7 +72,7 @@ class PullRequest < ActiveRecord::Base
   end
 
   def comments
-    @comments ||= $primary_user_client
+    @comments ||= User.primary_client
       .pull_request(base_repo_full_name, number)
       .rels[:comments].get.data
   end
