@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   def self.global_client
     client = primary_client
 
-    if client.rate_limit![:remaining] < 100
+    if client.rate_limit[:remaining] < 100
       client = secondary_client
     else
       client

@@ -46,7 +46,7 @@ class RecalculatePoints
         puts "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
       end
 
-      puts "#{client.rate_limit[:remaining]} API calls remaining"
+      puts "#{client.rate_limit![:remaining]} API calls remaining"
     end
   end
 
