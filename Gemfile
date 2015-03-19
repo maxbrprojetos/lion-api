@@ -23,6 +23,7 @@ gem 'skylight'
 gem 'pushable-rails', require: 'pushable'
 gem 'rack-cors'
 gem 'sidekiq'
+gem 'sinatra', require: nil
 
 gem 'rails_12factor', group: :production
 
