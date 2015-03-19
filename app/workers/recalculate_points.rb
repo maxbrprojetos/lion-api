@@ -4,18 +4,29 @@ class RecalculatePoints
   def perform
     reset_points
 
-    client.organization_repositories(ENV['ORGANIZATION_NAME']).map(&:full_name).each do |repo|
-      page = 1
+    loop do
+      repos_page = 1
+      repos = client.organization_repositories(ENV['ORGANIZATION_NAME'], per_page: 100, page: repos_page).map(&:full_name)
 
-      loop do
-        pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: page)
+      if repos.present?
+        repos.each do |repo|
+          prs_page = 1
+          
+          loop do
+            pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: prs_page)
 
-        if pull_requests.present?
-          calculate_points_for(pull_requests: pull_requests, repo: repo)
-          page += 1
-        else
-          break
+            if pull_requests.present?
+              calculate_points_for(pull_requests: pull_requests, repo: repo)
+              prs_page += 1
+            else
+              break
+            end
+          end
         end
+
+        repos_page += 1
+      else
+        break
       end
     end
 
