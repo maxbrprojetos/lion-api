@@ -47,6 +47,7 @@ class RecalculatePoints
       end
 
       puts "#{client.rate_limit![:remaining]} API calls remaining"
+      @client = User.global_client if client.rate_limit[:remaining] < 100
     end
   end
 
