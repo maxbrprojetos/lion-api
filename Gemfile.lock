@@ -103,6 +103,7 @@ GEM
       nio4r (>= 0.5.0)
     coderay (1.1.0)
     columnize (0.8.9)
+    connection_pool (2.1.2)
     coolline (0.4.3)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -273,6 +274,9 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
+    redis (3.2.1)
+    redis-namespace (1.5.1)
+      redis (~> 3.0, >= 3.0.4)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -300,6 +304,12 @@ GEM
     sawyer (0.6.0)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
+    sidekiq (3.2.6)
+      celluloid (= 0.15.2)
+      connection_pool (>= 2.0.0)
+      json
+      redis (>= 3.0.6)
+      redis-namespace (>= 1.3.1)
     signature (0.1.7)
     skylight (0.3.12)
       activesupport (>= 3.0.0)
@@ -370,6 +380,7 @@ DEPENDENCIES
   rspec-rails
   rspec_api_blueprint!
   rubocop
+  sidekiq
   skylight
   spring
   spring-commands-rspec

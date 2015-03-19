@@ -22,6 +22,7 @@ gem 'honeybadger'
 gem 'skylight'
 gem 'pushable-rails', require: 'pushable'
 gem 'rack-cors'
+gem 'sidekiq'
 
 gem 'rails_12factor', group: :production
 
