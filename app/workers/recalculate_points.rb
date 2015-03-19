@@ -11,7 +11,7 @@ class RecalculatePoints
       if repos.present?
         repos.each do |repo|
           prs_page = 1
-          
+
           loop do
             pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: prs_page)
 
@@ -57,6 +57,12 @@ class RecalculatePoints
 
   def client
     @client ||= User.primary_client
+
+    if @client.rate_limit[:remaining] < 100
+      @client = User.secondary_client
+    else
+      @client
+    end
   end
 
   def build_pull_request(user:, pr:, pr_data:, repo:)
