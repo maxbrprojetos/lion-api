@@ -4,8 +4,9 @@ class RecalculatePoints
   def perform
     reset_points
 
+    repos_page = 1
+
     loop do
-      repos_page = 1
       repos = client.organization_repositories(ENV['ORGANIZATION_NAME'], per_page: 100, page: repos_page).map(&:full_name)
 
       if repos.present?
