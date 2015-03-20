@@ -9,21 +9,7 @@ class RecalculatePoints
       repos = client.organization_repositories(ENV['ORGANIZATION_NAME'], per_page: 100, page: repos_page).map(&:full_name)
 
       if repos.present?
-        repos.each do |repo|
-          prs_page = 1
-
-          loop do
-            pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: prs_page)
-
-            if pull_requests.present?
-              calculate_points_for(pull_requests: pull_requests, repo: repo)
-              prs_page += 1
-            else
-              break
-            end
-          end
-        end
-
+        calculate_points_for_repos(repos)
         repos_page += 1
       else
         break
@@ -35,7 +21,24 @@ class RecalculatePoints
 
   private
 
-  def calculate_points_for(pull_requests:, repo:)
+  def calculate_points_for_repos(repos)
+    repos.each do |repo|
+      prs_page = 1
+
+      loop do
+        pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: prs_page)
+
+        if pull_requests.present?
+          calculate_points_for_prs(pull_requests: pull_requests, repo: repo)
+          prs_page += 1
+        else
+          break
+        end
+      end
+    end
+  end
+
+  def calculate_points_for_prs(pull_requests:, repo:)
     pull_requests.each do |pr|
       user = User.where(nickname: pr.user.login).first
       next unless user
