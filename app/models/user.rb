@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
   validates :api_token, presence: true
   validates :github_id, presence: true
 
+  class_attribute :current_client_index
+
   def self.find_or_create_from_auth_hash(auth_hash)
     user = where(github_id: auth_hash['uid']).first
     info = user_info(auth_hash)
@@ -76,20 +78,18 @@ class User < ActiveRecord::Base
   end
 
   def self.global_client
-    client = primary_client
+    self.current_client_index ||= 1
+    client = clients[current_client_index]
 
     if client.rate_limit[:remaining] < 100
-      client = secondary_client
+      self.current_client_index += 1
+      client = clients[current_client_index]
     else
       client
     end
   end
 
-  def self.primary_client
-    @primary_client ||= User.find_by(nickname: ENV['PRIMARY_USER_NICKNAME']).github_client
-  end
-
-  def self.secondary_client
-    @secondary_client ||= User.find_by(nickname: ENV['SECONDARY_USER_NICKNAME']).github_client
+  def self.clients
+    @clients ||= User.where(nickname: ENV['USERS'].split(',')).map(&:github_client)
   end
 end
