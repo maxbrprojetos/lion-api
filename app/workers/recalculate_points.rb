@@ -26,13 +26,17 @@ class RecalculatePoints
       prs_page = 1
 
       loop do
-        pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: prs_page)
+        begin
+          pull_requests = client.pull_requests(repo, state: 'closed', per_page: 100, page: prs_page)
 
-        if pull_requests.present?
-          calculate_points_for_prs(pull_requests: pull_requests, repo: repo)
+          if pull_requests.present?
+            calculate_points_for_prs(pull_requests: pull_requests, repo: repo)
+            prs_page += 1
+          else
+            break
+          end
+        rescue Octokit::NotFound
           prs_page += 1
-        else
-          break
         end
       end
     end
