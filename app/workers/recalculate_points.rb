@@ -36,7 +36,7 @@ class RecalculatePoints
             break
           end
         rescue Octokit::NotFound
-          prs_page += 1
+          break
         end
       end
     end
