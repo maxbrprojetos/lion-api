@@ -1,4 +1,5 @@
 ruby '2.2.0'
+
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
@@ -20,6 +21,8 @@ gem 'honeybadger'
 gem 'skylight'
 gem 'pushable-rails', require: 'pushable'
 gem 'rack-cors'
+gem 'sidekiq'
+gem 'sinatra', require: nil
 
 gem 'rails_12factor', group: :production
 

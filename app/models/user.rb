@@ -32,10 +32,12 @@ class User < ActiveRecord::Base
   validates :avatar_url, presence: true
   validates :github_id, presence: true
 
+  class_attribute :current_client_index
+
   def self.find_or_create_from_oauth(oauth, access_token)
     user = where(github_id: oauth.id.to_s).first
     info = user_info(oauth)
-    
+
     if user
       user.update(info)
     else
@@ -67,5 +69,21 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def self.global_client
+    self.current_client_index ||= 1
+    client = clients[current_client_index]
+
+    if client.rate_limit[:remaining] < 100
+      self.current_client_index += 1
+      client = clients[current_client_index]
+    else
+      client
+    end
+  end
+
+  def self.clients
+    @clients ||= User.where(nickname: ENV['USERS'].split(',')).map(&:github_client)
   end
 end

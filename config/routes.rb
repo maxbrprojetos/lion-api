@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Lion::Application.routes.draw do
   namespace :api do
     resources :tasks, only: [:index, :create, :update, :destroy]
@@ -21,6 +23,12 @@ Lion::Application.routes.draw do
     resources :stats, only: :index
     resources :tokens, only: :create
   end
+
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV['SIDEKIQ_USERNAME'] && password == ENV['SIDEKIQ_PASSWORD']
+  end if Rails.env.production?
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   get '*a', to: 'home#index'
 
