@@ -59,7 +59,8 @@ RSpec.configure do |config|
   config.include Helpers
 
   config.before(:each, type: :request) do
-    header 'Authorization', "Bearer #{current_user.api_token}"
+    access_token = create(:access_token, user: current_user)
+    header 'Authorization', "Bearer #{access_token.access_token}"
     header 'Accept', 'application/json'
     header 'Content-Type', 'application/json'
   end

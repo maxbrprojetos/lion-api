@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
 
   class_attribute :current_client_index
 
+  def access_token
+    access_tokens.active.first
+  end
+
   def self.find_or_create_from_oauth(oauth, access_token)
     user = where(github_id: oauth.id.to_s).first
     info = user_info(oauth)
