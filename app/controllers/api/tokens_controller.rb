@@ -5,7 +5,7 @@ module Api
       user_data = user_client(token).user
 
       if user_data.email.blank?
-        user_data.email = user_client.emails.find { |e| e.primary }.email
+        user_data.email = @user_client.emails.find { |e| e.primary }.email
       end
 
       user = User.find_or_create_from_oauth(user_data, token.access_token)

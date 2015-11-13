@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include Flowable
 
   protected
-  
+
   def authenticate!
     access_token || render_unauthorized
   end
