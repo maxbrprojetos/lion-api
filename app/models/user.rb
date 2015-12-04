@@ -16,11 +16,8 @@
 class User < ActiveRecord::Base
   include Pushable
 
-  has_many :tasks
-  has_many :task_completions
   has_many :pull_requests
   has_many :scores
-  has_many :comments
   has_many :pull_request_reviews
   has_many :weekly_winnings
   has_many :badges

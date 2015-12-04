@@ -2,18 +2,9 @@ require 'sidekiq/web'
 
 Lion::Application.routes.draw do
   namespace :api do
-    resources :tasks, only: [:index, :create, :update, :destroy]
-    resources :comments, only: [:create, :update, :destroy]
-
     resources :users do
       collection do
         get :me
-      end
-    end
-
-    resources :task_completions, only: :create do
-      collection do
-        delete :destroy
       end
     end
 

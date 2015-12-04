@@ -20,17 +20,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :task do
-    title 'test'
-    user
-  end
-
-  factory :comment do
-    body 'This is a comment'
-    user
-    task
-  end
-
   factory :pull_request do
     base_repo_full_name 'dummyorg/dummyrepo'
     sequence(:number) { |n| n }

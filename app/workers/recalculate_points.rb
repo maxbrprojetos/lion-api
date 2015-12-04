@@ -16,8 +16,6 @@ class RecalculatePoints
         break
       end
     end
-
-    TaskCompletion.all.each { |tc| tc.send(:give_points_to_user) }
   end
 
   private
