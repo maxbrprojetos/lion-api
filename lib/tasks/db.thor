@@ -44,7 +44,7 @@ class Db < Thor
     run("dropdb #{database}")
     run("createdb #{database}")
     run("pg_restore --no-owner --jobs=#{cpu_cores} -d #{database} /tmp/latest.dump")
-    run("rake db:migrate db:test:clone_structure")
+    run("rake db:migrate")
   end
 
 
