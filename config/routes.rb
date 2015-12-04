@@ -21,6 +21,7 @@ Lion::Application.routes.draw do
     resources :scores, only: :index
     resources :weekly_winnings, only: :index
     resources :stats, only: :index
+    resources :tokens, only: :create
   end
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
@@ -29,7 +30,6 @@ Lion::Application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq'
 
-  get '/auth/:provider/callback', to: 'sessions#create'
   get '*a', to: 'home#index'
 
   root 'home#index'

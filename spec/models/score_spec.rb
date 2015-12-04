@@ -15,7 +15,7 @@ require 'spec_helper'
 describe Score do
   let(:user) { create(:user) }
 
-  describe '#self.give' do
+  describe '.give' do
     it 'creates a Score with the specified points' do
       Score.give(time: Time.now, user: user, points: 10)
 
@@ -56,7 +56,7 @@ describe Score do
 
   end
 
-  describe '#self.take' do
+  describe '.take' do
     it 'decrements the Score points' do
       Score.give(time: Time.now, user: user, points: 5)
       Score.take(user: user, points: 5)
@@ -65,7 +65,7 @@ describe Score do
     end
   end
 
-  describe '#self.reset' do
+  describe '.reset' do
     it 'resets scores points' do
       score = Score.create(user: user, points: 10)
 
@@ -75,7 +75,7 @@ describe Score do
     end
   end
 
-  describe '#self.top_weekly' do
+  describe '.top_weekly' do
     it 'returns the top weekly score' do
       Score.create(user: user, points: 50, time_span: 'all_time')
       Score.create(user: user, points: 10, time_span: 'weekly')

@@ -58,6 +58,39 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: access_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_tokens (
+    id integer NOT NULL,
+    user_id uuid NOT NULL,
+    access_token character varying(255) NOT NULL,
+    expires_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_tokens_id_seq OWNED BY access_tokens.id;
+
+
+--
 -- Name: badges; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -243,6 +276,13 @@ CREATE TABLE weekly_winnings (
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY access_tokens ALTER COLUMN id SET DEFAULT nextval('access_tokens_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY badges ALTER COLUMN id SET DEFAULT nextval('badges_id_seq'::regclass);
 
 
@@ -251,6 +291,14 @@ ALTER TABLE ONLY badges ALTER COLUMN id SET DEFAULT nextval('badges_id_seq'::reg
 --
 
 ALTER TABLE ONLY pull_request_reviews ALTER COLUMN id SET DEFAULT nextval('pull_request_reviews_id_seq'::regclass);
+
+
+--
+-- Name: access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_tokens
+    ADD CONSTRAINT access_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -323,6 +371,20 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY weekly_winnings
     ADD CONSTRAINT weekly_winnings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_access_tokens_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_access_tokens_on_access_token ON access_tokens USING btree (access_token);
+
+
+--
+-- Name: index_access_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_tokens_on_user_id ON access_tokens USING btree (user_id);
 
 
 --
@@ -403,4 +465,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140402201031');
 INSERT INTO schema_migrations (version) VALUES ('20140412113638');
 
 INSERT INTO schema_migrations (version) VALUES ('20140929114547');
+
+INSERT INTO schema_migrations (version) VALUES ('20150313115749');
 

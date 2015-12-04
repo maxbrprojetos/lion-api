@@ -31,8 +31,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    OmniAuth.config.test_mode = true
-    OmniAuth.config.add_mock(:github, matteo_auth_hash)
     Octokit::Client.any_instance.stub(
       user: double(:user, login: nil),
       organizations: [double(:organization, login: ENV['ORGANIZATION_NAME'])]

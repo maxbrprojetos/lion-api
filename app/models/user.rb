@@ -24,53 +24,51 @@ class User < ActiveRecord::Base
   has_many :pull_request_reviews
   has_many :weekly_winnings
   has_many :badges
+  has_many :access_tokens, dependent: :destroy
 
   validates :name, presence: true
   validates :nickname, presence: true
   validates :email, presence: true
   validates :avatar_url, presence: true
-  validates :api_token, presence: true
   validates :github_id, presence: true
 
   class_attribute :current_client_index
 
-  def self.find_or_create_from_auth_hash(auth_hash)
-    user = where(github_id: auth_hash['uid']).first
-    info = user_info(auth_hash)
+  def access_token
+    access_tokens.active.first
+  end
+
+  def self.find_or_create_from_oauth(oauth, access_token)
+    user = where(github_id: oauth.id.to_s).first
+    info = user_info(oauth)
 
     if user
       user.update(info)
     else
-      user = create_from_github(info)
+      user = create_from_github(info, access_token)
     end
 
     user
   end
 
-  # used only from the console
-  def github_client
-    @github_client ||= self.class.github_client(api_token)
-  end
-
-  def self.user_info(auth_hash)
+  def self.user_info(oauth)
     {
-      name: auth_hash['info']['name'],
-      github_id: auth_hash['uid'],
-      nickname: auth_hash['info']['nickname'],
-      email: auth_hash['info']['email'],
-      avatar_url: auth_hash['info']['image'],
-      api_token: auth_hash['credentials']['token']
+      name: oauth.name,
+      github_id: oauth.id.to_s,
+      nickname: oauth.login,
+      email: oauth.email,
+      avatar_url: oauth.avatar_url
     }
   end
 
-  def self.github_client(api_token)
-    client = Octokit::Client.new(access_token: api_token)
+  def self.github_client(access_token)
+    client = Octokit::Client.new(access_token: access_token)
     client.user.login
     client
   end
 
-  def self.create_from_github(info)
-    if github_client(info[:api_token]).organizations.map(&:login).include?(ENV['ORGANIZATION_NAME'])
+  def self.create_from_github(info, access_token)
+    if github_client(access_token).organizations.map(&:login).include?(ENV['ORGANIZATION_NAME'])
       create(info)
     else
       nil

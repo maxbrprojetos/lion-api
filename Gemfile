@@ -1,4 +1,5 @@
-ruby '2.1.4'
+ruby '2.2.0'
+
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
@@ -13,8 +14,6 @@ gem 'active_model_serializers'
 gem 'pusher'
 gem 'thin'
 gem 'pg'
-gem 'omniauth'
-gem 'omniauth-github'
 gem 'octokit', git: 'https://github.com/octokit/octokit.rb.git'
 gem 'flowdock'
 gem 'newrelic_rpm'
@@ -38,9 +37,6 @@ group :test, :development do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
-  gem 'guard-rspec', require: false
-  gem 'guard-annotate', require: false
-  gem 'terminal-notifier-guard', require: false
   gem 'rubocop'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
