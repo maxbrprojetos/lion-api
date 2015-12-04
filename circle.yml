@@ -1,11 +1,3 @@
 test:
   override:
     - bundle exec rspec
-
-deployment:
-  production:
-    branch: master
-    commands:
-      - "git push git@heroku.com:as-lion-api.git HEAD:master"
-      - "heroku run rake db:migrate --app as-lion-api"
-      - "heroku restart --app as-lion-api"
