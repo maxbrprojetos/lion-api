@@ -7,6 +7,20 @@ It rewards developers when they get shit done®.
 
 This is the API. [Here](https://github.com/alphasights/lion) you can find the web client.
 
+## Installation
+- `git clone` this repository
+- `bundle install`
+- `bundle exec rake db:reset`
+- `cp .example-env .env`
+- Update the `GITHUB_APP_ID`, `GITHUB_APP_SECRET` and `USERS` variables to relevant values.
+
+## Running
+- `rails server`
+- Run the ember client
+
+## Running tests
+- `bundle exec rspec`
+
 ## Dependencies
 
 - Postgresql
@@ -193,4 +207,3 @@ Adding a comment with one of the special emojis will increase the points given t
 - `:100:` 20 points
 - `:trophy:` 10 points
 - `:dancer:` or `:star:` 5 points
-
