@@ -9,9 +9,10 @@ This is the API. [Here](https://github.com/alphasights/lion) you can find the we
 
 ## Installation
 - `git clone` this repository
-- `bundle install`
-- `bundle exec rake db:reset`
 - `cp .example-env .env`
+- `bundle install`
+- `bundle exec thor db:capture`
+- `bundle exec thor db:sync`
 - Update the `GITHUB_APP_ID`, `GITHUB_APP_SECRET` and `USERS` variables to relevant values.
 
 ## Running
