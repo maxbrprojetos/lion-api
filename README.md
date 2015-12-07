@@ -7,19 +7,19 @@ It rewards developers when they get shit done®.
 
 This is the API. [Here](https://github.com/alphasights/lion) you can find the web client.
 
-## Installation
-- `git clone` this repository
+## Contributing
+
+- Fork this repository
 - `cp .example-env .env`
+- Update the `GITHUB_APP_ID`, `GITHUB_APP_SECRET` and `USERS` variables to relevant values.
 - `bundle install`
 - `bundle exec thor db:capture`
 - `bundle exec thor db:sync`
-- Update the `GITHUB_APP_ID`, `GITHUB_APP_SECRET` and `USERS` variables to relevant values.
 
 ## Running
 - `rails server`
-- Run the ember client
 
-## Running tests
+## Testing
 - `bundle exec rspec`
 
 ## Dependencies
@@ -34,125 +34,6 @@ This is the API. [Here](https://github.com/alphasights/lion) you can find the we
 All the features presented here have a summary page which updates live.
 Every action can be either performed via the interface or using the RESTful API.
 
-### Tasks
-
-You can create your tasks with the API like this:
-
-```
-# POST /tasks
-
-+ Request application/json
-
-        {
-          "task": {
-            "title": "test",
-            "client_id": "1234"
-          }
-        }
-
-+ Response 201 application/json; charset=utf-8
-
-        {
-          "users": [
-            {
-              "id": "0f6ac7e0-f244-4f92-b93a-6924b46161ee",
-              "avatar_url": "omg",
-              "nickname": "current_user"
-            }
-          ],
-          "comments": [
-
-          ],
-          "task": {
-            "client_id": "1234",
-            "id": "cfb22b79-6907-4724-9c8b-451adf2aec6c",
-            "title": "test",
-            "created_at": "2014-04-28T08:56:29.859Z",
-            "completed": false,
-            "assignee_id": null,
-            "user_id": "0f6ac7e0-f244-4f92-b93a-6924b46161ee",
-            "comment_ids": [
-
-            ]
-          }
-        }
-```
-
-If you want to assign someone you can update the task like this:
-
-```
-# PATCH /tasks/{id}
-
-+ Request application/json
-
-        {
-          "task": {
-            "title": "omg",
-            "assignee_id": "660403f2-f7ab-478f-9f7b-918ef57c9062"
-          }
-        }
-
-+ Response 200 application/json; charset=utf-8
-
-        {
-          "users": [
-            {
-              "id": "e638ac74-871f-4d3d-9079-c839932d75aa",
-              "avatar_url": "http://lol.com/omg50.png",
-              "nickname": "test50"
-            }
-          ],
-          "comments": [
-
-          ],
-          "task": {
-            "client_id": null,
-            "id": "9cca7044-80f5-4c78-b393-c1e8a66bdb41",
-            "title": "omg",
-            "created_at": "2014-04-28T08:56:29.760Z",
-            "completed": false,
-            "assignee_id": "660403f2-f7ab-478f-9f7b-918ef57c9062",
-            "user_id": "e638ac74-871f-4d3d-9079-c839932d75aa",
-            "comment_ids": [
-
-            ]
-          }
-        }
-```
-
-### Comments
-
-Every comment fully supports markdown and code highlighting is colored with the beautiful monokai theme.
-
-You can add a comment to a task with the API like this:
-
-```
-# POST /comments
-
-+ Request application/json
-
-        {
-          "comment": {
-            "body": "test",
-            "client_id": "1234",
-            "task_id": "41ee1cb0-00ed-4c67-8669-cbd2506f8a70"
-          }
-        }
-
-+ Response 201 application/json; charset=utf-8
-
-        {
-          "comment": {
-            "client_id": "1234",
-            "id": "8eebdd63-3820-4d98-b00a-6475735254a3",
-            "body": "test",
-            "created_at": "2014-04-28T08:56:29.217Z",
-            "task_id": "41ee1cb0-00ed-4c67-8669-cbd2506f8a70",
-            "user_id": "0f6ac7e0-f244-4f92-b93a-6924b46161ee"
-          }
-        }
-```
-
 ### Leaderboard
 
 There are currently two leaderboards: weekly and all time. The top person in the ladder will always have their bar full, and the other bars are calculated based on the top one.
@@ -160,10 +41,6 @@ There are currently two leaderboards: weekly and all time. The top person in the
 Points are given according to the following rules.
 
 #### Rules
-
-Completing tasks:
-
-- 1 point
 
 Merging PRs:
 
@@ -199,7 +76,6 @@ Displayed stats:
 - Number of reviews
 - Total number of additions across merged PRs
 - Total number of deletions across merged PRs
-- Number of completed tasks
 
 ### Badges
 
