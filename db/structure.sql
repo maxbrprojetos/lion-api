@@ -124,20 +124,6 @@ ALTER SEQUENCE badges_id_seq OWNED BY badges.id;
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE comments (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    body text,
-    user_id uuid,
-    task_id uuid,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
 -- Name: pull_request_reviews; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -214,34 +200,6 @@ CREATE TABLE scores (
 
 
 --
--- Name: task_completions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE task_completions (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    user_id uuid,
-    task_id uuid
-);
-
-
---
--- Name: tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE tasks (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    title text,
-    completed boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    user_id uuid,
-    assignee_id uuid
-);
-
-
---
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -310,22 +268,6 @@ ALTER TABLE ONLY badges
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
-
-
---
--- Name: completions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY task_completions
-    ADD CONSTRAINT completions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: pull_request_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -347,14 +289,6 @@ ALTER TABLE ONLY pull_requests
 
 ALTER TABLE ONLY scores
     ADD CONSTRAINT scores_pkey PRIMARY KEY (id);
-
-
---
--- Name: tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY tasks
-    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
 
 
 --
@@ -385,20 +319,6 @@ CREATE UNIQUE INDEX index_access_tokens_on_access_token ON access_tokens USING b
 --
 
 CREATE INDEX index_access_tokens_on_user_id ON access_tokens USING btree (user_id);
-
-
---
--- Name: index_comments_on_task_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_comments_on_task_id ON comments USING btree (task_id);
-
-
---
--- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
 
 
 --
@@ -467,4 +387,10 @@ INSERT INTO schema_migrations (version) VALUES ('20140412113638');
 INSERT INTO schema_migrations (version) VALUES ('20140929114547');
 
 INSERT INTO schema_migrations (version) VALUES ('20150313115749');
+
+INSERT INTO schema_migrations (version) VALUES ('20151204231151');
+
+INSERT INTO schema_migrations (version) VALUES ('20151204231249');
+
+INSERT INTO schema_migrations (version) VALUES ('20151204231312');
 
