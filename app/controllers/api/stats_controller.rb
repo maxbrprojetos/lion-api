@@ -19,10 +19,11 @@ module Api
       end
 
       @stats = @stats.map do |key, value|
+        user = User.find(key)
         {
           "id" => key,
-          "avatar_url" => User.find(key).avatar_url,
-          "nickname" => User.find(key).nickname,
+          "avatar_url" => user.avatar_url,
+          "nickname" => user.nickname,
           "count" => value
         }
       end
