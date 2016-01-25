@@ -3,19 +3,18 @@ module Api
     before_action :authenticate!
 
     def index
-      case params[:category]
-      when "pull_requests"
-        @stats = PullRequest.all.group("user_id").count
-      when "reviews"
-        @stats = PullRequestReview.all.group("user_id").count
-      when "additions"
-        @stats = PullRequest.all.group("user_id").sum(:number_of_additions)
-      when "deletions"
-        @stats = PullRequest.all.group("user_id").sum(:number_of_deletions)
-      when "badges"
-        @stats = Badge.all.group("user_id").count
-      else
-        @stats = []
+      @stats = case params[:category]
+        when "pull_requests"
+          PullRequest.all.group("user_id").count
+        when "reviews"
+          PullRequestReview.all.group("user_id").count
+        when "additions"
+          PullRequest.all.group("user_id").sum(:number_of_additions)
+        when "deletions"
+          PullRequest.all.group("user_id").sum(:number_of_deletions)
+        when "badges"
+          Badge.all.group("user_id").count
+        else []
       end
 
       @stats = @stats.map do |key, value|
