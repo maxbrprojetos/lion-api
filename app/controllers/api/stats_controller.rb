@@ -14,6 +14,8 @@ module Api
         @stats = PullRequest.all.group("user_id").sum(:number_of_deletions)
       when "badges"
         @stats = Badge.all.group("user_id").count
+      else
+        @stats = []
       end
 
       @stats = @stats.map do |key, value|
