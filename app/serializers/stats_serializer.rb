@@ -1,23 +1,20 @@
-class StatsSerializer < UserSerializer
-  attributes :pull_requests_count, :number_of_additions, :number_of_deletions, :pull_request_reviews_count, :badges_count
+class StatsSerializer < ActiveModel::Serializer
+  attributes :id, :avatar_url, :nickname, :count
 
-  def pull_requests_count
-    object.pull_requests.count
+  def id
+    object["id"]
   end
 
-  def pull_request_reviews_count
-    object.pull_request_reviews.count
+  def avatar_url
+    object["avatar_url"]
   end
 
-  def number_of_additions
-    object.pull_requests.sum(:number_of_additions)
+  def nickname
+    object["nickname"]
   end
 
-  def number_of_deletions
-    object.pull_requests.sum(:number_of_deletions)
+  def count
+    object["count"]
   end
 
-  def badges_count
-    object.badges.count
-  end
 end
