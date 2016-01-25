@@ -6,23 +6,25 @@ describe 'Stats Requests' do
       users = create_list(:user, 2)
       users = users << current_user
 
-      get api_stats_path
+      badge_counts = users.each_with_object(Hash.new) do |user, hash|
+        hash[user.id] = rand(100)
+      end
+
+      group_double = double(group: double(count: badge_counts))
+      expect(group_double).to receive(:group).with('user_id')
+      expect(Badge).to receive(:all).and_return(group_double)
+
+      get api_stats_path, category: 'badges'
 
       expect(last_response.status).to eq(200)
 
       expect(JSON.parse(last_response.body)['stats']).to match_array(
         users.map do |user|
-          user = StatsSerializer.new(user)
-
           {
             'id' => user.id,
             'nickname' => user.nickname,
             'avatar_url' => user.avatar_url,
-            'pull_requests_count' => user.pull_requests_count,
-            'number_of_additions' => user.number_of_additions,
-            'number_of_deletions' => user.number_of_deletions,
-            'pull_request_reviews_count' => user.pull_request_reviews_count,
-            'badges_count' => user.badges_count
+            'count' => badge_counts[user.id]
           }
         end
       )
