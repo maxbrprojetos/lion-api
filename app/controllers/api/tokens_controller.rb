@@ -11,7 +11,7 @@ module Api
       user = User.find_or_create_from_oauth(user_data, token.access_token)
 
       if user.present? && user.persisted?
-        render json: user.access_tokens.first_or_create
+        render json: user.access_tokens.active.first_or_create
       else
         render json: { errors: user.errors }, status: :unprocessable_entity
       end

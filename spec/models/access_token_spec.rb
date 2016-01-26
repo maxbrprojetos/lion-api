@@ -22,7 +22,10 @@ describe AccessToken do
   describe ".from_request" do
     it "finds access token from request authorization" do
       request = double(authorization: "Bearer ABC")
-      expect(AccessToken).to receive(:find_by).with(access_token: 'ABC')
+      active_tokens = [double(:active)]
+
+      expect(active_tokens).to receive(:find_by).with(access_token: 'ABC')
+      expect(AccessToken).to receive(:active).and_return(active_tokens)
       AccessToken.from_request(request)
     end
 
