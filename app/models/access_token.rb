@@ -20,11 +20,11 @@ class AccessToken < ActiveRecord::Base
     return unless request.authorization
 
     bearer_token = request.authorization.gsub(/\ABearer /, '')
-    find_by(access_token: bearer_token)
+    self.active.find_by(access_token: bearer_token)
   end
 
   private
-  
+
   def set_access_token
     return if access_token.present?
 
