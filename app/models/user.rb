@@ -35,17 +35,21 @@ class User < ActiveRecord::Base
     access_tokens.active.first
   end
 
-  def self.find_or_create_from_oauth(oauth, access_token)
+  def self.find_or_create_from_oauth(oauth, token)
     user = where(github_id: oauth.id.to_s).first
     info = user_info(oauth)
 
     if user
       user.update(info)
     else
-      user = create_from_github(info, access_token)
+      user = create_from_github(info, token)
     end
 
     user
+  end
+
+  def github_client
+    @github_client ||= self.class.github_client(access_token.access_token)
   end
 
   def self.user_info(oauth)
@@ -58,14 +62,14 @@ class User < ActiveRecord::Base
     }
   end
 
-  def self.github_client(access_token)
-    client = Octokit::Client.new(access_token: access_token)
+  def self.github_client(token)
+    client = Octokit::Client.new(access_token: token)
     client.user.login
     client
   end
 
-  def self.create_from_github(info, access_token)
-    if github_client(access_token).organizations.map(&:login).include?(ENV['ORGANIZATION_NAME'])
+  def self.create_from_github(info, token)
+    if github_client(token).organizations.map(&:login).include?(ENV['ORGANIZATION_NAME'])
       create(info)
     else
       nil
