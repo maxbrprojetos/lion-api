@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :avatar_url, presence: true
   validates :github_id, presence: true
+  validates :api_token, presence: true
 
   class_attribute :current_client_index
 
@@ -37,7 +38,14 @@ class User < ActiveRecord::Base
 
   def self.find_or_create_from_oauth(oauth, token)
     user = where(github_id: oauth.id.to_s).first
-    info = user_info(oauth)
+    info = {
+      name: oauth.name,
+      github_id: oauth.id.to_s,
+      nickname: oauth.login,
+      email: oauth.email,
+      avatar_url: oauth.avatar_url,
+      api_token: token
+    }
 
     if user
       user.update(info)
@@ -49,17 +57,7 @@ class User < ActiveRecord::Base
   end
 
   def github_client
-    @github_client ||= self.class.github_client(access_token.access_token)
-  end
-
-  def self.user_info(oauth)
-    {
-      name: oauth.name,
-      github_id: oauth.id.to_s,
-      nickname: oauth.login,
-      email: oauth.email,
-      avatar_url: oauth.avatar_url
-    }
+    @github_client ||= self.class.github_client(api_token)
   end
 
   def self.github_client(token)
@@ -77,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def self.global_client
-    self.current_client_index ||= 1
+    self.current_client_index ||= 0
     client = clients[current_client_index]
 
     if client.rate_limit[:remaining] < 100
