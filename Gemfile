@@ -44,5 +44,4 @@ group :test do
   gem 'database_cleaner'
   gem 'vcr'
   gem 'webmock'
-  gem 'cucumber-rails', require: false
 end
