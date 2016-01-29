@@ -1,18 +1,17 @@
 ruby '2.3.0'
 
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
-
-gem 'rails', '4.1.1'
-gem 'rails-api'
 
 # Needs to load first, so that gems that configure themself by enviroment
 # variables will see the variables when they load
 gem 'dotenv'
 
+gem 'rails', '4.1.1'
+gem 'rails-api'
+
 gem 'active_model_serializers'
 gem 'pusher'
-gem 'thin'
+gem 'puma'
 gem 'pg'
 gem 'octokit'
 gem 'honeybadger'

@@ -40,7 +40,6 @@ GIT
 
 GEM
   remote: https://rubygems.org/
-  remote: https://rails-assets.org/
   specs:
     actionmailer (4.1.1)
       actionpack (= 4.1.1)
@@ -93,7 +92,6 @@ GEM
     coolline (0.4.3)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    daemons (1.1.9)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -101,7 +99,6 @@ GEM
     diffy (3.0.4)
     dotenv (0.10.0)
     erubis (2.7.0)
-    eventmachine (1.0.7)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     faraday (0.9.2)
@@ -154,6 +151,7 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    puma (2.16.0)
     pushable-rails (0.0.2)
       active_model_serializers
       pusher
@@ -245,10 +243,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    thin (1.6.3)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0)
-      rack (~> 1.0)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -280,6 +274,7 @@ DEPENDENCIES
   octokit
   pg
   pry-byebug
+  puma
   pushable-rails
   pusher
   rack-cors
@@ -294,7 +289,6 @@ DEPENDENCIES
   skylight
   spring
   spring-commands-rspec
-  thin
   vcr
   webmock
 
