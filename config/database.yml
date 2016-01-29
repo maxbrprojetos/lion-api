@@ -52,6 +52,3 @@ production:
   encoding: unicode
   database: lion_production
   pool: 5
-
-cucumber:
-  <<: *test
