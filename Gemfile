@@ -12,7 +12,7 @@ gem 'dotenv'
 
 gem 'active_model_serializers'
 gem 'pusher'
-gem 'thin'
+gem 'puma'
 gem 'pg'
 gem 'octokit'
 gem 'honeybadger'
