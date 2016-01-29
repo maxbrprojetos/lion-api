@@ -3,7 +3,7 @@ class RecalculatePoints
 
   def perform
     reset_points
-    User.current_client_index = 1
+    User.current_client_index = 0
     repos_page = 1
 
     loop do
