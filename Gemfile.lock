@@ -86,7 +86,6 @@ GEM
     coolline (0.4.3)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -247,7 +246,6 @@ DEPENDENCIES
   active_model_serializers (~> 0.8.0)
   annotate!
   bullet
-  database_cleaner
   dotenv
   factory_girl_rails!
   faker
