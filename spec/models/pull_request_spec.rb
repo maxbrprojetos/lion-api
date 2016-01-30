@@ -19,11 +19,12 @@
 require 'spec_helper'
 
 describe PullRequest do
-  let(:pull_request) { PullRequest.new.tap { |pr| pr.stub(comments: []) } }
-
   describe '#data=' do
     it 'sets fields from data' do
       current_user
+
+      pull_request = PullRequest.new
+      allow(pull_request).to receive(:comments).and_return([])
 
       data = pull_request_notification['payload']['pull_request']
       pull_request.data = data
@@ -41,7 +42,8 @@ describe PullRequest do
 
   it 'adds points to the user' do
     user = create(:user)
-    pull_request = build(:pull_request, user: user).tap { |pr| pr.stub(comments: []) }
+    pull_request = build(:pull_request, user: user)
+    allow(pull_request).to receive(:comments).and_return([])
     pull_request.save!
 
     score = Score.first
@@ -53,7 +55,7 @@ describe PullRequest do
     current_user
 
     pull_request = build(:pull_request)
-    pull_request.stub(comments: [double(
+    allow(pull_request).to receive(:comments).and_return([double(
       body: ':+1:', user_nickname: 'current_user', user: double(login: 'current_user')
     )])
 

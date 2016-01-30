@@ -8,7 +8,7 @@ gem 'dotenv'
 
 gem 'rails'
 gem 'rails-api'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.8.0'
 gem 'puma'
 gem 'pg'
 gem 'octokit'
@@ -32,13 +32,11 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'rubocop'
-  gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
   gem 'faker'
 end
 
 group :test do
   gem 'database_cleaner'
-  gem 'vcr'
   gem 'webmock'
 end

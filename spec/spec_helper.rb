@@ -2,8 +2,6 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
-require 'rspec_api_blueprint'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -12,11 +10,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
-
-VCR.configure do |config|
-  config.cassette_library_dir = Rails.root.join('spec', 'vcr')
-  config.hook_into :webmock
-end
 
 RSpec.configure do |config|
 
@@ -53,8 +46,6 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-
   config.include Rack::Test::Methods, type: :request
   config.include Helpers
 
@@ -66,13 +57,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :controller) do
-    ApplicationController.any_instance.stub(current_user: current_user)
-  end
-
-  config.around(:each, :vcr) do |example|
-    name = example.metadata[:full_description].split(/\s+/, 2).join('/').underscore.gsub(/[^\w\/]+/, '_')
-    options = example.metadata.slice(:record, :match_requests_on).except(:example_group)
-    VCR.use_cassette(name, options) { example.call }
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(current_user)
   end
 
   config.before(:suite) do

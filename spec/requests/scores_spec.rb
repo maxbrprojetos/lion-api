@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Scores Requests' do
+describe 'Scores Requests', type: :request do
   describe 'GET /scores?time_span=all-time' do
     it 'responds with a json representing the list of users with their scores' do
       users = create_list(:user, 2)

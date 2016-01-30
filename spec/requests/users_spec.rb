@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Users Requests' do
+describe 'Users Requests', type: :request do
   describe 'GET /users/me' do
     it 'responds with a json representing the current user' do
       get me_api_users_path
