@@ -6,17 +6,14 @@ source 'https://rubygems.org'
 # variables will see the variables when they load
 gem 'dotenv'
 
-gem 'rails', '4.1.1'
+gem 'rails'
 gem 'rails-api'
-
 gem 'active_model_serializers'
-gem 'pusher'
 gem 'puma'
 gem 'pg'
 gem 'octokit'
 gem 'honeybadger'
 gem 'skylight'
-gem 'pushable-rails', require: 'pushable'
 gem 'rack-cors'
 gem 'sidekiq'
 gem 'sinatra', require: nil
@@ -37,6 +34,7 @@ group :test, :development do
   gem 'rubocop'
   gem 'rspec_api_blueprint', github: 'playround/rspec_api_blueprint', require: false
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
+  gem 'faker'
 end
 
 group :test do
