@@ -35,7 +35,3 @@ group :test, :development do
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
   gem 'faker'
 end
-
-group :test do
-  gem 'webmock'
-end
