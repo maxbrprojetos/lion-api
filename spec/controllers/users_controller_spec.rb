@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::UsersController do
+describe Api::UsersController, type: :controller do
   describe "GET #me" do
     it "requires an access token" do
       get :me

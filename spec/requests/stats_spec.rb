@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Stats Requests' do
+describe 'Stats Requests', type: :request do
   describe 'GET /stats' do
     it 'responds with a json representing the list of users including statistics' do
       users = create_list(:user, 2)

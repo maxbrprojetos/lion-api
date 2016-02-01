@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Weekly Winnings Requests' do
+describe 'Weekly Winnings Requests', type: :request do
   describe 'GET /weekly_winnings' do
     it 'responds with a json representing the list of weekly winnings' do
       weekly_winnings = create_list(:weekly_winning, 2)

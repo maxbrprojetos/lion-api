@@ -33,7 +33,7 @@ describe PullRequestReview do
     it 'returns a fraction of pr points' do
       pull_request = build(:pull_request)
       pull_request_review = PullRequestReview.new(body: 'test', pull_request: pull_request)
-      pull_request.stub(points: 130)
+      allow(pull_request).to receive(:points).and_return(130)
       expect(pull_request_review.points).to eq(pull_request.points / 2)
     end
   end
@@ -41,7 +41,7 @@ describe PullRequestReview do
   it 'gives points to the user' do
     pull_request = build(:pull_request)
     # TODO: have this stub inside the factory itself
-    pull_request.stub(comments: [])
+    allow(pull_request).to receive(:comments).and_return([])
     pull_request.save!
 
     user = create(:user)
@@ -56,7 +56,7 @@ describe PullRequestReview do
     it "doesn't give points to the user for the weekly score" do
       pull_request = build(:pull_request, merged_at: 1.month.ago)
 
-      pull_request.stub(comments: [])
+      allow(pull_request).to receive(:comments).and_return([])
       pull_request.save!
 
       user = create(:user)

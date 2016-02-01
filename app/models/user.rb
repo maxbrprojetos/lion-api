@@ -14,8 +14,6 @@
 #
 
 class User < ActiveRecord::Base
-  include Pushable
-
   has_many :pull_requests
   has_many :scores
   has_many :pull_request_reviews
@@ -28,7 +26,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :avatar_url, presence: true
   validates :github_id, presence: true
-  validates :api_token, presence: true
+  # validates :api_token, presence: true
 
   class_attribute :current_client_index
 

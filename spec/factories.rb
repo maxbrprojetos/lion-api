@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:name) { |n| "Test#{n}" }
-    sequence(:nickname) { |n| "test#{n}" }
-    sequence(:avatar_url) { |n| "http://lol.com/omg#{n}.png" }
-    sequence(:email) { |n| "test#{n}@test.com" }
-    sequence(:api_token) { |n| "123456789#{n}" }
-    sequence(:github_id) { |n| n }
+    name Faker::Name.name
+    nickname Faker::Internet.user_name
+    avatar_url Faker::Internet.url
+    email Faker::Internet.email
+    api_token Faker::Internet.password
+    github_id Faker::Internet.device_token
   end
 
   factory :access_token do
@@ -21,16 +21,16 @@ FactoryGirl.define do
   end
 
   factory :pull_request do
-    base_repo_full_name 'dummyorg/dummyrepo'
-    sequence(:number) { |n| n }
+    base_repo_full_name { "#{Faker::Internet.user_name}/#{Faker::Lorem.word}" }
+    number Faker::Number.number(3)
 
     data do
       {
         'merged' => true,
         'merged_at' => '2011-01-26T19 =>01 =>12Z',
-        'user' => { 'login' => 'current_user' },
+        'user' => { 'login' => user.nickname },
         'base' => {
-          'repo' => { 'full_name' => 'dummyorg/dummyrepo' }
+          'repo' => { 'full_name' => base_repo_full_name }
         },
         'comments' => 10,
         'commits' => 3,
@@ -45,7 +45,7 @@ FactoryGirl.define do
 
   factory :weekly_winning do
     association :winner, factory: :user
-    sequence(:start_date) { |n| n.week.ago }
-    points { rand(1..100) }
+    start_date 1.week.ago
+    points Faker::Number.number(3).to_i
   end
 end

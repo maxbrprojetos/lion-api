@@ -64,9 +64,10 @@ describe Badge do
   it 'gives points to the user who created the PR, not the reviewer' do
     pull_request_creator = create(:user)
     pull_request = build(:pull_request, user: pull_request_creator)
-    # TODO: have this stub inside the factory itself
-    pull_request.stub(comments: [])
-    pull_request.stub(points: 0)
+
+    allow(pull_request).to receive(:comments).and_return([])
+    allow(pull_request).to receive(:points).and_return(0)
+
     pull_request.save!
 
     badge_giver = create(:user)
@@ -82,7 +83,8 @@ describe Badge do
       pull_request_creator = create(:user)
       pull_request = build(:pull_request, merged_at: 1.month.ago, user: pull_request_creator)
 
-      pull_request.stub(comments: [])
+      allow(pull_request).to receive(:comments).and_return([])
+
       pull_request.save!
 
       badge_giver = create(:user)

@@ -25,7 +25,6 @@ This is the API. [Here](https://github.com/alphasights/lion) you can find the we
 ## Dependencies
 
 - Postgresql
-- Pusher
 - Github
 
 ## Features
