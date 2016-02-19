@@ -6,15 +6,15 @@ describe 'Stats Requests', type: :request do
       users = create_list(:user, 2)
       users = users << current_user
 
-      badge_counts = users.each_with_object(Hash.new) do |user, hash|
+      review_counts = users.each_with_object(Hash.new) do |user, hash|
         hash[user.id] = rand(100)
       end
 
-      group_double = double(group: double(count: badge_counts))
+      group_double = double(group: double(count: review_counts))
       expect(group_double).to receive(:group).with('user_id')
-      expect(Badge).to receive(:all).and_return(group_double)
+      expect(PullRequestReview).to receive(:all).and_return(group_double)
 
-      get api_stats_path, category: 'badges'
+      get api_stats_path, category: 'reviews'
 
       expect(last_response.status).to eq(200)
 
@@ -24,7 +24,7 @@ describe 'Stats Requests', type: :request do
             'id' => user.id,
             'nickname' => user.nickname,
             'avatar_url' => user.avatar_url,
-            'count' => badge_counts[user.id]
+            'count' => review_counts[user.id]
           }
         end
       )

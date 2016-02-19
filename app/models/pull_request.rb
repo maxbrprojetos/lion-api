@@ -22,7 +22,6 @@ class PullRequest < ActiveRecord::Base
 
   belongs_to :user
   has_many :pull_request_reviews, dependent: :destroy
-  has_many :badges
 
   attr_accessor :data, :merged
 
@@ -38,7 +37,6 @@ class PullRequest < ActiveRecord::Base
   validate :must_be_merged
 
   after_create :create_reviews
-  after_create :create_badges
 
   def data=(data)
     self.user ||= User.where(nickname: data['user']['login']).first
@@ -86,12 +84,6 @@ class PullRequest < ActiveRecord::Base
   def create_reviews
     comments.each do |c|
       PullRequestReview.create(user: User.where(nickname: c.user.login).first, body: c.body, pull_request: self)
-    end
-  end
-
-  def create_badges
-    comments.each do |c|
-      Badge.create(user: User.where(nickname: c.user.login).first, body: c.body, pull_request: self)
     end
   end
 

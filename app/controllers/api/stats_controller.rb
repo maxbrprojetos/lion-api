@@ -12,8 +12,6 @@ module Api
           PullRequest.all.group("user_id").sum(:number_of_additions)
         when "deletions"
           PullRequest.all.group("user_id").sum(:number_of_deletions)
-        when "badges"
-          Badge.all.group("user_id").count
         else []
       end
 

@@ -60,7 +60,6 @@ class RecalculatePoints
   def reset_points
     PullRequest.delete_all
     PullRequestReview.delete_all
-    Badge.delete_all
     Score.reset_points
   end
 
