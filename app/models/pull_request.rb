@@ -18,16 +18,16 @@
 #
 
 class PullRequest < ActiveRecord::Base
-  include Scorable
-
   belongs_to :user
   has_many :pull_request_reviews, dependent: :destroy
+  has_many :pairings, dependent: :destroy
 
   attr_accessor :data, :merged
 
   validates :user, presence: true
   validates :number, presence: true, numericality: true
   validates :base_repo_full_name, presence: true
+  validates :body, presence: true
   validates :number_of_comments, presence: true, numericality: true
   validates :number_of_commits, presence: true, numericality: true
   validates :number_of_additions, presence: true, numericality: true
@@ -36,11 +36,13 @@ class PullRequest < ActiveRecord::Base
   validates :merged_at, presence: true
   validate :must_be_merged
 
+  after_create :create_pairings
   after_create :create_reviews
 
   def data=(data)
     self.user ||= User.where(nickname: data['user']['login']).first
     self.base_repo_full_name ||= data['base']['repo']['full_name']
+    self.body ||= data['body']
     self.number ||= data['number']
     self.merged ||= data['merged']
     self.number_of_comments ||= data['comments']
@@ -77,14 +79,24 @@ class PullRequest < ActiveRecord::Base
 
   private
 
-  def scoring_time
-    merged_at
-  end
-
   def create_reviews
     comments.each do |c|
       PullRequestReview.create(user: User.where(nickname: c.user.login).first, body: c.body, pull_request: self)
     end
+  end
+
+  def create_pairings
+    match = body.match(/paired[\s]*with[\s]*(?<names>[@\w+\s]+)/i)
+    if match.present?
+      pairs = match[:names].split(' ').select{ |p| p.include?('@') }
+      pairs.each do |pair|
+        pair_user = User.where(nickname: pair.delete('@')).first
+        if pair_user.present?
+          Pairing.create(user: pair_user, pull_request: self)
+        end
+      end
+    end
+    Pairing.create(user: user, pull_request: self)
   end
 
   def must_be_merged

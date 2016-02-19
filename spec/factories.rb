@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    name Faker::Name.name
-    nickname Faker::Internet.user_name
-    avatar_url Faker::Internet.url
-    email Faker::Internet.email
-    api_token Faker::Internet.password
-    github_id Faker::Internet.device_token
+    name { Faker::Name.name }
+    nickname { Faker::Internet.user_name }
+    avatar_url { Faker::Internet.url }
+    email { Faker::Internet.email }
+    api_token { Faker::Internet.password }
+    github_id { Faker::Internet.device_token }
   end
 
   factory :access_token do
@@ -22,7 +22,7 @@ FactoryGirl.define do
 
   factory :pull_request do
     base_repo_full_name { "#{Faker::Internet.user_name}/#{Faker::Lorem.word}" }
-    number Faker::Number.number(3)
+    number { Faker::Number.number(3) }
 
     data do
       {
@@ -46,6 +46,6 @@ FactoryGirl.define do
   factory :weekly_winning do
     association :winner, factory: :user
     start_date 1.week.ago
-    points Faker::Number.number(3).to_i
+    points { Faker::Number.number(3).to_i }
   end
 end

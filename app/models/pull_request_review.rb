@@ -22,7 +22,7 @@ class PullRequestReview < ActiveRecord::Base
   validate :body_must_contain_positive_signs
 
   def points
-    (pull_request.points / 2).round
+    (pull_request.pairings.first.points / 2).round
   end
 
   private

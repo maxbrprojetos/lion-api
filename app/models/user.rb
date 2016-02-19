@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :pull_request_reviews
   has_many :weekly_winnings
   has_many :access_tokens, dependent: :destroy
+  has_many :pairings
 
   validates :name, presence: true
   validates :nickname, presence: true

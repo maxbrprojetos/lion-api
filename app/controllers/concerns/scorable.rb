@@ -13,7 +13,14 @@ module Scorable
   end
 
   def give_points_to_user
-    Score.give(time: scoring_time, user: points_recipient, points: points)
+    if self.kind_of?(Badge)
+      pull_request.pairings.each do |recipient|
+        each_point = (points / pull_request.pairings.count).round
+        Score.give(time: scoring_time, user: recipient.user, points: each_point)
+      end
+    else
+      Score.give(time: scoring_time, user: points_recipient, points: points)
+    end
   end
 
   def take_points_from_user

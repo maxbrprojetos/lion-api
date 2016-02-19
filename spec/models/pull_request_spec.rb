@@ -43,6 +43,7 @@ describe PullRequest do
   it 'adds points to the user' do
     user = create(:user)
     pull_request = build(:pull_request, user: user)
+    pull_request.body = "## I paired with no one on this."
     allow(pull_request).to receive(:comments).and_return([])
     pull_request.save!
 
@@ -55,6 +56,7 @@ describe PullRequest do
     current_user
 
     pull_request = build(:pull_request)
+    pull_request.body = "## I paired with no one on this."
     allow(pull_request).to receive(:comments).and_return([double(
       body: ':+1:', user_nickname: 'current_user', user: double(login: 'current_user')
     )])

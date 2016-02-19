@@ -30,17 +30,23 @@ describe PullRequestReview do
   end
 
   describe '#points' do
-    it 'returns a fraction of pr points' do
+    it 'returns a fraction of each pairer\'s points on the pr' do
       pull_request = build(:pull_request)
+      pull_request.body = "## I paired with no one on this."
+      allow(pull_request).to receive(:comments).and_return([])
+      pull_request.number_of_additions = 1001
+      pull_request.number_of_deletions = 3000
+      pull_request.save!
+
       pull_request_review = PullRequestReview.new(body: 'test', pull_request: pull_request)
-      allow(pull_request).to receive(:points).and_return(130)
-      expect(pull_request_review.points).to eq(pull_request.points / 2)
+      expect(pull_request.points).to eq(100)
+      expect(pull_request_review.points).to eq(50)
     end
   end
 
   it 'gives points to the user' do
     pull_request = build(:pull_request)
-    # TODO: have this stub inside the factory itself
+    pull_request.body = "## I paired with no one on this."
     allow(pull_request).to receive(:comments).and_return([])
     pull_request.save!
 
@@ -55,7 +61,7 @@ describe PullRequestReview do
   context 'when the pull request is more than one week old' do
     it "doesn't give points to the user for the weekly score" do
       pull_request = build(:pull_request, merged_at: 1.month.ago)
-
+      pull_request.body = "#What's up"
       allow(pull_request).to receive(:comments).and_return([])
       pull_request.save!
 
