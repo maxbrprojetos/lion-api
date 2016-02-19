@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   has_many :scores
   has_many :pull_request_reviews
   has_many :weekly_winnings
-  has_many :badges
   has_many :access_tokens, dependent: :destroy
 
   validates :name, presence: true
