@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204231312) do
+ActiveRecord::Schema.define(version: 20160219204251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "uuid-ossp"
 
-  create_table "access_tokens", force: :cascade do |t|
-    t.uuid     "user_id",                  null: false
-    t.string   "access_token", limit: 255, null: false
-    t.datetime "expires_at",               null: false
+  create_table "access_tokens", force: true do |t|
+    t.uuid     "user_id",      null: false
+    t.string   "access_token", null: false
+    t.datetime "expires_at",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,7 +29,14 @@ ActiveRecord::Schema.define(version: 20151204231312) do
   add_index "access_tokens", ["access_token"], name: "index_access_tokens_on_access_token", unique: true, using: :btree
   add_index "access_tokens", ["user_id"], name: "index_access_tokens_on_user_id", using: :btree
 
-  create_table "badges", force: :cascade do |t|
+  create_table "pairings", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "user_id"
+    t.uuid     "pull_request_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pull_request_reviews", force: true do |t|
     t.uuid     "user_id"
     t.uuid     "pull_request_id"
     t.text     "body"
@@ -37,16 +44,8 @@ ActiveRecord::Schema.define(version: 20151204231312) do
     t.datetime "updated_at"
   end
 
-  create_table "pull_request_reviews", force: :cascade do |t|
-    t.uuid     "user_id"
-    t.uuid     "pull_request_id"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "pull_requests", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "base_repo_full_name",     limit: 255
+  create_table "pull_requests", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.string   "base_repo_full_name"
     t.integer  "number"
     t.uuid     "user_id"
     t.datetime "created_at"
@@ -57,28 +56,29 @@ ActiveRecord::Schema.define(version: 20151204231312) do
     t.integer  "number_of_deletions"
     t.integer  "number_of_changed_files"
     t.datetime "merged_at"
+    t.string   "body"
   end
 
-  create_table "scores", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "scores", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "user_id"
-    t.integer  "points",                 default: 0
-    t.string   "time_span",  limit: 255, default: "all_time"
+    t.integer  "points",     default: 0
+    t.string   "time_span",  default: "all_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "nickname",   limit: 255
-    t.string   "email",      limit: 255
-    t.string   "avatar_url", limit: 255
-    t.string   "api_token",  limit: 255
-    t.string   "github_id",  limit: 255
+  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.string   "name"
+    t.string   "nickname"
+    t.string   "email"
+    t.string   "avatar_url"
+    t.string   "api_token"
+    t.string   "github_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "weekly_winnings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "weekly_winnings", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "winner_id"
     t.date     "start_date"
     t.integer  "points",     default: 0
