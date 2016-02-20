@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe PointsMarshaller do
+describe PointsMarshaler do
   describe "matching regex" do
-    subject { PointsMarshaller::MATCHING_REGEX }
+    subject { PointsMarshaler::MATCHING_REGEX }
 
     context "when the marker phrase is capitalized" do
       let(:body) { "My name is @edjohn. I Paired with @delkopiso" }
@@ -83,7 +83,7 @@ describe PointsMarshaller do
   end
 
   describe "splitting regex" do
-    subject { PointsMarshaller::SPLITTING_REGEX }
+    subject { PointsMarshaler::SPLITTING_REGEX }
 
     context "when 1 user is listed" do
       let(:text) { "@delkopiso" }
@@ -114,7 +114,7 @@ describe PointsMarshaller do
     end
   end
 
-  describe "#marshall" do
+  describe "#marshal" do
     let(:user) { create(:user) }
     let(:paired_user) { create(:user) }
     let(:reviewer) { create(:user) }
@@ -135,7 +135,7 @@ describe PointsMarshaller do
 
     it "creates a pull request" do
       allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
-      pull_request = described_class.new(data: params).marshall
+      pull_request = described_class.new(data: params).marshal
 
       expect(pull_request.persisted?).to eq true
     end
@@ -145,7 +145,7 @@ describe PointsMarshaller do
         .and_return([
           double(user: double(login: reviewer.nickname), body: "LGTM :+1:")
           ])
-      pull_request = described_class.new(data: params).marshall
+      pull_request = described_class.new(data: params).marshal
 
       pull_request_reviewers = pull_request.pull_request_reviews.pluck(:user_id)
       expect(pull_request_reviewers.count).to eq 1
@@ -158,7 +158,7 @@ describe PointsMarshaller do
     it "creates and scores pairings" do
       allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
       params[:body] += "I paired with @#{paired_user.nickname}"
-      pull_request = described_class.new(data: params).marshall
+      pull_request = described_class.new(data: params).marshal
 
       pairers = pull_request.pairings.pluck(:user_id)
       expect(pairers.count).to eq 2

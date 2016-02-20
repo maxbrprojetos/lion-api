@@ -1,4 +1,4 @@
-class PointsMarshaller
+class PointsMarshaler
   MATCHING_REGEX = /paired[\s]*with[\s]*(?<names>[@\w+[\s+|,]]+)/i
   SPLITTING_REGEX = /,|\.|\s+/
 
@@ -8,9 +8,8 @@ class PointsMarshaller
 
   attr_accessor :data
 
-  def marshall
-    pull_request = PullRequest.create(data)
-    if pull_request.present? && pull_request.persisted?
+  def marshal
+    if pull_request = PullRequest.create(data)
       create_pairings(pull_request)
       create_reviews(pull_request)
     end
@@ -22,15 +21,10 @@ class PointsMarshaller
 
   def create_reviews(pr)
     review_points = (pr.points / 2).round
-    pr.comments.each do |comment|
-      reviewer = User.where(nickname: comment.user.login).first
-      pull_request_review = PullRequestReview.create(
-        user: reviewer,
-        body: comment.body,
-        pull_request: pr
-      )
-      if pull_request_review.present? && pull_request_review.persisted?
-        Score.give(time: pr.merged_at, user: reviewer, points: review_points)
+    pr.comments.each do |c|
+      user = User.where(nickname: c.user.login).first
+      if PullRequestReview.create(user: user, body: c.body, pull_request: pr)
+        Score.give(time: pr.merged_at, user: user, points: review_points)
       end
     end
   end
@@ -38,8 +32,7 @@ class PointsMarshaller
   def create_pairings(pr)
     pair_points = (pr.points / pairers.size).round
     pairers.each do |u|
-      pairing = Pairing.create(user: u, pull_request: pr)
-      if pairing.present? && pairing.persisted?
+      if Pairing.create(user: u, pull_request: pr)
         Score.give(time: pr.merged_at, user: u, points: pair_points)
       end
     end

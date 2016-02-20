@@ -2,7 +2,7 @@ module Api
   class PullRequestsController < ApplicationController
     def create
       if action == 'closed'
-        PointsMarshaller.new(data: pull_request_params).marshall
+        PointsMarshaler.new(data: pull_request_params).marshal
       end
 
       head :ok

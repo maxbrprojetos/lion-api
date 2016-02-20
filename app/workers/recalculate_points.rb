@@ -47,7 +47,7 @@ class RecalculatePoints
       next unless user
       pr_data = pr.rels[:self].get.data
       data = aggregate_data(user: user, pr: pr, pr_data: pr_data, repo: repo)
-      pull_request = PointsMarshaller.new(data: data).marshall
+      pull_request = PointsMarshaler.new(data: data).marshal
       if pull_request.present? && pull_request.persisted?
         logger.info "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
       end
