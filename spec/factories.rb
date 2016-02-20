@@ -22,23 +22,14 @@ FactoryGirl.define do
 
   factory :pull_request do
     base_repo_full_name { "#{Faker::Internet.user_name}/#{Faker::Lorem.word}" }
+    body { Faker::Lorem.sentence }
     number { Faker::Number.number(3) }
-
-    data do
-      {
-        'merged' => true,
-        'merged_at' => '2011-01-26T19 =>01 =>12Z',
-        'user' => { 'login' => user.nickname },
-        'base' => {
-          'repo' => { 'full_name' => base_repo_full_name }
-        },
-        'comments' => 10,
-        'commits' => 3,
-        'additions' => 100,
-        'deletions' => 3,
-        'changed_files' => 5
-      }
-    end
+    merged_at { Time.zone.now - 1.day }
+    number_of_comments { Faker::Number.number(2) }
+    number_of_commits { Faker::Number.number(2) }
+    number_of_additions { Faker::Number.number(2) }
+    number_of_deletions { Faker::Number.number(2) }
+    number_of_changed_files { Faker::Number.number(2) }
 
     user
   end

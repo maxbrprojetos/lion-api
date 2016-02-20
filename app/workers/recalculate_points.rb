@@ -46,9 +46,9 @@ class RecalculatePoints
       user = User.where(nickname: pr.user.login).first
       next unless user
       pr_data = pr.rels[:self].get.data
-      pull_request = build_pull_request(user: user, pr: pr, pr_data: pr_data, repo: repo)
-
-      if pull_request.save
+      data = aggregate_data(user: user, pr: pr, pr_data: pr_data, repo: repo)
+      pull_request = PointsMarshaller.new(data: data).marshall
+      if pull_request.present? && pull_request.persisted?
         logger.info "#{repo} #{pr.number} #{pr.user.login} #{pr_data.merged_at} #{'weekly' if pr_data.merged_at && pr_data.merged_at > Time.now.beginning_of_week}"
       end
 
@@ -60,6 +60,7 @@ class RecalculatePoints
   def reset_points
     PullRequest.delete_all
     PullRequestReview.delete_all
+    Pairing.delete_all
     Score.reset_points
   end
 
@@ -67,10 +68,9 @@ class RecalculatePoints
     @client ||= User.global_client
   end
 
-  def build_pull_request(user:, pr:, pr_data:, repo:)
-    PullRequest.new(
+  def aggregate_data(user:, pr:, pr_data:, repo:
+    {
       user: user,
-      merged: pr.merged_at.present?,
       number: pr.number,
       base_repo_full_name: repo,
       number_of_comments: pr_data.comments,
@@ -79,6 +79,6 @@ class RecalculatePoints
       number_of_deletions: pr_data.deletions,
       number_of_changed_files: pr_data.changed_files,
       merged_at: pr_data.merged_at
-    )
+    }
   end
 end

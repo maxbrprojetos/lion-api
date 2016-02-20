@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: scores
-#
-#  id         :uuid             not null, primary key
-#  user_id    :uuid
-#  points     :integer          default(0)
-#  time_span  :string(255)      default("all_time")
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 class Score < ActiveRecord::Base
   attr_accessor :time
 
@@ -32,12 +20,6 @@ class Score < ActiveRecord::Base
     end
   end
 
-  def self.take(user: nil, points: nil)
-    # we assume revoking points will be done within one week of giving points
-    # that is, a task will be unmarked as completed only short after it was marked as completed
-    where(user: user).each { |s| s.decrement_points_by(points) }
-  end
-
   def self.reset_points
     update_all(points: 0)
   end
@@ -49,12 +31,6 @@ class Score < ActiveRecord::Base
   def increment_points_by(points_to_add)
     transaction do
       update(points: points + points_to_add)
-    end
-  end
-
-  def decrement_points_by(points_to_remove)
-    transaction do
-      update(points: points - points_to_remove)
     end
   end
 end

@@ -1,18 +1,4 @@
-# == Schema Information
-#
-# Table name: pull_request_reviews
-#
-#  id              :integer          not null, primary key
-#  user_id         :uuid
-#  pull_request_id :uuid
-#  body            :text
-#  created_at      :datetime
-#  updated_at      :datetime
-#
-
 class PullRequestReview < ActiveRecord::Base
-  include Scorable
-
   belongs_to :user
   belongs_to :pull_request
 
@@ -21,17 +7,11 @@ class PullRequestReview < ActiveRecord::Base
   validates :user, presence: true
   validate :body_must_contain_positive_signs
 
-  def points
-    (pull_request.pairings.first.points / 2).round
-  end
-
   private
 
   def body_must_contain_positive_signs
-    errors.add(:body, 'must contain positive signs') unless body.match(/:\+1:|:thumbsup:|:shipit:/)
-  end
-
-  def scoring_time
-    pull_request.merged_at
+    unless body.match(/:\+1:|:thumbsup:|:shipit:/)
+      errors.add(:body, 'must contain positive signs')
+    end
   end
 end

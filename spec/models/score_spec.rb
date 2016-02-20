@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: scores
-#
-#  id         :uuid             not null, primary key
-#  user_id    :uuid
-#  points     :integer          default(0)
-#  time_span  :string(255)      default("all_time")
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec_helper'
 
 describe Score do
@@ -52,16 +40,6 @@ describe Score do
 
         expect(Score.weekly.first).not_to be_present
       end
-    end
-
-  end
-
-  describe '.take' do
-    it 'decrements the Score points' do
-      Score.give(time: Time.now, user: user, points: 5)
-      Score.take(user: user, points: 5)
-
-      expect(Score.first.points).to eq(0)
     end
   end
 

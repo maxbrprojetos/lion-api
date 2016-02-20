@@ -44,7 +44,7 @@ module Helpers
           'number' => 1,
           'state' => 'open',
           'title' => 'new-feature',
-          'body' => 'Please pull these awesome changes. I paired with @paired_user on this PR.',
+          'body' => "Please pull these awesome changes. I paired with @#{paired_user.nickname} on this PR.",
           'created_at' => '2011-01-26T19 =>01 =>12Z',
           'updated_at' => '2011-01-26T19 =>01 =>12Z',
           'closed_at' => '2011-01-26T19 =>01 =>12Z',
@@ -216,8 +216,7 @@ module Helpers
             }
           },
           'user' => {
-            # change this when changing current_user nickname in your fixtures
-            'login' => 'current_user',
+            'login' => "#{current_user.nickname}",
             'id' => 1,
             'avatar_url' => 'https =>//github.com/images/error/octocat_happy.gif',
             'gravatar_id' => 'somehexcode',
