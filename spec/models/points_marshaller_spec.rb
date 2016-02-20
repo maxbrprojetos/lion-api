@@ -1,6 +1,119 @@
 require 'spec_helper'
 
 describe PointsMarshaller do
+  describe "matching regex" do
+    subject { PointsMarshaller::MATCHING_REGEX }
+
+    context "when the marker phrase is capitalized" do
+      let(:body) { "My name is @edjohn. I Paired with @delkopiso" }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso"
+      end
+    end
+
+    context "when the marker phrase is non-space delimited" do
+      let(:body) { "My name is @edjohn. I pairedwith @delkopiso" }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso"
+      end
+    end
+
+    context "when the marker phrase is capitalized and non-space delimited" do
+      let(:body) { "My name is @edjohn. I Pairedwith @delkopiso" }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso"
+      end
+    end
+
+    context "when 1 user is listed" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso" }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso"
+      end
+    end
+
+    context "when 1 user is listed termniating in a period" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso." }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso"
+      end
+    end
+
+    context "when 2 users are listed separated by 'and'" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso and @abe" }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso and @abe"
+      end
+    end
+
+    context "when 2 users are listed separated by 'and', period termniated" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso and @abe." }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso and @abe"
+      end
+    end
+
+    context "when 3 users are listed separated by ',' and 'and'" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso, @jake and @abe" }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso, @jake and @abe"
+      end
+    end
+
+    context "when 3 users are listed separated by ',' and 'and', period termniated" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso, @jake and @abe." }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso, @jake and @abe"
+      end
+    end
+
+    context "when 3 users are listed separated by ',' with no space and 'and'" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso,@jake and @abe" }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso,@jake and @abe"
+      end
+    end
+
+    context "when 3 users are listed separated by ',' with no space and 'and' period terminated" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso,@jake and @abe." }
+      it "matches the listed users" do
+        expect(subject.match(body)[:names]).to eq "@delkopiso,@jake and @abe"
+      end
+    end
+  end
+
+  describe "splitting regex" do
+    subject { PointsMarshaller::SPLITTING_REGEX }
+
+    context "when 1 user is listed" do
+      let(:text) { "@delkopiso" }
+      it "splits the words properly" do
+        expect(text.split(subject)).to match_array ["@delkopiso"]
+      end
+    end
+
+    context "when 2 users are listed separated by 'and'" do
+      let(:text) { "@delkopiso and @abe" }
+      it "splits the words properly" do
+        expect(text.split(subject)).to match_array ["@delkopiso", "and", "@abe"]
+      end
+    end
+
+    context "when 3 users are listed separated by ',' with space and 'and'" do
+      let(:text) { "@delkopiso, @jake and @abe" }
+      it "splits the words properly" do
+        expect(text.split(subject)).to match_array ["", "@delkopiso", "@jake", "and", "@abe"]
+      end
+    end
+
+    context "when 3 users are listed separated by ',' with no space and 'and'" do
+      let(:text) { "@delkopiso,@jake and @abe" }
+      it "splits the words properly" do
+        expect(text.split(subject)).to match_array ["@delkopiso", "@jake", "and", "@abe"]
+      end
+    end
+  end
+
   describe "#marshall" do
     let(:user) { create(:user) }
     let(:paired_user) { create(:user) }
@@ -46,7 +159,7 @@ describe PointsMarshaller do
       allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
       params[:body] += "I paired with @#{paired_user.nickname}"
       pull_request = described_class.new(data: params).marshall
-      
+
       pairers = pull_request.pairings.pluck(:user_id)
       expect(pairers.count).to eq 2
 

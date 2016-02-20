@@ -1,5 +1,6 @@
 class PointsMarshaller
-  PAIRING_REGEX = /paired[\s]*with[\s]*(?<names>[@\w+\s]+)/i
+  MATCHING_REGEX = /paired[\s]*with[\s]*(?<names>[@\w+[\s+|,]]+)/i
+  SPLITTING_REGEX = /,|\.|\s+/
 
   def initialize(data:)
     @data = data
@@ -53,12 +54,12 @@ class PointsMarshaller
   end
 
   def sanitize_pairs
-    match_pairers[:names].split(' ').select{ |p| p.include?('@') }.map do |p|
-      p.delete('@')
-    end
+    match_pairers[:names].split(SPLITTING_REGEX).select do |p|
+      p.include?('@')
+    end.map{ |p| p.delete('@') }
   end
 
   def match_pairers
-    @match_pairers ||= data[:body].match(PAIRING_REGEX)
+    @match_pairers ||= data[:body].match(MATCHING_REGEX)
   end
 end
