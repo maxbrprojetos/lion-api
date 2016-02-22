@@ -10,6 +10,17 @@ module Helpers
     ).first_or_create
   end
 
+  def paired_user
+    User.where(
+      api_token: 'api_token_vegas',
+      nickname: 'paired_user',
+      avatar_url: 'tmi',
+      email: 'smaple@test.com',
+      name: 'Sample Test',
+      github_id: '11'
+    ).first_or_create
+  end
+
   def mock_access_token_for(user)
     request.env['HTTP_AUTHORIZATION'] = "Bearer #{user.access_token.access_token}"
   end
@@ -33,7 +44,7 @@ module Helpers
           'number' => 1,
           'state' => 'open',
           'title' => 'new-feature',
-          'body' => 'Please pull these awesome changes',
+          'body' => "Please pull these awesome changes. I paired with @#{paired_user.nickname} on this PR.",
           'created_at' => '2011-01-26T19 =>01 =>12Z',
           'updated_at' => '2011-01-26T19 =>01 =>12Z',
           'closed_at' => '2011-01-26T19 =>01 =>12Z',
@@ -205,8 +216,7 @@ module Helpers
             }
           },
           'user' => {
-            # change this when changing current_user nickname in your fixtures
-            'login' => 'current_user',
+            'login' => "#{current_user.nickname}",
             'id' => 1,
             'avatar_url' => 'https =>//github.com/images/error/octocat_happy.gif',
             'gravatar_id' => 'somehexcode',

@@ -1,24 +1,10 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id         :uuid             not null, primary key
-#  name       :string(255)
-#  nickname   :string(255)
-#  email      :string(255)
-#  avatar_url :string(255)
-#  api_token  :string(255)
-#  github_id  :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 class User < ActiveRecord::Base
   has_many :pull_requests
   has_many :scores
   has_many :pull_request_reviews
   has_many :weekly_winnings
   has_many :access_tokens, dependent: :destroy
+  has_many :pairings
 
   validates :name, presence: true
   validates :nickname, presence: true
