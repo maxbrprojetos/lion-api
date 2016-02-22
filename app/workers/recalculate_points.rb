@@ -68,7 +68,7 @@ class RecalculatePoints
     @client ||= User.global_client
   end
 
-  def aggregate_data(user:, pr:, pr_data:, repo:
+  def aggregate_data(user:, pr:, pr_data:, repo:)
     {
       user: user,
       number: pr.number,
