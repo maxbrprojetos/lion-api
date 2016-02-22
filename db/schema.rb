@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219204251) do
+ActiveRecord::Schema.define(version: 20160222175704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160219204251) do
     t.integer  "number_of_deletions"
     t.integer  "number_of_changed_files"
     t.datetime "merged_at"
-    t.string   "body"
+    t.text     "body"
   end
 
   create_table "scores", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
