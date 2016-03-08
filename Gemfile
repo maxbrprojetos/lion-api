@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 # variables will see the variables when they load
 gem 'dotenv'
 
-gem 'rails'
+gem 'rails', '~> 4.1.14.2'
 gem 'rails-api'
 gem 'active_model_serializers', '~> 0.8.0'
 gem 'puma'
