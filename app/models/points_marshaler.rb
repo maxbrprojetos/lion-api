@@ -9,12 +9,13 @@ class PointsMarshaler
   attr_accessor :data
 
   def marshal
-    if pull_request = PullRequest.create(data)
+    pull_request = PullRequest.create(data)
+
+    if pull_request.valid?
       create_pairings(pull_request)
       create_reviews(pull_request)
+      pull_request
     end
-
-    pull_request
   end
 
   private
@@ -23,7 +24,9 @@ class PointsMarshaler
     review_points = (pr.points / 2).round
     pr.comments.each do |c|
       user = User.where(nickname: c.user.login).first
-      if PullRequestReview.create(user: user, body: c.body, pull_request: pr)
+      review = PullRequestReview.create(user: user, body: c.body, pull_request: pr)
+
+      if review.valid?
         Score.give(time: pr.merged_at, user: user, points: review_points)
       end
     end
@@ -32,7 +35,9 @@ class PointsMarshaler
   def create_pairings(pr)
     pair_points = (pr.points / pairers.size).round
     pairers.each do |u|
-      if Pairing.create(user: u, pull_request: pr)
+      pairing = Pairing.create(user: u, pull_request: pr)
+
+      if pairing.valid?
         Score.give(time: pr.merged_at, user: u, points: pair_points)
       end
     end
