@@ -8,7 +8,7 @@ describe PullRequestReview do
 
       expect(pull_request_review.errors.full_messages).to include('Body must contain positive signs')
 
-      [':+1:', ':shipit:', ':thumbsup:'].each do |message|
+      [':+1:', ':shipit:', ':thumbsup:', '👍'].each do |message|
         pull_request_review.body = message
         pull_request_review.valid?
 
