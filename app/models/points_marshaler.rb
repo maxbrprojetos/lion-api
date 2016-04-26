@@ -1,5 +1,5 @@
 class PointsMarshaler
-  MATCHING_REGEX = /paired[\s]*with[\s]*(?<names>[@\w+[\s+|,]]+)/i
+  MATCHING_REGEX = /paired[\s]*with[\s]*(?<names>[@\w+[-]?[\s+|,]]+)/i
   SPLITTING_REGEX = /,|\.|\s+/
 
   def initialize(data:)
@@ -33,7 +33,7 @@ class PointsMarshaler
   end
 
   def create_pairings(pr)
-    pair_points = (pr.points / pairers.size).round
+    pair_points = (pr.points / pairers.count).round
     pairers.each do |u|
       pairing = Pairing.create(user: u, pull_request: pr)
 
@@ -44,11 +44,11 @@ class PointsMarshaler
   end
 
   def pairers
-    @pairers ||= if match_pairers.present?
-      User.where(nickname: sanitize_pairs.push(data[:user].nickname))
-    else
-      [data[:user]]
+    query = [data[:user].nickname]
+    if match_pairers.present?
+      query += sanitize_pairs
     end
+    User.where(nickname: query)
   end
 
   def sanitize_pairs

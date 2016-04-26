@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     name { Faker::Name.name }
-    nickname { Faker::Internet.user_name }
+    nickname { Faker::Internet.user_name(nil, %w(-)) }
     avatar_url { Faker::Internet.url }
     email { Faker::Internet.email }
     api_token { Faker::Internet.password }
@@ -23,13 +23,13 @@ FactoryGirl.define do
   factory :pull_request do
     base_repo_full_name { "#{Faker::Internet.user_name}/#{Faker::Lorem.word}" }
     body { Faker::Lorem.sentence }
-    number { Faker::Number.number(3) }
-    merged_at { Time.zone.now - 1.day }
-    number_of_comments { Faker::Number.number(2) }
-    number_of_commits { Faker::Number.number(2) }
-    number_of_additions { Faker::Number.number(2) }
-    number_of_deletions { Faker::Number.number(2) }
-    number_of_changed_files { Faker::Number.number(2) }
+    number { Faker::Number.number(3).to_i }
+    merged_at { "#{Time.new(2016, 1, 2)}" }
+    number_of_comments { Faker::Number.number(2).to_i }
+    number_of_commits { Faker::Number.number(2).to_i }
+    number_of_additions { Faker::Number.number(2).to_i }
+    number_of_deletions { Faker::Number.number(2).to_i }
+    number_of_changed_files { Faker::Number.number(2).to_i }
 
     user
   end

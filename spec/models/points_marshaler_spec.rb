@@ -123,13 +123,13 @@ describe PointsMarshaler do
         user: user,
         base_repo_full_name: "#{Faker::Internet.user_name}/#{Faker::Lorem.word}",
         body: Faker::Lorem.sentence,
-        number: Faker::Number.number(3),
-        merged_at: Time.zone.now - 1.day,
-        number_of_comments: Faker::Number.number(2),
-        number_of_commits: Faker::Number.number(2),
-        number_of_additions: Faker::Number.number(2),
-        number_of_deletions: Faker::Number.number(2),
-        number_of_changed_files: Faker::Number.number(2)
+        number: Faker::Number.number(3).to_i,
+        merged_at: "#{Time.new(2016, 1, 2)}",
+        number_of_comments: Faker::Number.number(2).to_i,
+        number_of_commits: Faker::Number.number(2).to_i,
+        number_of_additions: Faker::Number.number(2).to_i,
+        number_of_deletions: Faker::Number.number(2).to_i,
+        number_of_changed_files: Faker::Number.number(2).to_i
       }
     end
 
@@ -156,16 +156,19 @@ describe PointsMarshaler do
     end
 
     it "creates and scores pairings" do
+      expect(Score.count).to eq 0
       allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
       params[:body] += "I paired with @#{paired_user.nickname}"
       pull_request = described_class.new(data: params).marshal
 
-      pairers = pull_request.pairings.pluck(:user_id)
+      pairers = Pairing.where(pull_request_id: pull_request.id)
       expect(pairers.count).to eq 2
 
-      pair_points = Score.where(user: pairers).all_time.pluck(:points)
-      expect(pair_points.sum).to eq pull_request.points
-      expect(pair_points.all?{ |p| p == pull_request.points / 2 }).to eq true
+      pair_points = Score.where(user_id: pairers.map(&:user_id))
+      expect(pair_points.sum(:points)).to eq pull_request.points
+      pair_points.each do |p|
+        expect(p.points).to eq pull_request.points / 2
+      end
     end
   end
 end

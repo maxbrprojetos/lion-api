@@ -2,7 +2,6 @@ class RecalculatePoints
   include Sidekiq::Worker
 
   def perform
-    reset_points
     User.current_client_index = 0
     repos_page = 1
 
@@ -57,13 +56,6 @@ class RecalculatePoints
     end
   end
 
-  def reset_points
-    PullRequest.delete_all
-    PullRequestReview.delete_all
-    Pairing.delete_all
-    Score.reset_points
-  end
-
   def client
     @client ||= User.global_client
   end
@@ -72,6 +64,7 @@ class RecalculatePoints
     {
       user: user,
       number: pr.number,
+      body: pr.body,
       base_repo_full_name: repo,
       number_of_comments: pr_data.comments,
       number_of_commits: pr_data.commits,
