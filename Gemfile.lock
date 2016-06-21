@@ -96,6 +96,10 @@ GEM
     honeybadger (2.3.3)
     i18n (0.7.0)
     json (1.8.3)
+    lograge (0.3.6)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
@@ -236,6 +240,7 @@ DEPENDENCIES
   faker
   honeybadger
   jazz_hands!
+  lograge
   octokit
   pg
   pry-byebug

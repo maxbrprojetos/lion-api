@@ -17,6 +17,7 @@ gem 'skylight'
 gem 'rack-cors'
 gem 'sidekiq'
 gem 'sinatra', require: nil
+gem 'lograge'
 
 gem 'rails_12factor', group: :production
 
