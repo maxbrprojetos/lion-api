@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
   end
 
   def self.clients
-    @clients ||= User.where(nickname: ENV['USERS'].split(',')).map(&:github_client)
+    @clients ||= User.where(nickname: self.active.map(&:nickname)).map(&:github_client)
+  end
+  
+  def self.active
+    AccessToken.active.map(&:user)
   end
 end
