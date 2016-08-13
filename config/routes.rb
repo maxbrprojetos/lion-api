@@ -13,6 +13,8 @@ Lion::Application.routes.draw do
     resources :weekly_winnings, only: :index
     resources :stats, only: :index
     resources :tokens, only: :create
+    post '/auth', to: 'auth#execute'
+    post '/graph', to: 'graph#execute'
   end
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|

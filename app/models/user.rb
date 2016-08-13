@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :avatar_url, presence: true
   validates :github_id, presence: true
-  # validates :api_token, presence: true
+  validates :api_token, presence: true
 
   class_attribute :current_client_index
 
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     }
 
     if user
-      user.update(info)
+      user.update!(info)
     else
       user = create_from_github(info, token)
     end
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 
   def self.create_from_github(info, token)
     if github_client(token).organizations.map(&:login).include?(ENV['ORGANIZATION_NAME'])
-      create(info)
+      create!(info)
     else
       nil
     end
@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   def self.clients
     @clients ||= User.where(nickname: self.active.map(&:nickname)).map(&:github_client)
   end
-  
+
   def self.active
     AccessToken.active.map(&:user)
   end

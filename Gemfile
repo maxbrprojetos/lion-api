@@ -19,6 +19,7 @@ gem 'sinatra', github: 'sinatra', require: nil
 gem 'lograge'
 gem 'rack-protection', github: 'sinatra/rack-protection'
 gem 'rails_12factor', group: :production
+gem 'graphql'
 
 group :development do
   gem 'bullet'
