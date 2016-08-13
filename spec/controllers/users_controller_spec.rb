@@ -45,7 +45,7 @@ describe Api::UsersController, type: :controller do
 
   describe "GET #show" do
     it "requires an access token" do
-      get :show, id: 1
+      get :show, params: { id: 1 }
       expect(response.status).to eq(401)
       expect(response.headers['WWW-Authenticate']).to match(/^Bearer/)
     end
@@ -57,7 +57,7 @@ describe Api::UsersController, type: :controller do
       access_token = create(:access_token, user: current_user)
       mock_access_token_for(access_token.user)
 
-      get :show, id: sought_user.id
+      get :show, params: { id: sought_user.id }
 
       expect(response.status).to eq(200)
 

@@ -1,4 +1,4 @@
-ruby '2.3.0'
+ruby '2.3.1'
 
 source 'https://rubygems.org'
 
@@ -6,8 +6,7 @@ source 'https://rubygems.org'
 # variables will see the variables when they load
 gem 'dotenv'
 
-gem 'rails', '~> 4.1.14.2'
-gem 'rails-api'
+gem 'rails', '~> 5.0.0'
 gem 'active_model_serializers', '~> 0.8.0'
 gem 'puma'
 gem 'pg'
@@ -16,22 +15,19 @@ gem 'honeybadger'
 gem 'skylight'
 gem 'rack-cors'
 gem 'sidekiq'
-gem 'sinatra', require: nil
+gem 'sinatra', github: 'sinatra', require: nil
 gem 'lograge'
-
+gem 'rack-protection', github: 'sinatra/rack-protection'
 gem 'rails_12factor', group: :production
 
 group :development do
-  gem 'spring'
   gem 'bullet'
 end
 
 group :test, :development do
-  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
-  gem 'pry-byebug'
+  gem 'pry'
+  gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'spring-commands-rspec'
-  gem 'rubocop'
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
   gem 'faker'
 end
