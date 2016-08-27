@@ -26,7 +26,7 @@ end
 
 group :test, :development do
   gem 'pry'
-  gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails', github: 'thoughtbot/factory_girl_rails'
   gem 'faker'
