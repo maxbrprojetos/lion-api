@@ -21,3 +21,6 @@
 /api_docs/
 *.dump
 /public/assets
+
+.ruby-version
+Guardfile
