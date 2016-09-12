@@ -88,6 +88,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    graphql (0.18.1)
     honeybadger (2.6.0)
     i18n (0.7.0)
     lograge (0.4.1)
@@ -211,6 +212,7 @@ DEPENDENCIES
   dotenv
   factory_girl_rails!
   faker
+  graphql
   honeybadger
   lograge
   octokit
