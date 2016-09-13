@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222175704) do
+ActiveRecord::Schema.define(version: 20160913145500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160222175704) do
     t.integer  "number_of_changed_files"
     t.datetime "merged_at"
     t.text     "body"
+    t.index ["base_repo_full_name", "number"], name: "index_pull_requests_on_base_repo_full_name_and_number", unique: true, using: :btree
   end
 
   create_table "scores", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
