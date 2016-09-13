@@ -7,77 +7,77 @@ describe PointsMarshaler do
     context "when the marker phrase is capitalized" do
       let(:body) { "My name is @edjohn. I Paired with @delkopiso" }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso"
+        expect(body.match(subject)[:names]).to eq "@delkopiso"
       end
     end
 
     context "when the marker phrase is non-space delimited" do
       let(:body) { "My name is @edjohn. I pairedwith @delkopiso" }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso"
+        expect(body.match(subject)[:names]).to eq "@delkopiso"
       end
     end
 
     context "when the marker phrase is capitalized and non-space delimited" do
       let(:body) { "My name is @edjohn. I Pairedwith @delkopiso" }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso"
+        expect(body.match(subject)[:names]).to eq "@delkopiso"
       end
     end
 
     context "when 1 user is listed" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso" }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso"
+        expect(body.match(subject)[:names]).to eq "@delkopiso"
       end
     end
 
     context "when 1 user is listed termniating in a period" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso." }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso"
+        expect(body.match(subject)[:names]).to eq "@delkopiso"
       end
     end
 
     context "when 2 users are listed separated by 'and'" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso and @abe" }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso and @abe"
+        expect(body.match(subject)[:names]).to eq "@delkopiso and @abe"
       end
     end
 
     context "when 2 users are listed separated by 'and', period termniated" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso and @abe." }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso and @abe"
+        expect(body.match(subject)[:names]).to eq "@delkopiso and @abe"
       end
     end
 
     context "when 3 users are listed separated by ',' and 'and'" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso, @jake and @abe" }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso, @jake and @abe"
+        expect(body.match(subject)[:names]).to eq "@delkopiso, @jake and @abe"
       end
     end
 
     context "when 3 users are listed separated by ',' and 'and', period termniated" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso, @jake and @abe." }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso, @jake and @abe"
+        expect(body.match(subject)[:names]).to eq "@delkopiso, @jake and @abe"
       end
     end
 
     context "when 3 users are listed separated by ',' with no space and 'and'" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso,@jake and @abe" }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso,@jake and @abe"
+        expect(body.match(subject)[:names]).to eq "@delkopiso,@jake and @abe"
       end
     end
 
     context "when 3 users are listed separated by ',' with no space and 'and' period terminated" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso,@jake and @abe." }
       it "matches the listed users" do
-        expect(subject.match(body)[:names]).to eq "@delkopiso,@jake and @abe"
+        expect(body.match(subject)[:names]).to eq "@delkopiso,@jake and @abe"
       end
     end
   end

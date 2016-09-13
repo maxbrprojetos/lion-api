@@ -58,6 +58,6 @@ class PointsMarshaler
   end
 
   def match_pairers
-    @match_pairers ||= data[:body].match(MATCHING_REGEX)
+    @match_pairers ||= data[:body]&.match(MATCHING_REGEX)
   end
 end
