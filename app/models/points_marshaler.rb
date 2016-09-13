@@ -16,6 +16,8 @@ class PointsMarshaler
       create_reviews(pull_request)
       pull_request
     end
+  rescue ActiveRecord::RecordNotUnique => e
+    Honeybadger.notify(e, context: data)
   end
 
   private

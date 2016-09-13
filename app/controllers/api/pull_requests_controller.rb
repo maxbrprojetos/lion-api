@@ -2,11 +2,7 @@ module Api
   class PullRequestsController < ApplicationController
     def create
       if action == 'closed'
-        begin
-          PointsMarshaler.new(data: pull_request_params).marshal
-        rescue ActiveRecord::RecordNotUnique => e
-          Honeybadger.notify(e, context: pull_request_params)
-        end
+        PointsMarshaler.new(data: pull_request_params).marshal
       end
 
       head :ok
