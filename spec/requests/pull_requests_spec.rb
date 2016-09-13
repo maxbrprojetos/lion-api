@@ -14,5 +14,19 @@ describe 'PullRequests Requests', type: :request do
       expect(pull_request).to be_present
       expect(pull_request.user).to eq(current_user)
     end
+
+    it 'does not duplicate pull requests' do
+      allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
+
+      expect{
+        post api_pull_requests_path, params.to_json
+      }.to change(PullRequest, :count).by 1
+      expect(last_response.status).to eq 200
+
+      expect{
+        post api_pull_requests_path, params.to_json
+      }.to change(PullRequest, :count).by 0
+      expect(last_response.status).to eq 200
+    end
   end
 end
