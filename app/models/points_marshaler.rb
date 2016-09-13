@@ -18,6 +18,7 @@ class PointsMarshaler
     end
   rescue ActiveRecord::RecordNotUnique => e
     Honeybadger.notify(e, context: data)
+    nil
   end
 
   private
