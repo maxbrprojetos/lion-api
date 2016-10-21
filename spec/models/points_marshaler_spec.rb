@@ -53,6 +53,20 @@ describe PointsMarshaler do
       end
     end
 
+    context "when 2 users are listed separated by '&', period termniated" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso & @abe." }
+      it "matches the listed users" do
+        expect(body.match(subject)[:names]).to eq "@delkopiso & @abe"
+      end
+    end
+
+    context "when 2 users are listed separated by '&'" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso & @abe" }
+      it "matches the listed users" do
+        expect(body.match(subject)[:names]).to eq "@delkopiso & @abe"
+      end
+    end
+
     context "when 3 users are listed separated by ',' and 'and'" do
       let(:body) { "My name is @edjohn. I paired with @delkopiso, @jake and @abe" }
       it "matches the listed users" do
@@ -78,6 +92,34 @@ describe PointsMarshaler do
       let(:body) { "My name is @edjohn. I paired with @delkopiso,@jake and @abe." }
       it "matches the listed users" do
         expect(body.match(subject)[:names]).to eq "@delkopiso,@jake and @abe"
+      end
+    end
+
+    context "when 3 users are listed separated by '&' with spaces" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso & @jake & @abe" }
+      it "matches the listed users" do
+        expect(body.match(subject)[:names]).to eq "@delkopiso & @jake & @abe"
+      end
+    end
+
+    context "when 3 users are listed separated by '&' wtih spaces, period terminated" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso & @jake & @abe." }
+      it "matches the listed users" do
+        expect(body.match(subject)[:names]).to eq "@delkopiso & @jake & @abe"
+      end
+    end
+
+    context "when 3 users are listed separated by '&' with no spaces" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso&@jake&@abe" }
+      it "matches the listed users" do
+        expect(body.match(subject)[:names]).to eq "@delkopiso&@jake&@abe"
+      end
+    end
+
+    context "when 3 users are listed separated by '&' with no spaces, period terminated" do
+      let(:body) { "My name is @edjohn. I paired with @delkopiso&@jake&@abe." }
+      it "matches the listed users" do
+        expect(body.match(subject)[:names]).to eq "@delkopiso&@jake&@abe"
       end
     end
   end

@@ -1,5 +1,5 @@
 class PointsMarshaler
-  MATCHING_REGEX = /paired[\s]*with[\s]*(?<names>[@\w+[-]?[\s+|,]]+)/i
+  MATCHING_REGEX = /paired[\s]*with[\s]*(?<names>[@\w+[-]?[\s+|,&]]+)/i
   SPLITTING_REGEX = /,|\.|\s+/
 
   def initialize(data:)
