@@ -89,6 +89,9 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     graphql (0.18.1)
+    graphql-batch (0.2.4)
+      graphql (~> 0.8)
+      promise.rb (~> 0.7.0.rc2)
     honeybadger (2.6.0)
     i18n (0.7.0)
     lograge (0.4.1)
@@ -116,6 +119,7 @@ GEM
       sawyer (~> 0.7.0, >= 0.5.3)
     pg (0.18.4)
     pkg-config (1.1.7)
+    promise.rb (0.7.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -216,6 +220,7 @@ DEPENDENCIES
   factory_girl_rails!
   faker
   graphql
+  graphql-batch
   honeybadger
   lograge
   octokit

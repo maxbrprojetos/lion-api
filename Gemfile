@@ -20,6 +20,7 @@ gem 'lograge'
 gem 'rack-protection', github: 'sinatra/rack-protection'
 gem 'rails_12factor', group: :production
 gem 'graphql'
+gem 'graphql-batch'
 
 group :development do
   gem 'bullet'
