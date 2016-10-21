@@ -5,4 +5,3 @@ ORGANIZATION_NAME=alphasights
 PORT=3000
 RACK_ENV=development
 RAILS_SECRET_KEY=secret
-USERS=
