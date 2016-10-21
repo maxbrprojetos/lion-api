@@ -1,5 +1,8 @@
+require 'thor/rails'
+
 class Db < Thor
   include Thor::Actions
+  include Thor::Rails
 
   no_tasks do
     def database
@@ -20,13 +23,13 @@ class Db < Thor
   desc "capture", "capture production snapshot"
   def capture
     puts "Capturing production database..."
-    run('heroku pg:backups capture --app as-lion-api-staging')
+    run("heroku pg:backups capture --app #{ENV.fetch('HEROKU_APP_NAME')}")
   end
 
   desc "pull", "pull production snapshot"
   def pull
     puts "Downloading production snapshot..."
-    url = `heroku pg:backups public-url --app as-lion-api-staging`.gsub("\"", "").strip
+    url = `heroku pg:backups public-url --app #{ENV.fetch("HEROKU_APP_NAME")}`.gsub("\"", "").strip
     success = system(%{curl "#{url}" -# -o /tmp/latest.dump})
     unless success
       puts "Failed to download"

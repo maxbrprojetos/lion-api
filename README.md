@@ -7,20 +7,43 @@ It rewards developers when they get shit done®.
 
 This is the API. [Here](https://github.com/alphasights/lion) you can find the web client.
 
+## Setup
+
+Clone this repository and run:
+
+```bash
+# Bundle the application
+bundle install
+
+# Copy the sample ENV
+# Update the `GITHUB_APP_ID`, `GITHUB_APP_SECRET`, `USERS` and other variables to relevant values for your organization.
+cp .example-env .env
+
+# Setup the database
+bundle exec rake db:create db:migrate
+
+# -- Optional
+# If your app is runningon heroku you can download a snapshot of the DB by setting the HEROKU_APP_NAME Env var and running:
+bundle exec thor:db:capture     # To capture a db backup on production
+bundle exec thor db:sync        # To install this backup locally on the dev database
+```
+
+## Running
+
+```bash
+rails server
+```
+
+## Testing
+
+```bash
+bundle exec rspec
+```
+
 ## Contributing
 
 - Fork this repository
-- `cp .example-env .env`
-- Update the `GITHUB_APP_ID`, `GITHUB_APP_SECRET` and `USERS` variables to relevant values.
-- `bundle install`
-- `bundle exec thor db:capture`
-- `bundle exec thor db:sync`
-
-## Running
-- `rails server`
-
-## Testing
-- `bundle exec rspec`
+- Create a PR and send it our way
 
 ## Dependencies
 

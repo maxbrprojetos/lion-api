@@ -23,6 +23,7 @@ gem 'graphql'
 
 group :development do
   gem 'bullet'
+  gem 'thor-rails'
 end
 
 group :test, :development do
