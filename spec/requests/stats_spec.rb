@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'Stats Requests', type: :request do
-  describe 'GET /stats' do
-    it 'responds with a json representing the list of users including statistics' do
+describe 'Stats graph', type: :request do
+  describe 'query stats' do
+    it 'responds with a list of statistics for each user' do
       users = create_list(:user, 2)
       users = users << current_user
 
@@ -10,21 +10,26 @@ describe 'Stats Requests', type: :request do
         hash[user.id] = rand(100)
       end
 
-      group_double = double(group: double(count: review_counts))
-      expect(group_double).to receive(:group).with('user_id')
-      expect(PullRequestReview).to receive(:all).and_return(group_double)
+      group_double = double(:group, count: review_counts)
+      expect(PullRequestReview).to receive(:group)
+        .with('user_id').and_return(group_double)
 
-      get api_stats_path, category: 'reviews'
+      post api_graph_path(query: <<~QUERY)
+        query stats {
+          stats(category: "reviews") {
+            id
+            count
+            user_id
+          }
+        }
+      QUERY
 
-      expect(last_response.status).to eq(200)
-
-      expect(JSON.parse(last_response.body)['stats']).to match_array(
+      expect(JSON.parse(last_response.body)['data']['stats']).to match_array(
         users.map do |user|
           {
-            'id' => user.id,
-            'nickname' => user.nickname,
-            'avatar_url' => user.avatar_url,
-            'count' => review_counts[user.id]
+            'id' => "#{user.id}-reviews",
+            'count' => review_counts[user.id],
+            'user_id' => user.id.to_s
           }
         end
       )
