@@ -24,7 +24,7 @@ bundle exec rake db:create db:migrate
 
 # -- Optional
 # If your app is runningon heroku you can download a snapshot of the DB by setting the HEROKU_APP_NAME Env var and running:
-bundle exec thor:db:capture     # To capture a db backup on production
+bundle exec thor db:capture     # To capture a db backup on production
 bundle exec thor db:sync        # To install this backup locally on the dev database
 ```
 
