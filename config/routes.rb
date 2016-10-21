@@ -2,17 +2,7 @@ require 'sidekiq/web'
 
 Lion::Application.routes.draw do
   namespace :api do
-    resources :users do
-      collection do
-        get :me
-      end
-    end
-
     resources :pull_requests, only: :create
-    resources :scores, only: :index
-    resources :weekly_winnings, only: :index
-    resources :stats, only: :index
-    resources :tokens, only: :create
     post '/auth', to: 'auth#execute'
     post '/graph', to: 'graph#execute'
   end
