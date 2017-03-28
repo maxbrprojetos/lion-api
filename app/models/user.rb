@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   class_attribute :current_client_index
 
+  scope :with_active_token, ->{ joins(:access_tokens).merge(AccessToken.active).distinct }
+
   def access_token
     access_tokens.active.first
   end
@@ -70,6 +72,6 @@ class User < ActiveRecord::Base
   end
 
   def self.clients
-    @clients ||= User.joins(:access_tokens).merge(AccessToken.active).distinct.map(&:github_client)
+    @clients ||= with_active_token.map(&:github_client)
   end
 end
