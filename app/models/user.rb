@@ -63,17 +63,13 @@ class User < ActiveRecord::Base
 
     if client.rate_limit[:remaining] < 100
       self.current_client_index += 1
-      client = clients[current_client_index]
+      clients[current_client_index]
     else
       client
     end
   end
 
   def self.clients
-    @clients ||= User.where(nickname: self.active.map(&:nickname)).map(&:github_client)
-  end
-
-  def self.active
-    AccessToken.active.map(&:user)
+    @clients ||= User.joins(:access_tokens).merge(AccessToken.active).map(&:github_client)
   end
 end
