@@ -70,6 +70,6 @@ class User < ActiveRecord::Base
   end
 
   def self.clients
-    @clients ||= User.joins(:access_tokens).merge(AccessToken.active).map(&:github_client)
+    @clients ||= User.joins(:access_tokens).merge(AccessToken.active).distinct.map(&:github_client)
   end
 end
