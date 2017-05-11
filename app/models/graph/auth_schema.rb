@@ -1,6 +1,6 @@
 module Graph
-  AuthSchema = GraphQL::Schema.new(
-    query: Graph::AuthQueryType,
-    mutation: Graph::AuthMutationType
-  )
+  AuthSchema = GraphQL::Schema.define do
+    query Graph::AuthQueryType
+    mutation Graph::AuthMutationType
+  end
 end
