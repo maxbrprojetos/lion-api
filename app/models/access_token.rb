@@ -7,13 +7,11 @@ class AccessToken < ActiveRecord::Base
 
   before_validation :set_access_token, :set_expires_at, on: :create
 
+  scope :active, ->{ where('expires_at >= ?', Time.zone.now) }
+
   def expires_in
     seconds_remaining = (expires_at - created_at).round
     seconds_remaining > 0 ? seconds_remaining : 0
-  end
-
-  def self.active
-    where('expires_at >= ?', Time.zone.now)
   end
 
   def self.from_request(request)
