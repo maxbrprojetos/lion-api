@@ -176,17 +176,17 @@ describe PointsMarshaler do
     end
 
     it "creates a pull request" do
-      allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
+      allow_any_instance_of(PullRequest).to receive(:reviews).and_return([])
       pull_request = described_class.new(data: params).marshal
 
       expect(pull_request.persisted?).to eq true
     end
 
     it "creates a pull request review and scores it" do
-      allow_any_instance_of(PullRequest).to receive(:comments)
+      allow_any_instance_of(PullRequest).to receive(:reviews)
         .and_return([
-          double(user: double(login: reviewer.nickname), body: "LGTM :+1:")
-          ])
+          double(:review, user: double(login: reviewer.nickname), body: 'LGTM', state: PullRequestReview::APPROVAL_STATE)
+        ])
       pull_request = described_class.new(data: params).marshal
 
       pull_request_reviewers = pull_request.pull_request_reviews.pluck(:user_id)
@@ -199,7 +199,7 @@ describe PointsMarshaler do
 
     it "creates and scores pairings" do
       expect(Score.count).to eq 0
-      allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
+      allow_any_instance_of(PullRequest).to receive(:reviews).and_return([])
       params[:body] += "I paired with @#{paired_user.nickname}"
       pull_request = described_class.new(data: params).marshal
 

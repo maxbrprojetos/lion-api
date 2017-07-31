@@ -31,7 +31,7 @@ describe User do
       expect(described_class).to receive(:github_client).with(user1.api_token).and_return('client1')
       expect(described_class).to receive(:github_client).with(user2.api_token).and_return('client2')
 
-      expect(described_class.clients).to eq ['client1', 'client2']
+      expect(described_class.clients).to match_array ['client1', 'client2']
     end
   end
 end

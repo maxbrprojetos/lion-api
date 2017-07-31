@@ -7,7 +7,7 @@ describe 'PullRequests Requests', type: :request do
 
   describe 'POST /pull_requests' do
     it 'creates a PullRequest' do
-      allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
+      allow_any_instance_of(PullRequest).to receive(:reviews).and_return([])
       post api_pull_requests_path, params.to_json
 
       pull_request = PullRequest.first
@@ -16,7 +16,7 @@ describe 'PullRequests Requests', type: :request do
     end
 
     it 'does not duplicate pull requests' do
-      allow_any_instance_of(PullRequest).to receive(:comments).and_return([])
+      allow_any_instance_of(PullRequest).to receive(:reviews).and_return([])
 
       expect{
         post api_pull_requests_path, params.to_json

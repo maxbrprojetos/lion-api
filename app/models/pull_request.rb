@@ -29,9 +29,8 @@ class PullRequest < ActiveRecord::Base
     end
   end
 
-  def comments
-    @comments ||= User.global_client
-      .pull_request(base_repo_full_name, number)
-      .rels[:comments].get.data
+  def reviews
+    @reviews ||= User.global_client
+      .pull_request_reviews(base_repo_full_name, number)
   end
 end

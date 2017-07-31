@@ -25,11 +25,11 @@ class PointsMarshaler
 
   def create_reviews(pr)
     review_points = (pr.points / 2).round
-    pr.comments.each do |c|
-      user = User.where(nickname: c.user.login).first
-      review = PullRequestReview.create(user: user, body: c.body, pull_request: pr)
+    pr.reviews.each do |r|
+      user = User.find_by(nickname: r.user.login)
+      review = PullRequestReview.create(user: user, body: r.body, state: r.state, pull_request: pr)
 
-      if review.valid?
+      if review.valid? && review.approval?
         Score.give(time: pr.merged_at, user: user, points: review_points)
       end
     end

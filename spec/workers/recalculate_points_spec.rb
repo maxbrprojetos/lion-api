@@ -46,10 +46,10 @@ describe RecalculatePoints do
     end
 
     before :each do
-      allow_any_instance_of(PullRequest).to receive(:comments)
+      allow_any_instance_of(PullRequest).to receive(:reviews)
         .and_return([
-          double(user: double(login: reviewer.nickname), body: "LGTM :+1:")
-          ])
+          double(user: double(login: reviewer.nickname), body: 'LGTM :+1:', state: PullRequestReview::APPROVAL_STATE)
+        ])
     end
 
     it "assigns all points" do

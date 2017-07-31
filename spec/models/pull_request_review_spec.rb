@@ -1,18 +1,22 @@
 require 'spec_helper'
 
 describe PullRequestReview do
-  describe '#body' do
-    it 'is valid only if it contains positive signs' do
-      pull_request_review = PullRequestReview.new(body: 'test')
-      pull_request_review.valid?
+  describe '#approval?' do
+    subject { described_class.new(state: state) }
 
-      expect(pull_request_review.errors.full_messages).to include('Body must contain positive signs')
+    context 'when the state is APPROVED' do
+      let(:state) { PullRequestReview::APPROVAL_STATE }
 
-      [':+1:', ':shipit:', ':thumbsup:', '👍'].each do |message|
-        pull_request_review.body = message
-        pull_request_review.valid?
+      it 'is true' do
+        expect(subject.approval?).to eq true
+      end
+    end
 
-        expect(pull_request_review.errors.full_messages).not_to include('Body must contain positive signs')
+    context 'when the state is not APPROVED' do
+      let(:state) { 'COMMENTED' }
+
+      it 'is false' do
+        expect(subject.approval?).to eq false
       end
     end
   end
