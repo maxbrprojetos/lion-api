@@ -23,7 +23,6 @@ gem 'tzinfo-data'
 
 group :development do
   gem 'bullet'
-  gem 'thor-rails'
 end
 
 group :test, :development do
