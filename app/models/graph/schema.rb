@@ -1,7 +1,7 @@
 module Graph
   Schema = GraphQL::Schema.define do
     query Graph::QueryType
-    lazy_resolve(Promise, :sync)
-    instrument(:query, GraphQL::Batch::Setup)
+    use GraphQL::Batch
+    enable_preloading
   end
 end

@@ -17,8 +17,9 @@ gem 'sidekiq'
 gem 'sinatra'
 gem 'lograge'
 gem 'rails_12factor', group: :production
-gem 'graphql'
-gem 'graphql-batch'
+gem 'graphql', '~> 1.7'
+gem 'graphql-batch', '~> 0.3'
+gem 'graphql-preload', '~> 1.0'
 gem 'tzinfo-data'
 
 group :development do
