@@ -20,10 +20,6 @@ class Score < ApplicationRecord
     end
   end
 
-  def self.reset_points
-    update_all(points: 0)
-  end
-
   def self.top_weekly
     weekly.order(points: :desc).first
   end

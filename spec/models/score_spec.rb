@@ -43,16 +43,6 @@ describe Score do
     end
   end
 
-  describe '.reset' do
-    it 'resets scores points' do
-      score = Score.create(user: user, points: 10)
-
-      Score.reset_points
-
-      expect(score.reload.points).to eq(0)
-    end
-  end
-
   describe '.top_weekly' do
     it 'returns the top weekly score' do
       Score.create(user: user, points: 50, time_span: 'all_time')
