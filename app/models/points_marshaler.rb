@@ -30,7 +30,7 @@ class PointsMarshaler
       review = PullRequestReview.create(user: user, body: r.body, state: r.state, pull_request: pr)
 
       if review.valid? && review.approval?
-        Score.give(time: pr.merged_at, user: user, points: review_points)
+        Score.create!(created_at: pr.merged_at, user: user, points: review_points, pull_request_review: review)
       end
     end
   end
@@ -41,7 +41,7 @@ class PointsMarshaler
       pairing = Pairing.create(user: u, pull_request: pr)
 
       if pairing.valid?
-        Score.give(time: pr.merged_at, user: u, points: pair_points)
+        Score.create!(created_at: pr.merged_at, user: u, points: pair_points, pull_request: pr)
       end
     end
   end

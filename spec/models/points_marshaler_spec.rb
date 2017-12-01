@@ -192,8 +192,7 @@ describe PointsMarshaler do
       pull_request_reviewers = pull_request.pull_request_reviews.pluck(:user_id)
       expect(pull_request_reviewers.count).to eq 1
 
-      review_points = Score.where(user: pull_request_reviewers)
-        .all_time.pluck(:points)
+      review_points = Score.where(user: pull_request_reviewers).pluck(:points)
       expect(review_points.all?{ |p| p == pull_request.points / 2 }).to eq true
     end
 

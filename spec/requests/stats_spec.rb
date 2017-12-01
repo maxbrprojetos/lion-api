@@ -12,7 +12,7 @@ describe 'Stats graph', type: :request do
 
       group_double = double(:group, count: review_counts)
       expect(PullRequestReview).to receive(:group)
-        .with('user_id').and_return(group_double)
+        .with(:user_id).and_return(group_double)
 
       post api_graph_path(query: <<~QUERY)
         query stats {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170730001858) do
+ActiveRecord::Schema.define(version: 20171130230041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170730001858) do
 
   create_table "access_tokens", id: :serial, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.string "access_token", null: false
+    t.string "access_token", limit: 255, null: false
     t.datetime "expires_at", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170730001858) do
   end
 
   create_table "pull_requests", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "base_repo_full_name"
+    t.string "base_repo_full_name", limit: 255
     t.integer "number"
     t.uuid "user_id"
     t.datetime "created_at"
@@ -62,18 +62,22 @@ ActiveRecord::Schema.define(version: 20170730001858) do
   create_table "scores", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.integer "points", default: 0
-    t.string "time_span", default: "all_time"
+    t.string "time_span", limit: 255, default: "all_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.uuid "pull_request_id"
+    t.bigint "pull_request_review_id"
+    t.index ["pull_request_id"], name: "index_scores_on_pull_request_id"
+    t.index ["pull_request_review_id"], name: "index_scores_on_pull_request_review_id"
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "nickname"
-    t.string "email"
-    t.string "avatar_url"
-    t.string "api_token"
-    t.string "github_id"
+    t.string "name", limit: 255
+    t.string "nickname", limit: 255
+    t.string "email", limit: 255
+    t.string "avatar_url", limit: 255
+    t.string "api_token", limit: 255
+    t.string "github_id", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -86,4 +90,6 @@ ActiveRecord::Schema.define(version: 20170730001858) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "scores", "pull_request_reviews"
+  add_foreign_key "scores", "pull_requests"
 end

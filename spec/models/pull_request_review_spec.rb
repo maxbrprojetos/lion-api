@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe PullRequestReview do
+  it 'has a valid factory' do
+    expect(build(:pull_request_review)).to be_valid
+  end
+
   describe '#approval?' do
     subject { described_class.new(state: state) }
 

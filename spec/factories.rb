@@ -34,6 +34,26 @@ FactoryGirl.define do
     user
   end
 
+  factory :score do
+    association :user
+    association :pull_request
+
+    trait :previous_week do
+      created_at { Time.zone.now - 1.week }
+    end
+  end
+
+  factory :score_for_review, class: Score do
+    association :user
+    association :pull_request_review
+  end
+
+  factory :pull_request_review do
+    association :user
+    association :pull_request
+    state 'APPROVED'
+  end
+
   factory :weekly_winning do
     association :winner, factory: :user
     start_date 1.week.ago
