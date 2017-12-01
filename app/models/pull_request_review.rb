@@ -1,4 +1,4 @@
-class PullRequestReview < ActiveRecord::Base
+class PullRequestReview < ApplicationRecord
   belongs_to :user
   belongs_to :pull_request
 

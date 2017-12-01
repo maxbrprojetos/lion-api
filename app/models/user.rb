@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :pull_requests
   has_many :scores
   has_many :pull_request_reviews

@@ -1,4 +1,4 @@
-class AccessToken < ActiveRecord::Base
+class AccessToken < ApplicationRecord
   belongs_to :user
 
   validates :access_token, presence: true, uniqueness: true

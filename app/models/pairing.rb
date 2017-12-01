@@ -1,4 +1,4 @@
-class Pairing < ActiveRecord::Base
+class Pairing < ApplicationRecord
   belongs_to :user
   belongs_to :pull_request
 

@@ -1,4 +1,4 @@
-class WeeklyWinning < ActiveRecord::Base
+class WeeklyWinning < ApplicationRecord
   belongs_to :winner, class_name: 'User'
 
   validates :winner, presence: true
