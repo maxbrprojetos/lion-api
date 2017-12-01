@@ -13,7 +13,6 @@ gem 'octokit'
 gem 'honeybadger'
 gem 'skylight'
 gem 'rack-cors'
-gem 'sidekiq'
 gem 'sinatra'
 gem 'lograge'
 gem 'rails_12factor', group: :production
