@@ -42,13 +42,19 @@ describe Score do
 
     context 'for current week' do
       it 'only considers points from the current week' do
-        expect(described_class.weekly_high_score).to eq [ jay.id, 10 ]
+        expect(described_class.weekly_high_score).to eq [
+          jay.id,
+          jay_pr.points
+        ]
       end
     end
 
     context 'for a past week' do
       it 'only considers points for that past week' do
-        expect(described_class.weekly_high_score(last_week)).to eq [ joe.id, 35 ]
+        expect(described_class.weekly_high_score(last_week)).to eq [
+          joe.id,
+          joe_pr.points
+        ]
       end
     end
   end

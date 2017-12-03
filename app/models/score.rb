@@ -7,8 +7,10 @@ class Score < ApplicationRecord
   validates :points, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validate :pr_xor_review
 
-  scope :for_week, ->(date) { where(arel_table[:created_at].gteq date.beginning_of_week) }
   scope :by_decreasing_points, -> { order(points: :desc) }
+  scope :for_week, ->(date) {
+    where(created_at: date.beginning_of_week..date.end_of_week)
+  }
 
   def self.weekly_high_score(date = DateTime.now)
     self.weekly_scores(date).to_a.max_by(&:last)
