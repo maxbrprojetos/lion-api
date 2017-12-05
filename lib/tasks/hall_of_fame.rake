@@ -3,12 +3,13 @@ namespace :hall_of_fame do
     now = DateTime.now
     abort('Not Monday!') unless now.monday?
 
-    user_id, points = Score.weekly_high_score(now)
+    week = now.prev_week
+    user_id, points = Score.weekly_high_score(week)
 
     WeeklyWinning.create(
       winner_id: user_id,
       points: points,
-      start_date: now.prev_week
+      start_date: week
     )
   end
 end
