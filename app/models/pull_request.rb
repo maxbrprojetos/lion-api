@@ -3,11 +3,6 @@ class PullRequest < ApplicationRecord
 
   has_many :pull_request_reviews, dependent: :destroy
   has_many :pairings, dependent: :destroy
-  has_many :scores
-
-  scope :missing_scores, -> {
-    left_joins(:scores).where(scores: { pull_request_id: nil })
-  }
 
   validates :user, presence: true
   validates :number, presence: true, numericality: true
