@@ -11,8 +11,6 @@ class Score < ApplicationRecord
   scope :for_week, ->(date) {
     where(created_at: date.beginning_of_week..date.end_of_week)
   }
-  scope :without_pr, -> { where(pull_request_id: nil) }
-  scope :without_review, -> { where(pull_request_review_id: nil) }
 
   def self.weekly_high_score(date = DateTime.now)
     self.weekly_scores(date).to_a.max_by(&:last)
