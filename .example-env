@@ -1,8 +1,8 @@
 CLIENT_URL=http://localhost:4200
-GITHUB_APP_ID=
-GITHUB_APP_SECRET=
-ORGANIZATION_NAME=alphasights
-HEROKU_APP_NAME=as-lion-api-staging
+GITHUB_APP_ID=secret
+GITHUB_APP_SECRET=secret
+ORGANIZATION_NAME=secret
 PORT=3000
 RACK_ENV=development
+RAILS_ENV=development
 RAILS_SECRET_KEY=secret

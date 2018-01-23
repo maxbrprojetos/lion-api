@@ -2,10 +2,6 @@ ruby '2.3.1'
 
 source 'https://rubygems.org'
 
-# Needs to load first, so that gems that configure themself by enviroment
-# variables will see the variables when they load
-gem 'dotenv'
-
 gem 'rails', '~> 5.1.0'
 gem 'puma'
 gem 'pg'
@@ -24,9 +20,10 @@ group :development do
 end
 
 group :test, :development do
+  gem 'dotenv-rails'
   gem 'pry'
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'faker'
+  gem 'faker', '~> 1.8'
 end

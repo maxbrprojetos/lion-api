@@ -17,6 +17,7 @@
 
 .DS_Store
 /.env
+/.env.development
 
 /api_docs/
 *.dump

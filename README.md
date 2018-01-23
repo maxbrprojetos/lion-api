@@ -12,32 +12,19 @@ This is the API. [Here](https://github.com/alphasights/lion) you can find the we
 Clone this repository and run:
 
 ```bash
-# Bundle the application
-bundle install
-
-# Copy the sample ENV
-# Update the `GITHUB_APP_ID`, `GITHUB_APP_SECRET`, `USERS` and other variables to relevant values for your organization.
-cp .example-env .env
-
-# Setup the database
-bundle exec rake db:create db:migrate
-
-# -- Optional
-# If your app is runningon heroku you can download a snapshot of the DB by setting the HEROKU_APP_NAME Env var and running:
-bundle exec thor db:capture     # To capture a db backup on production
-bundle exec thor db:sync        # To install this backup locally on the dev database
+bin/setup
 ```
 
 ## Running
 
 ```bash
-rails server
+bin/rails server
 ```
 
 ## Testing
 
 ```bash
-bundle exec rspec
+bin/rspec
 ```
 
 ## Contributing
@@ -49,11 +36,6 @@ bundle exec rspec
 
 - Postgresql
 - Github
-
-## Features
-
-All the features presented here have a summary page which updates live.
-Every action can be either performed via the interface or using the RESTful API.
 
 ### Leaderboard
 
