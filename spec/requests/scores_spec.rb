@@ -13,7 +13,9 @@ describe 'Scores graph', type: :request do
           scores(time_span: "all_time") {
             id
             points
-            user_id
+            user {
+              id
+            }
           }
         }
       QUERY
@@ -22,11 +24,15 @@ describe 'Scores graph', type: :request do
         [{
           'id' => "#{jay.id}-all_time",
           'points' => 10,
-          'user_id' => jay.id.to_s
+          'user' => {
+            'id' => jay.id.to_s
+          }
         }, {
           'id' => "#{joe.id}-all_time",
           'points' => 5,
-          'user_id' => joe.id.to_s
+          'user' => {
+            'id' => joe.id.to_s
+          }
         }]
       )
     end
