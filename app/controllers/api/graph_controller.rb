@@ -4,7 +4,7 @@ module Api
 
     def execute
       result = Graph::Schema.execute(
-        params[:query],
+        graphql_params[:query],
         variables: graphql_params.fetch(:variables, {}),
         context: { current_user: current_user }
       )

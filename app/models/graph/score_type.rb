@@ -6,5 +6,6 @@ module Graph
     field :id, types.ID
     field :points, types.Int
     field :user_id, types.ID
+    field :user, Graph::UserType
   end
 end

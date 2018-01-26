@@ -19,7 +19,9 @@ describe 'Stats graph', type: :request do
           stats(category: "reviews") {
             id
             count
-            user_id
+            user {
+              id
+            }
           }
         }
       QUERY
@@ -29,7 +31,9 @@ describe 'Stats graph', type: :request do
           {
             'id' => "#{user.id}-reviews",
             'count' => review_counts[user.id],
-            'user_id' => user.id.to_s
+            'user' => {
+              'id' => user.id.to_s
+            }
           }
         end
       )

@@ -7,5 +7,6 @@ module Graph
     field :points, types.Int
     field :start_date, types.String
     field :winner_id, types.ID
+    field :winner, Graph::UserType
   end
 end

@@ -27,11 +27,13 @@ module Graph
           else []
         end
 
+        users = User.where(id: scores.map(&:first))
         scores.map do |user_id, points|
           OpenStruct.new(
             id: "#{user_id}-#{arguments[:time_span]}",
             points: points,
-            user_id: user_id
+            user_id: user_id,
+            user: users.find { |u| u.id == user_id }
           )
         end
       end
@@ -52,11 +54,13 @@ module Graph
           else []
         end
 
+        users = User.where(id: stats.map(&:first))
         stats.map do |user_id, count|
           OpenStruct.new(
             id: "#{user_id}-#{arguments[:category]}",
             count: count,
-            user_id: user_id
+            user_id: user_id,
+            user: users.find { |u| u.id == user_id }
           )
         end
       end
