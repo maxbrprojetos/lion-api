@@ -32,6 +32,7 @@ module Graph
           OpenStruct.new(
             id: "#{user_id}-#{arguments[:time_span]}",
             points: points,
+            user_id: user_id,
             user: users.find { |u| u.id == user_id }
           )
         end
@@ -58,6 +59,7 @@ module Graph
           OpenStruct.new(
             id: "#{user_id}-#{arguments[:category]}",
             count: count,
+            user_id: user_id,
             user: users.find { |u| u.id == user_id }
           )
         end
