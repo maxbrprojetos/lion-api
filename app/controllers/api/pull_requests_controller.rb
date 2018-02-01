@@ -20,6 +20,7 @@ module Api
       {
         user: User.where(nickname: data['user']['login']).first,
         base_repo_full_name: data['base']['repo']['full_name'],
+        title: data['title'],
         body: data['body'],
         number: data['number'],
         number_of_comments: data['comments'],
