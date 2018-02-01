@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130230041) do
+ActiveRecord::Schema.define(version: 20180126214622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20171130230041) do
     t.integer "number_of_changed_files"
     t.datetime "merged_at"
     t.text "body"
+    t.string "title"
     t.index ["base_repo_full_name", "number"], name: "index_pull_requests_on_base_repo_full_name_and_number", unique: true
   end
 
