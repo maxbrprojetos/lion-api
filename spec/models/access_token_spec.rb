@@ -48,7 +48,7 @@ describe AccessToken do
         user = build(:user)
         access_token = AccessToken.create!(user: user)
 
-        expect(access_token.expires_at).to eq 30.days.from_now
+        expect(access_token.expires_at).to eq 10.days.from_now
       end
     end
 

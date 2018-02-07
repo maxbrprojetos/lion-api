@@ -8,6 +8,7 @@ class AccessToken < ApplicationRecord
   before_validation :set_access_token, :set_expires_at, on: :create
 
   scope :active, ->{ where('expires_at >= ?', Time.zone.now) }
+  scope :most_recent, ->{ order(expires_at: :desc) }
 
   def expires_in
     seconds_remaining = (expires_at - created_at).round
@@ -34,6 +35,6 @@ class AccessToken < ApplicationRecord
   def set_expires_at
     return if expires_at.present?
 
-    self.expires_at = Time.now + 30.days
+    self.expires_at = Time.now + 10.days
   end
 end

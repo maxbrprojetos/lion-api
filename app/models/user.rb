@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   class_attribute :current_client_index
 
-  scope :with_active_token, ->{ joins(:access_tokens).merge(AccessToken.active).distinct }
+  scope :with_active_token, ->{ joins(:access_tokens).merge(AccessToken.active.most_recent) }
 
   def access_token
     access_tokens.active.first
