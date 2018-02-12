@@ -1,21 +1,14 @@
 namespace :backfill do
-  # Arguments:
-  #   pr_id - Id of Pull Request to update
-  task :update_pull_request_title, [:pr_id] => :environment do |t, args|
-    if args.pr_id.nil?
-      abort "Must include a Pull Request ID."
+  # Bulk updates all Pull Requests with no Titles via Github API
+  task :update_pull_request_titles, :environment do |t, args|
+    pull_requests_without_titles = PullRequest.where(:title => nil)
+    update_count = pull_requests_without_titles.count
+
+    pull_requests_without_titles.each do |pr|
+      response = User.global_client.pull_request(pr.base_repo_full_name, pr.number)
+      pr.update!(:title => response.title)
     end
 
-    pull_request = PullRequest.find(args.pr_id)
-    old_value = pull_request.title
-
-    response = User.global_client.pull_request(pull_request.base_repo_full_name, pull_request.number)
-    current_title = response.title
-
-    if (old_value != current_title)
-      puts "Updated #{pull_request.base_repo_full_name}##{pull_request.number} title from #{old_value.nil? ? 'nil': old_value} to #{current_title}."
-    else
-      puts "#{pull_request.base_repo_full_name}##{pull_request.number} title has not changed."
-    end
+    puts "Successfully updated #{update_count} Pull Requests."
   end
 end
