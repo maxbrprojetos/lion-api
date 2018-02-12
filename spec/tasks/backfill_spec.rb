@@ -27,7 +27,8 @@ describe 'Backfill Tasks', type: :task do
       allow(User).to receive(:global_client) { Octokit::Client.new }
       allow_any_instance_of(Octokit::Client).to receive(:pull_request) { pull_request_response }
 
-      expect(STDOUT).to receive(:puts).with("Successfully updated 2 Pull Requests.")
+      expect(STDOUT).to receive(:puts).with('.').twice
+      expect(STDOUT).to receive(:puts).with('Successfully updated 2 Pull Requests.')
       run_rake_task
       expect(pull_request_without_title_one.reload.title).to eq 'Replaced all the commas with periods'
     end
