@@ -1,6 +1,6 @@
 namespace :backfill do
   # Bulk updates all Pull Requests with no Titles via Github API
-  task :update_pull_request_titles, :environment do |t, args|
+  task :update_pull_request_titles => :environment do |t, args|
     pull_requests_without_titles = PullRequest.where(:title => nil)
     update_count = pull_requests_without_titles.count
 
