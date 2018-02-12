@@ -26,6 +26,8 @@ namespace :backfill do
     if (old_value != current_value)
       puts "Updated #{pull_request.base_repo_full_name}##{pull_request.number} #{attr_name} from #{old_value.nil? ? 'nil': old_value} to #{current_value}."
     else
+      puts response
+      puts "Old Value: #{old_value}"
       puts "#{pull_request.base_repo_full_name}##{pull_request.number} #{attr_name} has not changed."
     end
   end
