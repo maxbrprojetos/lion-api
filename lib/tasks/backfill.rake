@@ -1,34 +1,21 @@
 namespace :backfill do
   # Arguments:
   #   pr_id - Id of Pull Request to update
-  #   attr_name - Name of attribute on Pull Request model to update
-  #   (optional) key_map - Name of JSON key associated with attribute
-  task :update_pull_request_attribute, [:pr_id, :attr_name, :key_map] => :environment do |t, args|
-    if args.to_a.length < 2
-      abort "Must include at least the Pull Request ID and Attribute to be updated."
+  task :update_pull_request_title, [:pr_id] => :environment do |t, args|
+    if args.pr_id.nil?
+      abort "Must include a Pull Request ID."
     end
 
-    pull_request_id = args.pr_id
-    attr_name = args.attr_name
-    key_map = args.key_map || args.attr_name
-
-    pull_request = PullRequest.find(pull_request_id)
-    old_value = pull_request.read_attribute(attr_name)
+    pull_request = PullRequest.find(args.pr_id)
+    old_value = pull_request.title
 
     response = User.global_client.pull_request(pull_request.base_repo_full_name, pull_request.number)
+    current_title = response.title
 
-    begin
-      current_value = response.fetch(key_map)
-    rescue KeyError => e
-      abort "#{key_map} is not a valid key for the pull request JSON response."
-    end
-
-    if (old_value != current_value)
-      puts "Updated #{pull_request.base_repo_full_name}##{pull_request.number} #{attr_name} from #{old_value.nil? ? 'nil': old_value} to #{current_value}."
+    if (old_value != current_title)
+      puts "Updated #{pull_request.base_repo_full_name}##{pull_request.number} title from #{old_value.nil? ? 'nil': old_value} to #{current_title}."
     else
-      puts response
-      puts "Old Value: #{old_value}"
-      puts "#{pull_request.base_repo_full_name}##{pull_request.number} #{attr_name} has not changed."
+      puts "#{pull_request.base_repo_full_name}##{pull_request.number} title has not changed."
     end
   end
 end
