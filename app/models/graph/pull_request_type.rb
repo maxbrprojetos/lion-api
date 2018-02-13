@@ -8,6 +8,7 @@ module Graph
     field :id, types.ID
     field :name, types.String, property: :base_repo_full_name
     field :number, types.Int
+    field :title, types.String
     field :user, Graph::UserType, preload: :user
   end
 end

@@ -5,8 +5,13 @@ namespace :backfill do
     update_count = pull_requests_without_titles.count
 
     pull_requests_without_titles.each do |pr|
-      response = User.global_client.pull_request(pr.base_repo_full_name, pr.number)
-      pr.update!(:title => response.title)
+      begin
+        response = User.global_client.pull_request(pr.base_repo_full_name, pr.number)
+        pr.update!(:title => response.title)
+        puts '.'
+      rescue Exception
+        puts 'x'
+      end
     end
 
     puts "Successfully updated #{update_count} Pull Requests."
