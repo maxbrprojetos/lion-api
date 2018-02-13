@@ -14,14 +14,15 @@ def make_prs(number: 20, start_period: 1.week, end_period: 1.week, users: [])
     pr = PullRequest.create!({
       user: owner,
       base_repo_full_name: "#{Faker::Internet.user_name}/#{Faker::Lorem.word}",
-      body: Faker::Lorem.sentence,
+      body: Faker::Lorem.paragraph,
       number: Faker::Number.number(3).to_i,
       number_of_comments: Faker::Number.number(2).to_i,
       number_of_commits: Faker::Number.number(2).to_i,
       number_of_additions: Faker::Number.number(3).to_i,
       number_of_deletions: Faker::Number.number(3).to_i,
       number_of_changed_files: Faker::Number.number(2).to_i,
-      merged_at: time_range
+      merged_at: time_range,
+      title: Faker::Lorem.sentence
     })
     prs << pr
     Pairing.create!(user: owner, pull_request: pr)
