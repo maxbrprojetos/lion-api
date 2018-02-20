@@ -43,38 +43,6 @@ describe 'Users graph', type: :request do
         )
       end
     end
-
-    context 'with score breakdown arguments' do
-      it 'responds with a json representing the requested user' do
-        user = create(:user)
-        pr = create(:pull_request, { merged_at: Date.today.to_time, user: user })
-        score = create(:score, { pull_request: pr, user: user })
-
-        post api_graph_path(query: <<~QUERY)
-          query user {
-            user(id: "#{user.id}") {
-              id
-              scores: score_breakdowns(week: 0) {
-                id
-                pull_request {
-                  id
-                }
-              }
-            }
-          }
-          QUERY
-        puts JSON.parse(last_response.body)
-        expect(JSON.parse(last_response.body)['data']['user']).to eq(
-          'id' => user.id,
-          'scores' => [{
-            'id' => score.id,
-            'pull_request' => {
-              'id' => pr.id
-            }
-          }]
-        )
-      end
-    end
   end
 
   describe 'query users' do
@@ -102,6 +70,71 @@ describe 'Users graph', type: :request do
           'avatar_url' => users.last.avatar_url
         }]
       )
+    end
+  end
+
+  describe 'query user score breakdowns' do
+    context 'with score breakdown arguments' do
+      it 'responds with a json representing the user and its scores' do
+        user = create(:user)
+        pr = create(:pull_request, { merged_at: Date.today.to_time, user: user })
+        score = create(:score, { pull_request: pr, user: user })
+
+        post api_graph_path(query: <<~QUERY)
+          query user {
+            user(id: "#{user.id}") {
+              id
+              scores: score_breakdowns(week: 0) {
+                id
+                pull_request {
+                  id
+                }
+              }
+            }
+          }
+        QUERY
+
+        expect(JSON.parse(last_response.body)['data']['user']).to eq(
+          'id' => user.id,
+          'scores' => [{
+            'id' => score.id,
+            'pull_request' => {
+              'id' => pr.id
+            }
+          }]
+        )
+      end
+    end
+
+    context 'with no score breakdowns' do
+      it 'still responds with user json' do
+        user = create(:user)
+        pr = create(:pull_request, { merged_at: Date.today.to_time, user: user })
+        score = create(:score, { pull_request: pr, user: user })
+
+        post api_graph_path(query: <<~QUERY)
+          query user {
+            user(id: "#{user.id}") {
+              id
+              nickname
+              avatar_url
+              scores: score_breakdowns(week: 1) {
+                id
+                pull_request {
+                  id
+                }
+              }
+            }
+          }
+        QUERY
+
+        expect(JSON.parse(last_response.body)['data']['user']).to eq(
+          'id' => user.id,
+          'nickname' => user.nickname,
+          'avatar_url' => user.avatar_url,
+          'scores' => []
+        )
+      end
     end
   end
 end
