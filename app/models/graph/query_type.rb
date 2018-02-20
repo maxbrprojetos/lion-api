@@ -7,15 +7,6 @@ module Graph
       resolve -> (_, _, _) { WeeklyWinning.order(start_date: :desc) }
     end
 
-    field :score_breakdowns, types[Graph::ScoreBreakdownType] do
-      argument :week, !types.Int, "The week for which we want a score breakdown (how many weeks ago)"
-      argument :user_id, !types.ID, "The user whose breakdown is being requested"
-      resolve ->(_, arguments, _) do
-        week = DateTime.now.weeks_ago(arguments[:week])
-        Score.for_week(week).where(user_id: arguments[:user_id])
-      end
-    end
-
     field :scores, types[Graph::ScoreType] do
       argument :time_span, !types.String, "The time span of the scores"
       resolve -> (_, arguments, _) do
