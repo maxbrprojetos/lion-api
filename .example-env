@@ -1,3 +1,4 @@
+WEB_SOCKET_URL=ws://localhost:3000/cable
 CLIENT_URL=http://localhost:4200
 DISABLE_GOOGLE_AUTH=true
 GITHUB_APP_ID=secret

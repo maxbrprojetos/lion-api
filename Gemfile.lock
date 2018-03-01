@@ -183,6 +183,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actioncable (~> 5.1)
   bullet
   dotenv-rails
   factory_girl_rails

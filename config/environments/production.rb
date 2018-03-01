@@ -62,4 +62,8 @@ Lion::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.lograge.enabled = true
+
+  config.web_socket_server_url = ENV['WEB_SOCKET_URL']
+
+  config.action_cable.allowed_request_origins = [ENV['CLIENT_URL']]
 end
