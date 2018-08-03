@@ -7,7 +7,7 @@ gem 'puma'
 gem 'pg'
 gem 'octokit'
 gem 'honeybadger'
-gem 'rack-cors'
+gem 'rack-cors', '~> 0.4.1'
 gem 'lograge'
 gem 'rails_12factor', group: :production
 gem 'graphql', '~> 1.7'
