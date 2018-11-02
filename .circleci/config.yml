@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.3
+        environment:
+          PGUSER: lion
+
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: lion
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - lion-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - lion-bundle-v2-
+
+      - run:
+          name: Setup
+          command: bin/setup
+
+      - save_cache:
+          key: lion-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Run tests
+          command: bin/rspec

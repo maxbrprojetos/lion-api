@@ -1,6 +1,0 @@
-dependencies:
-  pre:
-    - cp .env.test .env
-test:
-  override:
-    - bundle exec rspec
